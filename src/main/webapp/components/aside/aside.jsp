@@ -10,7 +10,7 @@
 <body>
 	<div class="asideContaier">
 		<div class="asideTitleContainer">
-			<img src="../public/images/loanBtnIcon.svg"/>
+			<img/>
 			<p>메인 메뉴</p>
 		</div>
 		<ul class="asideMenuContainer">
