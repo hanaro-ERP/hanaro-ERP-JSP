@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/aside/aside.css?ver=1">
 </head>
 <body>
-
 	<div class="asideContaier">
 		<div class="asideTitleContainer">
 			<img src="../public/images/loanBtnIcon.svg"/>
