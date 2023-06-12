@@ -31,13 +31,13 @@
 	align-items: center;
 	padding-left: 20px;
 }
-li:hover {
+.asideMenuContainer > li:hover {
 	cursor: pointer;
 	background-color: #E5E8EB;
 }
-li > a {
+.asideMenuContainer > li > a {
 	font-size: 18px;
 }
-li > a:hover {
+.asideMenuContainer > li > a:hover {
 	color: #191F29;
 }

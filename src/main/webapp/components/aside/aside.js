@@ -36,12 +36,10 @@ function generateMenu(page) {
   const menuElement = document.querySelector('.asideMenuContainer'); // 메뉴를 표시할 요소 선택
   const pageTitleElement = document.querySelector('.asideTitleContainer p'); // 페이지 제목을 표시할 요소 선택
 
-  // 이전 메뉴 아이템 제거
   while (menuElement.firstChild) {
     menuElement.firstChild.remove();
   }
 
-  // 새로운 메뉴 아이템 생성
   menuItems.forEach(item => {
     const menuItem = document.createElement('li');
     const link = document.createElement('a');
@@ -51,6 +49,5 @@ function generateMenu(page) {
     menuElement.appendChild(menuItem);
   });
 
-  // 페이지 제목 업데이트
   pageTitleElement.textContent = pageTitle;
 }
