@@ -12,7 +12,7 @@
 	<header>
 		<div class="headerLogoContainer">
 			<a class="headerLogo" href="">
-			하나로여신 <br/> 관리시스템
+				하나로여신 <br/> 관리시스템
 			</a>
 		</div>
 		<ul>

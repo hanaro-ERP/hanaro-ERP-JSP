@@ -1,28 +1,28 @@
 @charset "UTF-8";
 
 @font-face {
-	 font-family: 'Hana2';
-	 src: url('public/fonts/Hana2-Regular.otf') format('woff');
-	 font-weight: normal;
-	 font-style: normal;
+	font-family: 'Hana2';
+	src: url('public/fonts/Hana2-Regular.otf') format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 @font-face {
-	 font-family: 'Hana2';
-	 src: url('public/fonts/Hana2-Bold.otf') format('woff');
-	 font-weight: bold;
-	 font-style: normal;
+	font-family: 'Hana2';
+	src: url('public/fonts/Hana2-Bold.otf') format('woff');
+	font-weight: bold;
+	font-style: normal;
 }
 @font-face {
-	 font-family: 'Hana2';
-	 src: url('public/fonts/Hana2-Regular.ttf') format('woff');
-	 font-weight: normal;
-	 font-style: normal;
+	font-family: 'Hana2';
+	src: url('public/fonts/Hana2-Regular.ttf') format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 @font-face {
-	 font-family: 'Hana2';
-	 src: url('public/fonts/Hana2-Bold.ttf') format('woff');
-	 font-weight: bold;
-	 font-style: normal;
+	font-family: 'Hana2';
+	src: url('public/fonts/Hana2-Bold.ttf') format('woff');
+	font-weight: bold;
+	font-style: normal;
 }
 :root {
  	--primary-color: #2DB400;
@@ -40,13 +40,13 @@ main {
 	margin-top: 80px;
 }
 a {
-	 color: #191f29;
-	 text-decoration: none;
-	 outline: none;
+	color: #191f29;
+	text-decoration: none;
+	outline: none;
 }
 a:hover,
 a:active {
-	 color: var(--primary-color);
-	 font-weight: bold;
-	 text-decoration: none;
+	color: var(--primary-color);
+	font-weight: bold;
+	text-decoration: none;
 }
