@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file="../components/header/header.jsp" %>
 	awdawd
 </body>
 </html>
