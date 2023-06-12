@@ -15,7 +15,7 @@
 				하나로여신 <br/> 관리시스템
 			</a>
 		</div>
-		<ul>
+		<ul class="headerMenuContainer">
 			<li><a href="">고객관리</a></li>
 			<li><a href="">직원관리</a></li>
 			<li><a href="">여신관리</a></li>

@@ -24,7 +24,7 @@ header {
 	font-weight: bold;
 	line-height: 100%;
 }
-ul {
+.headerMenuContainer {
 	width: 380px;
 	height: 100%;
 	display: flex;
@@ -32,11 +32,11 @@ ul {
 	align-items: center;
 	margin: 0;
 }
-ul > li {
+.headerMenuContainer > li {
 	cursor: pointer;
 	list-style: none;
 }
-a {
+.headerMenuContainer > li > a {
 	font-size: 18px;
 	font-weight: bold;
 }
