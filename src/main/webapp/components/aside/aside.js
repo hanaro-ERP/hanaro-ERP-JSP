@@ -41,7 +41,6 @@ function generateMenu(page) {
     menuElement.firstChild.remove();
   }
 
-	console.log(menuData[page]);
   // 새로운 메뉴 아이템 생성
   menuItems.forEach(item => {
     const menuItem = document.createElement('li');

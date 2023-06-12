@@ -5,8 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../components/aside/aside.css?ver=1">
-<script type="text/javascript" src="../components/aside/aside.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/components/aside/aside.css?ver=1">
 </head>
 <body>
 
