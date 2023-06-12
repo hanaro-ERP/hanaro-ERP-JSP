@@ -58,5 +58,4 @@ function generateMenu(page) {
 
 	pageTitleElement.textContent = pageTitle;
 	menuIconElement.src = `../../public/images/${pageData.menuIcon}.svg`;
-
 }
