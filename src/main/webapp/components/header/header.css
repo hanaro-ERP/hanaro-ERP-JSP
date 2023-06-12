@@ -1,6 +1,7 @@
 @charset "UTF-8";
 body {
-	margin: 0px
+	margin: 0px;
+	margin-top: 80px;
 }
 header {
 	width: 100%;
