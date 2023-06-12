@@ -39,6 +39,10 @@ body {
 main {
 	margin-top: 80px;
 }
+li {
+	list-style: none;
+	text-decoration: none;
+}
 a {
 	color: #191f29;
 	text-decoration: none;

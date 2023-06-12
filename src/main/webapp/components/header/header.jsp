@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../default.css?ver=1">
-<link rel="stylesheet" href="../components/header/header.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/default.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/components/header/header.css?ver=1">
 </head>
 <body>
 	<header>
@@ -15,7 +15,7 @@
 				하나로여신 <br/> 관리시스템
 			</a>
 		</div>
-		<ul>
+		<ul class="headerMenuContainer">
 			<li><a href="">고객관리</a></li>
 			<li><a href="">직원관리</a></li>
 			<li><a href="">여신관리</a></li>

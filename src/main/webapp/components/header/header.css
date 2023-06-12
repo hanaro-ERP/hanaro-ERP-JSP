@@ -24,19 +24,20 @@ header {
 	font-weight: bold;
 	line-height: 100%;
 }
-ul {
-	width: 380px;
+.headerMenuContainer {
+	width: 400px;
 	height: 100%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	margin: 0;
+	padding: 0;
 }
-ul > li {
+.headerMenuContainer > li {
 	cursor: pointer;
 	list-style: none;
 }
-a {
+.headerMenuContainer > li > a {
 	font-size: 18px;
 	font-weight: bold;
 }
