@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file="../components/header/header.jsp" %>
-	awdawd
+	<%@ include file="../components/header/header.jsp" %>
+	<main>
+		메인 화면입니다.
+	</main>
 </body>
 </html>

@@ -36,6 +36,9 @@
 body {
 	margin: 0;
 }
+main {
+	margin-top: 80px;
+}
 a {
 	 color: #191f29;
 	 text-decoration: none;
