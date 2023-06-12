@@ -25,10 +25,10 @@ header {
 	line-height: 100%;
 }
 .headerMenuContainer {
-	width: 380px;
+	width: 400px;
 	height: 100%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	margin: 0;
 	padding: 0;
