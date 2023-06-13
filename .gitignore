@@ -1,4 +1,10 @@
 # Eclipse
 .classpath
 .project
-.settings/
+.settings/.DS_Store
+.metadata
+.metadata/
+.metadata/*
+metadata
+**/metadata/*
+/bin/
