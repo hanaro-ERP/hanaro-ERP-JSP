@@ -1,8 +1,7 @@
 @charset "UTF-8";
 
-.asideContaier{
+.asideContaier {
 	width: 260px;
-	height: 100%;
 	display: flex;
 	flex-direction: column;
 	background-color: #F2F4F6;
@@ -35,9 +34,9 @@
 	cursor: pointer;
 	background-color: #E5E8EB;
 }
+.asideMenuContainer > li:hover a {
+	font-weight: bold;
+}
 .asideMenuContainer > li > a {
 	font-size: 18px;
-}
-.asideMenuContainer > li > a:hover {
-	color: #191F29;
 }

@@ -37,7 +37,23 @@ body {
 	margin: 0;
 }
 main {
+	display: flex;
 	margin-top: 80px;
+}
+.innerContainer {
+	padding-left: 30px;
+}
+.innerTitle {
+	width: 1450px;
+	height: 68px;
+	display: flex;
+	align-items: center;
+}
+.innerSubTitle { 
+	width: 1450px;
+	height: 48px;
+	display: flex;
+	align-items: center;
 }
 li {
 	list-style: none;
@@ -48,9 +64,13 @@ a {
 	text-decoration: none;
 	outline: none;
 }
-a:hover,
-a:active {
-	color: var(--primary-color);
+h1 {
+	font-size: 30px;
 	font-weight: bold;
-	text-decoration: none;
+	margin: 0;
+}
+h2 {
+	font-size: 26px;
+	font-weight: bold;
+	margin: 0;
 }
