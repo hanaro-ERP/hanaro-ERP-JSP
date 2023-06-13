@@ -4,4 +4,4 @@
 .settings/.DS_Store
 .metadata
 .metadata/
-.metadata/version.ini
+.metadata/*

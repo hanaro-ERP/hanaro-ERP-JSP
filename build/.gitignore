@@ -1,1 +1,7 @@
 /classes/
+../.metadata
+../.metadata/
+../.metadata/*
+metadata
+metadata/
+metadata/*
