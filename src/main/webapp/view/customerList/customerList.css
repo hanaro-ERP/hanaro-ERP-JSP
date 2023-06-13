@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+.customerInformationContainer {
+	width: 1450px;
+	height: 477px;
+}
+.customerDetailInformationContainer {
+	width: 1450px;
+	height: 222px;
+}
+.customerInformation {
+	height: 409px;
+	padding: 0 20px;
+	border-top: #191F29 solid 1px;
+}
+.customerDetailInformation {
+	display: none;
+	padding: 0 20px;
+	border-top: #191F29 solid 1px;
+}
+.customerInformationRow {
+	width: 1410px;
+	height: 62px;
+	display: flex;
+	align-items: center;
+	border-bottom: #B0B8C1 solid 1px;
+}
+.customerInformationRow:nth-child(3) {
+	height: 99px;
+}
+.customerInformationRowTitle {
+	width: 250px;
+	display: flex;
+	justify-content: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+.customerInformationRowSubtitle {
+	width: 100px;
+	font-size: 20px;
+	text-align: center;
+	margin: 0 10px;
+}
+#citySelect, #district, #jobCode {
+	text-align: center;
+	width: 150px;
+	height: 30px;
+}
+#bankLocation, #country {
+	text-align: center;
+	width: 200px;
+	height: 30px;
+}
+.customerInformationRow > ul {
+	display: flex;
+	padding: 0;
+}
+.customerInformationRow > ul > li {
+	width: 100px;
+	display: flex;
+	justify-content: center;
+	color: #B0B8C1;
+}
+.customerInformationRow > ul > li:hover {
+	cursor: pointer;
+	color: #191F29;
+}
+.customerInformationRow > input {
+	width: 300px;
+	height: 30px;
+}
+#customerAge {
+	width: 870px;
+	height: 69px;
+	display: flex;
+    flex-wrap: wrap;
+	align-items: center;
+}
+#customerAge > div> li {
+	width: 670px;
+	color: #B0B8C1;
+}
+#customerAge > div> li span {
+	width: 160px;
+}
+#customerAge > div> li > span > input {
+	width: 80px;
+	height: 21px;
+	border: 1px solid #B0B8c1;
+}
+.selectedLi {
+	color: #191F29 !important;
+	font-weight: bold;
+}
+
+#customerDetail {
+	border: transparent;
+	background: transparent;
+	font-size: 26px;
+	cursor: pointer;
+}
