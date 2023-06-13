@@ -6,4 +6,4 @@
 .metadata/
 .metadata/*
 metadata
-.DS_Store
+**/metadata/*
