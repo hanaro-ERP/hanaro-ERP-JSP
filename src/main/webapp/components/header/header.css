@@ -41,3 +41,8 @@ header {
 	font-size: 18px;
 	font-weight: bold;
 }
+.headerMenuContainer > li > a:hover {
+	color: var(--primary-color);
+	font-weight: bold;
+	text-decoration: none;
+}
