@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>Login</title>
 	<link rel="stylesheet" href="./login.css">
 </head>
 
@@ -16,21 +16,16 @@
 					로그인
 				</div>
 				<div class="loginBodyBox">
-					<div class="loginBodyIDPW">
-						회원번호
-					</div>
-					<div class="loginBodyIDPW">
-						비밀번호
-					</div>
-					<div class="loginBodyButton">
-						로그인
-					</div>
+					<input class="loginBodyIDPW" id="loginID" placeholder="회원번호" type="text" maxlength="20"></input>
+					<input class="loginBodyIDPW" id="loginPW" placeholder="비밀번호" type="password" maxlength="50"></input>
+					<button class="loginBodyButton" id="loginSubmit">로그인</button>
 				</div>
 				<div class="loginSignupButton">
-					회원가입
+					하나은행
 				</div>
 			</div>
 		</div>
 	</div>
+	<script src="${pageContext.request.contextPath}/view/login/login.js "></script>
 </body>
 </html>
