@@ -43,16 +43,10 @@
 						<div class="loanContractInformationRowTitle">대출일</div>
 						<ul class="loanContractDate" id="loanContractStartDate">
 							<li>전체</li>
-							<li>직접입력</li>
+							<li class ="directInput">직접입력</li>
 							<select class="yearSelect"> </select>
-
 							<select class="monthSelect"> </select>
-
-							<select class="daySelect">
-								<option value="1">1일</option>
-								<option value="2">2일</option>
-								<option value="3">3일</option>
-							</select>
+							<select class="daySelect"> </select>
 						</ul>
 					</div>
 
@@ -60,16 +54,10 @@
 						<div class="loanContractInformationRowTitle">만기일</div>
 						<ul class="loanContractDate" id="loanContractEndDate">
 							<li>전체</li>
-							<li>직접입력</li>
+							<li class="directInput">직접입력</li>
 							<select class="yearSelect"> </select>
-
 							<select class="monthSelect"> </select>
-
-							<select class="daySelect">
-								<option value="1">1일</option>
-								<option value="2">2일</option>
-								<option value="3">3일</option>
-							</select>
+							<select class="daySelect"> </select>
 						</ul>
 					</div>
 

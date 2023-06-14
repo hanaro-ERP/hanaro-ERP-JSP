@@ -1,4 +1,3 @@
-
 generateMenu('loan');
 
 // selectItems 함수 호출
@@ -28,10 +27,12 @@ function setYearSelect(){
 	});	
 }
 
+
+
 function setMonthSelect(){
 
 	// 월 설정
-	const monthSelectElements = document.getElementsByClassName("monthSelect");
+	const monthSelectElements = document.getElementsByClassName("monthSelect")
 	
 	// 기존 옵션 제거
 	Array.from(monthSelectElements).forEach(monthSelectElement => {
@@ -47,6 +48,8 @@ function setMonthSelect(){
 	    }
 	});
 }
+
+
 
 function setDaySelect(monthSelect){
 	// 일 설정
@@ -97,18 +100,6 @@ function setDaySelect(monthSelect){
 }
 
 
-function selectMonth() {
-	const monthSelect = document.getElementsByClassName("monthSelect");
-	 
-	if (monthSelect.length > 0) {	
-		Array.from(monthSelect).forEach(monthSelect => {
-			monthSelect.addEventListener("change", function (event) {
-			    const selectedMonth = event.target.value;
-			    setDaySelect(selectedMonth);
-	 		});
-		});
-	}
-}
 
 // 초기 선택된 월 값으로 setDateSelect() 호출
 const initialMonth = "1";
@@ -117,31 +108,82 @@ setMonthSelect();
 setDaySelect(initialMonth);
 
 
+
+// 월 선택에 따라 일 범위 바꾸기
+function selectMonth() {
+  	const monthSelect = document.getElementsByClassName("monthSelect");
+  	let ulId;
+
+  	if(monthSelect.length > 0) {
+    	Array.from(monthSelect).forEach(monthSelect => {
+      	// 클릭 되면
+      	monthSelect.removeEventListener("change", handleMonthSelect); // 기존의 이벤트 리스너 제거
+      	monthSelect.addEventListener("change", handleMonthSelect); // 새로운 이벤트 리스너 등록
+    	});
+  	}
+}
+
+
+
+// 이벤트 핸들러 함수
+function handleMonthSelect(event) {
+  	const monthSelect = event.target;
+  	const liElement = monthSelect.closest('ul').querySelector('li');
+  	const ulId = monthSelect.closest('ul').id;
+
+  	if (ulId.includes("Start")) {
+    	changeDateRowSelect("loanContractStartDate");
+  	} 
+  	else {
+    	changeDateRowSelect("loanContractEndDate");
+  	}
+
+  	const selectedMonth = monthSelect.value;
+  	setDaySelect(selectedMonth); // 일 범위 바꾸기
+}
+
+
+
 // 다른 것 선택하면 이미 선택되었던 것 해제
 function selectItems(ulId) {	
 	const ulElement = document.getElementById(ulId);
 
 	const listItems = ulElement.querySelectorAll('li');
 	const firstListItem = listItems[0];
-
+	let previousListItem = firstListItem;
 	firstListItem.classList.add('selectedLi');
 
 	listItems.forEach((item, index) => {
 		if (index !== 0) {
 			item.addEventListener('click', () => {
 				item.classList.toggle('selectedLi');
-				firstListItem.classList.remove('selectedLi');
+				previousListItem.classList.remove('selectedLi');
+				previousListItem = item;				
 			});
 		}
 	});
-
-	firstListItem.addEventListener('click', () => {
-    	firstListItem.classList.toggle('selectedLi');
-
-		listItems.forEach((item, index) => {
-			if (index !== 0) {
-				item.classList.remove('selectedLi');
-			}
-		});
-	});
 }
+
+
+
+// 연월일 선택에 따라 '전체' -> '직접입력'
+function changeDateRowSelect(monthSelectId) {
+  	let ulElement, listItems;
+
+  	if (monthSelectId === "loanContractStartDate") {
+    	ulElement = document.getElementById("loanContractStartDate");
+	} 
+	else if (monthSelectId === "loanContractEndDate") {
+		ulElement = document.getElementById("loanContractEndDate");
+	} 
+	else {
+	  	return; // 유효한 monthSelectId가 아닌 경우 함수 종료
+	}
+
+  	listItems = Array.from(ulElement.querySelectorAll('li'));
+
+  	listItems[0].classList.remove('selectedLi'); // '전체' 해제하고
+  	listItems[1].classList.add('selectedLi'); // '직접입력' 선택
+}
+
+selectMonth(); // selectMonth 함수 호출
