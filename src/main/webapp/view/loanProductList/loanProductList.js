@@ -29,6 +29,7 @@ const loanProductInfoData = {
 		}
 	]
 }
+
 function initializeInfoTable(infoTable) {
   const childElements = infoTable.children;
 
@@ -81,6 +82,8 @@ loanTypeSelect.addEventListener('change', function () {
 	initializeSelectItems(selectedLoanType);
 });
 
+const productInput = document.getElementById('loanProductSearchInput');
+
 function initializeSelectItems(selectedLoanType) {
 	const loanData = loanProductInfoData[selectedLoanType];
 		if (loanData) {
@@ -88,6 +91,7 @@ function initializeSelectItems(selectedLoanType) {
 				selectItems(data.id);
 		});
 	}
+	productInput.value = "";
 }
 
 function selectItems(ulId) {
@@ -116,6 +120,40 @@ function selectItems(ulId) {
 			}
 		});
 	});
+}
+
+const searchButton = document.querySelector('button[type="button"]');
+
+searchButton.addEventListener('click', function() {
+ 	const selectedLoanType = loanTypeSelect.value;
+ 	const selectedAttributes = getSelectedAttributes(selectedLoanType);
+	const productInputValue = productInput.value;
+
+	// 나중에 서블릿 메소드 추가될 때 삭제하겠습니다.
+ 	console.log('대출 구분:', selectedLoanType);
+ 	console.log('선택된 속성:', selectedAttributes);
+ 	console.log('상품 이름:', productInputValue)
+});
+
+function getSelectedAttributes(loanType) {
+	const selectedAttributes = {};
+	const loanData = loanProductInfoData[loanType];
+	if (loanData) {
+		loanData.forEach(data => {
+			const ulElement = document.getElementById(data.id);
+			const listItems = ulElement.querySelectorAll('li');
+      
+			const selectedItems = [];
+      
+			listItems.forEach((item, index) => {
+				if (index !== 0 && item.classList.contains('selectedLi')) {
+					selectedItems.push(item.textContent);
+				}
+		   	selectedAttributes[data.title] =  selectedItems;	
+			});
+		});
+	}
+	return selectedAttributes;
 }
 
 initializeSelectItems(loanTypeSelect.value);

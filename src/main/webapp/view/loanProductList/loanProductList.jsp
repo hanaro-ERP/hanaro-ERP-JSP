@@ -14,7 +14,7 @@
 		<%@ include file="../../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>여신 상품 검색</h1></div>
-			<div class="loanProductInformationContainer">
+			<form class="loanProductInformationContainer">
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
 				<div class="loanProductInformation">
 					<div class="loanProductInformationRow">
@@ -76,8 +76,10 @@
 						<input id="loanProductSearchInput"></input>
 					</div>
 				</div>
-				
-			</div>
+				<div class="innerButtonContainer">
+					<button type="button">검색</button>
+				</div>
+			</form>
 		</div>
 	</main>
 	<script>
