@@ -48,8 +48,7 @@
 							<li>1억원 이상</li>
 						</ul>
 					</div>
-				</div>
-				
+				</div>				
 			</div>
 			<div class="searchButtonBox"><button class="searchButton">검색</button></div>
 			<div class="searchTitle"><h1>검색 결과</h1></div>
