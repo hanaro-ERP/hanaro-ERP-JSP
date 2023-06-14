@@ -111,43 +111,41 @@
 					<div class="customerInformationRow">
 						<div class="customerInformationRowTitle">거주지</div>
 						<div class="customerInformationRowSubtitle">시·도</div>
-							<select id="citySelect">
-								<option value="Seoul">서울</option>
-								<option value="Busan">부산</option>
-								<option value="Daegu">대구</option>
-								<option value="Incheon">인천</option>
-								<option value="Gwangju">광주</option>
-								<option value="Daejeon">대전</option>
-								<option value="Ulsan">울산</option>
-								<option value="Sejong">세종</option>
-								<option value="Gyeonggi">경기</option>
-								<option value="Gangwon">강원</option>
-								<option value="Chungbuk">충북</option>
-								<option value="Chungnam">충남</option>
-								<option value="Jeonbuk">전북</option>
-								<option value="Jeonnam">전남</option>
-								<option value="Gyeongbuk">경북</option>
-								<option value="Gyeongnam">경남</option>
-								<option value="Jeju">제주</option>
-							</select>
+						<select id="citySelect">
+							<option value="Seoul">서울</option>
+							<option value="Busan">부산</option>
+							<option value="Daegu">대구</option>
+							<option value="Incheon">인천</option>
+							<option value="Gwangju">광주</option>
+							<option value="Daejeon">대전</option>
+							<option value="Ulsan">울산</option>
+							<option value="Sejong">세종</option>
+							<option value="Gyeonggi">경기</option>
+							<option value="Gangwon">강원</option>
+							<option value="Chungbuk">충북</option>
+							<option value="Chungnam">충남</option>
+							<option value="Jeonbuk">전북</option>
+							<option value="Jeonnam">전남</option>
+							<option value="Gyeongbuk">경북</option>
+							<option value="Gyeongnam">경남</option>
+							<option value="Jeju">제주</option>
+						</select>
 						<div class="customerInformationRowSubtitle">시·군·구</div>
-							<select id="district">
-									<optgroup label="서울특별시">
-									    <option value="종로구">종로구</option>
-									    <option value="중구">중구</option>
-									    <option value="용산구">용산구</option>
-									    <!-- 서울특별시의 다른 구들을 추가로 작성 -->
-									</optgroup>
-									<optgroup label="부산광역시">
-									    <option value="중구">중구</option>
-									    <option value="서구">서구</option>
-									    <option value="동구">동구</option>
-									    <!-- 부산광역시의 다른 구들을 추가로 작성 -->
-									</optgroup>
-									<!-- 다른 시/도들을 추가로 작성 -->
-								</select>
-							</li>
-						</ul>
+						<select id="district">
+							<optgroup label="서울특별시">
+								<option value="종로구">종로구</option>
+								<option value="중구">중구</option>
+								<option value="용산구">용산구</option>
+								<!-- 서울특별시의 다른 구들을 추가로 작성 -->
+							</optgroup>
+							<optgroup label="부산광역시">
+								<option value="중구">중구</option>
+								<option value="서구">서구</option>
+								<option value="동구">동구</option>
+								<!-- 부산광역시의 다른 구들을 추가로 작성 -->
+							</optgroup>
+						<!-- 다른 시/도들을 추가로 작성 -->
+						</select>
 					</div>
 				</div>
 			</div>
