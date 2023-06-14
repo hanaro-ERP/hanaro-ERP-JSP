@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 .loanContractInformation {
 	padding: 0 20px;
 	border-top: #191F29 solid 1px;
@@ -17,7 +16,6 @@
 	font-size: 20px;
 	font-weight: bold;
 }
-
 .loanContractSearchInput {
 	width: 300px;
 	height: 32px
@@ -49,17 +47,14 @@
 	color: #191F29 !important;
 	font-weight: bold;
 }
-
 .loanContractDate > select {
 	width: 138px;
 	margin-right: 10px;
 	text-align: center;
 }
-
 #balance {
 	height: 99px;
 }
-
 #balanceList {
    width: 870px;
    height: 99px !important;

@@ -3,7 +3,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class LoanContract {
-	int lc_id, l_id, c_id, e_id;
+    int lc_id, l_id, c_id, e_id;
 	Timestamp muturity_date;
 	String payment_method;
 	int balance;
@@ -12,7 +12,6 @@ public class LoanContract {
 	int guarantor;
 	boolean has_collateral;
 	int collateral_value;
-	
 	
 	public int getLc_id() {
 		return lc_id;

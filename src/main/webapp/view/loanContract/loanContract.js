@@ -1,11 +1,8 @@
 generateMenu('loan');
-
-// selectItems 함수 호출
 selectItems("loanContractStartDate");
 selectItems("loanContractEndDate"); 
 selectItems("balanceList");
 selectItems("loanContractLimit"); 
-
 
 function setYearSelect(){
 	// 연도 설정
@@ -27,10 +24,7 @@ function setYearSelect(){
 	});	
 }
 
-
-
 function setMonthSelect(){
-
 	// 월 설정
 	const monthSelectElements = document.getElementsByClassName("monthSelect")
 	
@@ -49,14 +43,9 @@ function setMonthSelect(){
 	});
 }
 
-
-
 function setDaySelect(monthSelect){
-	// 일 설정
-	const daySelect = document.getElementsByClassName("daySelect"); 
-	
-	// 선택한 월에 따라 endDay 다르게
-	let endDay;
+	const daySelect = document.getElementsByClassName("daySelect");	// 일 설정
+	let endDay;	// 선택한 월에 따라 endDay 다르게
 	
 	switch(parseInt(monthSelect)) {
 		case 1:
@@ -98,16 +87,11 @@ function setDaySelect(monthSelect){
 	
 	selectMonth();
 }
-
-
-
 // 초기 선택된 월 값으로 setDateSelect() 호출
 const initialMonth = "1";
 setYearSelect();
 setMonthSelect();
 setDaySelect(initialMonth);
-
-
 
 // 월 선택에 따라 일 범위 바꾸기
 function selectMonth() {
@@ -123,8 +107,6 @@ function selectMonth() {
   	}
 }
 
-
-
 // 이벤트 핸들러 함수
 function handleMonthSelect(event) {
   	const monthSelect = event.target;
@@ -137,17 +119,13 @@ function handleMonthSelect(event) {
   	else {
     	changeDateRowSelect("loanContractEndDate");
   	}
-
   	const selectedMonth = monthSelect.value;
   	setDaySelect(selectedMonth); // 일 범위 바꾸기
 }
 
-
-
 // 다른 것 선택하면 이미 선택되었던 것 해제
 function selectItems(ulId) {	
 	const ulElement = document.getElementById(ulId);
-
 	const listItems = ulElement.querySelectorAll('li');
 	const firstListItem = listItems[0];
 	let previousListItem = firstListItem;
@@ -164,8 +142,6 @@ function selectItems(ulId) {
 	});
 }
 
-
-
 // 연월일 선택에 따라 '전체' -> '직접입력'
 function changeDateRowSelect(monthSelectId) {
   	let ulElement, listItems;
@@ -181,7 +157,6 @@ function changeDateRowSelect(monthSelectId) {
 	}
 
   	listItems = Array.from(ulElement.querySelectorAll('li'));
-
   	listItems[0].classList.remove('selectedLi'); // '전체' 해제하고
   	listItems[1].classList.add('selectedLi'); // '직접입력' 선택
 }

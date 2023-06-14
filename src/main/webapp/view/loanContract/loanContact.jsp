@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="Bean.LoanContract" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +10,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/view/loanContract/loanContract.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
-
 <body><%@ include file="../../components/header/header.jsp" %>
 	<main>
 		<%@ include file="../../components/aside/aside.jsp" %>
@@ -20,25 +18,21 @@
 			<div class="loanContractInformationContainer">
 				<div class="innerSubTitle"><h2>여신 정보</h2></div>
 				<div class="loanContractInformation">
-				
 					<div class="loanContractInformationRow">
 						<div class="loanContractInformationRowTitle">상품 이름</div>
 						<input class="loanContractSearchInput" ></input>
-
 						<div class="loanContractInformationRowTitle">대출 구분</div>
 						<select id="loanType">
 							<option value="creditLoan">신용 대출</option>
 							<option value="mortgageLoan">담보 대출</option>
 						</select>
 					</div>	
-					
 					<div class="loanContractInformationRow">
 						<div class="loanContractInformationRowTitle">고객 이름</div>
 						<input class="loanContractSearchInput" ></input>
 						<div class="loanContractInformationRowTitle">담당 직원</div>
 						<input class="loanContractSearchInput" ></input>
-					</div>
-					
+					</div>					
 					<div class="loanContractInformationRow">
 						<div class="loanContractInformationRowTitle">대출일</div>
 						<ul class="loanContractDate" id="loanContractStartDate">
@@ -49,7 +43,6 @@
 							<select class="daySelect"> </select>
 						</ul>
 					</div>
-
 					<div class="loanContractInformationRow">
 						<div class="loanContractInformationRowTitle">만기일</div>
 						<ul class="loanContractDate" id="loanContractEndDate">
@@ -60,15 +53,16 @@
 							<select class="daySelect"> </select>
 						</ul>
 					</div>
-
 					<div class="loanContractInformationRow" id="balance">
 						<div class="loanContractInformationRowTitle">대출 잔액</div>
 						<ul id="balanceList">
 							<li>전체</li>
 							<li>직접입력</li>
 							<div>
-								<li><span><input id="startBalance"> 만원 이상</span> <span><input
-										id="endBalance"> 만원 이하</span></li>
+								<li>
+								<span><input id="startBalance"> 만원 이상</span> 
+								<span><input id="endBalance"> 만원 이하</span>
+								</li>
 							</div>
 							<li>~2천만원</li>
 							<li>~3천만원</li>
@@ -77,7 +71,6 @@
 							<li>1억원 이상</li>
 						</ul>
 					</div>
-
 					<div class="loanContractInformationRow">
 						<div class="loanContractInformationRowTitle">연체</div>
 						<ul id="loanContractLimit">
@@ -89,9 +82,7 @@
 							<li>5년 이상</li>
 						</ul>
 					</div>
-
-				</div>
-				
+				</div>				
 			</div>
 		</div>
 	</main>
@@ -99,6 +90,5 @@
 		generateMenu('loan');		
 	</script>
 	<script src="${pageContext.request.contextPath}/view/loanContract/loanContract.js "></script>
-      
 </body>
 </html>
