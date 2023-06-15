@@ -5,13 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/default.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
 <body>
-	<%@ include file="../../components/header/header.jsp" %>
+	<%@ include file="../../../components/header/header.jsp" %>
 	<main>
-		<%@ include file="../../components/aside/aside.jsp" %>
+		<%@ include file="../../../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>여신 상품 검색</h1></div>
 			<form>

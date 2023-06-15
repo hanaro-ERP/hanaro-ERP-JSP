@@ -1,87 +1,17 @@
 @charset "UTF-8";
 
-.loanProductInformation {
-	padding: 0 20px;
-	border-top: #191F29 solid 1px;
-}
-.loanProductInformationRow {
-	height: 61px;
-	display: flex;
-	align-items: center;
-	border-bottom: #B0B8C1 solid 1px;
-}
-.loanProductInformationRowTitle {
-	width: 250px;
-	display: flex;
-	justify-content: center;
-	font-size: 20px;
-	font-weight: bold;
-}
-#loanType {
-	width: 100px;
-	height: 30px;
-}
-.loanProductInformationRow > ul {
-	display: flex;
-	padding: 0;
-}
-.loanProductInformationRow > ul > li {
-	width: 100px;
-	display: flex;
-	justify-content: center;
-	color: #B0B8C1;
-}
-.loanProductInformationRow > ul > li:hover {
-	cursor: pointer;
-	color: #191F29;
-}
-.loanProductInformationRow > input {
-	width: 400px;
-	height: 30px;
-}
-.selectedLi {
-	color: #191F29 !important;
-	font-weight: bold;
-}
 #depositProductBalance{
-	width: 570px;
+	width: 870px;
+	height: 60px;
+	display: flex;
 	flex-wrap: wrap;
-	height: 70px;
-	align-items: space-between;
-}
-#depositProductBalance > li{
-	margin-top: 7.5px;
-}
-#directInput{
-	width: fit-content !important;
-}
-#balanceRow{
-	height: 102px;
-}
-.searchBox{
-	margin-top: 10px 3px 20px 3px;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-.searchButton{
-	width: 130px;
-	height: 50px;
-	background: #2DB400;
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
 	align-items: center;
-	padding: 4px 15px;
-	background: #2DB400;
-	border: 1px solid #B0B8C1;
-	border-radius: 5px;
-	color: white;
-	font-weight: 700;
-	font-size: 23px;
-	line-height: 28px;
-	margin: 10px 3px 10px auto;
+}
+#directInput {
+	width: auto;
+	display: flex;
+	align-items: center;
+	margin-right: 150px;
 }
 .searchTable{
 	margin-top: 15px;

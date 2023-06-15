@@ -1,27 +1,25 @@
 @charset "UTF-8";
 .mainContainer {
-	  margin-left: 30px;
-	  margin-right: 180px;
+	margin-left: 30px;
+	margin-right: 180px;
 }
 table {
 	border: 1px solid #B0B8C1;	
 	border-collapse: collapse;
 	border-radius: 4px ;
 }
-th,td {
+th, td {
 	height: 40px;
 	border: 2px solid #B0B8C1;
-
 }
 th {	
-  background: #2DB400;
-  width: 225px; 
-  color:#fff;
+	background: #2DB400;
+	width: 225px; 
+	color:#fff;
 }  
 td {
-  width: 500px;
-  color: black;
-  
+	width: 500px;
+	color: black; 
 }
 select, input {
 	width: 98%;
@@ -35,5 +33,5 @@ select, .short {
 	margin-right: 1%;
 }
 a {
-  color: #73685d;
+	color: #73685d;
 }
