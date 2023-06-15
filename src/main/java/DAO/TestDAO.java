@@ -8,19 +8,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class TestDAO {
-	private Connection conn; //DB 커넥션 연결 객체
-    private static final String USERNAME = "root";//DBMS접속 시 아이디
-    private static final String PASSWORD = "rkddkwl123!";//DBMS접속 시 비밀번호
-    private static final String URL = "jdbc:mysql://localhost:3306/hanaro_loan_system?serverTimezone=UTC";//DBMS접속할 db명
+	private Connection conn;
+    private static final String USERNAME = "admin";
+    private static final String PASSWORD = "rkddkwl123!";
+    private static final String URL = "jdbc:mysql://hanaroerpprojectinstance.cueixcjf2n4d.ap-northeast-2.rds.amazonaws.com:3306/hanaroErpDatabase";//DBMS�젒�냽�븷 db紐�
     
     public TestDAO() {
         try {
-            System.out.println("생성자");
-            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("DB 연결 시작");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("뭐야");
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            System.out.println("드라이버 로딩 성공");
+            System.out.println("DB 연결 완료");
         } catch (Exception e) {
-            System.out.println("드라이버 로딩 실패 ");
+            System.out.println("연결 오류 " + e);
             try {
                 conn.close();
             } catch (SQLException e1) {    }
@@ -36,10 +37,9 @@ public class TestDAO {
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()) {
                 System.out.println("id: " + rs.getInt("id"));
-                System.out.println("name: " + rs.getInt("test_name"));
             }
         } catch (Exception e) {
-            System.out.println("select 메서드 예외발생");
+            System.out.println("select 오류" + e);
         }    finally {
             try {
                 if(pstmt!=null && !pstmt.isClosed()) {
