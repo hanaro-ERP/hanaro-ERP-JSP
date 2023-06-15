@@ -82,7 +82,7 @@ pageEncoding="UTF-8"%>
 									<option value="경남">경상남도</option>
 									<option value="제주">제주도</option>
 								</select>
-								<select name="county" class="select">
+								<select name="district" class="select">
 									<option value="">전체</option>
 								</select>
 							</form>
