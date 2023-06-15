@@ -151,7 +151,7 @@
 			
 			<div class="searchTitle"><h1>검색 결과</h1></div>
 			<table class="searchTable" id="customerSearchTable">
-				<tr id="tr1">
+				<tr>
 					<th>고객 ID</th>
 					<th>이름</th>
 					<th>나이</th>
