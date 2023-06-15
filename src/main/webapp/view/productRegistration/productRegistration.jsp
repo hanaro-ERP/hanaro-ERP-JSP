@@ -4,7 +4,7 @@ pageEncoding="UTF-8"%>
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>상품가입</title>
+        <title>상품 가입</title>
         <script src="../components/aside/aside.js "></script>
         <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 
