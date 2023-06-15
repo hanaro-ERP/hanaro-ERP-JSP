@@ -16,11 +16,13 @@ function setYearSelect(){
 	const currentYear = new Date().getFullYear();
 		
 	Array.from(yearSelectList).forEach(yearSelectList => {
+
 		for (let year = 1990; year <= currentYear; year++) {
 			const option = document.createElement("option");
 		  	option.value = year;
 		  	option.textContent = year;
 		  	yearSelectList.appendChild(option);
+
 		}	
 	});	
 }
@@ -31,11 +33,13 @@ function setMonthSelect(){
 	monthSelect = document.getElementsByClassName("monthSelect");
 	
 	Array.from(monthSelect).forEach(monthSelect => {
+
  		for (let month = 1; month <= 12; month++) {
 	    	const option = document.createElement("option");
 	      	option.value = month;
 	      	option.textContent = month;
 	      	monthSelect.appendChild(option);
+
 	    }
 	});
 }
@@ -114,6 +118,7 @@ function handleDateSelect(event, isYear) {
   	const liElement = selectedDate.closest('ul').querySelector('li');
   	const ulId = selectedDate.closest('ul').id;
 
+
   	if (ulId.includes("Start")) {
     	changeDateRowSelect("loanContractStartDate");
   	} 
@@ -131,11 +136,13 @@ function handleDateSelect(event, isYear) {
   	}
 
   	setDaySelect(false); // 일 범위 바꾸기
+
 }
 
 // 다른 것 선택하면 이미 선택되었던 것 해제
 function selectItems(ulId) {	
 	console.log("=====selectItems");
+
 	const ulElement = document.getElementById(ulId);
 	const listItems = ulElement.querySelectorAll('li');
 	const firstListItem = listItems[0];
