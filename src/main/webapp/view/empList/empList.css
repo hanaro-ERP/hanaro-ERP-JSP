@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+.employeeInformationContainer,
+.bankLocInformationContainer {
+	width: 1450px;
+	height: 477px;
+}
+.employeeInformation,
+.bankLocInformation {
+	height: 409px;
+	padding: 0 20px;
+	border-top: #191F29 solid 1px;
+}
+.employeeInformationRow,
+.bankLocInformationRow {
+	width: 1410px;
+	height: 62px;
+	display: flex;
+	align-items: center;
+	border-bottom: #B0B8C1 solid 1px;
+}
+.employeeInformationRowTitle,
+.bankLocInformationRowTitle {
+	width: 250px;
+	display: flex;
+	justify-content: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+.bankLocInformationRowSubtitle {
+	width: 100px;
+	font-size: 20px;
+	text-align: center;
+	margin: 0 10px;
+}
+#bankLocation, #department {
+	text-align: center;
+	width: 180px;
+	height: 30px;
+}
+#empPosition, 
+#citySelect, #district {
+	text-align: center;
+	width: 100px;
+	height: 30px;	
+}
+.employeeInformationRow > ul,
+.bankLocInformationRow > ul {
+	display: flex;
+	padding: 0;
+}
+.employeeInformationRow > ul > li,
+.bankLocInformationRow > ul > li {
+	width: 100px;
+	display: flex;
+	justify-content: center;
+	color: #B0B8C1;
+}
+.employeeInformationRow > ul > li:hover,
+.bankLocInformationRow > ul > li:hover {
+	cursor: pointer;
+	color: #191F29;
+}
+.employeeInformationRow > input,
+.bankLocInformationRow > input {
+	width: 300px;
+	height: 30px;
+}
+.selectedLi {
+	color: #191F29 !important;
+	font-weight: bold;
+}

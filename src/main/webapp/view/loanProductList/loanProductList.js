@@ -41,10 +41,10 @@ function initializeInfoTable(infoTable) {
 
 function createInfoRow(id, title, tags) {
   const rowDiv = document.createElement('div');
-  rowDiv.classList.add('loanProductInformationRow');
+  rowDiv.classList.add('innerInformationRow');
 
   const titleDiv = document.createElement('div');
-  titleDiv.classList.add('loanProductInformationRowTitle');
+  titleDiv.classList.add('innerInformationRowTitle');
   titleDiv.textContent = title;
   rowDiv.appendChild(titleDiv);
 
@@ -61,7 +61,7 @@ function createInfoRow(id, title, tags) {
 }
 
 function generateLoanProductInformation(loanType) {
-  const infoTable = document.querySelector('.loanProductInformation');
+  const infoTable = document.querySelector('.innerInformation');
   initializeInfoTable(infoTable);
 
   const loanData = loanProductInfoData[loanType];

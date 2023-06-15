@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/aside/aside.css?ver=1">
 </head>
 <body>
-	<div class="asideContaier">
+	<div class="asideContainer">
 		<div class="asideTitleContainer">
 			<img/>
 			<p>메인 메뉴</p>
