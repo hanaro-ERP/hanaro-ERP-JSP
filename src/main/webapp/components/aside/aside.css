@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.asideContaier {
+.asideContainer {
 	width: 260px;
 	display: flex;
 	flex-direction: column;

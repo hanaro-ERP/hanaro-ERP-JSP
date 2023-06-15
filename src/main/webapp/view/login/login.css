@@ -49,17 +49,19 @@
 	margin-bottom: 24px;
 	box-sizing: border-box;	
 	color: #8B95A1;
+	border: none;
 }
 .loginBodyButton{
 	width: 100%;
 	border-radius: 10pt;
 	height: 48px;
 	background: #E5E8EB;
-	color: white;
 	padding: 16px;
 	text-align: center;
 	box-sizing: border-box;
+	border: none;
 	color: #F9FAFB;
+	cursor: pointer;
 }
 .loginSignupButton{
 	width: 100%;
