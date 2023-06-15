@@ -241,6 +241,6 @@
 	<script>
 		generateMenu('deposit');		
 	</script>
-	<script src="${pageContext.request.contextPath}/view/depositProductList/depositProductList.js "></script>
+	<script src="${pageContext.request.contextPath}/view/deposit/depositProductList/depositProductList.js "></script>
 </body>
 </html>

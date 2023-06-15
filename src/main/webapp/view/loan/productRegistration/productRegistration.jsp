@@ -209,6 +209,9 @@ pageEncoding="UTF-8"%>
   			</div>
         </div>
     </main>
-    <script src="productRegistration.js"></script>
+    <script>
+		generateMenu('loan');		
+	</script>
+	<script src="${pageContext.request.contextPath}/view/loan/productRegistration/productRegistration.js "></script>
 </body>
 </html>
