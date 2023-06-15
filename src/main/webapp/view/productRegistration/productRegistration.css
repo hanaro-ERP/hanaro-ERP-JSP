@@ -1,0 +1,39 @@
+@charset "UTF-8";
+.mainContainer {
+	  margin-left: 30px;
+	  margin-right: 180px;
+}
+table {
+	border: 1px solid #B0B8C1;	
+	border-collapse: collapse;
+	border-radius: 4px ;
+}
+th,td {
+	height: 40px;
+	border: 2px solid #B0B8C1;
+
+}
+th {	
+  background: #2DB400;
+  width: 225px; 
+  color:#fff;
+}  
+td {
+  width: 500px;
+  color: black;
+  
+}
+select, input {
+	width: 98%;
+	height: 30px;
+	border: 2px solid #B0B8C1;
+	border-radius: 3px;
+	margin-left: 1%;
+}
+select, .short {
+	width: 150px;
+	margin-right: 1%;
+}
+a {
+  color: #73685d;
+}
