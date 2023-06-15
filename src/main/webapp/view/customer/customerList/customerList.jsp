@@ -215,7 +215,6 @@
 	<script>
 		generateMenu('customer');		
 	</script>
-	<script src=" "></script>
 	<script src="${pageContext.request.contextPath}/view/customer/customerList/customerList.js "></script>
 </body>
 </html>
