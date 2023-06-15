@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="./login.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/default.css?ver=1">
 </head>
-
 <body>
 	<div class="container">
 		<div class="loginOuterbox">

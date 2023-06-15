@@ -41,5 +41,5 @@ public class LoginController extends HttpServlet {
     	} else {
     		response.sendRedirect(request.getContextPath() + "/view/login/login.jsp");
     	}
-    }
+	}
 }

@@ -54,6 +54,9 @@
 	font-size: 30px;
 	line-height: 1.6;
 }
+#historyTable{
+	width: 100%;
+}
 #historyTable tr th:nth-child(1){
 	width: 180px;
 	border-top-left-radius: 5px;		
