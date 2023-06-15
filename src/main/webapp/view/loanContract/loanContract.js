@@ -130,22 +130,21 @@ function handleDateSelect(event, isYear) {
 function selectItems(ulId) {
 	const ulElement = document.getElementById(ulId);
 	const listItems = ulElement.querySelectorAll('li');
-	const firstListItem = listItems[0];
-	let previousListItem = firstListItem;
-	firstListItem.classList.add('selectedLi');
-
+	let previousListItem = listItems[0];
+	previousListItem.classList.add('selectedLi');
+	
 	listItems.forEach((item, index) => {
-		if (index !== 0) {
-			item.addEventListener('click', () => {
-				item.classList.toggle('selectedLi');
+		item.addEventListener('click', () => {
+			item.classList.toggle('selectedLi');
+			if (previousListItem !== null && previousListItem !== item) {
 				previousListItem.classList.remove('selectedLi');
-				previousListItem = item;				
-			});
-		}
+			}
+			previousListItem = item;
+		});
 	});
 }
 
-// 연월일 선택에 따라 '전체' -> '직접입력'
+// 대출일, 만기일 날짜 선택하면 '전체' -> '직접입력'
 function changeDateRowSelect(rowId) {
   	let ulElement, listItems;
 
