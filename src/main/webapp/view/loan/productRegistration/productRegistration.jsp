@@ -28,14 +28,14 @@ pageEncoding="UTF-8"%>
 					<tr>
 						<th>대출 구분</th>
 						<td>
-							<select id="loanType">
+							<select id="loanType" class="shortSelect">
 								<option value="creditLoan">신용 대출</option>
 								<option value="collateralLoan">담보 대출</option>
 							</select>
 						</td>
 						<th>담보 종류</th>
 						<td>
-							<select id="collateralType">
+							<select id="collateralType" class="shortSelect">
 								<option value="savingLoan">예적금</option>
 								<option value="houseLoan">주택</option>
 								<option value="jeonseLoan">전세</option>
@@ -51,7 +51,7 @@ pageEncoding="UTF-8"%>
 						</td>
 						<th>이자</th>
 						<td>
-							<select id="interestRate">
+							<select id="interestRate" class="shortSelect">
 								<option value="compound">복리</option>
 								<option value="interest">단리</option>
 							</select>
@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%>
 					<tr>
 						<th>대출 목적</th>
 						<td>
-							<select id="loanPerpose">
+							<select id="loanPerpose" class="shortSelect">
 								<option>??</option>
 								<option>??</option>
 							</select>
