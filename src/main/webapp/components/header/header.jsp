@@ -12,7 +12,9 @@
 	<header>
 		<div class="headerLogoContainer">
 			<a class="headerLogo" href="">
-				하나로여신 <br/> 관리시스템
+				<green style="color: #2EB400">하나로</green>여신
+				<br>
+				관리시스템
 			</a>
 		</div>
 		<ul class="headerMenuContainer">
