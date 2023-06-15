@@ -9,9 +9,9 @@ import util.DatabaseUtil;
 
 public class EmployeeDAO {
 	private Connection conn;
-	
-    public EmployeeDAO(int employeeId) {
-    	conn = DatabaseUtil.getConnection();
+
+	public EmployeeDAO(int employeeId) {
+		conn = DatabaseUtil.getConnection();
     }
     public String returnPasswordFromDatabase(int employeeId) {
     	String query = "SELECT password FROM employees WHERE e_id = ?;";

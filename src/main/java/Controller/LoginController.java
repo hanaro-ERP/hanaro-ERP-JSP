@@ -19,28 +19,27 @@ public class LoginController extends HttpServlet {
     public LoginController() {
         super();
     }
-	public void init(ServletConfig config) throws ServletException {
-	}
+    public void init(ServletConfig config) throws ServletException {
+    }
+    public void destroy() {
+    }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	requestPro(request, response);
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	requestPro(request, response);
+    }
+    protected void requestPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String employeeIdString = request.getParameter("employeeId");
+    	int employeeId = Integer.parseInt(employeeIdString);
+    	String password = request.getParameter("password");
+    	EmployeeDTO employeeDTO = new EmployeeDTO(employeeId, password);
+    	boolean loginSuccess = AuthenticationService.authenticateEmployee(employeeDTO);
 
-	public void destroy() {
-	}
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		requestPro(request, response);
-	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		requestPro(request, response);
-	}
-	protected void requestPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String employeeIdString = request.getParameter("employeeId");
-		int employeeId = Integer.parseInt(employeeIdString);
-		String password = request.getParameter("password");
-		EmployeeDTO employeeDTO = new EmployeeDTO(employeeId, password);
-		boolean loginSuccess = AuthenticationService.authenticateEmployee(employeeDTO);
-		
-		if (loginSuccess) {
-			response.sendRedirect(request.getContextPath() + "/view/main/main.jsp");
-		} else {
-			response.sendRedirect(request.getContextPath() + "/view/login/login.jsp");
-		}
-	}
+    	if (loginSuccess) {
+    		response.sendRedirect(request.getContextPath() + "/view/main/main.jsp");
+    	} else {
+    		response.sendRedirect(request.getContextPath() + "/view/login/login.jsp");
+    	}
+    }
 }

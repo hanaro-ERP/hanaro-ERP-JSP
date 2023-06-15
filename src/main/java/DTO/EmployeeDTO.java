@@ -3,7 +3,7 @@ package DTO;
 public class EmployeeDTO {
 	private int employeeId, bankId;
 	private String password, eName, department, position, isAdmin;
-	
+
 	public EmployeeDTO(int employeeId, String password) {
 		this.employeeId = employeeId;
 		this.password = password;
