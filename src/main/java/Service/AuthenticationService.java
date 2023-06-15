@@ -7,7 +7,6 @@ public class AuthenticationService {
 	
 	public AuthenticationService() {
 	}
-	
     public static boolean authenticateEmployee(EmployeeDTO employeeDTO) {
         int employeeId = employeeDTO.getEmployeeId();
         String password = employeeDTO.getPassword();

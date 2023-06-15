@@ -13,7 +13,6 @@ public class EmployeeDAO {
     public EmployeeDAO(int employeeId) {
     	conn = DatabaseUtil.getConnection();
     }
-    
     public String returnPasswordFromDatabase(int employeeId) {
     	String query = "SELECT password FROM employees WHERE e_id = ?;";
     	try {
