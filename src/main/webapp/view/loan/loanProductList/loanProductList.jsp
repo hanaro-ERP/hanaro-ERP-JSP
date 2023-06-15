@@ -84,7 +84,7 @@
 		</div>
 	</main>
 	<script>
-		generateMenu('loan');		
+		generateMenu('loan', 'loanProductList');		
 	</script>
 	<script src="${pageContext.request.contextPath}/view/loan/loanProductList/loanProductList.js "></script>
 </body>

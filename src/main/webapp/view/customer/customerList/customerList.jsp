@@ -213,7 +213,7 @@
 		</div>
 	</main>
 	<script>
-		generateMenu('customer');		
+		generateMenu('customer', 'customerList');		
 	</script>
 	<script src="${pageContext.request.contextPath}/view/customer/customerList/customerList.js "></script>
 </body>
