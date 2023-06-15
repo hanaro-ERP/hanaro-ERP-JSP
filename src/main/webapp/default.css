@@ -77,3 +77,23 @@ h2 {
 	display: flex;
 	align-items: center;
 }
+
+.innerButtonContainer {
+	display: flex;
+	justify-content: end;
+	padding: 10px 10px 10px 0px;
+}
+.innerButtonContainer > button {
+	width: 130px;
+	height: 50px;
+	color: #FFFFFF;
+	font-size: 23px;
+	font-weight: bold;
+	border: #2DB400 1px solid;
+	border-radius: 5px;
+	background-color: #2DB400;
+}
+.innerButtonContainer > button:hover {
+	cursor: pointer;
+	opacity: 80%;
+}
