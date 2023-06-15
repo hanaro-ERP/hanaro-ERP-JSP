@@ -51,10 +51,8 @@ function generateMenu(page, subPage) {
 		link.href = item.link;
 		link.textContent = item.label;
 		
-		if (item.id === subPage) {
-			menuItem.setAttribute('id', 'selectedMenuLi');
-			link.setAttribute('id', 'selectedMenuA');
-		}
+		if (item.id === subPage) menuItem.setAttribute('id', 'selectedMenuLi');
+		
 		menuItem.appendChild(link);
 		menuElement.appendChild(menuItem);
 	});
