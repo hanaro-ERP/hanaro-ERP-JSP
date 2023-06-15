@@ -5,15 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/view/customerList/customerList.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/view/customer/customerList/customerList.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchResultTable/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
 <body>
-	<%@ include file="../../components/header/header.jsp" %>
+	<%@ include file="../../../components/header/header.jsp" %>
 	<main>
-		<%@ include file="../../components/aside/aside.jsp" %>
+		<%@ include file="../../../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>고객 검색</h1></div>
 			<form>
