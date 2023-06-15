@@ -26,37 +26,8 @@
 #customerCountry {
 	margin-right: 200px;
 }
-#customerSearchTable {
-	width: 1444px;
-	margin-top: 15px;
-	margin-bottom: 20px;
-	box-sizing: border-box;
-	border-collapse: collapse;
-}
-#customerSearchTable tr th{
-	background: #8B95A1;
-	height: 40px;
-	color: #FFFFFF;
-	border-style: hidden;
-  	box-shadow: 0 0 0 1px #8B95A1;
-}
-#customerSearchTable tr{
-	text-align: center;
-	color: #191F29;
-	cursor: pointer;
-}
-#customerSearchTable tr td{
-	height: 40px;
-	border: 1px solid #8B95A1;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
-}
-#customerSearchTable tr th:first-child {
-	border-top-left-radius: 5px;
+.searchTable tr th:first-child {
 	width: 100px;
-}
-#customerSearchTable tr th:last-child {
-	border-top-right-radius: 5px;
 }
 .searchTable tr th:nth-child(n + 3):nth-child(-n + 5), 
 .searchTable tr th:nth-child(n + 9):nth-child(-n + 11){
