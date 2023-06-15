@@ -11,42 +11,35 @@ let rowIndex = 0;
 
 // 연도 설정
 function setYearSelect(){
-	console.log("=====setYearSelect");
 	yearSelectList = document.getElementsByClassName("yearSelect"); 
 	const currentYear = new Date().getFullYear();
 		
 	Array.from(yearSelectList).forEach(yearSelectList => {
-
 		for (let year = 1990; year <= currentYear; year++) {
 			const option = document.createElement("option");
 		  	option.value = year;
 		  	option.textContent = year;
 		  	yearSelectList.appendChild(option);
-
 		}	
 	});	
 }
 
 // 월 설정
 function setMonthSelect(){
-	console.log("=====setMonthSelect");
 	monthSelect = document.getElementsByClassName("monthSelect");
 	
 	Array.from(monthSelect).forEach(monthSelect => {
-
  		for (let month = 1; month <= 12; month++) {
 	    	const option = document.createElement("option");
 	      	option.value = month;
 	      	option.textContent = month;
 	      	monthSelect.appendChild(option);
-
 	    }
 	});
 }
 
 // 일 설정
 function setDaySelect(isInitial){
-	console.log("=====setDaySelect");
 	daySelectList = document.getElementsByClassName("daySelect");
 	daySelectRow = document.getElementsByClassName("daySelect")[rowIndex];
     let endDay;	// 선택한 월에 따라 endDay 다르게
@@ -86,15 +79,12 @@ function setDaySelect(isInitial){
 			daySelectRow.appendChild(option);
 		}
 	}
-	console.log("날짜: ", yearSelect, monthSelect, daySelect);
 }
 
 // 선택에 따라 일 범위 바꾸기
 function changeDate() {
-	console.log("=====changeDate");
 	yearSelectList = document.getElementsByClassName("yearSelect");
 	monthSelectList = document.getElementsByClassName("monthSelect");
-  	
   	let ulId;
   	
   	if(yearSelectList.length > 0) {
@@ -113,11 +103,9 @@ function changeDate() {
 }
 
 function handleDateSelect(event, isYear) {
-	console.log("=====handleDateSelect");
   	const selectedDate = event.target;
   	const liElement = selectedDate.closest('ul').querySelector('li');
   	const ulId = selectedDate.closest('ul').id;
-
 
   	if (ulId.includes("Start")) {
     	changeDateRowSelect("loanContractStartDate");
@@ -136,13 +124,10 @@ function handleDateSelect(event, isYear) {
   	}
 
   	setDaySelect(false); // 일 범위 바꾸기
-
 }
 
 // 다른 것 선택하면 이미 선택되었던 것 해제
-function selectItems(ulId) {	
-	console.log("=====selectItems");
-
+function selectItems(ulId) {
 	const ulElement = document.getElementById(ulId);
 	const listItems = ulElement.querySelectorAll('li');
 	const firstListItem = listItems[0];
@@ -162,7 +147,6 @@ function selectItems(ulId) {
 
 // 연월일 선택에 따라 '전체' -> '직접입력'
 function changeDateRowSelect(rowId) {
-	console.log("=====changeDateRowSelect");
   	let ulElement, listItems;
 
   	if (rowId === "loanContractStartDate") {
@@ -178,7 +162,6 @@ function changeDateRowSelect(rowId) {
 	}
 
   	listItems = Array.from(ulElement.querySelectorAll('li'));
-  	
   	if (rowIndex == 0) {
 	  	listItems[0].classList.remove('selectedLi'); // '전체' 해제하고
 	  	listItems[1].classList.add('selectedLi'); // '직접입력' 선택
@@ -192,5 +175,4 @@ function changeDateRowSelect(rowId) {
 setYearSelect();
 setMonthSelect();
 setDaySelect(true);
-
 changeDate();
