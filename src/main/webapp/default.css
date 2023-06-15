@@ -43,3 +43,37 @@ main {
 	margin-top: 80px;
 	background-color: #F9FAFB;
 }
+li {
+	list-style: none;
+	text-decoration: none;
+}
+a {
+	color: #191f29;
+	text-decoration: none;
+	outline: none;
+}
+h1 {
+	font-size: 30px;
+	font-weight: bold;
+	margin: 0;
+}
+h2 {
+	font-size: 26px;
+	font-weight: bold;
+	margin: 0;
+}
+.innerContainer {
+	padding-left: 30px;
+}
+.innerTitle {
+	width: 1450px;
+	height: 68px;
+	display: flex;
+	align-items: center;
+}
+.innerSubTitle { 
+	width: 1450px;
+	height: 48px;
+	display: flex;
+	align-items: center;
+}

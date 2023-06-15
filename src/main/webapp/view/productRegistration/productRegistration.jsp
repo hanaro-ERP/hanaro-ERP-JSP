@@ -5,10 +5,10 @@ pageEncoding="UTF-8"%>
     <head>
         <meta charset="UTF-8" />
         <title>상품 가입</title>
-        <script src="../components/aside/aside.js "></script>
         <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/view/productRegistration/productRegistration.css?ver=1" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
 
-        <link rel="stylesheet" href="productRegistration.css" />
     </head>
 
     <body>
@@ -279,6 +279,9 @@ pageEncoding="UTF-8"%>
                 <!-- <button>등록 버튼을 달아주세</button> -->
             </div>
         </main>
-        <script src="productRegistration.js"></script>
+        <script>
+			generateMenu('loan');		
+		</script>	
+        <script src="${pageContext.request.contextPath}/view/productRegistration/productRegistration.js"></script>
     </body>
 </html>
