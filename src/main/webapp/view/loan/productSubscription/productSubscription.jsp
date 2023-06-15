@@ -23,7 +23,13 @@ pageEncoding="UTF-8"%>
 						<th>이름</th>
 						<td><input id="customerName" class="middleInput"/></td>
 						<th>전화번호</th>
-						<td><input id="customerPhoneNumber" class="middleInput"/></td>
+						<td>
+							<input class="shortInput" id="phoneNumber1"/>
+							-
+							<input class="shortInput" id="phoneNumber2"/>
+							-
+							<input class="shortInput" id="phoneNumber3"/>
+						</td>
 					</tr>
 					<tr>
 						<th>보증인</th>
@@ -188,7 +194,7 @@ pageEncoding="UTF-8"%>
 								<option value="simple">복리</option>
 								<option value="compound">단리</option>
 							</select>
-							연
+							&nbsp;연
 							<input type="text" class="shortInput" id="interestRate"/>
 							%
 						</td>

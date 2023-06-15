@@ -11,8 +11,7 @@
 	<div class="container">
 		<div class="headerBox">
 			<div class="headerContent">
-				<green class="mainGreen">하나로</green>
-				여신
+				<green class="mainGreen">하나로</green>여신
 				<br>
 				관리시스템
 			</div>
