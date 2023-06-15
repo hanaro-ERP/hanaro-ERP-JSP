@@ -68,7 +68,7 @@
 		</div>
 	</main>
 	<script>
-		generateMenu('employee');		
+		generateMenu('employee', 'bankList');		
 	</script>
 	<script src="${pageContext.request.contextPath}/view/employee/empList/empList.js "></script>
 </body>

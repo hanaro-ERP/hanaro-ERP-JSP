@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%>
 <title>상품 가입</title>
 <script src="../components/aside/aside.js "></script>
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
-<link rel="stylesheet" href="productRegistration.css" />
+<link rel="stylesheet" href="productSubscription.css" />
 </head>
 <body>
 	<%@ include file="../../../components/header/header.jsp" %>
@@ -194,7 +194,7 @@ pageEncoding="UTF-8"%>
 						<td>
 							<select>
 								<option value="dunno" class="short">??</option>
-								<option value="dunno" class="short"> ??</option>
+								<option value="dunno" class="short">??</option>
 							</select>
 						</td>
 						<th>상환방법</th>
@@ -210,8 +210,8 @@ pageEncoding="UTF-8"%>
         </div>
     </main>
     <script>
-		generateMenu('loan');		
+		generateMenu('loan', 'productSubscription');		
 	</script>
-	<script src="${pageContext.request.contextPath}/view/loan/productRegistration/productRegistration.js "></script>
+	<script src="${pageContext.request.contextPath}/view/loan/productSubscription/productSubscription.js "></script>
 </body>
 </html>

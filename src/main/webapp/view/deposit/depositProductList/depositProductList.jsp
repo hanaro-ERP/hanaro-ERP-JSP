@@ -239,7 +239,7 @@
 		</div>
 	</main>
 	<script>
-		generateMenu('deposit');		
+		generateMenu('deposit', 'depositProductList');		
 	</script>
 	<script src="${pageContext.request.contextPath}/view/deposit/depositProductList/depositProductList.js "></script>
 </body>
