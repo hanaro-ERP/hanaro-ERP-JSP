@@ -134,14 +134,45 @@ function selectItems(ulId) {
 	previousListItem.classList.add('selectedLi');
 	
 	listItems.forEach((item, index) => {
-		item.addEventListener('click', () => {
-			item.classList.toggle('selectedLi');
-			if (previousListItem !== null && previousListItem !== item) {
-				previousListItem.classList.remove('selectedLi');
+		item.addEventListener('click', () => {		
+			console.log("item=", item);
+			if (item.id === 'noChoice') {
+				const directInput = listItems[index -1];
+				
+				if (directInput) {
+					directInput.click();
+				}			
+				
+				previousListItem = directInput;
+			}
+			else {
+				item.classList.toggle('selectedLi');
+				if (previousListItem !== null && previousListItem !== item) {
+					previousListItem.classList.remove('selectedLi');
+				}
+				previousListItem = item;
+			}
+		});
+	});
+	/*
+	listItems.forEach((item, index) => {
+		item.addEventListener('click', () => {			
+			if (item.id === 'noChoice') {
+				const directInput = listItems[index -1];
+				if (directInput) {
+					directInput.click();
+				}				
+			}
+			else {
+				item.classList.toggle('selectedLi');
+				if (previousListItem !== null && previousListItem !== item) {
+					previousListItem.classList.remove('selectedLi');
+				}
 			}
 			previousListItem = item;
 		});
 	});
+	*/
 }
 
 // 대출일, 만기일 날짜 선택하면 '전체' -> '직접입력'

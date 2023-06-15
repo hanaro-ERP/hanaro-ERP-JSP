@@ -65,6 +65,7 @@
 #balanceList > div> li {
    width: 670px;
    color: #B0B8C1;
+   list-style-type: none;
 }
 #balanceList > div> li span {
    width: 160px;
