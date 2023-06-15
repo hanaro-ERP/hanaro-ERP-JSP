@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/innerLayout/innerLayout.css?ver=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/components/table/table.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/default.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/header/header.css?ver=1">
 </head>
