@@ -16,11 +16,11 @@
 				<div class="loginTitleBox">
 					로그인
 				</div>
-				<div class="loginBodyBox">
-					<input class="loginBodyIDPW" id="loginID" placeholder="회원번호" type="text" maxlength="20"></input>
-					<input class="loginBodyIDPW" id="loginPW" placeholder="비밀번호" type="password" maxlength="50"></input>
-					<button class="loginBodyButton" id="loginSubmit">로그인</button>
-				</div>
+				<form class="loginBodyBox" action="${pageContext.request.contextPath}/LoginController" method="post">
+					<input class="loginBodyIDPW" name="employeeId"  id="employeeId" placeholder="회원번호" type="text" maxlength="20"></input>
+					<input class="loginBodyIDPW" name="password" id="password" placeholder="비밀번호" type="password" maxlength="50"></input>
+					<input class="loginBodyButton" id="loginSubmit" value="로그인" type="submit"></input>
+				</form>
 				<div class="loginSignupButton">
 					하나은행
 				</div>
