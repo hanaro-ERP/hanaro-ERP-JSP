@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/view/customerList/customerList.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchResultTable/searchResultTable.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
 <body>
@@ -148,6 +150,66 @@
 					<button id="customerSearchButton" type="button">검색</button>
 				</div>
 			</form>
+			
+			<div class="searchTitle"><h1>검색 결과</h1></div>
+			<table class="searchTable" id="customerSearchTable">
+				<tr>
+					<th>고객 ID</th>
+					<th>이름</th>
+					<th>나이</th>
+					<th>성별</th>
+					<th>신용 등급</th>
+					<th>담당 직원</th>
+					<th>주거래지점</th>
+					<th>국가</th>
+					<th>장애 등급</th>
+					<th>작업 코드</th>
+					<th>고객 등급</th>
+					<th>위험도</th>
+				</tr>
+				<tr>
+					<td>001</td>
+					<td>백연정</td>
+					<td>27</td>
+					<td>여</td>
+					<td>1등급</td>
+					<td>백연정</td>
+					<td>성수점</td>
+					<td>대한민국</td>
+					<td>-</td>
+					<td>000</td>					
+					<td>VVIP</td>
+					<td>0점</td>
+				</tr>
+				<tr>
+					<td>001</td>
+					<td>백연정</td>
+					<td>27</td>
+					<td>여</td>
+					<td>1등급</td>
+					<td>백연정</td>
+					<td>성수점</td>
+					<td>대한민국</td>
+					<td>-</td>
+					<td>000</td>					
+					<td>VVIP</td>
+					<td>0점</td>
+				</tr>
+				<tr>
+					<td>001</td>
+					<td>백연정</td>
+					<td>27</td>
+					<td>여</td>
+					<td>1등급</td>
+					<td>백연정</td>
+					<td>성수점</td>
+					<td>대한민국</td>
+					<td>-</td>
+					<td>000</td>					
+					<td>VVIP</td>
+					<td>0점</td>
+				</tr>
+			</table>
 		</div>
 	</main>
 	<script>
