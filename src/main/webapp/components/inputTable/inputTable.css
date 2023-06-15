@@ -19,22 +19,30 @@
 }
 .inputTable > tbody > tr > td, th {
 	padding: 0 4px;
-	border: 2px solid #B0B8C1;
+	border: 1px solid #B0B8C1;
 }
 td > input {
 	height: 30px;
-	border: 2px solid #B0B8C1;
+	border: 1px solid #B0B8C1;
 	border-radius: 3px;
 }
-td > select {
-	width: 23%;
+td  select {
 	height: 30px;
-	border: 2px solid #B0B8C1;
+	border: 1px solid #B0B8C1;
 	border-radius: 3px;
 	text-align: center;
 }
+.shortSelect {
+	width: 23%;
+}
+.longSelect {
+	width: 50%;
+}
 .shortInput {
 	width: 23%;
+}
+.middleInput {
+	width: 50%;
 }
 .longInput {
 	width: 100%;

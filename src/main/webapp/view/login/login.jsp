@@ -3,9 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Login</title>
-	<link rel="stylesheet" href="./login.css">
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet" href="./login.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/default.css?ver=1">
 </head>
 
 <body>

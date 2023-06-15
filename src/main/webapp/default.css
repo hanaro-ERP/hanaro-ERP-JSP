@@ -34,7 +34,8 @@
 	box-sizing: border-box;
 }
 body {
-	width: 100%;
+	width: 100vm;
+	height: 100%;
 	margin: 0;
 }
 main {
@@ -63,7 +64,9 @@ h2 {
 	margin: 0;
 }
 .innerContainer {
+	display: inline-block;
 	padding-left: 30px;
+	background-color: #F9FAFB;
 }
 .innerTitle {
 	width: 1450px;

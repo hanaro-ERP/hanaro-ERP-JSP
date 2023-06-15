@@ -11,17 +11,16 @@
 	<div class="container">
 		<div class="headerBox">
 			<div class="headerContent">
-			<green class="mainGreen">하나로</green>여신
-			<br>
-			관리시스템
+				<green class="mainGreen">하나로</green>
+				여신
+				<br>
+				관리시스템
 			</div>
 		</div>
 		<div class="bodyBox">
 			<div class="bodyContainer">
-				<div class="bodyTitleBox">
-					<div class="bodyTitle mainBlack1">
-						사용하실 서비스를 선택해주세요!
-					</div>
+				<div class="bodyTitle mainBlack1">
+					사용하실 서비스를 선택해주세요!
 				</div>
 				<div class="bodyContentBox">
 					<div class="bodyCardBox first">
