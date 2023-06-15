@@ -215,7 +215,7 @@
 	<script>
 		generateMenu('customer');		
 	</script>
-	<script src="${pageContext.request.contextPath}/view/loanProductList/loanProductList.js "></script>
-	<script src="${pageContext.request.contextPath}/view/customerList/customerList.js "></script>
+	<script src=" "></script>
+	<script src="${pageContext.request.contextPath}/view/customer/customerList/customerList.js "></script>
 </body>
 </html>
