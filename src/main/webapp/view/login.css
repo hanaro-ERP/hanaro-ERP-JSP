@@ -39,7 +39,6 @@
 	font-size: 14px;
 	box-sizing: border-box;
 }
-
 .loginBodyIDPW{
 	width: 100%;
 	height: 48px;
@@ -51,7 +50,6 @@
 	box-sizing: border-box;	
 	color: #8B95A1;
 }
-
 .loginBodyButton{
 	width: 100%;
 	border-radius: 10pt;
@@ -63,7 +61,6 @@
 	box-sizing: border-box;
 	color: #F9FAFB;
 }
-
 .loginSignupButton{
 	width: 100%;
 	height: 19px;

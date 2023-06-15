@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/view/loanProductList/loanProductList.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/default.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
 <body>
@@ -14,18 +14,18 @@
 		<%@ include file="../../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>여신 상품 검색</h1></div>
-			<form class="loanProductInformationContainer">
+			<form>
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
-				<div class="loanProductInformation">
-					<div class="loanProductInformationRow">
-						<div class="loanProductInformationRowTitle">대출 구분</div>
-						<select id="loanType">
+				<div class="innerInformation">
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">대출 구분</div>
+						<select id="loanType" class="innerSelectBox">
 							<option value="creditLoan">신용 대출</option>
 							<option value="mortgageLoan">담보 대출</option>
 						</select>
 					</div>
-					<div class="loanProductInformationRow">
-						<div class="loanProductInformationRowTitle">직업</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">직업</div>
 						<ul id="loanProductJob">
 							<li>전체</li>
 							<li>직장인</li>
@@ -38,8 +38,8 @@
 							<li>무직</li>
 						</ul>
 					</div>
-					<div class="loanProductInformationRow">
-						<div class="loanProductInformationRowTitle">기간</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">기간</div>
 						<ul id="loanProductPeriod">
 							<li>전체</li>
 							<li>1년</li>
@@ -50,8 +50,8 @@
 							<li>10년 이상</li>
 						</ul>
 					</div>
-					<div class="loanProductInformationRow">
-						<div class="loanProductInformationRowTitle">연소득</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">연소득</div>
 						<ul id="loanProductIncome">
 							<li>전체</li>
 							<li>~2천만원</li>
@@ -61,8 +61,8 @@
 							<li>1억원 이상</li>
 						</ul>
 					</div>
-					<div class="loanProductInformationRow">
-						<div class="loanProductInformationRowTitle">대출 한도</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">대출 한도</div>
 						<ul id="loanProductLimit">
 							<li>전체</li>
 							<li>5천만원</li>
@@ -71,8 +71,8 @@
 							<li>10억원</li>
 						</ul>
 					</div>
-					<div class="loanProductInformationRow">
-						<div class="loanProductInformationRowTitle">상품 이름</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">상품 이름</div>
 						<input id="loanProductSearchInput"></input>
 					</div>
 				</div>
