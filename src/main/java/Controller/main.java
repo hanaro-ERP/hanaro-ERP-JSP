@@ -8,7 +8,7 @@ public class main {
 		// TODO Auto-generated method stub
 		TestDAO bDao = new TestDAO();
 		bDao.selectOne();
-		System.out.println("??");
+		System.out.println("테스트");
 	}
 
 }
