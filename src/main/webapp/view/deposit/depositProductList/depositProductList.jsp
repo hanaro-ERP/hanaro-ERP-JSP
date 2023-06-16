@@ -43,8 +43,8 @@
 							<li>전체</li>
 							<li id="directInput">
 								직접 입력&nbsp;&nbsp;
-								<input id="startAge" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이상</p>
-								<input id="endAge" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이하</p>
+								<input id="startBalance" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이상</p>
+								<input id="endBalance" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이하</p>
 							</li>
 							<li>~2천만원</li>
 							<li>~3천만원</li>

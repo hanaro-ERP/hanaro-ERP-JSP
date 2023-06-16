@@ -10,14 +10,14 @@ let pwLongEnough = false;
 
 employeeId.addEventListener("input", () => {
 	const regex = /[^0-9]/g;
-    employeeId.value = employeeId.value.replace(regex, "");
-    idLongEnough = employeeId.value.length >= MINIMUM_ID_LENGTH ? true : false;
-    toggleLoginButton(idLongEnough, pwLongEnough);
+	employeeId.value = employeeId.value.replace(regex, "");
+	idLongEnough = employeeId.value.length >= MINIMUM_ID_LENGTH ? true : false;
+	toggleLoginButton(idLongEnough, pwLongEnough);
 });
 
 password.addEventListener("input", () => {
-    pwLongEnough = password.value.length >= MINIMUM_PW_LENGTH ? true : false;
-    toggleLoginButton(idLongEnough, pwLongEnough);
+	pwLongEnough = password.value.length >= MINIMUM_PW_LENGTH ? true : false;
+	toggleLoginButton(idLongEnough, pwLongEnough);
 });
 
 function toggleLoginButton(idLongEnough, pwLongEnough){

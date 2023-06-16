@@ -13,13 +13,13 @@ public class EmployeeDAO {
 	public EmployeeDAO(int employeeId) {
 		conn = DatabaseUtil.getConnection();
     }
-    public String returnPasswordFromDatabase(int employeeId) {
+    public String getEmployeePasswordByEId(int employeeId) {
     	String query = "SELECT password FROM employees WHERE e_id = ?;";
     	try {
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1, employeeId);
             ResultSet resultSet = statement.executeQuery();
-            
+           
             if (resultSet.next()) {
                 String storedPassword = resultSet.getString("password");
                 resultSet.close();
@@ -29,7 +29,7 @@ public class EmployeeDAO {
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
-    	return null;
+    	return "Failed";
     }
     
 }
