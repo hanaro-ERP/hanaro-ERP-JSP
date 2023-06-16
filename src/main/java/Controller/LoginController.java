@@ -31,14 +31,6 @@ public class LoginController extends HttpServlet {
 		request.getSession().setAttribute("errorMessage", errorMessage);
 		response.sendRedirect(request.getContextPath() + "/view/login/login.jsp");
 	}
-//	if (employeeId != null) request.setAttribute("employeeId", employeeId);
-//	ServletContext app = this.getServletContext();
-//	RequestDispatcher dispatcher = app.getRequestDispatcher("/view/login/login.jsp");
-//	try {
-//		dispatcher.forward(request, response);
-//	} catch (ServletException e) {
-//		System.out.println(e);
-//	}		
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		requestPro(request, response);
 	}
