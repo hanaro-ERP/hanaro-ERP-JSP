@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+#customerAge {
+	width: 870px;
+	height: 60px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+#customerDetailButton {
+	border: transparent;
+	background: transparent;
+	font-size: 26px;
+	cursor: pointer;
+}
+#directInput {
+	width: auto;
+	display: flex;
+	align-items: center;
+	margin-right: 100px;
+}
+#directInput:hover {
+	cursor: default;
+	color: #B0B8C1;
+}
+#customerCountry {
+	margin-right: 200px;
+}
+.searchTable tr th:first-child {
+	width: 100px;
+}
+.searchTable tr th:nth-child(n + 3):nth-child(-n + 5), 
+.searchTable tr th:nth-child(n + 9):nth-child(-n + 11){
+	width: 100px;
+}
+.searchTable tr th:nth-child(2),
+.searchTable tr th:nth-child(6),
+.searchTable tr th:nth-child(8) {
+	width: 130px;
+}
+.searchTable tr th:nth-child(7){
+	width: 180px;
+}
+

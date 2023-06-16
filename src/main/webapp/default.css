@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Hana2';
+	src: url('public/fonts/Hana2-Regular.otf') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Hana2';
+	src: url('public/fonts/Hana2-Bold.otf') format('woff');
+	font-weight: bold;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Hana2';
+	src: url('public/fonts/Hana2-Regular.ttf') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Hana2';
+	src: url('public/fonts/Hana2-Bold.ttf') format('woff');
+	font-weight: bold;
+	font-style: normal;
+}
+:root {
+ 	--primary-color: #2DB400;
+}
+* {
+	font-family: 'Hana2', 'Notosans_Regular', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+	box-sizing: border-box;
+}
+body {
+	width: 100%;
+	margin: 0;
+}
+main {
+	min-height: 900px;
+	display: flex;
+	margin-top: 80px;
+	background-color: #F9FAFB;
+}
