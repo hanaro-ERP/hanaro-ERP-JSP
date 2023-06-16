@@ -17,7 +17,8 @@
 				</div>
 				<form class="loginBodyBox" action="${pageContext.request.contextPath}/LoginController" method="post">
 					<% 
-						String employeeId = (String) request.getAttribute("employeeId");
+						String employeeId = (String) request.getSession().getAttribute("employeeId");
+						session.removeAttribute("employeeId");
 						if (employeeId != null) {
 					%>
 						<input class="loginBodyIDPW" name="employeeId" id="employeeId" placeholder="회원번호" value="<%= employeeId %>" type="text" maxlength="8"></input>
@@ -32,7 +33,8 @@
 					<input class="loginBodyButton" id="loginSubmit" value="로그인" type="submit"></input>
 				</form>
 				<% 
-					String errorMessage = (String) request.getAttribute("errorMessage");
+					String errorMessage = (String) request.getSession().getAttribute("errorMessage");
+					session.removeAttribute("errorMessage");
 					if (errorMessage != null) {
 				%>
 					<p style="color: red"><%= errorMessage %></p>
