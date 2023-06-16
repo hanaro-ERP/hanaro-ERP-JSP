@@ -48,11 +48,10 @@ public class LoginController extends HttpServlet {
 			redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 입력하지 않았습니다.", request.getParameter("employeeId"));
 			return;
 		}
-		String employeeIdString = request.getParameter("employeeId");
-    	String password = request.getParameter("password");
-    	int employeeId = Integer.parseInt(employeeIdString);
-    	EmployeeDTO employeeDTO = new EmployeeDTO(employeeId, password);
-    	boolean loginSuccess = LoginService.authenticateEmployee(employeeDTO);
+		int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+		String password = request.getParameter("password");
+		EmployeeDTO employeeDTO = new EmployeeDTO(employeeId, password);
+		boolean loginSuccess = LoginService.authenticateEmployee(employeeDTO);
 
     	if (loginSuccess) {
 			response.sendRedirect(request.getContextPath() + "/view/main/main.jsp");
