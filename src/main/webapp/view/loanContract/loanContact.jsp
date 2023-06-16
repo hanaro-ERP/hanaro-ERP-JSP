@@ -55,11 +55,22 @@
 					<div class="loanContractInformationRow" id="balance">
 						<div class="loanContractInformationRowTitle">대출 잔액</div>
 						<ul id="balanceList">
+<<<<<<< HEAD
 							<li>전체</li>		
 							<li id="directInput">직접 입력&nbsp;&nbsp;
 								<input>&nbsp;만원 이상&nbsp;&nbsp;
 								<input>&nbsp;만원 이상
 							</li>
+=======
+							<li>전체</li>
+							<li class="directInput">직접입력</li>
+							<div>
+								<li id="noChoice">
+								<span><input id="startBalance"> 만원 이상</span> 
+								<span><input id="endBalance"> 만원 이하</span>
+								</li>
+							</div> 
+>>>>>>> 58c33d0add7da21ead2c02bfc291ac44e4304630
 							<li>~2천만원</li>
 							<li>~3천만원</li>
 							<li>~5천만원</li>

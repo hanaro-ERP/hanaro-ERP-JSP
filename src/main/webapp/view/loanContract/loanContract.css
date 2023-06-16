@@ -53,6 +53,7 @@
 	text-align: center;
 }
 #balance {
+<<<<<<< HEAD
 	height: 102px;
 }
 #balanceList {
@@ -69,4 +70,27 @@
 #directInput > input {
 	width: 100px; 
 	height: 20px;	
+=======
+	height: 99px;
+}
+#balanceList {
+   width: 870px;
+   height: 99px !important;
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+}
+#balanceList > div> li {
+   width: 670px;
+   color: #B0B8C1;
+   list-style-type: none;
+}
+#balanceList > div> li span {
+   width: 160px;
+}
+#balanceList > div> li > span > input {
+   width: 80px;
+   height: 21px;
+   border: 1px solid #B0B8c1;
+>>>>>>> 58c33d0add7da21ead2c02bfc291ac44e4304630
 }

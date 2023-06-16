@@ -53,13 +53,11 @@ function setDaySelect(isInitial) {
 		yearSelect = parseInt(yearSelectRow.value);
 		monthSelect = parseInt(monthSelectRow.value);
 		daySelect = parseInt(daySelectRow.value);
-
 		endDay = new Date(yearSelect, monthSelect, 0).getDate();
 
 		Array.from(daySelectList).forEach(daySelectRow => {
 			daySelectRow.innerHTML = "";
 		});
-
 		Array.from(daySelectList).forEach(daySelectRow => {
 			for (let day = 1; day <= endDay; day++) {
 				const option = document.createElement("option");
@@ -122,7 +120,6 @@ function handleDateSelect(event, isYear) {
 		monthSelect = selectedDate.value;
 		yearSelect = parseInt(yearSelectRow.value);
 	}
-
 	setDaySelect(false); // 일 범위 바꾸기
 }
 
