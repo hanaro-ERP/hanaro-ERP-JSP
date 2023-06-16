@@ -83,7 +83,7 @@
 			</form>
 			<div>
 				<div class="innerSubTitle"><h2>검색 결과</h2></div>
-				<table class="searchTable" id="customerSearchTable">
+				<table class="searchTable" id="loanSearchTable">
 					<tr>
 						<th>상품 ID</th>
 						<th>대출 구분</th>
