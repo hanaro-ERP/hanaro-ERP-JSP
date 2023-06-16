@@ -15,7 +15,7 @@
 		<%@ include file="../../../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>여신 상품 검색</h1></div>
-			<form>
+			<form action="${pageContext.request.contextPath}/loanProductSearch" method="post">
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
 				<div class="innerInformation">
 					<div class="innerInformationRow">
@@ -78,9 +78,17 @@
 					</div>
 				</div>
 				<div class="innerButtonContainer">
-					<button type="button">검색</button>
+					<button type="submit">검색</button>
 				</div>
 			</form>
+			<% String[] selectedJobs = (String[]) request.getAttribute("searchResults");
+				if (selectedJobs != null) {
+					for (String job : selectedJobs) {
+						out.println(job);
+						out.println("<br>");
+					}
+				}
+			%>
 			<div>
 				<div class="innerSubTitle"><h2>검색 결과</h2></div>
 				<table class="searchTable" id="loanSearchTable">

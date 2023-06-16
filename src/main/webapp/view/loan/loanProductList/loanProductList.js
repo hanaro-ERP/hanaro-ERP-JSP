@@ -94,6 +94,15 @@ function initializeSelectItems(selectedLoanType) {
 	productInput.value = "";
 }
 
+function toggleNameSelect(item){
+	console.log(item.className);
+	if (item.className === 'selectedLi') {
+		item.setAttribute('name', 'dynamicName');
+	} else {
+		item.removeAttribute('name');
+	}
+}
+
 function selectItems(ulId) {
 	const ulElement = document.getElementById(ulId);
 
@@ -101,28 +110,33 @@ function selectItems(ulId) {
 	const firstListItem = listItems[0];
 
 	firstListItem.classList.add('selectedLi');
-
+	toggleNameSelect(firstListItem);
+	
 	listItems.forEach((item, index) => {
 		if (index !== 0) {
 			item.addEventListener('click', () => {
-			item.classList.toggle('selectedLi');
-			firstListItem.classList.remove('selectedLi');
+				item.classList.toggle('selectedLi');
+				toggleNameSelect(item);
+				firstListItem.classList.remove('selectedLi');
+				toggleNameSelect(firstListItem);
 			});
 		}
 	});
 
 	firstListItem.addEventListener('click', () => {
     	firstListItem.classList.toggle('selectedLi');
-
+    	toggleNameSelect(firstListItem);
+    	
 		listItems.forEach((item, index) => {
 			if (index !== 0) {
 				item.classList.remove('selectedLi');
+				toggleNameSelect(item);
 			}
 		});
 	});
 }
 
-const searchButton = document.querySelector('button[type="button"]');
+const searchButton = document.querySelector('button[type="submit"]');
 
 searchButton.addEventListener('click', function() {
  	const selectedLoanType = loanTypeSelect.value;
