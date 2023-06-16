@@ -81,6 +81,51 @@
 					<button type="button">검색</button>
 				</div>
 			</form>
+			<div>
+				<div class="innerSubTitle"><h2>검색 결과</h2></div>
+				<table class="searchTable" id="customerSearchTable">
+					<tr>
+						<th>상품 ID</th>
+						<th>대출 구분</th>
+						<th>담보 종류</th>
+						<th>연소득</th>
+						<th>상품 이름</th>
+						<th>대출 금액</th>
+						<th>최대 기간</th>
+						<th>대출 이율</th>
+					</tr>
+					<tr>
+						<td>001</td>
+						<td>신용 대출</td>
+						<td>-</td>
+						<td>1억 이상</td>
+						<td>쉽고빠른상준론</td>
+						<td>10억</td>
+						<td>5년</td>
+						<td>10%</td>
+					</tr>
+					<tr>
+						<td>001</td>
+						<td>신용 대출</td>
+						<td>-</td>
+						<td>1억 이상</td>
+						<td>쉽고빠른상준론</td>
+						<td>10억</td>
+						<td>5년</td>
+						<td>10%</td>
+					</tr>
+					<tr>
+						<td>001</td>
+						<td>신용 대출</td>
+						<td>-</td>
+						<td>1억 이상</td>
+						<td>쉽고빠른상준론</td>
+						<td>10억</td>
+						<td>5년</td>
+						<td>10%</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</main>
 	<script>

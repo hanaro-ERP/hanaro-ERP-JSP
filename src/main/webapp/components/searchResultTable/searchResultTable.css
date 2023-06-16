@@ -3,14 +3,16 @@
 	margin-top: 15px;
 	margin-bottom: 20px;
 	box-sizing: border-box;
-	border-collapse: collapse;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-collapse: separate;
+	border-spacing: 1;
 }
-.searchTable tr th{
-	background: #2DB400; /*#8B95A1;*/
+.searchTable tr th {
+	background: #2DB400;
 	height: 40px;
 	color: #FFFFFF;
-	border-style: hidden;
-  	box-shadow: 0 0 0 1px #8B95A1;
+	border: 0.5px solid #8B95A1;
 }
 .searchTable tr th:first-child {
 	border-top-left-radius: 5px;
@@ -18,14 +20,15 @@
 .searchTable tr th:last-child {
 	border-top-right-radius: 5px;
 }
-.searchTable tr{
+.searchTable tr {
 	text-align: center;
 	color: #191F29;
+}
+.searchTable tr:hover {
 	cursor: pointer;
+	background-color: #F2F4F6;
 }
 .searchTable tr td{
 	height: 40px;
-	border: 1px solid #8B95A1;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
+	border: 0.5px solid #8B95A1;
 }
