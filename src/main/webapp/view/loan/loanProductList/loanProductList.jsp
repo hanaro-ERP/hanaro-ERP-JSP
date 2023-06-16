@@ -28,15 +28,15 @@
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">직업</div>
 						<ul id="loanProductJob">
-							<li>전체</li>
-							<li>직장인</li>
-							<li>공무원</li>
-							<li>군인</li>
-							<li>금융인</li>
-							<li>전문직</li>
-							<li>의사</li>
-							<li>자영업</li>
-							<li>무직</li>
+							<li><input type="checkBox" value="" id="jobAll">전체</li>
+							<li><input type="checkBox" value="직장인" id="jobEmployee">직장인</li>
+							<li><input type="checkBox" value="공무원" id="jobGovernment">공무원</li>
+							<li><input type="checkBox" value="군인" id="jobMilitary">군인</li>
+							<li><input type="checkBox" value="금융인" id="jobFinance">금융인</li>
+							<li><input type="checkBox" value="전문직" id="jobProfessional">전문직</li>
+							<li><input type="checkBox" value="의사" id="jobDoctor">의사</li>
+							<li><input type="checkBox" value="자영업" id="jobSelfEmployed">자영업</li>
+							<li><input type="checkBox" name="dynamicName" value="무직" id="jobUnemployed">무직</li>
 						</ul>
 					</div>
 					<div class="innerInformationRow">

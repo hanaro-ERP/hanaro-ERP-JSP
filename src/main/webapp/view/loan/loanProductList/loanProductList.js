@@ -95,11 +95,11 @@ function initializeSelectItems(selectedLoanType) {
 }
 
 function toggleNameSelect(item){
-	console.log(item.className);
+	const input = item.querySelector('input');
 	if (item.className === 'selectedLi') {
-		item.setAttribute('name', 'dynamicName');
+		input.setAttribute('name', 'dynamicName');
 	} else {
-		item.removeAttribute('name');
+		input.removeAttribute('name');
 	}
 }
 
