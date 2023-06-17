@@ -10,9 +10,9 @@
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
 <body>
-	<%@ include file="../../components/header/header.jsp" %>
+	<%@ include file="../../../components/header/header.jsp" %>
 	<main>
-		<%@ include file="../../components/aside/aside.jsp" %>
+		<%@ include file="../../../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>여신 상품 검색</h1></div>
 			<form>
@@ -81,11 +81,56 @@
 					<button type="button">검색</button>
 				</div>
 			</form>
+			<div>
+				<div class="innerSubTitle"><h2>검색 결과</h2></div>
+				<table class="searchTable" id="loanSearchTable">
+					<tr>
+						<th>상품 ID</th>
+						<th>대출 구분</th>
+						<th>담보 종류</th>
+						<th>연소득</th>
+						<th>상품 이름</th>
+						<th>대출 금액</th>
+						<th>최대 기간</th>
+						<th>대출 이율</th>
+					</tr>
+					<tr>
+						<td>001</td>
+						<td>신용 대출</td>
+						<td>-</td>
+						<td>1억 이상</td>
+						<td>쉽고빠른상준론</td>
+						<td>10억</td>
+						<td>5년</td>
+						<td>10%</td>
+					</tr>
+					<tr>
+						<td>001</td>
+						<td>신용 대출</td>
+						<td>-</td>
+						<td>1억 이상</td>
+						<td>쉽고빠른상준론</td>
+						<td>10억</td>
+						<td>5년</td>
+						<td>10%</td>
+					</tr>
+					<tr>
+						<td>001</td>
+						<td>신용 대출</td>
+						<td>-</td>
+						<td>1억 이상</td>
+						<td>쉽고빠른상준론</td>
+						<td>10억</td>
+						<td>5년</td>
+						<td>10%</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</main>
 	<script>
-		generateMenu('loan');		
+		generateMenu('loan', 'loanProductList');		
 	</script>
-	<script src="${pageContext.request.contextPath}/view/loanProductList/loanProductList.js "></script>
+	<script src="${pageContext.request.contextPath}/view/loan/loanProductList/loanProductList.js "></script>
 </body>
 </html>

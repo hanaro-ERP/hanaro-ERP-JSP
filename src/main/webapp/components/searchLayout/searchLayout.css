@@ -97,22 +97,4 @@ li > div > input {
 	color: #191F29 !important;
 	font-weight: bold;
 }
-li {
-	list-style: none;
-	text-decoration: none;
-}
-a {
-	color: #191f29;
-	text-decoration: none;
-	outline: none;
-}
-h1 {
-	font-size: 30px;
-	font-weight: bold;
-	margin: 0;
-}
-h2 {
-	font-size: 26px;
-	font-weight: bold;
-	margin: 0;
-}
+

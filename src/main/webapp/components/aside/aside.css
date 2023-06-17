@@ -30,13 +30,16 @@
 	align-items: center;
 	padding-left: 20px;
 }
+#selectedMenuLi,
 .asideMenuContainer > li:hover {
 	cursor: pointer;
 	background-color: #E5E8EB;
 }
+#selectedMenuLi,
 .asideMenuContainer > li:hover a {
 	font-weight: bold;
 }
 .asideMenuContainer > li > a {
 	font-size: 18px;
 }
+	

@@ -5,43 +5,47 @@
 <head>
 <meta charset="UTF-8">
 <title>Deposit</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/view/depositProductList/depositProductList.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/view/deposit/depositProductList/depositProductList.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchResultTable/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
 <body>
-	<%@ include file="../../components/header/header.jsp" %>
+	<%@ include file="../../../components/header/header.jsp" %>
 	<main>
-		<%@ include file="../../components/aside/aside.jsp" %>
+		<%@ include file="../../../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>계좌 검색</h1></div>
-			<div class="loanProductInformationContainer">
+			<div class="innerInformationContainer">
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
-				<div class="loanProductInformation">
-					<div class="loanProductInformationRow">
-						<div class="loanProductInformationRowTitle">고객 이름</div>
+				<div class="innerInformation">
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">고객 이름</div>
 						<input id="depositCustomerSearchInput"></input>
-						<div class="loanProductInformationRowTitle">담당 직원</div>
+						<div class="innerInformationRowTitle">담당 직원</div>
 						<input id="depositEmployeeSearchInput"></input>
 					</div>
-					<div class="loanProductInformationRow">
-						<div class="loanProductInformationRowTitle">계좌 번호</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">계좌 번호</div>
 						<input id="depositAccountNumberSearchInput"></input>
 					</div>
-					<div class="loanProductInformationRow">
-						<div class="loanProductInformationRowTitle">계좌 유형</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">계좌 유형</div>
 						<ul id="loanProductType">
 							<li>전체</li>
 							<li>예금</li>
 							<li>적금</li>
 						</ul>
 					</div>
-					<div class="loanProductInformationRow" id="balanceRow">
-						<div class="loanProductInformationRowTitle">계좌 잔액</div>
+					<div class="innerInformationRow" id="balanceRow">
+						<div class="innerInformationRowTitle">계좌 잔액</div>
 						<ul id="depositProductBalance">
 							<li>전체</li>
-							<li id="directInput">직접 입력&nbsp;&nbsp;<input style="width: 100px; height: 20px">&nbsp;만원 이상&nbsp;&nbsp;<input style="width: 100px; height: 20px">&nbsp;만원 이상</li>
+							<li id="directInput">
+								직접 입력&nbsp;&nbsp;
+								<input id="startBalance" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이상</p>
+								<input id="endBalance" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이하</p>
+							</li>
 							<li>~2천만원</li>
 							<li>~3천만원</li>
 							<li>~5천만원</li>
@@ -51,7 +55,9 @@
 					</div>
 				</div>				
 			</div>
-			<div class="searchButtonBox"><button class="searchButton">검색</button></div>
+			<div class="innerButtonContainer">
+				<button class="searchButton">검색</button>
+			</div>
 			<div class="searchTitle"><h1>검색 결과</h1></div>
 			<table class="searchTable" id="depositSearchTable">
 				<tr>
@@ -233,8 +239,8 @@
 		</div>
 	</main>
 	<script>
-		generateMenu('deposit');		
+		generateMenu('deposit', 'depositProductList');		
 	</script>
-	<script src="${pageContext.request.contextPath}/view/depositProductList/depositProductList.js "></script>
+	<script src="${pageContext.request.contextPath}/view/deposit/depositProductList/depositProductList.js "></script>
 </body>
 </html>
