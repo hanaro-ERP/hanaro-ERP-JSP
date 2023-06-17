@@ -13,10 +13,10 @@ public class Extra {
 	// 지금 EmployeeDAO에서 읽어오는 건 전체 칼럼을 다 읽어오잖아요?
 	// 그런데 읽어오고 싶은 칼럼들만 가져오고 싶을 땐
 	// 이렇게 칼럼들을 가변인자로 적어서 SQL문을 동적으로 작성할 수있도록 메소드를 짜봤음
-	// 나름 객체지향적이고 코드 자체는 간결해질 수 있지만
-	// 너무 효율성이 구리지 않나 하는 생각이 들었음
-	// 멋은 없지만 그냥 요구사항 별로 필요한 쿼리문에 대한 DAO 메소드만 작성하는 나을지도...
-	// ORM 어필까지는 그냥 포기하고 DAO에 쿼리만 다 때려박는 거에만 만족해야 되나 싶음 ㅜㅜ
+	// 나름 객체지향적이고 코드 자체는 간결해질 수 있지만 너무 효율성이 구리지 않나 하는 생각이 들었음
+	// 그냥 이렇게 비효율적이지만 편한 메소드도 하나 만들어놓고
+	// 요구사항 별로 필요한 쿼리문들은 개별적으로 튜닝해서 각각 메소드로 추가하는 게 맞는 거 같은데 너무 귀찮은 작업인 듯
+	// 이상 뉴비의 뇌피셜이었습니다.
 
 	// Read an employee by employeeId with specific columns
 	public EmployeeDTO getEmployeeByEmployeeIdWithColumns(int employeeId, String... columns) {
