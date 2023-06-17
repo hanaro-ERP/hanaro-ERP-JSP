@@ -16,29 +16,34 @@ pageEncoding="UTF-8"%>
 		<%@ include file="../../../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 등록</h1></div>
-			<form>
+			<form action="${pageContext.request.contextPath}/productRegistration" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
 				<table class="inputTable">
  					<tr>
 						<th>상품명</th>
-						<td><input id="productName" class="longInput"/></td>
+						<td>
+							<input name="productName" class="longInput"/>
+						</td>
 						<th>대출 기간</th>
-						<td><input id="loanPeriod" class="shortInput"/></td>
+						<td>
+							<input type="number" name="loanPeriod" class="shortInput"/>
+							개월
+						</td>
 					</tr>
 					<tr>
 						<th>대출 구분</th>
 						<td>
-							<select id="loanType" class="shortSelect">
-								<option value="creditLoan">신용 대출</option>
-								<option value="collateralLoan">담보 대출</option>
+							<select name="loanType" class="shortSelect">
+								<option value="신용대출">신용 대출</option>
+								<option value="담보대출">담보 대출</option>
 							</select>
 						</td>
 						<th>담보 종류</th>
 						<td>
-							<select id="collateralType" class="shortSelect">
-								<option value="savingLoan">예적금</option>
-								<option value="houseLoan">주택</option>
-								<option value="jeonseLoan">전세</option>
+							<select name="collateralType" class="shortSelect">
+								<option value="예적금">예적금</option>
+								<option value="주택">주택</option>
+								<option value="전세">전세</option>
 							</select>
 						</td>
 					</tr>
@@ -46,37 +51,37 @@ pageEncoding="UTF-8"%>
 						<th>최대 한도</th>
 						<td>
 							&nbsp;최대
-							<input id="loanLimit" class="shortInput" type="number" min="1" max="999" step="1" />
+							<input name="loanLimit" class="shortInput" type="number" min="1" max="999" step="1" />
 							천만 원
 						</td>
 						<th>이자</th>
 						<td>
-							<select id="interestRate" class="shortSelect">
-								<option value="compound">복리</option>
-								<option value="interest">단리</option>
+							<select name="interestRate" class="shortSelect">
+								<option value="복리">복리</option>
+								<option value="단리">단리</option>
 							</select>
 							&nbsp;&nbsp;최대
-							<input id="interestRateLimit" class="shortInput" type="number" min="0" max="10" step="0.1" />
+							<input name="interestRateLimit" class="shortInput" type="number" min="0" max="10" step="0.1" />
 							%
 						</td>
 					</tr>
 					<tr>
 						<th>대출 목적</th>
 						<td>
-							<select id="loanPerpose" class="shortSelect">
+							<select name="loanPerpose" class="shortSelect">
 								<option>??</option>
 								<option>??</option>
 							</select>
 						</td>
 						<th>적정 위험도</th>
 						<td>
-							<input id="adequateRisk" class="shortInput" type="number" min="0" max="100" step="1" />
+							<input name="adequateRisk" class="shortInput" type="number" min="0" max="100" step="1" />
 							점
 						</td>
 					</tr>
 				</table>
 				<div class="innerButtonContainer">
-					<button type="button">검색</button>
+					<button type="submit">등록</button>
 				</div>
   			</form>
         </div>
@@ -84,5 +89,6 @@ pageEncoding="UTF-8"%>
     <script>
 		generateMenu('loan', 'productRegistration');		
 	</script>
+	<script src="${pageContext.request.contextPath}/view/loan/productRegistration/productRegistration.js "></script>
 </body>
 </html>
