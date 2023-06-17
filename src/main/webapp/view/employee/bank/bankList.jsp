@@ -16,17 +16,17 @@
 		
 		<div class="innerContainer" id="container2">
 			<div class="innerTitle"><h1>지점 목록</h1></div>
-			<div class="innerInformationContainer">
+			<form action="${pageContext.request.contextPath}/bankList" method="post">
 				<div class="innerSubTitle"><h2>지점 정보</h2></div>
 				<div class="innerInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">이름(ID)</div>
-						<input id="bankLocNameSearchInput"></input>
+						<input name="bankName" id="bankLocNameSearchInput"></input>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">거주지</div>
 						<div class="innerInformationRowSubtitle">시·도</div>
-						<select id="citySelect" class="innerSelectBox">
+						<select name="citySelect" class="innerSelectBox">
 							<option value="Seoul">서울</option>
 							<option value="Busan">부산</option>
 							<option value="Daegu">대구</option>
@@ -46,7 +46,7 @@
 							<option value="Jeju">제주</option>
 						</select>
 						<div class="innerInformationRowSubtitle">시·군·구</div>
-						<select id="district" class="innerSelectBox">
+						<select name="district" class="innerSelectBox">
 							<optgroup label="서울특별시">
 								<option value="종로구">종로구</option>
 								<option value="중구">중구</option>
@@ -62,9 +62,11 @@
 						<!-- 다른 시/도들을 추가로 작성 -->
 						</select>
 					</div>
-					
 				</div>
-			</div>
+				<div class="innerButtonContainer">
+					<button type="submit">검색</button>
+				</div>
+			</form>
 		</div>
 	</main>
 	<script>
