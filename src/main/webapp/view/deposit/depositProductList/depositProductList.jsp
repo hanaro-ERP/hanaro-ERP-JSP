@@ -16,48 +16,48 @@
 		<%@ include file="../../../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>계좌 검색</h1></div>
-			<div class="innerInformationContainer">
+			<form action="${pageContext.request.contextPath}/depositList" method="post">
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
 				<div class="innerInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">고객 이름</div>
-						<input id="depositCustomerSearchInput"></input>
+						<input name="customerName" id="depositCustomerSearchInput"></input>
 						<div class="innerInformationRowTitle">담당 직원</div>
-						<input id="depositEmployeeSearchInput"></input>
+						<input name="employeeName"id="depositEmployeeSearchInput"></input>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">계좌 번호</div>
-						<input id="depositAccountNumberSearchInput"></input>
+						<input name="accountNumber" id="depositAccountNumberSearchInput"></input>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">계좌 유형</div>
-						<ul id="loanProductType">
-							<li>전체</li>
-							<li>예금</li>
-							<li>적금</li>
+						<ul id="depositType">
+							<li><input type="checkbox" value="전체" />전체</li>
+							<li><input type="checkbox" value="예금" />예금</li>
+							<li><input type="checkbox" value="적금" />적금</li>
 						</ul>
 					</div>
 					<div class="innerInformationRow" id="balanceRow">
 						<div class="innerInformationRowTitle">계좌 잔액</div>
-						<ul id="depositProductBalance">
-							<li>전체</li>
+						<ul id="depositBalance">
+							<li><input type="checkbox" value="전체" />전체</li>
 							<li id="directInput">
-								직접 입력&nbsp;&nbsp;
-								<input id="startBalance" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이상</p>
-								<input id="endBalance" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이하</p>
+								<p>직접 입력</p>
+								<input id="startBalance" name="depositBalance" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이상</p>
+								<input id="endBalance" name="depositBalance" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이하</p>
 							</li>
-							<li>~2천만원</li>
-							<li>~3천만원</li>
-							<li>~5천만원</li>
-							<li>~1억원</li>
-							<li>1억원 이상</li>
+							<li><input type="checkbox" value="~2천만원" />~2천만원</li>
+							<li><input type="checkbox" value="~3천만원" />~3천만원</li>
+							<li><input type="checkbox" value="~5천만원" />~5천만원</li>
+							<li><input type="checkbox" value="~1억원" />~1억원</li>
+							<li><input type="checkbox" value="1억원 이상" />1억원 이상</li>
 						</ul>
 					</div>
 				</div>				
-			</div>
-			<div class="innerButtonContainer">
-				<button class="searchButton">검색</button>
-			</div>
+				<div class="innerButtonContainer">
+					<button class="searchButton" type="submit">검색</button>
+				</div>
+			</form>
 			<div class="searchTitle"><h1>검색 결과</h1></div>
 			<table class="searchTable" id="depositSearchTable">
 				<tr>
@@ -238,9 +238,10 @@
 			</div>
 		</div>
 	</main>
+	<script src="${pageContext.request.contextPath}/components/searchLayout/searchLayout.js"></script>
 	<script>
 		generateMenu('deposit', 'depositProductList');		
 	</script>
-	<script src="${pageContext.request.contextPath}/view/deposit/depositProductList/depositProductList.js "></script>
+	<script src="${pageContext.request.contextPath}/view/deposit/depositProductList/depositProductList.js"></script>
 </body>
 </html>
