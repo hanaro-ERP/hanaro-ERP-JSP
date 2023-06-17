@@ -89,6 +89,7 @@ pageEncoding="UTF-8"%>
     <script>
 		generateMenu('loan', 'productRegistration');		
 	</script>
-	<script src="${pageContext.request.contextPath}/view/loan/productRegistration/productRegistration.js "></script>
+	<script src="${pageContext.request.contextPath}/components/inputTable/inputTable.js "></script>
+	<script src="${pageContext.request.contextPath}/view/loan/productRegistration/productRegistration.js"></script>
 </body>
 </html>

@@ -193,7 +193,7 @@ pageEncoding="UTF-8"%>
 								<option value="compound">단리</option>
 							</select>
 							&nbsp;연
-							<input value="text" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
+							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
 							%
 						</td>
 					</tr>
@@ -223,6 +223,7 @@ pageEncoding="UTF-8"%>
     <script>
 		generateMenu('loan', 'productSubscription');		
 	</script>
+	<script src="${pageContext.request.contextPath}/components/inputTable/inputTable.js "></script>
 	<script src="${pageContext.request.contextPath}/view/loan/productSubscription/productSubscription.js "></script>
 </body>
 </html>
