@@ -28,7 +28,7 @@ public class EmployeeListController extends HttpServlet {
 	
 	protected void postEmployeeListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String[] infos = {"bankName", "citySelect", "district"};
+			String[] infos = {"employeeName", "bankLocation", "department", "position"};
 			
 			for (int i = 0; i < infos.length; i++) {
 			    String[] selectedJobs = request.getParameterValues(infos[i]);
