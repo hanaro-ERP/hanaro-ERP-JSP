@@ -23,10 +23,10 @@ public class customerListController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		postcustomerListProcess(request, response);
+		postCustomerListProcess(request, response);
 	}
 	
-	protected void postcustomerListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void postCustomerListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String[] infos = {"customerName", "jobCode", "customerEmployee", "bankLocation", "customerAge", "customerGender", "customerGrade", "customerCredit", "customerCountry", "disabilityGrade", "citySelect", "district"};
 			
