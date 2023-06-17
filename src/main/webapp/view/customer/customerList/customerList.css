@@ -13,16 +13,6 @@
 	font-size: 26px;
 	cursor: pointer;
 }
-#directInput {
-	width: auto;
-	display: flex;
-	align-items: center;
-	margin-right: 100px;
-}
-#directInput:hover {
-	cursor: default;
-	color: #B0B8C1;
-}
 #customerCountry {
 	margin-right: 200px;
 }
