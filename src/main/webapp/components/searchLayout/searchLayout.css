@@ -107,3 +107,12 @@ input[type="checkbox"] {
   margin: 0;
 }
 
+#directInput {
+	width: auto;
+	display: flex;
+	align-items: center;
+	margin-right: 100px;
+}
+#directInput > p {
+	margin: 0 10px;
+}
