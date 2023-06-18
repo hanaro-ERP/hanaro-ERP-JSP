@@ -103,6 +103,4 @@ function initializeSelectItems(selectedLoanType) {
 	productInput.value = "";
 }
 
-
-
 initializeSelectItems(loanTypeSelect.value);

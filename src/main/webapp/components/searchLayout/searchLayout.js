@@ -114,7 +114,6 @@ function selectMultiItemsWithDirectInput(ulId) {
 				toggleDirectInput(secondListItem, false);
 			});
 		}
-		
 	});
 
 	firstListItem.addEventListener('click', () => {
@@ -125,7 +124,6 @@ function selectMultiItemsWithDirectInput(ulId) {
 				unselectItem(item);
 			}
 		});
-		
 		toggleDirectInput(secondListItem, false);
 	});	
 	
@@ -137,8 +135,6 @@ function selectMultiItemsWithDirectInput(ulId) {
 				unselectItem(item);
 			}
 		});
-		
 		toggleDirectInput(secondListItem, true);
 	});	
 }
-
