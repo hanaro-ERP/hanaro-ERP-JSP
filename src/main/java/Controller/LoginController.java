@@ -21,39 +21,52 @@ public class LoginController extends HttpServlet {
 	public LoginController() {
 		super();
 	}
+
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 	}
+
 	public void destroy() {
 	}
-	protected void redirectWithErrorMessage(HttpServletRequest request, HttpServletResponse response, String errorMessage, String employeeId) throws ServletException, IOException {
+
+	protected void redirectWithErrorMessage(HttpServletRequest request, HttpServletResponse response,
+			String errorMessage, String employeeId) throws ServletException, IOException {
 		request.setAttribute("errorMessage", errorMessage);
-		if (employeeId != null) request.setAttribute("employeeId", employeeId);
+		if (employeeId != null)
+			request.setAttribute("employeeId", employeeId);
 		ServletContext app = this.getServletContext();
 		RequestDispatcher dispatcher = app.getRequestDispatcher("/view/login/login.jsp");
 		try {
 			dispatcher.forward(request, response);
 		} catch (ServletException e) {
 			System.out.println(e);
-		}		
+		}
 	}
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		requestPro(request, response);
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		requestPro(request, response);
 	}
-	protected void requestPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void requestPro(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (request.getParameter("employeeId") == "" || request.getParameter("password") == "") {
 			redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 입력하지 않았습니다.", request.getParameter("employeeId"));
 			return;
 		}
 		int employeeId = Integer.parseInt(request.getParameter("employeeId"));
 		String password = request.getParameter("password");
-		EmployeeDTO employeeDTO = new EmployeeDTO(employeeId, password);
+		EmployeeDTO employeeDTO = new EmployeeDTO();
+		employeeDTO.setEmployeeId(employeeId);
+		employeeDTO.setPassword(password);
 		boolean loginSuccess = LoginService.authenticateEmployee(employeeDTO);
 
-    	if (loginSuccess) {
+		if (loginSuccess) {
 			response.sendRedirect(request.getContextPath() + "/view/main/main.jsp");
 		} else {
 			redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 잘못 입력했습니다.", String.valueOf(employeeId));
