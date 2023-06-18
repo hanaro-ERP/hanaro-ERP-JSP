@@ -16,7 +16,7 @@ pageEncoding="UTF-8"%>
 		<%@ include file="../../../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 등록</h1></div>
-			<form action="${pageContext.request.contextPath}/productRegistration" method="post" onsubmit="return validateForm()">
+			<form action="${pageContext.request.contextPath}/loanRegistration" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
 				<table class="inputTable">
  					<tr>

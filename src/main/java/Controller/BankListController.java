@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/bankList")
 public class BankListController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
 	public BankListController() {
 		super();
 	}

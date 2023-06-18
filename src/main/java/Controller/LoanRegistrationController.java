@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/productRegistration")
-public class ProductRegistrationController extends HttpServlet {
-	public ProductRegistrationController() {
+@WebServlet("/loanRegistration")
+public class LoanRegistrationController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	public LoanRegistrationController() {
 		super();
-        // TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -24,10 +25,10 @@ public class ProductRegistrationController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		getLoanProductListProcess(request, response);
+		postLoanRegistrationProcess(request, response);
 	}
 	
-	protected void getLoanProductListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void postLoanRegistrationProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String[] infos = {"productName", "loanPeriod", "loanType", "collateralType", "loanLimit", "interestRate", "interestRateLimit", "loanPerpose", "adequateRisk"};
 			

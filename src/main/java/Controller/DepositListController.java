@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/depositList")
-public class depositListController extends HttpServlet {
-	public depositListController() {
+public class DepositListController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	public DepositListController() {
 		super();
 	}
 

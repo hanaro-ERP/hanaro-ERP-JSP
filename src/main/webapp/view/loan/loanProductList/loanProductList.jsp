@@ -15,7 +15,7 @@
 		<%@ include file="../../../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>여신 상품 검색</h1></div>
-			<form action="${pageContext.request.contextPath}/loanProductSearch" method="post">
+			<form action="${pageContext.request.contextPath}/loanProductList" method="post">
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
 				<div class="innerInformation">
 					<div class="innerInformationRow">

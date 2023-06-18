@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/employeeList")
 public class EmployeeListController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
 	public EmployeeListController() {
 		super();
 	}
