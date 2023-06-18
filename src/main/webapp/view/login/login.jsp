@@ -28,7 +28,7 @@
 					<%
 						}
 					%>
-					<input class="loginBodyIDPW" name="password" id="password" placeholder="비밀번호" type="password" maxlength="50"></input>
+					<input class="loginBodyIDPW" name="password" id="password" placeholder="비밀번호" type="password" maxlength="20"></input>
 					<input class="loginBodyButton" id="loginSubmit" value="로그인" type="submit"></input>
 				</form>
 				<% 

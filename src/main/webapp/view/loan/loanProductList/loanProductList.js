@@ -1,12 +1,13 @@
+// 대출 구분에 따른 상품 정보 데이터
 const loanProductInfoData = {
-	mortgageLoan : [
+	담보대출 : [
 		{
 			id: "loanProductMortgage",
 			title: "담보 종류",
 			tags: ["전체", "예적금", "주택", "전세자금"]
 		}
 	],
-	creditLoan : [
+	신용대출 : [
 		{
 			id: "loanProductJob",
 			title: "직업",
@@ -30,6 +31,7 @@ const loanProductInfoData = {
 	]
 }
 
+// 상품 정보 테이블 초기화
 function initializeInfoTable(infoTable) {
   const childElements = infoTable.children;
 
@@ -39,6 +41,7 @@ function initializeInfoTable(infoTable) {
   }
 }
 
+// 상품 정보 테이블 행 생성
 function createInfoRow(id, title, tags) {
   const rowDiv = document.createElement('div');
   rowDiv.classList.add('innerInformationRow');
@@ -52,7 +55,12 @@ function createInfoRow(id, title, tags) {
   ul.id = id;
   tags.forEach(tag => {
     const li = document.createElement('li');
+    const input = document.createElement('input');
+    input.setAttribute('type', 'checkbox');
+    input.setAttribute('value', tag);
+    input.setAttribute('id', tag);
     li.textContent = tag;
+    li.appendChild(input);
     ul.appendChild(li);
   });
   rowDiv.appendChild(ul);
@@ -60,6 +68,7 @@ function createInfoRow(id, title, tags) {
   return rowDiv;
 }
 
+// 대출 구분에 따른 상품 정보 테이블 전체 생성
 function generateLoanProductInformation(loanType) {
   const infoTable = document.querySelector('.innerInformation');
   initializeInfoTable(infoTable);
@@ -88,72 +97,10 @@ function initializeSelectItems(selectedLoanType) {
 	const loanData = loanProductInfoData[selectedLoanType];
 		if (loanData) {
 			loanData.forEach(data => {
-				selectItems(data.id);
+				selectMultiItems(data.id);
 		});
 	}
 	productInput.value = "";
-}
-
-function selectItems(ulId) {
-	const ulElement = document.getElementById(ulId);
-
-	const listItems = ulElement.querySelectorAll('li');
-	const firstListItem = listItems[0];
-
-	firstListItem.classList.add('selectedLi');
-
-	listItems.forEach((item, index) => {
-		if (index !== 0) {
-			item.addEventListener('click', () => {
-			item.classList.toggle('selectedLi');
-			firstListItem.classList.remove('selectedLi');
-			});
-		}
-	});
-
-	firstListItem.addEventListener('click', () => {
-    	firstListItem.classList.toggle('selectedLi');
-
-		listItems.forEach((item, index) => {
-			if (index !== 0) {
-				item.classList.remove('selectedLi');
-			}
-		});
-	});
-}
-
-const searchButton = document.querySelector('button[type="button"]');
-
-searchButton.addEventListener('click', function() {
- 	const selectedLoanType = loanTypeSelect.value;
- 	const selectedAttributes = getSelectedAttributes(selectedLoanType);
-	const productInputValue = productInput.value;
-
-	// 나중에 서블릿 메소드 추가될 때 삭제하겠습니다.
- 	console.log('대출 구분:', selectedLoanType);
- 	console.log('선택된 속성:', selectedAttributes);
- 	console.log('상품 이름:', productInputValue)
-});
-
-function getSelectedAttributes(loanType) {
-	const selectedAttributes = {};
-	const loanData = loanProductInfoData[loanType];
-	if (loanData) {
-		loanData.forEach(data => {
-			const ulElement = document.getElementById(data.id);
-			const listItems = ulElement.querySelectorAll('li');
-      
-			const selectedItems = [];
-      
-			listItems.forEach((item, index) => {
-				if (index !== 0 && item.classList.contains('selectedLi')) {
-					selectedItems.push(item.textContent);
-				}
-		   	selectedAttributes[data.title] =  selectedItems;	
-			});
-		});
-	}
-	return selectedAttributes;
 }
 
 initializeSelectItems(loanTypeSelect.value);

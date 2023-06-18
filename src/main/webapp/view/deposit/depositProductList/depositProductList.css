@@ -1,17 +1,11 @@
 @charset "UTF-8";
 
-#depositProductBalance{
+#depositBalance{
 	width: 870px;
 	height: 60px;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-}
-#directInput {
-	width: auto;
-	display: flex;
-	align-items: center;
-	margin-right: 150px;
 }
 #depositSearchTable tr th:nth-child(1){
 	width: 150px;

@@ -97,4 +97,21 @@ li > div > input {
 	color: #191F29 !important;
 	font-weight: bold;
 }
-
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  margin: 0;
+}
+#directInput {
+	width: auto;
+	display: flex;
+	align-items: center;
+	margin-right: 100px;
+}
+#directInput > p {
+	margin: 0 10px;
+}
