@@ -59,7 +59,7 @@ function createInfoRow(id, title, tags) {
     input.setAttribute('type', 'checkbox');
     input.setAttribute('value', tag);
     input.setAttribute('id', tag);
-    input.textContent = tag;
+    li.textContent = tag;
     li.appendChild(input);
     ul.appendChild(li);
   });
