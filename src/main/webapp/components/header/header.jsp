@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/default.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/header/header.css?ver=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/components/header/session.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/components/header/userInformation.css?ver=1">
 </head>
 <body>
 	<header>
@@ -26,10 +26,10 @@
 		</ul>
 			<div class="headerSessionInformationContainer">
 				<div class="headerSessionTimeout">
-					<div class="headerSessionTime">59분 40초 뒤 자동 로그아웃</div>
+					<div class="headerSessionTime"></div>
 					<input class="headerSessionButton" value="연장" type="submit">
 				</div>
-				<div class="headerSessionName">이상준 대리님</div>
+				<div class="headerSessionName"></div>
 				<form id="logout" action="${pageContext.request.contextPath}/LogoutController" method="post">
 					<input class="headerSessionLogoutButton" value="로그아웃" type="submit">
 				</form>
