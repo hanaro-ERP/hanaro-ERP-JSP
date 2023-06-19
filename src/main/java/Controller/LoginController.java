@@ -2,9 +2,7 @@ package Controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,16 +29,9 @@ public class LoginController extends HttpServlet {
 
 	protected void redirectWithErrorMessage(HttpServletRequest request, HttpServletResponse response,
 			String errorMessage, String employeeId) throws ServletException, IOException {
-		request.setAttribute("errorMessage", errorMessage);
-		if (employeeId != null)
-			request.setAttribute("employeeId", employeeId);
-		ServletContext app = this.getServletContext();
-		RequestDispatcher dispatcher = app.getRequestDispatcher("/view/login/login.jsp");
-		try {
-			dispatcher.forward(request, response);
-		} catch (ServletException e) {
-			System.out.println(e);
-		}
+		request.getSession().setAttribute("employeeId", employeeId);
+		request.getSession().setAttribute("errorMessage", errorMessage);
+		response.sendRedirect(request.getContextPath() + "/view/login/login.jsp");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
