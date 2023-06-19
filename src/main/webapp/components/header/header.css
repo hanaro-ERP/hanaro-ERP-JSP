@@ -46,39 +46,3 @@ header {
 	font-weight: bold;
 	text-decoration: none;
 }
-.headerSessionInformationContainer {
-	width: fit-content;
-	height: 100%;
-	gap: 30px;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	padding: 0px 72px;
-	box-sizing: border-box;
-	right: 0;
-	position: absolute;
-}
-.headerSessionTimeout {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 10px;
-}
-.headerSessionButton {
-	width: 50px;
-	height: 24px;
-	border: 1px solid #2EB400;
-	border-radius: 5px;
-	color: #2EB400;
-	display: flex;
-	align-items: center;
-	justify-content: center;	
-	cursor: pointer;
-}
-.headerSessionName {
-	font-weight: bold;
-}
-.headerSessionLogoutButton{
-	cursor: pointer;
-	border: none;
-}

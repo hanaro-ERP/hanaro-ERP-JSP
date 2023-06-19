@@ -9,9 +9,13 @@
 	height: 80px;
 	background: #FFFFFF;
 	border-bottom: 1px solid #2DB400;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 	display: flex;
 	align-items: center;
+	box-sizing: border-box;
+	position: fixed;
+	top: 0;
+	z-index: 10;
 }
 .headerContent{
 	font-weight: 700;
@@ -41,6 +45,7 @@
 	height: fit-content;
 	width: fit-content;
 	margin: auto;
+	margin-top: 80px;
 }
 .bodyTitleBox{
 	width: 900px;
@@ -103,40 +108,4 @@
 }
 .bodyCard:hover svg path{
 	fill: #FFFFFF;
-}
-.headerSessionInformationContainer {
-	width: fit-content;
-	height: 100%;
-	gap: 30px;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	padding: 0px 72px;
-	box-sizing: border-box;
-	right: 0;
-	position: absolute;
-}
-.headerSessionTimeout {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 10px;
-}
-.headerSessionButton {
-	width: 50px;
-	height: 24px;
-	border: 1px solid #2EB400;
-	border-radius: 5px;
-	color: #2EB400;
-	display: flex;
-	align-items: center;
-	justify-content: center;	
-	cursor: pointer;
-}
-.headerSessionName {
-	font-weight: bold;
-}
-.headerSessionLogoutButton{
-	cursor: pointer;
-	border: none;
 }

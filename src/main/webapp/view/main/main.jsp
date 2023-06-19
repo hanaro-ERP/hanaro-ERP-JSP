@@ -5,7 +5,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Main</title>
-	<link rel="stylesheet" href="./main.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/default.css?ver=1">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/view/main/main.css?ver=1">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/components/header/session.css?ver=1">
 </head>
 <body>
 	<div class="container">
@@ -72,7 +74,12 @@
 	const loginName = "<%= request.getSession().getAttribute("loginName") %>";
 	headerSessionName.innerHTML = loginName + " <%= request.getSession().getAttribute("loginPosition") %>님";
 	const headerSessionTime = document.querySelector(".headerSessionTime");
-	headerSessionTime.textContent = <%= request.getSession().getMaxInactiveInterval() %> + " 초 뒤 자동 로그아웃";
+	let sessionTimeout = <%= request.getSession().getMaxInactiveInterval() %>;
+	if (sessionTimeout <= 59) {
+		headerSessionTime.textContent = sessionTimeout + " 초 뒤 자동 로그아웃";	
+	} else {
+		headerSessionTime.textContent = parseInt(sessionTimeout/60) + "분 " + sessionTimeout%60 + "초 뒤 자동 로그아웃";
+	}
 	const timerReset = document.querySelector(".headerSessionButton");
 	timerReset.addEventListener('click', ()=> {
 		location.reload();
@@ -89,17 +96,22 @@
 		
 		const timer = setInterval(function() {
 			sessionTimeout--;
-
+	
 			if (sessionTimeout <= 0) {
 				clearInterval(timer);
 				headerSessionTime.textContent = "세션 만료";
 				window.location.href = "${pageContext.request.contextPath}/view/login/login.jsp";	
 			} else {
-				headerSessionTime.textContent = sessionTimeout + " 초 뒤 자동 로그아웃";
+				if (sessionTimeout <= 59) {
+					headerSessionTime.textContent = sessionTimeout + " 초 뒤 자동 로그아웃";	
+				} else {
+					headerSessionTime.textContent = parseInt(sessionTimeout/60) + "분 " + sessionTimeout%60 + "초 뒤 자동 로그아웃";
+				}
+				
 			}
 		}, 1000);
 	}
-
+	
 	updateSessionTimer();
 </script>
 </html>
