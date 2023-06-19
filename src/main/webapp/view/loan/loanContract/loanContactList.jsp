@@ -1,20 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/view/loanContract/loanContract.css?ver=1">
+<title>Loan Contract</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/view/loan/loanContract/loanContractList.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchResultTable/searchResultTable.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
-<body><%@ include file="../../components/header/header.jsp" %>
+<body>
+	<%@ include file="../../../components/header/header.jsp" %>
 	<main>
-		<%@ include file="../../components/aside/aside.jsp" %>
+		<%@ include file="../../../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>여신 이력</h1></div>
-			<div class="loanContractInformationContainer">
+			<form action="${pageContext.request.contextPath}/loanContractList" method="post">
 				<div class="innerSubTitle"><h2>여신 정보</h2></div>
 				<div class="loanContractInformation">
 					<div class="loanContractInformationRow">
@@ -78,13 +80,74 @@
 							<li>5년 이상</li>
 						</ul>
 					</div>
-				</div>				
+				</div>
+				<div class="innerButtonContainer">
+					<button type="submit">검색</button>
+				</div>		
+			</form>
+			<div>
+			  	<%
+				String[] searchResults = (String[]) session.getAttribute("searchResults");
+				if (searchResults != null) {
+					for (String result : searchResults) {
+						out.println(result); // 또는 원하는 출력 방식으로 처리
+					}
+				}
+				%>
+			</div>
+			<div>
+				<div class="innerSubTitle"><h2>검색 결과</h2></div>
+				<table class="searchTable" id="loanSearchTable">
+					<tr>
+						<th>이력 ID</th>
+						<th>대출 구분</th>
+						<th>상품 이름</th>
+						<th>담당 직원</th>
+						<th>고객 이름</th>
+						<th>보증인</th>
+						<th>대출일</th>
+						<th>만기일</th>
+						<th>대출 잔액</th>
+						<th>상환 방법</th>
+						<th>연체</th>
+						<th>담보 가치</th>
+					</tr>
+					<tr>
+						<td>001</td>
+						<td>신용 대출</td>
+						<td>징검다리론</td>
+						<td>김철수</td>
+						<td>이영수</td>
+						<td>최영희</td>
+						<td>2023-06-14</td>
+						<td>2043-06-13</td>
+						<td>10,000,000원</td>
+						<td>원금 균등 분할 상환</td>
+						<td>N</td>
+						<td>4,000,000원</td>
+					</tr>
+					<tr>
+						<td>001</td>
+						<td>신용 대출</td>
+						<td>징검다리론</td>
+						<td>김철수</td>
+						<td>이영수</td>
+						<td>최영희</td>
+						<td>2023-06-14</td>
+						<td>2043-06-13</td>
+						<td>10,000,000원</td>
+						<td>원금 균등 분할 상환</td>
+						<td>N</td>
+						<td>4,000,000원</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</main>
+	<script src="${pageContext.request.contextPath}/components/searchLayout/searchLayout.js "></script>
 	<script>
-		generateMenu('loan');		
+		generateMenu('loan', 'loanContractList');
 	</script>
-	<script src="${pageContext.request.contextPath}/view/loanContract/loanContract.js "></script>
+	<script src="${pageContext.request.contextPath}/view/loan/loanContract/loanContractList.js "></script>
 </body>
 </html>
