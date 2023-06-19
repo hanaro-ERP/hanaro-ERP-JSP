@@ -42,22 +42,6 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 					<tr>
-						<th>나이</th>
-						<td>
-							<input type="number" id="ageMin" name="age" class="shortInput"/>
-							세 이상
-							<input type="number" id="ageMax" name="age" class="shortInput"/>
-							세 이하
-						</td>
-						<th>성별</th>
-						<td>
-							<select name="gender" class="shortSelect">
-								<option value="male">남성</option>
-								<option value="female">여성</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
 						<th>국가</th>
 						<td>
 							<select name="country" class="shortSelect">
@@ -123,17 +107,6 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 					<tr>
-						<th>장애 등급</th>
-						<td>
-							<select name="disalbitilityRank" class="shortSelect">
-								<option value="disable0">비장애</option>
-								<option value="disable1">1급</option>
-								<option value="disable2">2급</option>
-								<option value="disable3">3급</option>
-								<option value="disable4">4급</option>
-								<option value="disable4">5급</option>
-							</select>
-						</td>
 						<th>직업</th>
 						<td>
 							<select name="job" class="shortSelect">

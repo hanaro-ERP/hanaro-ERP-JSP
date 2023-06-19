@@ -26,18 +26,18 @@
 				<div class="innerInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">상품 이름</div>
-						<input name="productName" class="loanContractSearchInput"></input>
+						<input name="productName" class="innerSelectBox"></input>
 						<div class="innerInformationRowTitle">대출 구분</div>
-						<select id="loanType" name="loanType">
+						<select id="loanType" name="loanType" class="innerSelectBox">
 							<option value="신용대출">신용 대출</option>
 							<option value="담보대출">담보 대출</option>
 						</select>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">고객 이름</div>
-						<input name="customerName" class="loanContractSearchInput"></input>
+						<input name="customerName" class="innerSelectBox"></input>
 						<div class="innerInformationRowTitle">담당 직원</div>
-						<input name="employeeName" class="loanContractSearchInput"></input>
+						<input name="employeeName" class="innerMiddleInput"></input>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">대출일</div>
@@ -131,10 +131,10 @@
 						<th>보증인</th>
 						<th>대출일</th>
 						<th>만기일</th>
-						<th>대출 잔액</th>
 						<th>상환 방법</th>
-						<th>연체</th>
-						<th>담보 가치</th>
+						<th>대출 잔액</th>
+						<th>연체 잔액</th>
+						<th>이율</th>
 					</tr>
 					<tr>
 						<td>001</td>
@@ -145,10 +145,10 @@
 						<td>최영희</td>
 						<td>2023-06-14</td>
 						<td>2043-06-13</td>
-						<td>10,000,000원</td>
 						<td>원금 균등 분할 상환</td>
-						<td>N</td>
+						<td>10,000,000원</td>
 						<td>4,000,000원</td>
+						<td>1.0%</td>
 					</tr>
 					<tr>
 						<td>001</td>
@@ -159,10 +159,10 @@
 						<td>최영희</td>
 						<td>2023-06-14</td>
 						<td>2043-06-13</td>
-						<td>10,000,000원</td>
 						<td>원금 균등 분할 상환</td>
-						<td>N</td>
+						<td>10,000,000원</td>
 						<td>4,000,000원</td>
+						<td>1.0%</td>
 					</tr>
 				</table>
 			</div>

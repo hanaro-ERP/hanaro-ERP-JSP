@@ -81,15 +81,42 @@ li > p {
 	text-align: center;
 	margin: 0;
 }
+.innerMiddleInput {
+	width: 190px;
+	height: 30px;
+}
+.innerShortInput {
+	width: 100px;
+	height: 30px;
+}
 li > div > input {
 	height: 30px;
 	display: flex;
 }
-.innerInformationRow > input {
+.innerSearchInput {
 	width: 400px;
 	height: 30px;
 }
-.innerInformationRow select {
+.innerSearchInput {
+	width: 400px;
+	height: 30px;
+}
+.innerMiddleInput2 {
+	width: 190px;	
+	height: 30px;
+}
+.innerSearchInput3 {
+	width: 200px;
+	height: 30px;
+	margin-right: 200px;
+}
+.innerSelectBox {
+	width: 200px;
+	height: 30px;
+	text-align: center;
+	margin-right: 200px;
+}
+.innerSelectBox2 {
 	width: 200px;
 	height: 30px;
 	text-align: center;

@@ -39,7 +39,7 @@ public class CustomerListController extends HttpServlet {
 			    }
 			}
 			
-			response.sendRedirect(request.getContextPath() + "/view/customer/customerList/customerList.jsp");
+//			response.sendRedirect(request.getContextPath() + "/view/customer/customerList/customerList.jsp");
 			} catch (Exception e) {
 			e.printStackTrace();
 		}

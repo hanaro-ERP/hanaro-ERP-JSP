@@ -7,3 +7,9 @@
 	flex-wrap: wrap;
 	align-items: center;
 }
+ul > li > select {
+	width: 200px;
+	height: 30px;
+	text-align: center;
+	margin-right: 10px;
+}
