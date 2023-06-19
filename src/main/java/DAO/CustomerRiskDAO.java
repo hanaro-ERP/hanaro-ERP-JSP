@@ -12,8 +12,8 @@ import util.DatabaseUtil;
 
 public class CustomerRiskDAO {
 
-	// Create a new customer risk
-	public int createCustomerRisk(CustomerRiskDTO customerRisk) {
+	// insert a new customer risk
+	public int insertCustomerRisk(CustomerRiskDTO customerRisk) {
 		String SQL = "INSERT INTO customerrisk (c_id, risk_result, job_code, loan_count, recent_transaction, country, age, disability, modified_at) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {

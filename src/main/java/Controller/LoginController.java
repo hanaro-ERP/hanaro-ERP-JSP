@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -56,7 +57,12 @@ public class LoginController extends HttpServlet {
 		employeeDTO.setEmployeeId(employeeId);
 		employeeDTO.setPassword(password);
 		EmployeeDTO storedEmployeeDTO = new EmployeeDTO();
-		storedEmployeeDTO = (EmployeeDTO) LoginService.authenticateEmployee(employeeDTO);
+		try {
+			storedEmployeeDTO = (EmployeeDTO) LoginService.authenticateEmployee(employeeDTO);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		if (storedEmployeeDTO != null) {
 			request.getSession().setAttribute("loginId", storedEmployeeDTO.getEmployeeId());

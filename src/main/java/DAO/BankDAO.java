@@ -12,8 +12,8 @@ import util.DatabaseUtil;
 
 public class BankDAO {
 
-	// Create a new bank
-	public int createBank(BankDTO bank) {
+	// insert a new bank
+	public int insertBank(BankDTO bank) {
 		String SQL = "INSERT INTO banks (b_id, b_name, location, phone_no) VALUES (?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, bank.getBankId());
