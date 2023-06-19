@@ -23,6 +23,14 @@
 			<li><a href="">여신관리</a></li>
 			<li><a href="">수신관리</a></li>
 		</ul>
+		<div class="headerSessionInformationContainer">
+			<div class="headerSessionTimeout">
+				<div class="headerSessionTime">59분 40초 뒤 자동 로그아웃</div>
+				<div class="headerSessionButton">연장</div>
+			</div>
+			<div class="headerSessionName">이상준 대리님</div>
+			<div class="headerSessionLogoutButton">로그아웃</div>
+		</div>
 	</header>
 </body>
 </html>

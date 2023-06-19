@@ -61,6 +61,7 @@ public class LoginController extends HttpServlet {
 		if (storedEmployeeDTO != null) {
 			request.getSession().setAttribute("loginId", storedEmployeeDTO.getEmployeeId());
 			request.getSession().setAttribute("loginName", storedEmployeeDTO.getEmployeeName());
+			request.getSession().setAttribute("loginPosition", storedEmployeeDTO.getPosition());
 			response.sendRedirect(request.getContextPath() + "/view/main/main.jsp");
 		} else {
 			redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 잘못 입력했습니다.", String.valueOf(employeeId));
