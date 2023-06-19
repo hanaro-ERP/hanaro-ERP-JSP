@@ -1,8 +1,7 @@
-generateMenu('loan');
 selectItems("loanContractStartDate");
 selectItems("loanContractEndDate");
-selectItems("balanceList");
-selectItems("loanContractLimit");
+selectOneItem("balanceList");
+selectOneItem("loanContractLimit");
 
 let yearSelectList, monthSelectList, daySelectList;
 let yearSelectRow, monthSelectRow, daySelectRow;

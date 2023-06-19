@@ -48,36 +48,41 @@
 						<div class="loanContractInformationRowTitle">만기일</div>
 						<ul class="loanContractDate" id="loanContractEndDate">
 							<li>전체</li>
-							<li class="directInput">직접입력</li>
+							<li class="directInput">직접입력
+								
+							</li>
 							<select class="yearSelect"> </select>
 							<select class="monthSelect"> </select>
 							<select class="daySelect"> </select>
+							
 						</ul>
 					</div>
 					<div class="loanContractInformationRow" id="balance">
 						<div class="loanContractInformationRowTitle">대출 잔액</div>
 						<ul id="balanceList">
-							<li>전체</li>		
-							<li id="directInput">직접 입력&nbsp;&nbsp;
-								<input>&nbsp;만원 이상&nbsp;&nbsp;
-								<input>&nbsp;만원 이상
+							<li><input type="checkbox" value="전체" />전체</li>
+							<li id="directInput">
+								<p>직접 입력</p>
+								<input id="startBalance" name="depositBalance" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이상</p>
+								<input id="endBalance" name="depositBalance" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이하</p>
 							</li>
-							<li>~2천만원</li>
-							<li>~3천만원</li>
-							<li>~5천만원</li>
-							<li>~1억원</li>
-							<li>1억원 이상</li>
+							<li><input type="checkbox" value="~2천만원" />~2천만원</li>
+							<li><input type="checkbox" value="~3천만원" />~3천만원</li>
+							<li><input type="checkbox" value="~5천만원" />~5천만원</li>
+							<li><input type="checkbox" value="~1억원" />~1억원</li>
+							<li><input type="checkbox" value="1억원 이상" />1억원 이상</li>
 						</ul>
 					</div>
 					<div class="loanContractInformationRow">
 						<div class="loanContractInformationRowTitle">연체</div>
-						<ul id="loanContractLimit">
-							<li>없음</li>
-							<li>~6개월</li>
-							<li>~1년</li>
-							<li>~3년</li>
-							<li>~5년</li>
-							<li>5년 이상</li>
+						<ul id="loanContractLimit">						
+							<li><input type="checkbox" value="없음" />없음</li>
+							<li><input type="checkbox" value="~6개월" />~6개월</li>
+							<li><input type="checkbox" value="~1년" />~1년</li>
+							<li><input type="checkbox" value="~1년" />~1년</li>
+							<li><input type="checkbox" value="~3년" />~3년</li>
+							<li><input type="checkbox" value="~5년" />~5년</li>
+							<li><input type="checkbox" value="5년 이상" />5년 이상</li>
 						</ul>
 					</div>
 				</div>
