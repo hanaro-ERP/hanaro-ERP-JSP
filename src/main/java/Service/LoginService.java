@@ -8,12 +8,13 @@ public class LoginService {
 	public LoginService() {
 	}
 
-	public static boolean authenticateEmployee(EmployeeDTO employeeDTO) {
+	public static Object authenticateEmployee(EmployeeDTO employeeDTO) {
 		int employeeId = employeeDTO.getEmployeeId();
 		String password = employeeDTO.getPassword();
 		EmployeeDAO employeeDAO = new EmployeeDAO();
-		String storedPassword = employeeDAO.getPasswordByEmployeeId(employeeId);
+		EmployeeDTO storedEmployeeDTO = new EmployeeDTO();
+		storedEmployeeDTO = employeeDAO.getEmployeeByEmployeeId(employeeId);
 
-		return password.equals(storedPassword) ? true : false;
+		return password.equals(storedEmployeeDTO.getPassword()) ? storedEmployeeDTO : null;
 	}
 }

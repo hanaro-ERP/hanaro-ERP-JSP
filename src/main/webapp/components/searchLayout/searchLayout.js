@@ -1,13 +1,17 @@
 function checkCheckBox(item, ulId) {
 	const checkbox = item.querySelector('input');
-    checkbox.checked = true;
-    checkbox.setAttribute('name', ulId);
+	if (checkbox) {
+	    checkbox.checked = true;
+	    checkbox.setAttribute('name', ulId);
+	}
 }
 
 function uncheckCheckBox(item) {
 	const checkbox = item.querySelector('input');
-    checkbox.checked = false;
-    checkbox.removeAttribute('name');
+	if (checkbox) {
+	    checkbox.checked = false;
+	    checkbox.removeAttribute('name');
+	}
 }
 
 function toggleCheckBox(item, ulId) {
@@ -89,9 +93,15 @@ function selectOneItem(ulId) {
 
 function toggleDirectInput(directInput, isDisabled) {
 	const inputElements = directInput.querySelectorAll('input');
+	const selectElements = directInput.querySelectorAll('select');
+
 	if (inputElements && inputElements.length >= 2) {
 		inputElements[0].disabled = !isDisabled;
 		inputElements[1].disabled = !isDisabled;
+	} else if (selectElements && selectElements.length >= 3) {
+		selectElements[0].disabled = !isDisabled;
+		selectElements[1].disabled = !isDisabled;
+		selectElements[2].disabled = !isDisabled;
 	}
 }
 
@@ -102,7 +112,7 @@ function selectMultiItemsWithDirectInput(ulId) {
 	const firstListItem = listItems[0];
 	const secondListItem = listItems[1];
 
-	firstListItem.classList.add('selectedLi');
+	selectItem(firstListItem, ulId);
 
 	listItems.forEach((item, index) => {
 		if (index !== 0 && index !== 1) {
