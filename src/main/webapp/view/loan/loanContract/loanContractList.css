@@ -1,64 +1,9 @@
 @charset "UTF-8";
-.loanContractInformation {
-	padding: 0 20px;
-	border-top: #191F29 solid 1px;
-}
-.loanContractInformationRow {
- 	height: 61px;
-	display: flex;
-	align-items: center;
-	border-bottom: #B0B8C1 solid 1px; 
-}
-.loanContractInformationRowTitle {	
-	width: 250px;
-	display: flex;
-	justify-content: center;
-	font-size: 20px;
-	font-weight: bold;
-}
-.loanContractSearchInput {
-	width: 300px;
-	height: 32px
-}
-#loanType {
-	width: 100px;
-	height: 30px;
-}
-.loanContractInformationRow > ul {
-	display: flex;
-	padding: 0;
-	margin: 0;
-}
-.loanContractInformationRow > ul > li {
-	width: 100px;
-	display: flex;
-	justify-content: center;
-	color: #B0B8C1;
-	align-items: center;
-}
-.loanContractInformationRow > ul > li:hover {
-	cursor: pointer;
-	color: #191F29;
-}
-.loanContractInformationRow > input {
-	width: 300px;
-}
-.selectedLi {
-	color: #191F29 !important;
-	font-weight: bold;
-}
-.loanContractDate select {
-	width: 138px;
-	margin-right: 10px;
-	text-align: center;
-}
-#balance {
-	height: 102px;
-}
+
 #balanceList {
-    width: 870px;
-    height: 60px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+	width: 800px;
+	height: 60px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
 }

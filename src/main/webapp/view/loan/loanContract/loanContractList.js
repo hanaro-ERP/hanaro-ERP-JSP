@@ -1,7 +1,7 @@
-selectItems("loanContractStartDate");
-selectItems("loanContractEndDate");
-selectOneItem("balanceList");
-selectOneItem("loanContractLimit");
+selectMultiItemsWithDirectInput("loanContractStartDate");
+selectMultiItemsWithDirectInput("loanContractEndDate");
+selectMultiItemsWithDirectInput("balanceList");
+selectMultiItemsWithDirectInput("loanContractLimit");
 
 let yearSelectList, monthSelectList, daySelectList;
 let yearSelectRow, monthSelectRow, daySelectRow;
@@ -120,24 +120,6 @@ function handleDateSelect(event, isYear) {
 		yearSelect = parseInt(yearSelectRow.value);
 	}
 	setDaySelect(false); // 일 범위 바꾸기
-}
-
-// 다른 것 선택하면 이미 선택되었던 것 해제
-function selectItems(ulId) {
-	const ulElement = document.getElementById(ulId);
-	const listItems = ulElement.querySelectorAll('li');
-	let previousListItem = listItems[0];
-	previousListItem.classList.add('selectedLi');
-
-	listItems.forEach((item, index) => {
-		item.addEventListener('click', () => {
-			item.classList.toggle('selectedLi');
-			if (previousListItem !== null && previousListItem !== item) {
-				previousListItem.classList.remove('selectedLi');
-			}
-			previousListItem = item;
-		});
-	});
 }
 
 // 대출일, 만기일 날짜 선택하면 '전체' -> '직접입력'
