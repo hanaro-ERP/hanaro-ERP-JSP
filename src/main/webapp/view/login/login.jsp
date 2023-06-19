@@ -25,12 +25,20 @@
 	</div>
 	<script src="${pageContext.request.contextPath}/view/login/login.js"></script>
 	<script>
-		let previousEmployeeId = "<%= request.getSession().getAttribute("employeeId") %>";
+		const loginId = "<%= request.getSession().getAttribute("loginId") %>";
+		if (loginId !== "null") {
+			window.location.href = "${pageContext.request.contextPath}/view/main/main.jsp";			
+		}
+ 		let previousEmployeeId = "<%= request.getSession().getAttribute("employeeId") %>";
 		let errorMessage = "<%= request.getSession().getAttribute("errorMessage") %>";
 		const employeeIdBox = document.querySelector("#employeeId");
 		const errorMessageBox = document.querySelector("#errorMessageBox");
-		employeeIdBox.value = previousEmployeeId;
-		errorMessageBox.innerHTML = errorMessage;	
+		if (previousEmployeeId !== "null") {
+			employeeIdBox.value = previousEmployeeId;			
+		}
+		if (errorMessage !== "null"){
+			errorMessageBox.innerHTML = errorMessage;				
+		}
 	</script>
 </body>
 </html>

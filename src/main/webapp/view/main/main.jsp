@@ -18,6 +18,15 @@
 		</div>
 		<div class="bodyBox">
 			<div class="bodyContainer">
+				<div class="bodyTitle mainBlack1" id="temp">
+					인사
+				</div>
+				<div class="bodyTitle mainBlack1" style="color: blue" id="sessionTimer">
+					시간
+				</div>
+				<form class="bodyTitle mainBlack1" style="color: red" id="logout" action="${pageContext.request.contextPath}/LogoutController" method="post">
+					<input class="bodyTitle mainBlack1" style="color: red" id="loginSubmit" value="로그아웃" type="submit"></input>
+				</form>
 				<div class="bodyTitle mainBlack1">
 					사용하실 서비스를 선택해주세요!
 				</div>
@@ -57,4 +66,30 @@
 		</div>
 	</div>
 </body>
+<script>
+	temp = document.querySelector("#temp");
+	temp.innerHTML = "<%= request.getSession().getAttribute("loginName") %>님 안녕하세요.";
+	var timerElement = document.getElementById("sessionTimer");
+	timerElement.textContent = "세션 유효시간: " + <%= request.getSession().getMaxInactiveInterval() %> + " 초";
+	
+	
+	function updateSessionTimer() {
+		var sessionTimeout = <%= session.getMaxInactiveInterval() %>;
+		var timerElement = document.getElementById("sessionTimer");
+
+		var timer = setInterval(function() {
+			sessionTimeout--;
+
+			if (sessionTimeout <= 0) {
+				clearInterval(timer);
+				timerElement.textContent = "Session expired";
+				window.location.href = "${pageContext.request.contextPath}/view/login/login.jsp";	
+			} else {
+				timerElement.textContent = "세션 유효시간: " + sessionTimeout + " 초";
+			}
+		}, 1000);
+	}
+
+	updateSessionTimer();
+</script>
 </html>
