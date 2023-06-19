@@ -47,14 +47,16 @@ header {
 	text-decoration: none;
 }
 .headerSessionInformationContainer {
-	width: 600px;
+	width: fit-content;
 	height: 100%;
+	gap: 30px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: center;
 	padding: 0px 72px;
 	box-sizing: border-box;
-	margin-left: auto;
+	right: 0;
+	position: absolute;
 }
 .headerSessionTimeout {
 	display: flex;
@@ -78,4 +80,5 @@ header {
 }
 .headerSessionLogoutButton{
 	cursor: pointer;
+	border: none;
 }
