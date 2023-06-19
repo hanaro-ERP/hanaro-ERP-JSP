@@ -74,12 +74,9 @@
 	const loginName = "<%= request.getSession().getAttribute("loginName") %>";
 	headerSessionName.innerHTML = loginName + " <%= request.getSession().getAttribute("loginPosition") %>님";
 	const headerSessionTime = document.querySelector(".headerSessionTime");
-	let sessionTimeout = <%= request.getSession().getMaxInactiveInterval() %>;
-	if (sessionTimeout <= 59) {
-		headerSessionTime.textContent = sessionTimeout + " 초 뒤 자동 로그아웃";	
-	} else {
-		headerSessionTime.textContent = parseInt(sessionTimeout/60) + "분 " + sessionTimeout%60 + "초 뒤 자동 로그아웃";
-	}
+	const sessionTimeout = <%= request.getSession().getMaxInactiveInterval() %>;
+	let sessionStartTime = new Date();
+	headerSessionTime.textContent = parseInt(sessionTimeout/60) + "분 " + sessionTimeout%60 + "초 뒤 자동 로그아웃";
 	const timerReset = document.querySelector(".headerSessionButton");
 	timerReset.addEventListener('click', ()=> {
 		location.reload();
@@ -95,23 +92,25 @@
 		let sessionTimeout = <%= session.getMaxInactiveInterval() %>;
 		
 		const timer = setInterval(function() {
-			sessionTimeout--;
+			const nowTime = new Date();
+			const elapsedTime = parseInt((nowTime - sessionStartTime)/1000);
+			const remainingTime = sessionTimeout - elapsedTime;
 	
-			if (sessionTimeout <= 0) {
+			if (remainingTime <= 0) {
 				clearInterval(timer);
 				headerSessionTime.textContent = "세션 만료";
 				window.location.href = "${pageContext.request.contextPath}/view/login/login.jsp";	
 			} else {
-				if (sessionTimeout <= 59) {
-					headerSessionTime.textContent = sessionTimeout + " 초 뒤 자동 로그아웃";	
+				if (remainingTime <= 59) {
+					headerSessionTime.textContent =remainingTime + " 초 뒤 자동 로그아웃";	
 				} else {
-					headerSessionTime.textContent = parseInt(sessionTimeout/60) + "분 " + sessionTimeout%60 + "초 뒤 자동 로그아웃";
+					headerSessionTime.textContent = parseInt(remainingTime/60) + "분 " + remainingTime%60 + "초 뒤 자동 로그아웃";
 				}
 				
 			}
 		}, 1000);
 	}
-	
+
 	updateSessionTimer();
 </script>
 </html>
