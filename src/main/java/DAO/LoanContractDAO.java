@@ -42,7 +42,7 @@ public class LoanContractDAO {
 	// Read a loan contract by loanContractId
 	public LoanContractDTO getLoanContractByLoanContractId(int loanContractId) {
 		LoanContractDTO loanContract = new LoanContractDTO();
-		String SQL = "SELECT * FROM loancontract WHERE lc_id = ?";
+		String SQL = "SELECT * FROM loanContract WHERE lc_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanContractId);
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -76,7 +76,7 @@ public class LoanContractDAO {
 
 	// Update a loan contract
 	public int updateLoanContract(LoanContractDTO loanContract) {
-		String SQL = "UPDATE loancontract SET l_id = ?, c_id = ?, e_id = ?, muturity_date = ?, payment_method = ?, balance = ?, "
+		String SQL = "UPDATE loanContract SET l_id = ?, c_id = ?, e_id = ?, muturity_date = ?, payment_method = ?, balance = ?, "
 				+ "payment_date = ?, delinquency_start = ?, delinquent_day = ?, delinquent_amount = ?, guarantor_id = ?, "
 				+ "has_collateral = ?, collateral_value = ? WHERE lc_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -103,7 +103,7 @@ public class LoanContractDAO {
 
 	// Delete a loan contract
 	public int deleteLoanContract(int loanContractId) {
-		String SQL = "DELETE FROM loancontract WHERE lc_id = ?";
+		String SQL = "DELETE FROM loanContract WHERE lc_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanContractId);
 			return pstmt.executeUpdate();
@@ -115,7 +115,7 @@ public class LoanContractDAO {
 
 	// Get all loan contracts
 	public List<LoanContractDTO> getLoanContracts() {
-		String SQL = "SELECT * FROM loancontract";
+		String SQL = "SELECT * FROM loanContract";
 		List<LoanContractDTO> loanContracts = new ArrayList<>();
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			try (ResultSet rs = pstmt.executeQuery()) {
