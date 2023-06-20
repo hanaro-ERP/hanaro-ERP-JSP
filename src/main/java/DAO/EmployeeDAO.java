@@ -58,7 +58,7 @@ public class EmployeeDAO {
 		employee.setDepartment(rs.getString("department"));
 		employee.setPosition(rs.getString("position"));
 		employee.setPassword(rs.getString("password"));
-		employee.setAdmin(rs.getBoolean("admin"));
+		employee.setAdmin(rs.getBoolean("is_admin"));
 	}
 
 	// Update an employee

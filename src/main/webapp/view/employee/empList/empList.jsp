@@ -11,6 +11,8 @@
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
 <body>
+	<%@ page import="java.util.List" %>
+	<%@ page import="DTO.EmployeeDTO" %> <!-- EmployeeDTO의 패키지 경로에 따라 수정해야 함 -->
 	<%@ include file="../../../components/header/header.jsp" %>
 	<main>
 		<%@ include file="../../../components/aside/aside.jsp" %>
@@ -48,6 +50,54 @@
 					<button type="submit">검색</button>
 				</div>
 			</form>
+			<div class="searchTitle"><h1>검색 결과</h1></div>
+			<table class="searchTable" id="employeeSearchTable">
+				<tr>
+					<th>직원 ID</th>
+					<th>소속 지점</th>
+					<th>이름</th>
+					<th>전화번호</th>
+					<th>부서</th>
+					<th>직책</th>
+					<th>권한</th>
+				</tr>
+				<% System.out.println(request.getAttribute("name")); %>
+				<%
+				List<EmployeeDTO> findEmployee = (List<EmployeeDTO>)request.getAttribute("findEmployee");
+
+				if (findEmployee != null && !findEmployee.isEmpty()) {
+				    for (EmployeeDTO employee : findEmployee) {
+				      %>
+				      <tr>
+				        <td><%= employee.getEmployeeId() %></td>
+				        <td><%= employee.getBankId() %></td>
+				        <td><%= employee.getEmployeeName() %></td>
+				        <td><%= employee.getDepartment() %></td>
+				        <td><%= employee.getPosition() %></td>
+				        <td>
+				        <% if(employee.isAdmin()) { %>
+				        관리자
+				        <% } else { %>
+				        -
+				        <% } %>
+				        </td>
+				      </tr>
+				      <%
+				    }
+				  }
+				
+				else { %>
+					<tr>
+				        <td>-</td>
+				        <td>-</td>
+				        <td>-</td>
+				        <td>-</td>
+				        <td>-</td>
+				        <td>-</td>
+				        <td>-</td>
+				   </tr>
+				<% } %>
+			</table>
 		</div>
 	</main>
 	<script>

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/view/employee/bank/bankList.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchResultTable/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
@@ -67,6 +68,16 @@
 					<button type="submit">검색</button>
 				</div>
 			</form>
+			<div class="searchTitle"><h1>검색 결과</h1></div>
+			<table class="searchTable" id="bankSearchTable">
+				<tr>
+					<th>지점 ID</th>
+					<th>이름</th>
+					<th>지점장</th>
+					<th>전화번호</th>
+					<th>주소</th>
+				</tr>
+			</table>
 		</div>
 	</main>
 	<script>
