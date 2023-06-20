@@ -198,7 +198,7 @@ public class EmployeeDAO {
 		return bank;
 	}
 	
-	public List<EmployeeDTO> getEmployeesByInfo(EmployeeDTO employeeDTO) {
+	public List<EmployeeDTO> getEmployeesByDTO(EmployeeDTO employeeDTO) {
 		StringBuilder queryBuilder = new StringBuilder("SELECT e.*, b.b_name FROM employees e ");
 		queryBuilder.append("JOIN banks b ON e.b_id = b.b_id ");
 		queryBuilder.append("WHERE 1=1 ");
@@ -234,9 +234,10 @@ public class EmployeeDAO {
 			}
 	    
 			List<EmployeeDTO> findEmployees = new ArrayList<>();
-			try (ResultSet rs = pstmt.executeQuery()) {
+			try (ResultSet rs = pstmt.executeQuery()) {				
 				while (rs.next()) {
 					EmployeeDTO employee = new EmployeeDTO();
+					
 					employee.setEmployeeId(rs.getInt("e_id"));
 					employee.setEmployeeName(rs.getString("e_name"));
 					employee.setPhoneNumber(rs.getString("e_phone_no"));

@@ -32,29 +32,11 @@ public class EmployeeListController extends HttpServlet {
 		postEmployeeListProcess(request, response);
 	}
 	
-	protected void postEmployeeListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*try {
-			String[] infos = {"employeeName", "bankLocation", "department", "position"};
-			
-			for (int i = 0; i < infos.length; i++) {
-			    String[] selectedJobs = request.getParameterValues(infos[i]);
-			    if (selectedJobs != null) {
-			        System.out.println(infos[i] + ": " + String.join(", ", selectedJobs));
-			    }
-			}
-			
-			response.sendRedirect(request.getContextPath() + "/view/employee/empList/empList.jsp");
-		} catch (Exception e) {
-		
-			e.printStackTrace();
-		}*/
-		
+	protected void postEmployeeListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		String employeeName = request.getParameter("employeeName");
 		String bankLocation = request.getParameter("bankLocation");
 		String department = request.getParameter("department");
 		String position = request.getParameter("position");
-		
-		//System.out.println(employeeName + " " + bankLocation + " " + department + " " + position);
 		
 		EmployeeDTO employeeDTO = new EmployeeDTO();
 		if(employeeName != "")
@@ -67,8 +49,10 @@ public class EmployeeListController extends HttpServlet {
 			employeeDTO.setPosition(position);
 		
 		try {
-			List<EmployeeDTO> findEmployee = EmployeeService.findEmployee(employeeDTO);
+			List<EmployeeDTO> findEmployee = EmployeeService.getEmployeeList(employeeDTO);
 			
+			//검색을 위해 입력받은 값
+			request.setAttribute("searchInputValue", employeeDTO);
 			request.setAttribute("findEmployee", findEmployee);
 		} catch (Exception e) {
 			System.out.println("employee Service 오류 " + e);

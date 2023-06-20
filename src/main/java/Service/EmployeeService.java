@@ -12,12 +12,10 @@ public class EmployeeService {
 		
 	}
 	
-	public static List<EmployeeDTO> findEmployee(EmployeeDTO employeeDTO) {
+	public static List<EmployeeDTO> getEmployeeList(EmployeeDTO employeeDTO) {
 		BankDAO bankDAO = new BankDAO();
 		EmployeeDAO employeeDAO = new EmployeeDAO();
-		//BankDTO bankDTO = bankDAO.getBankByBankId(employeeDTO.getBankId());
-		List<EmployeeDTO> findEmployees = employeeDAO.getEmployeesByInfo(employeeDTO);
-		//List<EmployeeDTO> returnList = emp
+		List<EmployeeDTO> findEmployees = employeeDAO.getEmployeesByDTO(employeeDTO);
 		
 		return findEmployees;
 	}
