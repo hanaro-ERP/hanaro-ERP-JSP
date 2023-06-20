@@ -79,8 +79,8 @@
 							<li><input type="checkbox" value="전체" id="priceAll">전체</li>
 							<li id="directInput">
 								<p>직접 입력</p> 
-								<input name="balanceList" class="directInputValue" disabled="true">&nbsp;만원 이상&nbsp;&nbsp; 
-								<input name="balanceList" class="directInputValue" disabled="true">&nbsp;만원 이하&nbsp;
+								<input name="balanceList" class="directInputValue" disabled="true">&nbsp;백만원 이상&nbsp;&nbsp; 
+								<input name="balanceList" class="directInputValue" disabled="true">&nbsp;백만원 이하&nbsp;
 							</li>
 							<li><input type="checkbox" value="~2천만원" id="price2000">~2천만원</li>
 							<li><input type="checkbox" value="~3천만원" id="price3000">~3천만원</li>
