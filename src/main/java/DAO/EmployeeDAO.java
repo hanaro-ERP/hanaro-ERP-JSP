@@ -200,7 +200,7 @@ public class EmployeeDAO {
 	
 	public List<EmployeeDTO> getEmployeesByInfo(EmployeeDTO employeeDTO) {
 		StringBuilder queryBuilder = new StringBuilder("SELECT e.*, b.b_name FROM employees e ");
-		queryBuilder.append("JOIN banks b ON e.bankId = b.bankId ");
+		queryBuilder.append("JOIN banks b ON e.b_id = b.b_id ");
 		queryBuilder.append("WHERE 1=1 ");
 
 		if (employeeDTO.getEmployeeName() != null) {
@@ -230,7 +230,7 @@ public class EmployeeDAO {
 				pstmt.setString(parameterIndex++, employeeDTO.getPosition());
 			}
 			if(employeeDTO.getBankLocation() != null) {
-				pstmt.setInt(parameterIndex++, employeeDTO.getBankId());
+				pstmt.setString(parameterIndex++, employeeDTO.getBankLocation());
 			}
 	    
 			List<EmployeeDTO> findEmployees = new ArrayList<>();
@@ -246,12 +246,11 @@ public class EmployeeDAO {
 
 					// bankName 가져오기
 					String bankName = rs.getString("b_name");
-					employee.setBankLocation("bankName");
+					employee.setBankLocation(bankName);
 
 	                findEmployees.add(employee);
 	            }
 	        }
-
 	        return findEmployees;
 	    } catch (Exception e) {
 	        e.printStackTrace();

@@ -81,7 +81,7 @@
 				      %>
 				      <tr>
 				        <td><%= employee.getEmployeeId() %></td>
-				        <td><%= employee.getBankId() %></td>
+				        <td><%= employee.getBankLocation() %></td>
 				        <td><%= employee.getEmployeeName() %></td>
 				        <td><%= employee.getPhoneNumber() %>
 				        <td><%= employee.getDepartment() %></td>
