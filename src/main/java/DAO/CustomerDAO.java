@@ -14,23 +14,22 @@ public class CustomerDAO {
 
 	// insert a new customer
 	public int insertCustomer(CustomerDTO customer) {
-		String SQL = "INSERT INTO customers (c_id, e_id, b_id, customer_name, grade, age, gender, phone_number, address, job_code, country, disability, risk, credit) "
+		String SQL = "INSERT INTO customers (c_id, e_id, b_id, c_name, identification, grade, age, gender, phone_number, address, job_code, country, credit) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, customer.getCustomerId());
 			pstmt.setInt(2, customer.getEmployeeId());
 			pstmt.setInt(3, customer.getBankId());
 			pstmt.setString(4, customer.getCustomerName());
-			pstmt.setString(5, customer.getGrade());
-			pstmt.setInt(6, customer.getAge());
-			pstmt.setBoolean(7, customer.isGender());
-			pstmt.setString(8, customer.getPhoneNumber());
-			pstmt.setString(9, customer.getAddress());
-			pstmt.setString(10, customer.getJobCode());
-			pstmt.setString(11, customer.getCountry());
-			pstmt.setBoolean(12, customer.isDisability());
-			pstmt.setFloat(13, customer.getRisk());
-			pstmt.setInt(14, customer.getCredit());
+			pstmt.setString(5, customer.getIdentification());
+			pstmt.setString(6, customer.getGrade());
+			pstmt.setInt(7, customer.getAge());
+			pstmt.setBoolean(8, customer.isGender());
+			pstmt.setString(9, customer.getPhoneNumber());
+			pstmt.setString(10, customer.getAddress());
+			pstmt.setString(11, customer.getJobCode());
+			pstmt.setString(12, customer.getCountry());
+			pstmt.setString(13, customer.getCredit());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,17 +59,16 @@ public class CustomerDAO {
 		customer.setCustomerId(rs.getInt("c_id"));
 		customer.setEmployeeId(rs.getInt("e_id"));
 		customer.setBankId(rs.getInt("b_id"));
-		customer.setCustomerName(rs.getString("customer_name"));
+		customer.setCustomerName(rs.getString("c_name"));
+		customer.setIdentification(rs.getString("identification"));
 		customer.setGrade(rs.getString("grade"));
 		customer.setAge(rs.getInt("age"));
 		customer.setGender(rs.getBoolean("gender"));
-		customer.setPhoneNumber(rs.getString("phone_number"));
+		customer.setPhoneNumber(rs.getString("phone_no"));
 		customer.setAddress(rs.getString("address"));
 		customer.setJobCode(rs.getString("job_code"));
 		customer.setCountry(rs.getString("country"));
-		customer.setDisability(rs.getBoolean("disability"));
-		customer.setRisk(rs.getFloat("risk"));
-		customer.setCredit(rs.getInt("credit"));
+		customer.setCredit(rs.getString("credit"));
 	}
 
 	// Update a customer
@@ -79,20 +77,19 @@ public class CustomerDAO {
 				+ "phone_number = ?, address = ?, job_code = ?, country = ?, disability = ?, risk = ?, credit = ? "
 				+ "WHERE c_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setInt(1, customer.getEmployeeId());
-			pstmt.setInt(2, customer.getBankId());
-			pstmt.setString(3, customer.getCustomerName());
-			pstmt.setString(4, customer.getGrade());
-			pstmt.setInt(5, customer.getAge());
-			pstmt.setBoolean(6, customer.isGender());
-			pstmt.setString(7, customer.getPhoneNumber());
-			pstmt.setString(8, customer.getAddress());
-			pstmt.setString(9, customer.getJobCode());
-			pstmt.setString(10, customer.getCountry());
-			pstmt.setBoolean(11, customer.isDisability());
-			pstmt.setFloat(12, customer.getRisk());
-			pstmt.setInt(13, customer.getCredit());
-			pstmt.setInt(14, customer.getCustomerId());
+			pstmt.setInt(1, customer.getCustomerId());
+			pstmt.setInt(2, customer.getEmployeeId());
+			pstmt.setInt(3, customer.getBankId());
+			pstmt.setString(4, customer.getCustomerName());
+			pstmt.setString(5, customer.getIdentification());
+			pstmt.setString(6, customer.getGrade());
+			pstmt.setInt(7, customer.getAge());
+			pstmt.setBoolean(8, customer.isGender());
+			pstmt.setString(9, customer.getPhoneNumber());
+			pstmt.setString(10, customer.getAddress());
+			pstmt.setString(11, customer.getJobCode());
+			pstmt.setString(12, customer.getCountry());
+			pstmt.setString(13, customer.getCredit());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

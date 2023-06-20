@@ -290,10 +290,17 @@ function changeCounty(add) {
 	}
 }
 
-const searchTableRows = document.querySelectorAll('#customerSearchTable tr :not(th)');
+const searchTableRows = document.querySelectorAll('#customerSearchTable tr');
+console.log(searchTableRows);
 
-searchTableRows.forEach((item) => {
-	item.addEventListener('click', () => {
-	    window.open("/hanaro-ERP-JSP/customerDetail?id=1");
-	});	
+searchTableRows.forEach((item, index) => {
+	if (index !== 0) {
+		var firstTd = item.querySelector(".customerId");
+		console.log(firstTd);
+		item.addEventListener('click', () => {
+			var value = firstTd.innerHTML;
+		    window.open("/hanaro-ERP-JSP/customerDetail?id=" + value, "_blank", "width=1000,height=600");
+		});	
+	}
+	
 });
