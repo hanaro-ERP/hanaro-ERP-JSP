@@ -26,23 +26,35 @@
 						<input name="employeeName" id="employeeNameSearchInput" class="innerSearchInput3"></input>
 						<div class="innerInformationRowTitle">소속 지점</div>
 						<select name="bankLocation" class="innerSelectBox">
-							<option value="location1">성수역점</option>
-							<option value="location2">서울숲점</option>
-							<option value="location3">신자양점</option>
+							<option value="">-</option>
+							<option value="성수점">성수점</option>
+							<option value="하나로점">하나로점</option>
+							<option value="신자양점">신자양점</option>
+							<option value="성수역점">성수역점</option>
+							<option value="서울숲점">서울숲점</option>
+							<option value="화양동점">화양동점</option>
+							<option value="청담사거리점">청담사거리점</option>
 						</select>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">부서</div>
 						<select name="department" class="innerSelectBox">
-							<option value="deptLoan1">대출1팀</option>
-							<option value="deptLoan2">대출2팀</option>
-							<option value="deptLoan3">대출3팀</option>
+							<option value="">-</option>
+							<option value="디지털 혁신팀">디지털 혁신팀</option>
+							<option value="디지털 보안팀">디지털 보안팀</option>
+							<option value="디지털 관리팀">디지털 관리팀</option>
 						</select>
 						<div class="innerInformationRowTitle">직책</div>
 						<select name="position" class="innerSelectBox">
-							<option value="manager">차장</option>
-							<option value="assi_manager">과장</option>
-							<option value="supervisor">주임</option>
+							<option value="">-</option>
+							<option value="사원">사원</option>
+							<option value="대리">대리</option>
+							<option value="팀장">팀장</option>
+							<option value="차장">차장</option>
+							<option value="부장">부장</option>
+							<option value="부행장">부행장</option>
+							<option value="상무">상무</option>
+							<option value="전무">전무</option>
 						</select>
 					</div>
 				</div>
@@ -51,7 +63,6 @@
 				</div>
 			</form>
 			<div class="searchTitle"><h1>검색 결과</h1></div>
-<<<<<<< HEAD
 			<table class="searchTable" id="employeeSearchTable">
 				<tr>
 					<th>직원 ID</th>
@@ -62,7 +73,6 @@
 					<th>직책</th>
 					<th>권한</th>
 				</tr>
-				<% System.out.println(request.getAttribute("name")); %>
 				<%
 				List<EmployeeDTO> findEmployee = (List<EmployeeDTO>)request.getAttribute("findEmployee");
 
@@ -73,13 +83,14 @@
 				        <td><%= employee.getEmployeeId() %></td>
 				        <td><%= employee.getBankId() %></td>
 				        <td><%= employee.getEmployeeName() %></td>
+				        <td><%= employee.getPhoneNumber() %>
 				        <td><%= employee.getDepartment() %></td>
 				        <td><%= employee.getPosition() %></td>
 				        <td>
 				        <% if(employee.isAdmin()) { %>
 				        관리자
 				        <% } else { %>
-				        -
+				        행원
 				        <% } %>
 				        </td>
 				      </tr>
@@ -87,8 +98,8 @@
 				    }
 				  }
 				
-				else { %>
-					<tr>
+				%>
+				<!-- 	<tr>
 				        <td>-</td>
 				        <td>-</td>
 				        <td>-</td>
@@ -96,8 +107,7 @@
 				        <td>-</td>
 				        <td>-</td>
 				        <td>-</td>
-				   </tr>
-				<% } %>
+				   </tr>-->
 			</table>
 		</div>
 	</main>

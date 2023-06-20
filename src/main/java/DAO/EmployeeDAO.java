@@ -197,5 +197,66 @@ public class EmployeeDAO {
 		}
 		return bank;
 	}
+	
+	public List<EmployeeDTO> getEmployeesByInfo(EmployeeDTO employeeDTO) {
+		StringBuilder queryBuilder = new StringBuilder("SELECT e.*, b.b_name FROM employees e ");
+		queryBuilder.append("JOIN banks b ON e.bankId = b.bankId ");
+		queryBuilder.append("WHERE 1=1 ");
+
+		if (employeeDTO.getEmployeeName() != null) {
+			queryBuilder.append("AND e.e_name = ?");
+		}
+		if (employeeDTO.getDepartment() != null) {
+			queryBuilder.append("AND e.department = ?");
+		}
+		if (employeeDTO.getPosition() != null) {
+			queryBuilder.append("AND e.position = ?");
+		}
+		if(employeeDTO.getBankLocation() != null) {
+			queryBuilder.append("AND b.b_name = ?");
+		}
+
+		try (Connection conn = DatabaseUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+			int parameterIndex = 1;
+
+			if (employeeDTO.getEmployeeName() != null) {
+				pstmt.setString(parameterIndex++, employeeDTO.getEmployeeName());
+			}
+			if (employeeDTO.getDepartment() != null) {
+				pstmt.setString(parameterIndex++, employeeDTO.getDepartment());
+			}
+			if (employeeDTO.getPosition() != null) {
+				pstmt.setString(parameterIndex++, employeeDTO.getPosition());
+			}
+			if(employeeDTO.getBankLocation() != null) {
+				pstmt.setInt(parameterIndex++, employeeDTO.getBankId());
+			}
+	    
+			List<EmployeeDTO> findEmployees = new ArrayList<>();
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					EmployeeDTO employee = new EmployeeDTO();
+					employee.setEmployeeId(rs.getInt("e_id"));
+					employee.setEmployeeName(rs.getString("e_name"));
+					employee.setPhoneNumber(rs.getString("e_phone_no"));
+					employee.setDepartment(rs.getString("department"));
+					employee.setPosition(rs.getString("position"));
+					employee.setAdmin(rs.getBoolean("admin"));
+
+					// bankName 가져오기
+					String bankName = rs.getString("b_name");
+					employee.setBankLocation("bankName");
+
+	                findEmployees.add(employee);
+	            }
+	        }
+
+	        return findEmployees;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
 
 }

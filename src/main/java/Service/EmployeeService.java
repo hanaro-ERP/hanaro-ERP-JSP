@@ -1,6 +1,8 @@
 package Service;
 
+import DAO.BankDAO;
 import DAO.EmployeeDAO;
+import DTO.BankDTO;
 import DTO.EmployeeDTO;
 import java.util.*;
 
@@ -11,9 +13,12 @@ public class EmployeeService {
 	}
 	
 	public static List<EmployeeDTO> findEmployee(EmployeeDTO employeeDTO) {
+		BankDAO bankDAO = new BankDAO();
 		EmployeeDAO employeeDAO = new EmployeeDAO();
-		List<EmployeeDTO> returnList = employeeDAO.getEmployees();
+		//BankDTO bankDTO = bankDAO.getBankByBankId(employeeDTO.getBankId());
+		List<EmployeeDTO> findEmployees = employeeDAO.getEmployeesByInfo(employeeDTO);
+		//List<EmployeeDTO> returnList = emp
 		
-		return returnList;
+		return findEmployees;
 	}
 }

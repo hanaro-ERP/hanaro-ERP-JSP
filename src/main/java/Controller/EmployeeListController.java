@@ -49,10 +49,22 @@ public class EmployeeListController extends HttpServlet {
 			e.printStackTrace();
 		}*/
 		
-		String employeeName = request.getParameterValues("employeeName")[0];
-		System.out.println(employeeName);
+		String employeeName = request.getParameter("employeeName");
+		String bankLocation = request.getParameter("bankLocation");
+		String department = request.getParameter("department");
+		String position = request.getParameter("position");
+		
+		//System.out.println(employeeName + " " + bankLocation + " " + department + " " + position);
+		
 		EmployeeDTO employeeDTO = new EmployeeDTO();
-		employeeDTO.setEmployeeName(employeeName);
+		if(employeeName != "")
+			employeeDTO.setEmployeeName(employeeName);
+		if(bankLocation != "")
+			employeeDTO.setBankLocation(bankLocation);
+		if(department != "") 
+			employeeDTO.setDepartment(department);
+		if(position != "")
+			employeeDTO.setPosition(position);
 		
 		try {
 			List<EmployeeDTO> findEmployee = EmployeeService.findEmployee(employeeDTO);
