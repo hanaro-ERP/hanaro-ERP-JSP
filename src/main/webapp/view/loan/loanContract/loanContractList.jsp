@@ -170,7 +170,7 @@
 	</main>
 	<script src="${pageContext.request.contextPath}/components/searchLayout/searchLayout.js"></script>
 	<script>
-		generateMenu('loan');		
+		generateMenu('loan', 'loanContract');		
 	</script>
 	<script src="${pageContext.request.contextPath}/view/loan/loanContract/loanContractList.js"></script>
 </body>
