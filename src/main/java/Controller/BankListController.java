@@ -39,7 +39,7 @@ public class BankListController extends HttpServlet {
 			    }
 			}
 			
-			response.sendRedirect(request.getContextPath() + "/view/employee/bank/bankList.jsp");
+			response.sendRedirect(request.getContextPath() + "/view/bankList.jsp");
 			} catch (Exception e) {
 			e.printStackTrace();
 		}

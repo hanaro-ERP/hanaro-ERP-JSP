@@ -38,7 +38,7 @@ public class LoanContractController extends HttpServlet {
 			    }
 			}
 
-			response.sendRedirect(request.getContextPath() + "/view/loan/loanContract/loanContract.jsp");
+			response.sendRedirect(request.getContextPath() + "/view/loanContract.jsp");
 			} catch (Exception e) {
 			e.printStackTrace();
 		}

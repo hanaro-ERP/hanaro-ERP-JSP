@@ -15,4 +15,14 @@
 	<session-config>
 		<session-timeout>10</session-timeout>
 	</session-config>
+	<servlet>
+		<servlet-name>test</servlet-name>
+		<servlet-class>Controller.LinkController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>test</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/components/aside/aside.css?ver=1">
+<link rel="stylesheet" href="aside.css?ver=1">
 </head>
 <body>
 	<div class="asideContainer">

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/view/employee/empList/empList.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/empList.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchResultTable/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
@@ -92,6 +92,6 @@
 	<script>
 		generateMenu('employee', 'employeeList');		
 	</script>
-	<script src="${pageContext.request.contextPath}/view/employee/empList/empList.js "></script>
+	<script src="${pageContext.request.contextPath}/js/empList.js "></script>
 </body>
 </html>

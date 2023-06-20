@@ -10,9 +10,9 @@
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
 <body>
-	<%@ include file="../../../components/header/header.jsp" %>
+	<%@ include file="../components/header/header.jsp" %>
 	<main>
-		<%@ include file="../../../components/aside/aside.jsp" %>
+		<%@ include file="../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>여신 상품 검색</h1></div>
 			<form action="${pageContext.request.contextPath}/loanProductList" method="post">
@@ -150,6 +150,6 @@
 		    // 여기서 세션 값을 사용하여 원하는 동작 수행
 		}
 	</script>
-	<script src="${pageContext.request.contextPath}/view/loan/loanProductList/loanProductList.js"></script>
+	<script src="${pageContext.request.contextPath}/js/loanProductList.js"></script>
 </body>
 </html>

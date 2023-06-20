@@ -7,13 +7,12 @@ pageEncoding="UTF-8"%>
 <title>상품 가입</title>
 <script src="../components/aside/aside.js "></script>
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
-<link rel="stylesheet" href="productSubscription.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/inputTable/inputTable.css?ver=1">
 </head>
 <body>
-	<%@ include file="../../../components/header/header.jsp" %>
+	<%@ include file="../components/header/header.jsp" %>
 	<main>
-		<%@ include file="../../../components/aside/aside.jsp" %>
+		<%@ include file="../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 가입</h1></div>
 			<form action="${pageContext.request.contextPath}/loanSubscription" method="post" onsubmit="return validateForm()">

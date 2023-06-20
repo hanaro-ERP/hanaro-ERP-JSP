@@ -5,15 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Deposit</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/view/deposit/depositProductList/depositProductList.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/depositProductList.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchResultTable/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
 <body>
-	<%@ include file="../../../components/header/header.jsp" %>
+	<%@ include file="../components/header/header.jsp" %>
 	<main>
-		<%@ include file="../../../components/aside/aside.jsp" %>
+		<%@ include file="../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>계좌 검색</h1></div>
 			<form action="${pageContext.request.contextPath}/depositList" method="post">
@@ -274,6 +274,6 @@
 	<script>
 		generateMenu('deposit', 'depositProductList');		
 	</script>
-	<script src="${pageContext.request.contextPath}/view/deposit/depositProductList/depositProductList.js"></script>
+	<script src="${pageContext.request.contextPath}/js/depositProductList.js"></script>
 </body>
 </html>

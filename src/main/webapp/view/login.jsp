@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/view/login/login.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/default.css?ver=1">
+<link rel="stylesheet" href="../css/login.css">
+<link rel="stylesheet" href="../css/default.css?ver=1">
 </head>
 <body>
 	<div class="container">
@@ -23,11 +23,11 @@
 			</div>
 		</div>
 	</div>
-	<script src="${pageContext.request.contextPath}/view/login/login.js"></script>
+	<script src="${pageContext.request.contextPath}/view/login.js"></script>
 	<script>
 		const loginId = "<%= request.getSession().getAttribute("loginId") %>";
 		if (loginId !== "null") {
-			window.location.href = "${pageContext.request.contextPath}/view/main/main.jsp";			
+			window.location.href = "${pageContext.request.contextPath}/view/main.jsp";			
 		}
  		let previousEmployeeId = "<%= request.getSession().getAttribute("employeeId") %>";
 		let errorMessage = "<%= request.getSession().getAttribute("errorMessage") %>";

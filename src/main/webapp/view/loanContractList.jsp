@@ -6,14 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Loan Contract</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/view/loan/loanContract/loanContractList.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/loanContractList.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchResultTable/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
-<body><%@ include file="../../../components/header/header.jsp" %>
+<body><%@ include file="../components/header/header.jsp" %>
 	<main>
-		<%@ include file="../../../components/aside/aside.jsp"%>
+		<%@ include file="../components/aside/aside.jsp"%>
 		<div class="innerContainer">
 			<div class="innerTitle">
 				<h1>여신 이력</h1>
@@ -172,6 +172,6 @@
 	<script>
 		generateMenu('loan', 'loanContract');		
 	</script>
-	<script src="${pageContext.request.contextPath}/view/loan/loanContract/loanContractList.js"></script>
+	<script src="${pageContext.request.contextPath}/js/loanContractList.js"></script>
 </body>
 </html>
