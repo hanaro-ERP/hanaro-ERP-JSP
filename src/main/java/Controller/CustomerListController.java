@@ -39,7 +39,7 @@ public class CustomerListController extends HttpServlet {
 			    }
 			}
 		} catch (Exception e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 }
