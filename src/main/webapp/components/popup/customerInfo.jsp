@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,42 +12,43 @@
 <div class="innerInformation">
 	<div class="innerInformationRow">
 		<div class="innerInformationRowTitle">고객 이름</div>
-		<p>이상준</p>
+		<p>${customer.customerName}</p>
 		<div class="innerInformationRowTitle">고객 ID</div>
-		<p>18-76030561</p>
+		<p>${customer.customerId}</p>
 	</div>
 	<div class="innerInformationRow">
 		<div class="innerInformationRowTitle">주민번호</div>
-		<p>980426-1111111</p>
+		<p>${customer.identification}</p>
 		<div class="innerInformationRowTitle">전화번호</div>
-		<p>010-9556-4022</p>
+		<p>${customer.phoneNumber}</p>
 	</div>
 	<div class="innerInformationRow">
 		<div class="innerInformationRowTitle">나이</div>
-		<p>만 25세</p>
+		<p>${customer.age}</p>
 		<div class="innerInformationRowTitle">성별</div>
-		<p>남</p>					</div>
+		<p>${customer.strGender}</p>					
+	</div>
 	<div class="innerInformationRow">
 		<div class="innerInformationRowTitle">담당 직원</div>
-		<p>김아무개</p>
+		<p>${customer.employeeName}</p>
 		<div class="innerInformationRowTitle">담당 지점</div>
-		<p>성수점</p>
+		<p>${customer.bankName}</p>
 	</div>
 	<div class="innerInformationRow">
 		<div class="innerInformationRowTitle">고객 분류</div>
-		<p>VVIP</p>
+		<p>${customer.grade}</p>
 		<div class="innerInformationRowTitle">신용 등급</div>
-		<p>2급</p>
+		<p>${customer.credit}</p>
 	</div>
 	<div class="innerInformationRow">
 		<div class="innerInformationRowTitle">소속 국가</div>
-		<p>대한민국</p>
+		<p>${customer.country}</p>
 		<div class="innerInformationRowTitle">거주지</div>
-		<p>경기도 의정부시</p>
+		<p>${customer.address}</p>
 	</div>
 	<div class="innerInformationRow">
 		<div class="innerInformationRowTitle">직업 코드</div>
-		<p>001</p>
+		<p>${customer.jobCode}</p>
 		<div class="innerInformationRowTitle">위험도</div>
 		<p>98</p>
 	</div>

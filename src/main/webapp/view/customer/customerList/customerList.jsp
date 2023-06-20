@@ -153,7 +153,7 @@
 					<th>위험도</th>
 				</tr>
 				<tr>
-					<td>001</td>
+					<td class="customerId">1</td>
 					<td>백연정</td>
 					<td>27</td>
 					<td>여</td>
@@ -164,7 +164,7 @@
 					<td>0점</td>
 				</tr>
 				<tr>
-					<td>001</td>
+					<td class="customerId">2</td>
 					<td>백연정</td>
 					<td>27</td>
 					<td>여</td>
@@ -175,7 +175,18 @@
 					<td>0점</td>
 				</tr>
 				<tr>
-					<td>001</td>
+					<td class="customerId">3</td>
+					<td>백연정</td>
+					<td>27</td>
+					<td>여</td>
+					<td>대한민국</td>
+					<td>-</td>
+					<td>000</td>					
+					<td>VVIP</td>
+					<td>0점</td>
+				</tr>
+				<tr>
+					<td class="customerId">4</td>
 					<td>백연정</td>
 					<td>27</td>
 					<td>여</td>
