@@ -18,7 +18,7 @@
 			<div class="innerTitle">
 				<h1>여신 이력</h1>
 			</div>
-			<form action="${pageContext.request.contextPath}/loanContract"
+			<form action="${pageContext.request.contextPath}/loanContractList"
 				method="post">
 				<div class="innerSubTitle">
 					<h2>여신 정보</h2>
@@ -170,7 +170,7 @@
 	</main>
 	<script src="${pageContext.request.contextPath}/components/searchLayout/searchLayout.js"></script>
 	<script>
-		generateMenu('loan');		
+		generateMenu('loan');
 	</script>
 	<script src="${pageContext.request.contextPath}/view/loan/loanContract/loanContractList.js"></script>
 </body>
