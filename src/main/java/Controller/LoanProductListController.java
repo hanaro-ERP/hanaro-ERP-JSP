@@ -50,7 +50,6 @@ public class LoanProductListController extends HttpServlet {
 				}
 			}
 			
-			
 			response.sendRedirect(request.getContextPath() + "/view/loanProductList.jsp");
 			} catch (Exception e) {
 			e.printStackTrace();

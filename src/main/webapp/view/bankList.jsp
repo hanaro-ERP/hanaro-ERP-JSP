@@ -10,7 +10,7 @@
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
 <body>
-	<!-- <%@ include file="../components/header/header.jsp" %>-->
+	<%@ include file="../components/header/header.jsp" %>
 	<main>
 		<%@ include file="../components/aside/aside.jsp" %>
 		

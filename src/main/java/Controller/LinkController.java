@@ -35,11 +35,9 @@ public class LinkController extends HttpServlet {
 		
 		System.out.println("command : "+command);
 		
-		
 		switch(command) {
 		case "/":
 			site = "index.jsp";
-			
 			break;
 			
 		case "/view/customerList.do" : 
@@ -57,10 +55,10 @@ public class LinkController extends HttpServlet {
 		case "/view/depositProductList.do" :
 			site = "depositProductList.jsp";
 			break;
+			
 		default : break;
 		}
-		/* 결과 */
-        //getRequestDispatcher(); 메서드 안에 들어가는 문자열에는 뷰페이지경로.jsp가 들어갑니다.
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(site);
 		dispatcher.forward(request, response);
 	}

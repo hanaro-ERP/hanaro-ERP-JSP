@@ -188,7 +188,7 @@
 			</table>
 		</div>
 	</main>
-		<script src="${pageContext.request.contextPath}/components/searchLayout/searchLayout.js"></script>
+	<script src="${pageContext.request.contextPath}/components/searchLayout/searchLayout.js"></script>
 	<script>
 		generateMenu('customer', 'customerList');		
 	</script>

@@ -37,7 +37,7 @@
 	</header>
 </body>
 <script>
-<%-- 	const headerSessionName = document.querySelector(".headerSessionName");
+	const headerSessionName = document.querySelector(".headerSessionName");
 	const loginName = "<%= request.getSession().getAttribute("loginName") %>";
 	headerSessionName.innerHTML = loginName + " <%= request.getSession().getAttribute("loginPosition") %>님";
 	const headerSessionTime = document.querySelector(".headerSessionTime");
@@ -72,18 +72,16 @@
 				response.setHeader("Expires", "0"); // Proxies
 				%>
 				window.location.href = "${pageContext.request.contextPath}/view/login/login.jsp";	
-
 			} else {
 				if (remainingTime <= 59) {
 					headerSessionTime.textContent =remainingTime + " 초 뒤 자동 로그아웃";	
 				} else {
 					headerSessionTime.textContent = parseInt(remainingTime/60) + "분 " + remainingTime%60 + "초 뒤 자동 로그아웃";
 				}
-				
 			}
 		}, 1000);
 	}
 
-	updateSessionTimer(); --%>
+	updateSessionTimer();
 </script>
 </html>
