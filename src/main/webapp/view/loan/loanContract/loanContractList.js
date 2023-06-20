@@ -139,14 +139,8 @@ function changeDateRowSelect(rowId) {
 	}
 
 	listItems = Array.from(ulElement.querySelectorAll('li'));
-	if (rowIndex == 0) {
-		listItems[0].classList.remove('selectedLi'); // '전체' 해제하고
-		listItems[1].classList.add('selectedLi'); // '직접입력' 선택
-	}
-	else {
-		listItems[1].classList.remove('selectedLi'); // '전체' 해제하고
-		listItems[0].classList.add('selectedLi'); // '직접입력' 선택
-	}
+	listItems[0].classList.remove('selectedLi'); // '전체' 해제하고
+	listItems[1].classList.add('selectedLi'); // '직접입력' 선택
 }
 
 setYearSelect();

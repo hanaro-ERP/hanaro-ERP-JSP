@@ -18,11 +18,7 @@
 			<div class="innerTitle">
 				<h1>여신 이력</h1>
 			</div>
-<<<<<<< HEAD
-			<form action="${pageContext.request.contextPath}/loanContract"
-=======
 			<form action="${pageContext.request.contextPath}/loanContractList"
->>>>>>> feature/loan-contract
 				method="post">
 				<div class="innerSubTitle">
 					<h2>여신 정보</h2>
