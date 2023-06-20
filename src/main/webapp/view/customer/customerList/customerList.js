@@ -17,7 +17,6 @@ selectMultiItemsWithDirectInput('customerAge');
 selectOneItem('customerGender');
 selectMultiItems('customerGrade');
 selectMultiItems('customerCredit');
-selectMultiItems('disabilityGrade');
 
 // select 부분 변수 및 함수 추가
 var countyList = new Array();
@@ -290,3 +289,11 @@ function changeCounty(add) {
 		selectElement.options[i] = new Option(countyList[add][i], countyList[add][i]);
 	}
 }
+
+const searchTableRows = document.querySelectorAll('#customerSearchTable tr :not(th)');
+
+searchTableRows.forEach((item) => {
+	item.addEventListener('click', () => {
+	    window.open("/hanaro-ERP-JSP/customerDetail?id=1");
+	});	
+});

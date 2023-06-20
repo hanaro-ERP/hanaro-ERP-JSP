@@ -21,7 +21,7 @@
 				<div class="innerInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">이름(ID)</div>
-						<input name="employeeName" id="employeeNameSearchInput"></input>
+						<input name="employeeName" id="employeeNameSearchInput" class="innerSearchInput3"></input>
 						<div class="innerInformationRowTitle">소속 지점</div>
 						<select name="bankLocation" class="innerSelectBox">
 							<option value="location1">성수역점</option>
@@ -48,6 +48,45 @@
 					<button type="submit">검색</button>
 				</div>
 			</form>
+			<div class="searchTitle"><h1>검색 결과</h1></div>
+			<table class="searchTable" id="customerSearchTable">
+				<tr>
+					<th>직원 ID</th>
+					<th>이름</th>
+					<th>소속 지점</th>
+					<th>부서</th>
+					<th>직책</th>
+					<th>전화번호</th>
+					<th>꿘한</th>
+				</tr>
+				<tr>
+					<td>001</td>
+					<td>백연정</td>
+					<td>27</td>
+					<td>여</td>
+					<td>대한민국</td>
+					<td>-</td>
+					<td>000</td>
+				</tr>
+				<tr>
+					<td>001</td>
+					<td>백연정</td>
+					<td>27</td>
+					<td>여</td>
+					<td>대한민국</td>
+					<td>-</td>
+					<td>000</td>
+				</tr>
+				<tr>
+					<td>001</td>
+					<td>백연정</td>
+					<td>27</td>
+					<td>여</td>
+					<td>대한민국</td>
+					<td>-</td>
+					<td>000</td>
+				</tr>
+			</table>
 		</div>
 	</main>
 	<script>

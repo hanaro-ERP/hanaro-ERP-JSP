@@ -19,7 +19,7 @@ const menuData = {
 		menuIcon: 'loanBtnIcon',
 		menuItems: [
 			{ id: 'loanProductList', label: '여신 상품', link: '/dashboard' },
-			{ id: 'loanHistory', label: '여신 이력', link: '/profile' },
+			{ id: 'loanContract', label: '여신 이력', link: '/profile' },
 			{ id: 'productRegistration', label: '상품 등록', link: '/settings' },
 			{ id: 'productSubscription', label: '상품 가입', link: '/settings' }
 		]

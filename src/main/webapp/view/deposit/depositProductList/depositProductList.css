@@ -19,7 +19,7 @@
 	width: 200px;
 }
 #depositSearchTable tr th:nth-child(5){
-	width: 494px;
+	width: 200px;
 	border-top-right-radius: 5px;	
 }
 .popupBox{
@@ -65,7 +65,7 @@
 	width: 150px;
 }
 #historyTable tr th:nth-child(5){
-	width: 150px;
+	width: 100px;
 }
 #historyTable tr th:nth-child(6){
 	width: 130px;
@@ -79,4 +79,10 @@
 }
 .display{
 	display: none;
+}
+ul > li > select {
+	width: 200px;
+	height: 30px;
+	text-align: center;
+	margin-right: 10px;
 }
