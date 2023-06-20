@@ -38,10 +38,8 @@ public class CustomerListController extends HttpServlet {
 			        System.out.println(infos[i] + ": " + String.join(", ", selectedJobs));
 			    }
 			}
-			
-//			response.sendRedirect(request.getContextPath() + "/view/customer/customerList/customerList.jsp");
-			} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+		e.printStackTrace();
 		}
 	}
 }

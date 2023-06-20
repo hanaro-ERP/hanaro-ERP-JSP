@@ -129,22 +129,4 @@ public class CustomerDAO {
 		}
 		return customers;
 	}
-	
-	// Get some customers
-		public List<CustomerDTO> getCustomersByCustomerDTO(CustomerDTO customer) {
-			String SQL = "SELECT * FROM customers";
-			List<CustomerDTO> customers = new ArrayList<>();
-			try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-				try (ResultSet rs = pstmt.executeQuery()) {
-					while (rs.next()) {
-						CustomerDTO customer = new CustomerDTO();
-						fillCustomerDTOFromResultSet(customer, rs);
-						customers.add(customer);
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return customers;
-		}
 }

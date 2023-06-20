@@ -149,7 +149,6 @@ function selectMultiItemsWithDirectInput(ulId) {
 	});	
 }
 
-
 let yearSelectList, monthSelectList, daySelectList;
 let yearSelectRow, monthSelectRow, daySelectRow;
 let yearSelect, monthSelect, daySelect;
