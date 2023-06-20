@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/default.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/header/header.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/header/userInformation.css?ver=1">
 </head>
@@ -19,10 +19,10 @@
 			</a>
 		</div>
 		<ul class="headerMenuContainer">
-			<li><a href="">고객관리</a></li>
-			<li><a href="">직원관리</a></li>
-			<li><a href="">여신관리</a></li>
-			<li><a href="">수신관리</a></li>
+			<li><a href="customerList.do">고객관리</a></li>
+			<li><a href="empList.do">직원관리</a></li>
+			<li><a href="loanProductList.do">여신관리</a></li>
+			<li><a href="depositProductList.do">수신관리</a></li>
 		</ul>
 			<div class="headerSessionInformationContainer">
 				<div class="headerSessionTimeout">
@@ -37,7 +37,7 @@
 	</header>
 </body>
 <script>
-	const headerSessionName = document.querySelector(".headerSessionName");
+<%-- 	const headerSessionName = document.querySelector(".headerSessionName");
 	const loginName = "<%= request.getSession().getAttribute("loginName") %>";
 	headerSessionName.innerHTML = loginName + " <%= request.getSession().getAttribute("loginPosition") %>님";
 	const headerSessionTime = document.querySelector(".headerSessionTime");
@@ -53,7 +53,7 @@
 	});
 	
 	if (loginName == "null") {
-		window.location.href = "${pageContext.request.contextPath}/view/login/login.jsp";
+		window.location.href = "../../view/login.jsp";
 		alert("로그인이 필요합니다.");
 	}
 	
@@ -67,7 +67,8 @@
 			if (sessionTimeout <= 0) {
 				clearInterval(timer);
 				headerSessionTime.textContent = "세션 만료";
-				window.location.href = "${pageContext.request.contextPath}/view/login/login.jsp";	
+				window.location.href = "../../view/login.jsp";
+				
 			} else {
 				if (sessionTimeout <= 59) {
 					headerSessionTime.textContent = sessionTimeout + " 초 뒤 자동 로그아웃";	
@@ -79,6 +80,6 @@
 		}, 1000);
 	}
 
-	updateSessionTimer();
+	updateSessionTimer(); --%>
 </script>
 </html>

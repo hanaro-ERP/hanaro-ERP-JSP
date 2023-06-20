@@ -5,8 +5,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Main</title>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/default.css?ver=1">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/view/main/main.css?ver=1">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css?ver=1">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?ver=1">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/components/header/userInformation.css?ver=1">
 </head>
 <body>
@@ -86,7 +86,7 @@
 	});
 	
 	if (loginName == "null") {
-		window.location.href = "${pageContext.request.contextPath}/view/login/login.jsp";
+		window.location.href = "${pageContext.request.contextPath}/view/login.jsp";
 		alert("로그인이 필요합니다.");
 	}
 	
@@ -100,7 +100,7 @@
 			if (sessionTimeout <= 0) {
 				clearInterval(timer);
 				headerSessionTime.textContent = "세션 만료";
-				window.location.href = "${pageContext.request.contextPath}/view/login/login.jsp";	
+				window.location.href = "${pageContext.request.contextPath}/view/login.jsp";	
 			} else {
 				if (sessionTimeout <= 59) {
 					headerSessionTime.textContent = sessionTimeout + " 초 뒤 자동 로그아웃";	

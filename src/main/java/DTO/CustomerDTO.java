@@ -1,5 +1,7 @@
 package DTO;
 
+import java.sql.Timestamp;
+
 import lombok.Getter;
 import lombok.Setter;
 

@@ -31,7 +31,7 @@ public class LoginController extends HttpServlet {
 			String errorMessage, String employeeId) throws ServletException, IOException {
 		request.getSession().setAttribute("employeeId", employeeId);
 		request.getSession().setAttribute("errorMessage", errorMessage);
-		response.sendRedirect(request.getContextPath() + "/view/login/login.jsp");
+		response.sendRedirect(request.getContextPath() + "/view/login.jsp");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -62,7 +62,7 @@ public class LoginController extends HttpServlet {
 			request.getSession().setAttribute("loginId", storedEmployeeDTO.getEmployeeId());
 			request.getSession().setAttribute("loginName", storedEmployeeDTO.getEmployeeName());
 			request.getSession().setAttribute("loginPosition", storedEmployeeDTO.getPosition());
-			response.sendRedirect(request.getContextPath() + "/view/main/main.jsp");
+			response.sendRedirect(request.getContextPath() + "/view/main.jsp");
 		} else {
 			redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 잘못 입력했습니다.", String.valueOf(employeeId));
 		}

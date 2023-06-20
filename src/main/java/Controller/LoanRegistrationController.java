@@ -39,7 +39,7 @@ public class LoanRegistrationController extends HttpServlet {
 			    }
 			}
 
-			response.sendRedirect(request.getContextPath() + "/view/loan/productRegistration/productRegistration.jsp");
+			response.sendRedirect(request.getContextPath() + "/view/productRegistration.jsp");
 			} catch (Exception e) {
 			e.printStackTrace();
 		}

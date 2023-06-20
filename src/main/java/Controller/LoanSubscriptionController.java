@@ -38,7 +38,7 @@ public class LoanSubscriptionController extends HttpServlet {
 			    }
 			}
 
-			response.sendRedirect(request.getContextPath() + "/view/loan/productSubscription/productSubscription.jsp");
+			response.sendRedirect(request.getContextPath() + "/view/productSubscription.jsp");
 			} catch (Exception e) {
 			e.printStackTrace();
 		}

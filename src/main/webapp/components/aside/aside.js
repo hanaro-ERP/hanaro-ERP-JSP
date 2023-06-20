@@ -58,5 +58,5 @@ function generateMenu(page, subPage) {
 	});
 
 	pageTitleElement.textContent = pageTitle;
-	menuIconElement.src = `../../../public/images/${pageData.menuIcon}.svg`;
+	menuIconElement.src = `../images/${pageData.menuIcon}.svg`;
 }

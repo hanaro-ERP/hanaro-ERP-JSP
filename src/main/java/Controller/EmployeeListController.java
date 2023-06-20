@@ -39,7 +39,7 @@ public class EmployeeListController extends HttpServlet {
 			    }
 			}
 			
-			response.sendRedirect(request.getContextPath() + "/view/employee/empList/empList.jsp");
+			response.sendRedirect(request.getContextPath() + "/view/empList.jsp");
 			} catch (Exception e) {
 			e.printStackTrace();
 		}

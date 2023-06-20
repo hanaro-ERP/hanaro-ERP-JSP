@@ -5,14 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchResultTable/searchResultTable.css?ver=1">
+<link rel="stylesheet" href="../css/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
 <body>
-	<%@ include file="../../../components/header/header.jsp" %>
+	<!-- <%@ include file="../components/header/header.jsp" %>-->
 	<main>
-		<%@ include file="../../../components/aside/aside.jsp" %>
+		<%@ include file="../components/aside/aside.jsp" %>
 		
 		<div class="innerContainer" id="container2">
 			<div class="innerTitle"><h1>지점 목록</h1></div>
@@ -72,6 +72,6 @@
 	<script>
 		generateMenu('employee', 'bankList');		
 	</script>
-	<script src="${pageContext.request.contextPath}/view/employee/empList/empList.js "></script>
+	<script src="${pageContext.request.contextPath}/js/empList.js "></script>
 </body>
 </html>

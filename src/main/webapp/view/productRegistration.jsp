@@ -11,9 +11,9 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="productRegistration.css" />
 </head>
 <body>
-	<%@ include file="../../../components/header/header.jsp" %>
+	<%@ include file="../components/header/header.jsp" %>
 	<main>
-		<%@ include file="../../../components/aside/aside.jsp" %>
+		<%@ include file="../components/aside/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 등록</h1></div>
 			<form action="${pageContext.request.contextPath}/loanRegistration" method="post" onsubmit="return validateForm()">
@@ -90,6 +90,6 @@ pageEncoding="UTF-8"%>
 		generateMenu('loan', 'productRegistration');		
 	</script>
 	<script src="${pageContext.request.contextPath}/components/inputTable/inputTable.js "></script>
-	<script src="${pageContext.request.contextPath}/view/loan/productRegistration/productRegistration.js"></script>
+	<script src="${pageContext.request.contextPath}/js/productRegistration.js"></script>
 </body>
 </html>
