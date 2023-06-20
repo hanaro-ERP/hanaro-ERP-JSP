@@ -21,13 +21,16 @@
 				<div class="innerInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">고객 이름</div>
-						<input name="customerName" id="depositCustomerSearchInput"></input>
-						<div class="innerInformationRowTitle">담당 직원</div>
-						<input name="employeeName"id="depositEmployeeSearchInput"></input>
+						<input name="customerName" id="depositCustomerSearchInput" class="innerSearchInput3"></input>
+					</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">주민번호</div>
+						<input name="regitrationNumber" class="innerMiddleInput2"></input>&nbsp;-&nbsp;
+						<input name="regitrationNumber" class="innerMiddleInput2"></input>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">계좌 번호</div>
-						<input name="accountNumber" id="depositAccountNumberSearchInput"></input>
+						<input name="accountNumber" id="depositAccountNumberSearchInput" class="innerSearchInput"></input>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">계좌 유형</div>
@@ -35,6 +38,24 @@
 							<li><input type="checkbox" value="전체" />전체</li>
 							<li><input type="checkbox" value="예금" />예금</li>
 							<li><input type="checkbox" value="적금" />적금</li>
+						</ul>
+					</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">계좌 개설일</div>
+						<ul class="loanIssueDate" id="depositStartDate">
+							<li>
+								<input type="checkbox" value="전체" id="issueDateAll"
+									name="loanContractStartDate">전체
+							</li>
+							<li id="directInput">
+								<p>직접 입력</p> 
+								<select name="loanContractStartDate"
+								class="yearSelect" disabled="true"></select> 
+								<select name="loanContractStartDate" class="monthSelect"
+								disabled="true"></select> 
+								<select name="loanContractStartDate" class="daySelect"
+								disabled="true"></select>
+							</li>
 						</ul>
 					</div>
 					<div class="innerInformationRow" id="balanceRow">
@@ -63,6 +84,7 @@
 				<tr>
 					<th>계좌 유형</th>
 					<th>계좌 번호</th>
+					<th>계좌 개설일</th>
 					<th>고객 이름</th>
 					<th>담당 직원</th>
 					<th>계좌 잔액</th>
@@ -70,6 +92,7 @@
 				<tr>
 					<td>입출금계좌</td>
 					<td>3333-08-9795700</td>
+					<td>2023-06-19</td>
 					<td>김민재</td>
 					<td>이상준</td>
 					<td>17,213,000원</td>
@@ -77,6 +100,7 @@
 				<tr>
 					<td>입출금계좌</td>
 					<td>3333-08-9795700</td>
+					<td>2023-06-19</td>
 					<td>김민재</td>
 					<td>이상준</td>
 					<td>17,213,000원</td>
@@ -84,6 +108,7 @@
 				<tr>
 					<td>입출금계좌</td>
 					<td>3333-08-9795700</td>
+					<td>2023-06-19</td>
 					<td>김민재</td>
 					<td>이상준</td>
 					<td>17,213,000원</td>
@@ -91,6 +116,7 @@
 				<tr>
 					<td>입출금계좌</td>
 					<td>3333-08-9795700</td>
+					<td>2023-06-19</td>
 					<td>김민재</td>
 					<td>이상준</td>
 					<td>17,213,000원</td>
@@ -101,10 +127,12 @@
 					<td>한다고</td>
 					<td>한 적이</td>
 					<td>없는데</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>입출금계좌</td>
 					<td>3333-08-9795700</td>
+					<td>2023-06-19</td>
 					<td>김민재</td>
 					<td>이상준</td>
 					<td>17,213,000원</td>
@@ -112,6 +140,7 @@
 				<tr>
 					<td>입출금계좌</td>
 					<td>3333-08-9795700</td>
+					<td>2023-06-19</td>
 					<td>김민재</td>
 					<td>이상준</td>
 					<td>17,213,000원</td>
@@ -119,6 +148,7 @@
 				<tr>
 					<td>입출금계좌</td>
 					<td>3333-08-9795700</td>
+					<td>2023-06-19</td>
 					<td>김민재</td>
 					<td>이상준</td>
 					<td>17,213,000원</td>
@@ -126,6 +156,7 @@
 				<tr>
 					<td>입출금계좌</td>
 					<td>3333-08-9795700</td>
+					<td>2023-06-19</td>
 					<td>김민재</td>
 					<td>이상준</td>
 					<td>17,213,000원</td>
@@ -133,6 +164,7 @@
 				<tr>
 					<td>입출금계좌</td>
 					<td>3333-08-9795700</td>
+					<td>2023-06-19</td>
 					<td>김민재</td>
 					<td>이상준</td>
 					<td>17,213,000원</td>

@@ -15,9 +15,9 @@ import util.DatabaseUtil;
 
 public class EmployeeDAO {
 
-	// Create a new employee
-	public int createEmployee(EmployeeDTO employee) {
-		String SQL = "INSERT INTO employees (e_id, b_id, e_name, department, position, password, admin) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	// insert a new employee
+	public int insertEmployee(EmployeeDTO employee) {
+		String SQL = "INSERT INTO employees (e_id, b_id, e_name, department, position, password, e_phone_no, admin, salt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, employee.getEmployeeId());
 			pstmt.setInt(2, employee.getBankId());
@@ -25,7 +25,9 @@ public class EmployeeDAO {
 			pstmt.setString(4, employee.getDepartment());
 			pstmt.setString(5, employee.getPosition());
 			pstmt.setString(6, employee.getPassword());
-			pstmt.setBoolean(7, employee.isAdmin());
+			pstmt.setString(7, employee.getPhoneNumber());
+			pstmt.setBoolean(8, employee.isAdmin());
+			pstmt.setString(9, employee.getSalt());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,7 +60,9 @@ public class EmployeeDAO {
 		employee.setDepartment(rs.getString("department"));
 		employee.setPosition(rs.getString("position"));
 		employee.setPassword(rs.getString("password"));
-		employee.setAdmin(rs.getBoolean("is_admin"));
+		employee.setPhoneNumber(rs.getString("e_phone_no"));
+		employee.setAdmin(rs.getBoolean("admin"));
+		employee.setSalt(rs.getString("salt"));
 	}
 
 	// Update an employee

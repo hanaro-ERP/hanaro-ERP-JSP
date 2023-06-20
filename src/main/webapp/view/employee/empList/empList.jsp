@@ -23,7 +23,7 @@
 				<div class="innerInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">이름(ID)</div>
-						<input name="employeeName" id="employeeNameSearchInput"></input>
+						<input name="employeeName" id="employeeNameSearchInput" class="innerSearchInput3"></input>
 						<div class="innerInformationRowTitle">소속 지점</div>
 						<select name="bankLocation" class="innerSelectBox">
 							<option value="location1">성수역점</option>
@@ -51,6 +51,7 @@
 				</div>
 			</form>
 			<div class="searchTitle"><h1>검색 결과</h1></div>
+<<<<<<< HEAD
 			<table class="searchTable" id="employeeSearchTable">
 				<tr>
 					<th>직원 ID</th>

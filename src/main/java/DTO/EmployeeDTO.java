@@ -12,5 +12,7 @@ public class EmployeeDTO {
 	private String department;
 	private String position;
 	private String password;
+	private String phoneNumber;
 	private boolean admin;
+	private String salt;
 }

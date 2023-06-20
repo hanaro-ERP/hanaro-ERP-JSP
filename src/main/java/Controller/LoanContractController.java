@@ -1,7 +1,6 @@
 package Controller;
 
 import java.io.*;
-import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/customerList")
-public class CustomerListController extends HttpServlet {
+@WebServlet("/loanContractList")
+public class LoanContractController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public CustomerListController() {
+	public LoanContractController() {
 		super();
 	}
 
@@ -25,12 +24,12 @@ public class CustomerListController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		postCustomerListProcess(request, response);
+		postLoanContractProcess(request, response);
 	}
 	
-	protected void postCustomerListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void postLoanContractProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String[] infos = {"customerName", "jobCode", "customerEmployee", "bankLocation", "customerAge", "customerGender", "customerGrade", "customerCredit", "customerCountry", "disabilityGrade", "citySelect", "district"};
+			String[] infos = {"productName", "loanType", "customerName", "employeeName", "loanContractStartDate", "loanContractEndDate", "balanceList", "loanContractLimit"};
 			
 			for (int i = 0; i < infos.length; i++) {
 			    String[] selectedJobs = request.getParameterValues(infos[i]);
@@ -38,8 +37,10 @@ public class CustomerListController extends HttpServlet {
 			        System.out.println(infos[i] + ": " + String.join(", ", selectedJobs));
 			    }
 			}
-		} catch (Exception e) {
-		e.printStackTrace();
+
+			response.sendRedirect(request.getContextPath() + "/view/loan/loanContract/loanContract.jsp");
+			} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -22,12 +22,12 @@
 				<div class="innerInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">이름(ID)</div>
-						<input name="bankName" id="bankLocNameSearchInput"></input>
+						<input name="bankName" id="bankLocNameSearchInput" class="innerMiddleInput"></input>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">거주지</div>
 						<div class="innerInformationRowSubtitle">시·도</div>
-						<select name="citySelect" class="innerSelectBox">
+						<select name="citySelect" class="innerSelectBox2">
 							<option value="Seoul">서울</option>
 							<option value="Busan">부산</option>
 							<option value="Daegu">대구</option>
@@ -47,7 +47,7 @@
 							<option value="Jeju">제주</option>
 						</select>
 						<div class="innerInformationRowSubtitle">시·군·구</div>
-						<select name="district" class="innerSelectBox">
+						<select name="district" class="innerSelectBox2">
 							<optgroup label="서울특별시">
 								<option value="종로구">종로구</option>
 								<option value="중구">중구</option>
@@ -69,13 +69,30 @@
 				</div>
 			</form>
 			<div class="searchTitle"><h1>검색 결과</h1></div>
-			<table class="searchTable" id="bankSearchTable">
+			<table class="searchTable" id="customerSearchTable">
 				<tr>
 					<th>지점 ID</th>
 					<th>이름</th>
-					<th>지점장</th>
 					<th>전화번호</th>
 					<th>주소</th>
+				</tr>
+				<tr>
+					<td>001</td>
+					<td>백연정</td>
+					<td>27</td>
+					<td>여</td>
+				</tr>
+				<tr>
+					<td>001</td>
+					<td>백연정</td>
+					<td>27</td>
+					<td>여</td>
+				</tr>
+				<tr>
+					<td>001</td>
+					<td>백연정</td>
+					<td>27</td>
+					<td>여</td>
 				</tr>
 			</table>
 		</div>

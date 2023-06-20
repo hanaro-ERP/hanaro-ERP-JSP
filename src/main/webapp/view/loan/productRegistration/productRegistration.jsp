@@ -38,12 +38,17 @@ pageEncoding="UTF-8"%>
 								<option value="담보대출">담보 대출</option>
 							</select>
 						</td>
-						<th>담보 종류</th>
+						<th id="collateralTypeContainer">직업</th>
 						<td>
-							<select name="collateralType" class="shortSelect">
-								<option value="예적금">예적금</option>
-								<option value="주택">주택</option>
-								<option value="전세">전세</option>
+							<select id="loanTypeSelect" name="job" class="shortSelect">
+								<option value="직장인">직장인</option>
+								<option value="공무원">공무원</option>
+								<option value="군인">군인</option>
+								<option value="금융인">금융인</option>
+								<option value="전문직">전문직</option>
+								<option value="의사">의사</option>
+								<option value="자영업">자영업</option>
+								<option value="무직">무직</option>
 							</select>
 						</td>
 					</tr>
@@ -56,27 +61,11 @@ pageEncoding="UTF-8"%>
 						</td>
 						<th>이자</th>
 						<td>
-							<select name="interestRate" class="shortSelect">
-								<option value="복리">복리</option>
-								<option value="단리">단리</option>
-							</select>
-							&nbsp;&nbsp;최대
-							<input name="interestRateLimit" class="shortInput" type="number" min="0" max="10" step="0.1" />
+							&nbsp;&nbsp;최소&nbsp;
+							<input name="interestRate" class="shortInput" type="number" min="0" max="10" step="0.1"/>
+							&nbsp;&nbsp;최대&nbsp;
+							<input name="interestRate" class="shortInput" type="number" min="0" max="10" step="0.1"/>
 							%
-						</td>
-					</tr>
-					<tr>
-						<th>대출 목적</th>
-						<td>
-							<select name="loanPerpose" class="shortSelect">
-								<option>??</option>
-								<option>??</option>
-							</select>
-						</td>
-						<th>적정 위험도</th>
-						<td>
-							<input name="adequateRisk" class="shortInput" type="number" min="0" max="100" step="1" />
-							점
 						</td>
 					</tr>
 				</table>
@@ -87,6 +76,42 @@ pageEncoding="UTF-8"%>
         </div>
     </main>
     <script>
+		function toggleCollateralType() {
+			const loanTypeSelect = document.querySelector('select[name="loanType"]');
+			const collateralTypeSelect = document.querySelector('#loanTypeSelect');
+			const collateralTypeContainer = document.querySelector('#collateralTypeContainer');
+
+			loanTypeSelect.addEventListener('change', function() {
+				const selectedLoanType = this.value;
+				const collateralTypeOptions = collateralTypeSelect.querySelectorAll('option');
+    	    
+				if (selectedLoanType === '신용대출') {
+					collateralTypeContainer.innerHTML = '직업';
+					collateralTypeSelect.setAttribute('name', 'job');
+					collateralTypeSelect.innerHTML = `
+						<option value="직장인">직장인</option>
+						<option value="공무원">공무원</option>
+						<option value="군인">군인</option>
+						<option value="금융인">금융인</option>
+						<option value="전문직">전문직</option>
+						<option value="의사">의사</option>
+						<option value="자영업">자영업</option>
+						<option value="무직">무직</option>
+					`;
+				} else if (selectedLoanType === '담보대출') {
+					collateralTypeContainer.innerHTML = '담보 종류';
+					collateralTypeSelect.setAttribute('name', 'collateralType');
+					collateralTypeSelect.innerHTML = `
+						<option value="예적금">예적금</option>
+						<option value="주택">주택</option>
+						<option value="전세자금">전세자금</option>
+					`;
+				}
+			});
+    	}
+
+    	// 호출하여 함수 실행
+    	toggleCollateralType();
 		generateMenu('loan', 'productRegistration');		
 	</script>
 	<script src="${pageContext.request.contextPath}/components/inputTable/inputTable.js "></script>

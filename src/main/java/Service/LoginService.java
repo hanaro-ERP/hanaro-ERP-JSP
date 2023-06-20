@@ -1,19 +1,26 @@
 package Service;
 
+import java.security.NoSuchAlgorithmException;
+
 import DAO.EmployeeDAO;
 import DTO.EmployeeDTO;
+import util.PasswordUtil;
 
 public class LoginService {
 
 	public LoginService() {
 	}
 
-	public static boolean authenticateEmployee(EmployeeDTO employeeDTO) {
+	public static Object authenticateEmployee(EmployeeDTO employeeDTO) throws NoSuchAlgorithmException {
 		int employeeId = employeeDTO.getEmployeeId();
 		String password = employeeDTO.getPassword();
 		EmployeeDAO employeeDAO = new EmployeeDAO();
-		String storedPassword = employeeDAO.getPasswordByEmployeeId(employeeId);
+		EmployeeDTO storedEmployeeDTO = new EmployeeDTO();
+		storedEmployeeDTO = employeeDAO.getEmployeeByEmployeeId(employeeId);
+		String storedPassword = storedEmployeeDTO.getPassword();
+		String storedSalt = storedEmployeeDTO.getSalt();
+		String hashedPassword = PasswordUtil.hashPassword(password, storedSalt);
 
-		return password.equals(storedPassword) ? true : false;
+		return hashedPassword.equals(storedPassword) ? storedEmployeeDTO : null;
 	}
 }

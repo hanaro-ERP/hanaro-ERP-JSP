@@ -20,7 +20,7 @@
 				<div class="innerSubTitle"><h2>기본 정보</h2></div>
 				<div class="innerInformation">
 					<div class="innerInformationRow">
-						<div class="innerInformationRowTitle">이름(ID)</div>
+						<div class="innerInformationRowTitle">고객 이름</div>
 						<input name="customerName" class="innerSearchInput"></input>
 						<div class="innerInformationRowTitle">직업 코드</div>
 						<select name="jobCode" class="innerSelectBox">
@@ -38,6 +38,14 @@
 							<option value="location3">신자양점</option>
 						</select>
 					</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">주민번호</div>
+						<input name="regitrationNumber" class="innerMiddleInput2"></input>&nbsp;-&nbsp;
+						<input name="regitrationNumber" class="innerMiddleInput2"></input>
+						<div class="innerInformationRowTitle">전화번호</div>
+						<input name="phoneNumber" class="innerShortInput"></input>&nbsp;-&nbsp;
+						<input name="phoneNumber" class="innerShortInput"></input>&nbsp;-&nbsp;
+						<input name="phoneNumber" class="innerShortInput"></input>					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">나이</div>
 						<ul id="customerAge">
@@ -97,14 +105,6 @@
 							<option value="China">중국</option>
 							<option value="Japan">일본</option>
 						</select>
-						<div class="innerInformationRowTitle">장애 등급</div>
-						<ul id="disabilityGrade">
-							<li><input type="checkbox" value="전체" id="disabilityAll">전체</li>
-							<li><input type="checkbox" value="비장애" id="disabilityNone">비장애</li>
-							<li><input type="checkbox" value="1급" id="disability1">1급</li>
-							<li><input type="checkbox" value="2급" id="disability2">2급</li>
-							<li><input type="checkbox" value="3급" id="disability3">3급</li>
-						</ul>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">거주지</div>
@@ -147,9 +147,6 @@
 					<th>나이</th>
 					<th>성별</th>
 					<th>신용 등급</th>
-					<th>담당 직원</th>
-					<th>주거래지점</th>
-					<th>국가</th>
 					<th>장애 등급</th>
 					<th>작업 코드</th>
 					<th>고객 등급</th>
@@ -160,9 +157,6 @@
 					<td>백연정</td>
 					<td>27</td>
 					<td>여</td>
-					<td>1등급</td>
-					<td>백연정</td>
-					<td>성수점</td>
 					<td>대한민국</td>
 					<td>-</td>
 					<td>000</td>					
@@ -174,9 +168,6 @@
 					<td>백연정</td>
 					<td>27</td>
 					<td>여</td>
-					<td>1등급</td>
-					<td>백연정</td>
-					<td>성수점</td>
 					<td>대한민국</td>
 					<td>-</td>
 					<td>000</td>					
@@ -188,9 +179,6 @@
 					<td>백연정</td>
 					<td>27</td>
 					<td>여</td>
-					<td>1등급</td>
-					<td>백연정</td>
-					<td>성수점</td>
 					<td>대한민국</td>
 					<td>-</td>
 					<td>000</td>					
