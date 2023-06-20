@@ -12,8 +12,8 @@ import util.DatabaseUtil;
 
 public class LoanContractDAO {
 
-	// Create a new loan contract
-	public int createLoanContract(LoanContractDTO loanContract) {
+	// insert a new loan contract
+	public int insertLoanContract(LoanContractDTO loanContract) {
 		String SQL = "INSERT INTO loancontract (lc_id, l_id, c_id, e_id, muturity_date, payment_method, balance, payment_date, delinquency_start, "
 				+ "delinquent_day, delinquent_amount, guarantor_id, has_collateral, collateral_value) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

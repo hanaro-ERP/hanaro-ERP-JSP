@@ -12,8 +12,8 @@ import util.DatabaseUtil;
 
 public class LoanRepaymentDAO {
 
-	// Create a new loan repayment
-	public int createLoanRepayment(LoanRepaymentDTO loanRepayment) {
+	// insert a new loan repayment
+	public int insertLoanRepayment(LoanRepaymentDTO loanRepayment) {
 		String SQL = "INSERT INTO loanrepayments (lr_id, lc_id, a_id, trade_datetime, trade_amount, agent) "
 				+ "VALUES (?, ?, ?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {

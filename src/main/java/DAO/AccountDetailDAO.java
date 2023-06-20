@@ -12,8 +12,8 @@ import util.DatabaseUtil;
 
 public class AccountDetailDAO {
 
-	// Create a new account detail
-	public int createAccountDetail(AccountDetailDTO accountDetail) {
+	// insert a new account detail
+	public int insertAccountDetail(AccountDetailDTO accountDetail) {
 		String SQL = "INSERT INTO accountsdetails (a_id, account_amount, account_type, account_location) "
 				+ "VALUES (?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {

@@ -12,8 +12,8 @@ import util.DatabaseUtil;
 
 public class LoanDAO {
 
-	// Create a new loan
-	public int createLoan(LoanDTO loan) {
+	// insert a new loan
+	public int insertLoan(LoanDTO loan) {
 		String SQL = "INSERT INTO loans (l_id, duration, amount, interest_rate) VALUES (?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loan.getLoanId());
