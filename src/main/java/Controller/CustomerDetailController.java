@@ -33,8 +33,8 @@ public class CustomerDetailController extends HttpServlet {
 			String id = request.getParameter("id");
 			request.setAttribute("id", id);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "/components/popup/NewFile.jsp");
-	        dispatcher.forward(request, response);
-	        } catch (Exception e) {
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
