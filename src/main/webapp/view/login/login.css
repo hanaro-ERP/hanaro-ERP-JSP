@@ -11,6 +11,8 @@
 }
 .loginOuterbox{
 	width: 508px;
+	height: fit-content;
+	min-height: 365px;
 	border-radius: 12px;
 	gap: 20px;
 	background: white;

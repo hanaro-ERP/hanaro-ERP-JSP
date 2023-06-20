@@ -12,8 +12,8 @@ import util.DatabaseUtil;
 
 public class CustomerDAO {
 
-	// Create a new customer
-	public int createCustomer(CustomerDTO customer) {
+	// insert a new customer
+	public int insertCustomer(CustomerDTO customer) {
 		String SQL = "INSERT INTO customers (c_id, e_id, b_id, customer_name, grade, age, gender, phone_number, address, job_code, country, disability, risk, credit) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
