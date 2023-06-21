@@ -258,7 +258,7 @@ countyList[15] = new Array(
 countyList[16] = new Array("전체", "서귀포시", "제주시", "남제주군", "북제주군");
 
 function changeCounty(add) {
-	const selectElement = document.form.district;
+	const selectElement = document.form[0].district;
 	/* 옵션메뉴삭제 */
 	for (let i = selectElement.length - 1; i >= 0; i--) {
 		selectElement.options[i] = null;
