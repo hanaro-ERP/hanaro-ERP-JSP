@@ -40,8 +40,8 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">주민번호</div>
-						<input name="regitrationNumber" class="innerMiddleInput2"></input>&nbsp;-&nbsp;
-						<input name="regitrationNumber" class="innerMiddleInput2"></input>
+						<input name="identificationNumber" class="innerMiddleInput2"></input>&nbsp;-&nbsp;
+						<input name="identificationNumber" class="innerMiddleInput2"></input>
 						<div class="innerInformationRowTitle">전화번호</div>
 						<input name="phoneNumber" class="innerShortInput"></input>&nbsp;-&nbsp;
 						<input name="phoneNumber" class="innerShortInput"></input>&nbsp;-&nbsp;
