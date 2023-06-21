@@ -1,7 +1,6 @@
 package DTO;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -16,4 +15,6 @@ public class EmployeeDTO {
 	private String phoneNumber;
 	private boolean admin;
 	private String salt;
+	
+	private String bankLocation;
 }
