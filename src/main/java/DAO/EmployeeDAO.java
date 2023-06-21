@@ -143,16 +143,14 @@ public class EmployeeDAO {
 					loanContract.setLoanId(rs.getInt("l_id"));
 					loanContract.setCustomerId(rs.getInt("c_id"));
 					loanContract.setEmployeeId(rs.getInt("e_id"));
+					loanContract.setStartDate(rs.getTimestamp("start_date"));
 					loanContract.setMuturityDate(rs.getTimestamp("muturiy_date"));
 					loanContract.setPaymentMethod(rs.getString("payment_method"));
 					loanContract.setBalance(rs.getLong("balance"));
 					loanContract.setPaymentDate(rs.getDate("payment_date"));
-					loanContract.setDelinquencyStart(rs.getDate("delinquency_start"));
-					loanContract.setDelinquentDay(rs.getInt("delinquent_day"));
 					loanContract.setDelinquentAmount(rs.getLong("delinquent_amount"));
 					loanContract.setGuarantorId(rs.getInt("guarantor"));
-					loanContract.setHasCollateral(rs.getBoolean("has_collateral"));
-					loanContract.setCollateralValue(rs.getLong("collateral_value"));
+					loanContract.setInterestRate(rs.getLong("interest_rate"));
 					loanContracts.add(loanContract);
 				}
 			}

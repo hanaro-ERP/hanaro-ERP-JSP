@@ -1,3 +1,4 @@
+<%@page import="DTO.LoanContractDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
@@ -108,16 +109,6 @@
 				</div>
 			</form>
 			<div>
-				<%
-				String[] searchResults = (String[]) session.getAttribute("searchResults");
-				if (searchResults != null) {
-					for (String result : searchResults) {
-						out.println(result); // 또는 원하는 출력 방식으로 처리
-					}
-				}
-				%>
-			</div>
-			<div>
 				<div class="innerSubTitle">
 					<h2>검색 결과</h2>
 				</div>
@@ -133,45 +124,41 @@
 						<th>만기일</th>
 						<th>대출 잔액</th>
 						<th>상환 방법</th>
-						<th>연체</th>
-						<th>담보 가치</th>
+						<th>연체 금액</th>
+						<th>이자율</th>
 					</tr>
-					<tr>
-						<td>001</td>
-						<td>신용 대출</td>
-						<td>징검다리론</td>
-						<td>김철수</td>
-						<td>이영수</td>
-						<td>최영희</td>
-						<td>2023-06-14</td>
-						<td>2043-06-13</td>
-						<td>10,000,000원</td>
-						<td>원금 균등 분할 상환</td>
-						<td>N</td>
-						<td>4,000,000원</td>
+					<% 
+					List<LoanContractDTO> loanContracts = (List<LoanContractDTO>)request.getAttribute("loanContracts");
+					
+					if(loanContracts != null && !loanContracts.isEmpty()) {
+						for (LoanContractDTO dto : loanContracts) { 
+						%>
+					<tr>					
+						<td><%= dto.getLoanContractId() %></td>
+        				<td><%= dto.getLoanId() %></td>
+        				<td><%= dto.getCustomerId() %></td>
+						<td><%= dto.getEmployeeId() %></td>
+        				<td><%= dto.getStartDate() %></td>
+        				<td><%= dto.getMuturityDate() %></td>
+						<td><%= dto.getPaymentMethod() %></td>
+        				<td><%= dto.getBalance() %></td>
+        				<td><%= dto.getPaymentDate() %></td>
+						<td><%= dto.getDelinquentAmount() %></td>
+        				<td><%= dto.getGuarantorId() %></td>
+        				<td><%= dto.getInterestRate() %></td>
 					</tr>
-					<tr>
-						<td>001</td>
-						<td>신용 대출</td>
-						<td>징검다리론</td>
-						<td>김철수</td>
-						<td>이영수</td>
-						<td>최영희</td>
-						<td>2023-06-14</td>
-						<td>2043-06-13</td>
-						<td>10,000,000원</td>
-						<td>원금 균등 분할 상환</td>
-						<td>N</td>
-						<td>4,000,000원</td>
-					</tr>
+					<%
+						}
+					}
+					%>
 				</table>
 			</div>
 		</div>
 	</main>
-	<script src="${pageContext.request.contextPath}/components/searchLayout/searchLayout.js"></script>
 	<script>
-		generateMenu('loan');
+		generateMenu('loan', 'loanContractList');
 	</script>
+	<script src="${pageContext.request.contextPath}/components/searchLayout/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/view/loan/loanContract/loanContractList.js"></script>
 </body>
 </html>
