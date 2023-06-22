@@ -10,6 +10,7 @@ function revealDetail() {
 	customerDetailInformation.style.display = 'block';
 	customerDetailSelect.innerHTML = '▼';
 }
+
 function concealDetail() {
 	checkOpen.setAttribute('value', 'close');
 	customerDetailInformation.style.display = 'none';

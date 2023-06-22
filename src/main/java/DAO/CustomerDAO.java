@@ -13,9 +13,9 @@ import util.CustomerUtil;
 import util.DatabaseUtil;
 
 public class CustomerDAO {
-	
+
 	CustomerUtil customerUtil = new CustomerUtil();
-	
+
 	// insert a new customer
 	public int insertCustomer(CustomerDTO customer) {
 		String SQL = "INSERT INTO customers (c_id, e_id, b_id, c_name, identification, grade, age, gender, phone_number, address, job_code, country, credit) "
@@ -130,17 +130,17 @@ public class CustomerDAO {
 		}
 		return customers;
 	}
-	
+
 	public String getGradeQuery(String type, String[] selectedGrades) {
 		StringBuilder query = new StringBuilder(" AND (");
-		
+
 		boolean isFirst = true;
 		for (String grade : selectedGrades) {
 			if (isFirst) {
 				isFirst = false;
 			} else {
 				query.append(" OR "); // 첫 번째 조건이 아니면 OR 연산자 추가
-            }
+			}
 			if (grade.equals("")) {
 				query.append("1=1");
 				break;
@@ -148,21 +148,21 @@ public class CustomerDAO {
 				String temp = String.format("c.%s = \'%s\'", type, grade);
 				query.append(temp);
 			}
-        }
+		}
 		query.append(")");
 		return query.toString();
 	}
-	
+
 	public String getAgeQuery(String[] selectedAges) {
 		StringBuilder query = new StringBuilder(" AND (");
-		
+
 		boolean isFirst = true;
 		for (String age : selectedAges) {
 			if (isFirst) {
 				isFirst = false;
 			} else {
 				query.append(" OR "); // 첫 번째 조건이 아니면 OR 연산자 추가
-            }
+			}
 			if (age.equals("") && selectedAges.length < 2) {
 				query.append("1=1");
 				break;
@@ -199,11 +199,11 @@ public class CustomerDAO {
 				query.append(temp);
 				break;
 			}
-        }
+		}
 		query.append(")");
 		return query.toString();
 	}
-	
+
 //	Get some customers
 	public List<CustomerDTO> getCustomersByDTO(CustomerSearchDTO customerSearchDTO) {
 		StringBuilder queryBuilder = new StringBuilder("SELECT c.*, e.e_name, b.b_name FROM customers c ");
@@ -256,7 +256,7 @@ public class CustomerDAO {
 		if (customerSearchDTO.getCity() != null) {
 			queryBuilder.append(" AND c.address LIKE ?");
 		}
-		
+
 		System.out.println(queryBuilder);
 		try (Connection conn = DatabaseUtil.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
@@ -315,12 +315,12 @@ public class CustomerDAO {
 					customer.setGrade(rs.getString("grade"));
 
 					findCustomers.add(customer);
-	            }
-	        }
-	        return findCustomers;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+				}
+			}
+			return findCustomers;
+			} catch (Exception e) {
+				e.printStackTrace();
+		}
 	    return null;
 	}
 }
