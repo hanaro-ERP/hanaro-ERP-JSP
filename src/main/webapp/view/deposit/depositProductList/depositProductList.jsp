@@ -25,8 +25,8 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">주민번호</div>
-						<input name="regitrationNumber" class="innerMiddleInput2"></input>&nbsp;-&nbsp;
-						<input name="regitrationNumber" class="innerMiddleInput2"></input>
+						<input name="identification" class="innerMiddleInput2"></input>&nbsp;-&nbsp;
+						<input name="identification" class="innerMiddleInput2"></input>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">계좌 번호</div>
