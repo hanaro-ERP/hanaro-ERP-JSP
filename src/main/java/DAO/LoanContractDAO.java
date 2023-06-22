@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.eclipse.jdt.internal.compiler.ast.AND_AND_Expression;
 
 import DTO.LoanContractDTO;
 import DTO.LoanDTO;
@@ -93,7 +96,7 @@ public class LoanContractDAO {
 		loanContract.setLoanName(rs.getString("loan_name"));
 		loanContract.setEmployeeName(rs.getString("e_name"));
 		loanContract.setCustomerName(rs.getString("c_name"));
-		// 보증인 추가하기
+		loanContract.setGuarantorName(rs.getString("guarantor_name"));
 	}
 
 	// 모든 데이터 가져오기
@@ -131,15 +134,14 @@ public class LoanContractDAO {
 		return loanContractDTOList;
 	}
 	
-	public List<LoanContractDTO> getLoanContractByDTO(LoanContractDTO loanContractDTO) {
-		System.out.println("!!! dao - getLoanContractByDTO");
-		
-		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*, l.loan_type, l.loan_name, c.c_name, e.e_name"
+	public List<LoanContractDTO> getLoanContractByDTO(LoanContractDTO loanContractDTO) {		
+		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name, c2.c_name as guarantor_name"
 				+ " FROM loanContract lc");
 		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
-		queryBuilder.append(" JOIN customers c ON lc.e_id = c.e_id");
+		queryBuilder.append(" JOIN customers c ON lc.e_id = c.e_id AND lc.c_id = c.c_id");
 		queryBuilder.append(" JOIN employees e ON c.e_id = e.e_id");
 		queryBuilder.append(" JOIN loanRepayments lr ON lr.lc_id = lc.lc_id");
+		queryBuilder.append(" JOIN customers c2 ON lc.guarantor_id = c2.c_id");
 		queryBuilder.append(" WHERE 1=1");
 		
 		if (loanContractDTO.getLoanName() != null) {
@@ -154,7 +156,14 @@ public class LoanContractDAO {
 		if (loanContractDTO.getEmployeeName() != null) {
 			queryBuilder.append(" AND e.e_name LIKE ?");
 		}
-//		대출일, 만기일, 대출 잔액, 연체 넣어주기
+//	 대출 잔액, 연체 넣어주기
+		if (loanContractDTO.getStartDate() != null ) {
+			queryBuilder.append(" AND lc.start_date >= ? AND lc.start_date < ?");
+		}
+		if (loanContractDTO.getMuturityDate() != null ) {
+			queryBuilder.append(" AND lc.muturity_date >= ? AND lc.muturity_date < ?");
+		}
+		
 		
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
@@ -173,9 +182,21 @@ public class LoanContractDAO {
 	        }
 	        if (loanContractDTO.getEmployeeName() != null) {
 	            pstmt.setString(parameterIndex++,  loanContractDTO.getEmployeeName() );
+	        } 
+	        if (loanContractDTO.getStartDate() != null) {
+	            pstmt.setTimestamp(parameterIndex++, loanContractDTO.getStartDate());
+	            
+	            Timestamp nextDay = new Timestamp(loanContractDTO.getStartDate().getTime() + 24 * 60 * 60 * 1000);
+	            pstmt.setTimestamp(parameterIndex++, nextDay);
+	        }
+	        if (loanContractDTO.getMuturityDate() != null) {
+	            pstmt.setTimestamp(parameterIndex++, loanContractDTO.getMuturityDate());
+	            
+	            Timestamp nextDay = new Timestamp(loanContractDTO.getMuturityDate().getTime() + 24 * 60 * 60 * 1000);
+	            pstmt.setTimestamp(parameterIndex++, nextDay);
 	        }
 	       
-//			대출일, 만기일, 대출 잔액, 연체 넣어주기
+//			대출 잔액, 연체 넣어주기
 	        
 
 			System.out.println("!!! dao - pstmt= "+ pstmt);
@@ -183,15 +204,13 @@ public class LoanContractDAO {
 			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
 			
 			try (ResultSet rs = pstmt.executeQuery()) {
-				System.out.println("!!! dao - loanContractDTOList size = "+ loanContractDTOList.size() );
-			
+				
 				while (rs.next()) {
 					LoanContractDTO loanContracts = new LoanContractDTO();
 					
 					fillLoanContractDTOFromResultSet(loanContracts, rs);
 					loanContractDTOList.add(loanContracts);
-					System.out.println("!!! dao - size = "+loanContractDTOList.size());
-				}
+					}
 
 				return loanContractDTOList;
 			}

@@ -54,14 +54,13 @@
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">대출일</div>
 						<ul class="loanIssueDate" id="loanContractStartDate">
-							<li><input type="checkbox" value="전체" id="issueDateAll"
-								name="loanContractStartDate">전체</li>
+							<li>
+							<input type="checkbox" value="전체" id="issueDateAll" name="loanContractStartDate">전체</li>
 							<li id="directInput">
-								<p>직접 입력</p> <select name="loanContractStartDate"
-								class="yearSelect" disabled="true"></select> <select
-								name="loanContractStartDate" class="monthSelect" disabled="true"></select>
-								<select name="loanContractStartDate" class="daySelect"
-								disabled="true"></select>
+								<p>직접 입력</p> 
+								<select name="loanContractStartDate" class="yearSelect" disabled="true"></select> 
+								<select name="loanContractStartDate" class="monthSelect" disabled="true"></select>
+								<select name="loanContractStartDate" class="daySelect" disabled="true"></select>
 							</li>
 						</ul>
 					</div>
@@ -71,11 +70,9 @@
 							<li><input type="checkbox" value="전체" id="muturityDateAll"
 								name="loanContractEndDate">전체</li>
 							<li id="directInput">
-								<p>직접 입력</p> <select name="loanContractEndDate"
-								class="yearSelect" disabled="true"></select> <select
-								name="loanContractEndDate" class="monthSelect" disabled="true"></select>
-								<select name="loanContractEndDate" class="daySelect"
-								disabled="true"></select>
+								<p>직접 입력</p> <select name="loanContractEndDate" class="yearSelect" disabled="true"></select> 
+								<select name="loanContractEndDate" class="monthSelect" disabled="true"></select>
+								<select name="loanContractEndDate" class="daySelect" disabled="true"></select>
 							</li>
 						</ul>
 					</div>
@@ -85,11 +82,11 @@
 							<li id="balanceAllLi"><input type="checkbox" value="전체"
 								id="balanceAll">전체</li>
 							<li id="directInput">
-								<p>직접 입력</p> <input id="directBalanceInput1" name="balanceList"
-								class="directInputValue" disabled="true">&nbsp;만원
-								이상&nbsp;&nbsp; <input id="directBalanceInput2"
-								name="balanceList" class="directInputValue" disabled="true">&nbsp;만원
-								이하&nbsp;
+								<p>직접 입력</p> 
+								<input id="directBalanceInput1" name="balanceList" class="directInputValue" disabled="true">
+								&nbsp;만원 이상&nbsp;&nbsp; 
+								<input id="directBalanceInput2" name="balanceList" class="directInputValue" disabled="true">
+								&nbsp;만원 이하&nbsp;
 							</li>
 							<li id="price2000Li"><input type="checkbox" value="~2천만원"
 								id="price2000">~2천만원</li>
@@ -105,7 +102,7 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">연체</div>
-						<ul id="loanContractLimit">
+						<ul id="latePayment">
 							<li id="periodAllLi"><input type="checkbox" value="전체"
 								id="periodAll">전체</li>
 							<li id="periodNoneLi"><input type="checkbox" value="없음"
@@ -158,7 +155,7 @@
 						<td><%= dto.getLoanName() %></td>
 						<td><%= dto.getEmployeeName() %></td>
 						<td><%= dto.getCustomerName()%></td>
-						<td><%= dto.getGuarantorId()%></td>
+						<td><%= dto.getGuarantorName()%></td>
 						<td><%= dto.getStartDate() %></td>
 						<td><%= dto.getMuturityDate() %></td>
 						<td><%= dto.getBalance() %></td>
@@ -172,6 +169,7 @@
 					%>
 				</table>
 			</div>
+		</div>
 	</main>
 	<script
 		src="${pageContext.request.contextPath}/components/searchLayout/searchLayout.js"></script>
@@ -244,7 +242,6 @@
 				<td>26,613,000원</td>
 			</tr>
 		</table>
-	</div>
 	</div>
 </body>
 </html>

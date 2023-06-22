@@ -2,6 +2,8 @@ package Controller;
 
 import java.io.*;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 import DAO.LoanContractDAO;
 import DTO.LoanContractDTO;
@@ -42,25 +45,93 @@ public class LoanContractController extends HttpServlet {
 		String loanType = request.getParameter("loanType");
 		String customerName = request.getParameter("customerName");
 		String employeeName = request.getParameter("employeeName");
-		String loanContractStartDate = request.getParameter("loanContractStartDate");
-		String loanContractEndDate = request.getParameter("loanContractEndDate");
-		String balanceList = request.getParameter("balanceList");
-		String latePaymentDate = request.getParameter("loanContractLimit");
+		String[] loanContractStartDate = request.getParameterValues("loanContractStartDate");
+		String[] loanContractEndDate = request.getParameterValues("loanContractEndDate");
+		String[] balanceList = request.getParameterValues("balanceList");
+		String latePaymentDate = request.getParameter("latePayment");
 		
 		LoanContractDTO loanContractDTO = new LoanContractDTO();	// 받은 값 저장
 		
 		if (loanName != "") {
 			loanContractDTO.setLoanName(loanName);
 		}
+		
 		if (loanType != "") {
 			loanContractDTO.setLoanType(loanType);
 		}
+		
 		if (customerName != "") {
 			loanContractDTO.setCustomerName(customerName);
 		}
+		
 		if (employeeName != "") {
 			loanContractDTO.setEmployeeName(employeeName);
 		}
+		
+		if (loanContractStartDate.length > 1) {
+			String inputStartDate = loanContractStartDate[0] + "-" + loanContractStartDate[1] + "-" + loanContractStartDate[2] + " 00:00:00.0";
+			Timestamp inputStartDateTimestamp = Timestamp.valueOf(inputStartDate);
+			loanContractDTO.setStartDate(inputStartDateTimestamp);
+		}
+		
+		if (loanContractEndDate.length > 1) {
+			String inputMuturityDate = loanContractEndDate[0] + "-" + loanContractEndDate[1] + "-" + loanContractEndDate[2] + " 00:00:00.0";
+			Timestamp inputMuturityDateTimestamp = Timestamp.valueOf(inputMuturityDate);
+			loanContractDTO.setMuturityDate(inputMuturityDateTimestamp);
+		}
+		
+		int[] balanceRange = {0,0};
+		if (balanceList.length > 1) {
+			balanceRange[0] = Integer.parseInt(balanceList[0]);
+			balanceRange[1] = Integer.parseInt(balanceList[1]);
+		}
+		else {
+			if (latePaymentDate.contains("2천")){
+				balanceRange[0] = 0;
+				balanceRange[1] = 2000;
+			}
+			else if (latePaymentDate.contains("3천")){
+				balanceRange[0] = 0;
+				balanceRange[1] = 3000;
+			}
+			else if (latePaymentDate.contains("5천")){
+				balanceRange[0] = 0;
+				balanceRange[1] = 5000;
+			}
+			else if (latePaymentDate.contains("~1억")){
+				balanceRange[0] = 0;
+				balanceRange[1] = 10000;
+			}
+			else {
+				balanceRange[0] = 10001;
+			}
+			loanContractDTO.setBalanceRange(balanceRange);
+		}
+		
+		if (latePaymentDate != "") {
+			int latePaymentPeriod = 0;
+
+			if (latePaymentDate.contains("6개월")){
+				latePaymentPeriod = 180;
+			}
+			else if (latePaymentDate.contains("1년")){
+				latePaymentPeriod = 365;
+			}
+			else if (latePaymentDate.contains("3년")){
+				latePaymentPeriod = 365 * 3;
+			}
+			else if (latePaymentDate.contains("5년")){
+				latePaymentPeriod = 365 * 5;
+			}
+			else {
+				latePaymentPeriod = 365 * 5 +1;
+			}
+			loanContractDTO.setLatePaymentPeriod(latePaymentPeriod);
+		}
+		
+		System.out.println("loanContractStartDate length= "+loanContractStartDate.length);
+		System.out.println("balanceList length= "+balanceList.length);
+		System.out.println("latePaymentDate= "+latePaymentDate);
 		
 		try {
 			System.out.println("!!! postLoanContractProcess");

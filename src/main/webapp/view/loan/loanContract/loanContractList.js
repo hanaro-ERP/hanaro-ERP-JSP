@@ -1,7 +1,7 @@
 selectMultiItemsWithDirectInput("loanContractStartDate");
 selectMultiItemsWithDirectInput("loanContractEndDate");
 selectMultiItemsWithDirectInput("balanceList");
-selectMultiItemsWithDirectInput("loanContractLimit");
+selectMultiItemsWithDirectInput("latePayment");
 
 let yearSelectList, monthSelectList, daySelectList;
 let yearSelectRow, monthSelectRow, daySelectRow;
