@@ -5,6 +5,7 @@
 	height: 30px;
 	text-align: center;
 }
+
 .searchTable tr th:nth-child(1),
 .searchTable tr th:nth-child(3) {
 	width: 150px;

@@ -11,9 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DTO.CustomerDTO;
+import Service.CustomerService;
+
 @WebServlet("/customerDetail")
 public class CustomerDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	CustomerService customerService = new CustomerService();
 	
 	public CustomerDetailController() {
 		super();
@@ -31,8 +36,11 @@ public class CustomerDetailController extends HttpServlet {
 	protected void getCustomerListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String id = request.getParameter("id");
-			request.setAttribute("id", id);
-			RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "/components/popup/NewFile.jsp");
+			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(id));
+			
+			request.setAttribute("customer", customer);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/components/popup/customerInfo.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

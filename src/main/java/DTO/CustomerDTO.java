@@ -1,5 +1,7 @@
 package DTO;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +13,7 @@ public class CustomerDTO {
 	private int employeeId;
 	private int bankId;
 	private String customerName;
+	private String identification;
 	private String grade;
 	private int age;
 	private boolean gender;
@@ -18,7 +21,9 @@ public class CustomerDTO {
 	private String address;
 	private String jobCode;
 	private String country;
-	private boolean disability;
 	private float risk;
-	private int credit;
+	private String credit;
+	private String employeeName;
+	private String bankName;
+	private String strGender;
 }
