@@ -8,20 +8,20 @@ customerDetailInformation.style.display = 'none'; // 초기에 숨김 상태로 
 function revealDetail() {
 	checkOpen.setAttribute('value', 'open');
 	customerDetailInformation.style.display = 'block';
-    customerDetailSelect.innerHTML = '▼';
+	customerDetailSelect.innerHTML = '▼';
 }
 function concealDetail() {
 	checkOpen.setAttribute('value', 'close');
 	customerDetailInformation.style.display = 'none';
-    customerDetailSelect.innerHTML = '▲';
+	customerDetailSelect.innerHTML = '▲';
 }
 
 customerDetailSelect.addEventListener('click', function() {
-  if (customerDetailInformation.style.display === 'none') {
-	  revealDetail();
-  } else {
-	  concealDetail();
-  }
+	if (customerDetailInformation.style.display === 'none') {
+		revealDetail();
+	} else {
+		concealDetail();
+	}
 });
 
 selectMultiItemsWithDirectInput('customerAge');
@@ -313,5 +313,3 @@ searchTableRows.forEach((item, index) => {
 		});	
 	}
 });
-
-
