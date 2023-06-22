@@ -176,7 +176,6 @@ public class LoanContractDAO {
 		
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
-			System.out.println("!!! dao - getLoanContractByDTO TRY 1");
 			
 			int parameterIndex = 1;
 
@@ -219,8 +218,6 @@ public class LoanContractDAO {
 				Date latePaymentDate = new Date(latePaymentLocalDate.toEpochDay() * 24 * 60 * 60 * 1000);
 				pstmt.setDate(parameterIndex++, latePaymentDate);
 			}
-			
-			System.out.println("!!! dao - pstmt= "+ pstmt);
 
 			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
 			
@@ -233,12 +230,10 @@ public class LoanContractDAO {
 				return loanContractDTOList;
 			}
 			catch (Exception e) {
-				System.out.println("!!! DAO try1 오류 " + e);
 				e.printStackTrace();
 			} 
 		}
 		catch (Exception e) {
-			System.out.println("!!! DAO try2 오류 " + e);
 			e.printStackTrace();
 		}
 		return null;
