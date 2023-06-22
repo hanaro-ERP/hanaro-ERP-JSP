@@ -11,4 +11,7 @@ public class BankDTO {
 	private String bankName;
 	private String location;
 	private String phoneNumber;
+	
+	private String city;
+	private String district;
 }
