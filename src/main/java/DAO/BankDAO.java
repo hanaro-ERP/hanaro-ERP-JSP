@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DTO.BankDTO;
+import DTO.EmployeeDTO;
 import util.DatabaseUtil;
 
 public class BankDAO {
@@ -95,5 +96,55 @@ public class BankDAO {
 			e.printStackTrace();
 		}
 		return banks;
+	}
+	
+	public List<BankDTO> getBankListByDTO(BankDTO bankDTO) {
+		StringBuilder queryBuilder = new StringBuilder("SELECT * FROM banks ");
+		queryBuilder.append("WHERE 1=1 ");
+
+		if (bankDTO.getBankName() != null) {
+			queryBuilder.append("AND b_name LIKE ?");
+		}
+		if (bankDTO.getCity() != null) {
+			queryBuilder.append("AND location LIKE ?");
+		}
+		
+		try (Connection conn = DatabaseUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+				int parameterIndex = 1;
+
+				if (bankDTO.getBankName() != null) {
+					pstmt.setString(parameterIndex++, bankDTO.getBankName() + "%");
+				}
+				if (bankDTO.getCity() != null) {
+					if(bankDTO.getDistrict() != null) {
+						pstmt.setString(parameterIndex++, bankDTO.getLocation());
+					}
+					else {
+						pstmt.setString(parameterIndex++, bankDTO.getCity() + "%");
+					}
+				}
+		    
+				List<BankDTO> findBankList = new ArrayList<>();
+				try (ResultSet rs = pstmt.executeQuery()) {				
+					while (rs.next()) {
+						BankDTO bank = new BankDTO();
+						
+						bank.setBankId(rs.getInt("b_id"));
+						bank.setBankName(rs.getString("b_name"));
+						bank.setLocation(rs.getString("location"));
+						bank.setPhoneNumber(rs.getString("phone_no"));
+						findBankList.add(bank);
+		            }
+					return findBankList;
+					
+		        } catch (Exception e) {
+					e.printStackTrace();
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }

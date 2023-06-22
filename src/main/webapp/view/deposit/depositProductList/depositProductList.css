@@ -7,6 +7,24 @@
 	flex-wrap: wrap;
 	align-items: center;
 }
+<<<<<<< HEAD
+=======
+#depositSearchTable tr th:nth-child(1){
+	width: 150px;
+	border-top-left-radius: 5px;		
+}
+#depositSearchTable tr th:nth-child(2){
+	width: 400px;
+}
+#depositSearchTable tr th:nth-child(3),
+#depositSearchTable tr th:nth-child(4){
+	width: 200px;
+}
+#depositSearchTable tr th:nth-child(5){
+	width: 200px;
+	border-top-right-radius: 5px;	
+}
+>>>>>>> develop
 .popupBox{
 	background: #FFFFFF;
 	padding: 10px;
@@ -50,7 +68,7 @@
 	width: 150px;
 }
 #historyTable tr th:nth-child(5){
-	width: 150px;
+	width: 100px;
 }
 #historyTable tr th:nth-child(6){
 	width: 130px;
@@ -64,4 +82,10 @@
 }
 .display{
 	display: none;
+}
+ul > li > select {
+	width: 200px;
+	height: 30px;
+	text-align: center;
+	margin-right: 10px;
 }

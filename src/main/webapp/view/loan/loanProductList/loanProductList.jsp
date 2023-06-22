@@ -74,7 +74,7 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">상품 이름</div>
-						<input id="loanProductSearchInput" name="loanName"></input>
+						<input id="loanProductSearchInput" name="loanName" class="innerSearchInput3"></input>
 					</div>
 				</div>
 				<div class="innerButtonContainer">
