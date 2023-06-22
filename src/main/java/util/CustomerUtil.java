@@ -3,6 +3,10 @@ package util;
 public class CustomerUtil {
 	public String InvertDash(String[] array) {
 	    String phoneNumber = String.join("-", array);
+	    
+	    if (phoneNumber.equals("-") || phoneNumber.equals("--")) {
+	    	return "";
+	    }
 	    return phoneNumber;
 	}
 	

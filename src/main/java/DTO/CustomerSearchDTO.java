@@ -14,22 +14,17 @@ public class CustomerSearchDTO {
 	private String bankName;
 	private String jobCode;
 	private Boolean gender; 
-	private String phoneNumber;
-	private String identification;
-	private String[] selectedAges;	
-	private String[] selectedGrades;
-	private String[] selectedCredits;
-
-	public CustomerSearchDTO(String customerName, String employeeName, String bankName, String jobCode, Boolean gender, String phoneNumber, String identification, String[] selectedAges, String[] selectedGrades, String[] selectedCredits) {
-		this.customerName = customerName;
-		this.employeeName = employeeName;
-		this.bankName = bankName;
-		this.jobCode = jobCode;
-		this.gender = gender;
-		this.phoneNumber = phoneNumber;
-		this.identification = identification;
-		this.selectedAges = selectedAges;
-		this.selectedGrades = selectedGrades;
-		this.selectedCredits = selectedCredits;
-    }
+	private String strGender; 
+	private String phoneNumber1;
+	private String phoneNumber2;
+	private String phoneNumber3;
+	private String identification1;
+	private String identification2;
+	private String[] customerAges;	
+	private String[] customerGrades;
+	private String[] customerCredits;
+	private String country;
+	private String city;
+	private String district;
+	private String isOpen;
 }

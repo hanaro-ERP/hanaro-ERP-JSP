@@ -23,8 +23,7 @@ public class CustomerDTO {
 	private String country;
 	private float risk;
 	private String credit;
-	
 	private String employeeName;
 	private String bankName;
-	private String strGender; 
+	private String strGender;
 }

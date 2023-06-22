@@ -38,7 +38,6 @@ public class CustomerService {
 		
 		List<CustomerDTO> customerList = customerDAO.getCustomersByDTO(customerSearchDTO);
 		
-		System.out.print(customerList);
 		return customerList;
 	}
 }
