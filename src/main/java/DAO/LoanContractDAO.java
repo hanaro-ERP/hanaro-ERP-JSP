@@ -88,6 +88,12 @@ public class LoanContractDAO {
 		loanContract.setDelinquentAmount(rs.getLong("delinquent_amount"));
 		loanContract.setGuarantorId(rs.getInt("guarantor_id"));
 		loanContract.setInterestRate(rs.getLong("interest_rate"));
+		
+		loanContract.setLoanType(rs.getString("loan_type"));
+		loanContract.setLoanName(rs.getString("loan_name"));
+		loanContract.setEmployeeName(rs.getString("e_name"));
+		loanContract.setCustomerName(rs.getString("c_name"));
+		// 보증인 추가하기
 	}
 
 	// 모든 데이터 가져오기
@@ -149,7 +155,6 @@ public class LoanContractDAO {
 			queryBuilder.append(" AND e.e_name LIKE ?");
 		}
 //		대출일, 만기일, 대출 잔액, 연체 넣어주기
-
 		
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
@@ -187,10 +192,16 @@ public class LoanContractDAO {
 					loanContractDTOList.add(loanContracts);
 					System.out.println("!!! dao - size = "+loanContractDTOList.size());
 				}
+
+				return loanContractDTOList;
 			}
-			return loanContractDTOList;
-		} catch (Exception e) {
-			System.out.println("!!! DAO 오류 " + e);
+			catch (Exception e) {
+				System.out.println("!!! DAO try1 오류 " + e);
+				e.printStackTrace();
+			} 
+		}
+		catch (Exception e) {
+			System.out.println("!!! DAO try2 오류 " + e);
 			e.printStackTrace();
 		}
 		return null;

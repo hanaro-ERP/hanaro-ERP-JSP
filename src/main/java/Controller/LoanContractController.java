@@ -45,6 +45,7 @@ public class LoanContractController extends HttpServlet {
 		String loanContractStartDate = request.getParameter("loanContractStartDate");
 		String loanContractEndDate = request.getParameter("loanContractEndDate");
 		String balanceList = request.getParameter("balanceList");
+		String latePaymentDate = request.getParameter("loanContractLimit");
 		
 		LoanContractDTO loanContractDTO = new LoanContractDTO();	// 받은 값 저장
 		
@@ -60,15 +61,6 @@ public class LoanContractController extends HttpServlet {
 		if (employeeName != "") {
 			loanContractDTO.setEmployeeName(employeeName);
 		}
-		if (loanContractStartDate != "") {
-			loanContractDTO.setLoanContractStartDate(loanContractStartDate);
-		}
-		if (loanContractEndDate != "") {
-			loanContractDTO.setLoanContractEndDate(loanContractEndDate);
-		}
-		if (balanceList != "") {
-			loanContractDTO.setBalanceList(balanceList);
-		}
 		
 		try {
 			System.out.println("!!! postLoanContractProcess");
@@ -78,14 +70,14 @@ public class LoanContractController extends HttpServlet {
 			// JSP에 데이터 전달
 			request.setAttribute("loanContracts", loanContractDTOList);
 			request.setAttribute("searchInputValue", loanContractDTO);
-
-			// JSP 페이지로 포워드
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/view/loan/loanContract/loanContractList.jsp");
-			dispatcher.forward(request, response);
 			
 		} catch (Exception e) {
 			System.out.println("!!! LoanContractController 오류 " + e);
 			e.printStackTrace();
 		}
+
+		// JSP 페이지로 포워드
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/view/loan/loanContract/loanContractList.jsp");
+		dispatcher.forward(request, response);
 	}
 }
