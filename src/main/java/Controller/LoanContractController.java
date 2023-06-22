@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.*;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,11 +14,13 @@ import javax.servlet.http.HttpSession;
 
 import DAO.LoanContractDAO;
 import DTO.LoanContractDTO;
+import Service.LoanContractService;
 
 @WebServlet("/loanContractList")
 public class LoanContractController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	//LoanContractService loanContractService = new LoanContractService();
+	
 	public LoanContractController() {
 		super();
 	}
@@ -34,24 +37,54 @@ public class LoanContractController extends HttpServlet {
 	}
 
 	protected void postLoanContractProcess(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException {		
+		String loanName = request.getParameter("loanName");
+		String loanType = request.getParameter("loanType");
+		String customerName = request.getParameter("customerName");
+		String employeeName = request.getParameter("employeeName");
+		String loanContractStartDate = request.getParameter("loanContractStartDate");
+		String loanContractEndDate = request.getParameter("loanContractEndDate");
+		String balanceList = request.getParameter("balanceList");
 		
-		LoanContractDTO loanContractDTO = new LoanContractDTO();
+		LoanContractDTO loanContractDTO = new LoanContractDTO();	// 받은 값 저장
+		
+		if (loanName != "") {
+			loanContractDTO.setLoanName(loanName);
+		}
+		if (loanType != "") {
+			loanContractDTO.setLoanType(loanType);
+		}
+		if (customerName != "") {
+			loanContractDTO.setCustomerName(customerName);
+		}
+		if (employeeName != "") {
+			loanContractDTO.setEmployeeName(employeeName);
+		}
+		if (loanContractStartDate != "") {
+			loanContractDTO.setLoanContractStartDate(loanContractStartDate);
+		}
+		if (loanContractEndDate != "") {
+			loanContractDTO.setLoanContractEndDate(loanContractEndDate);
+		}
+		if (balanceList != "") {
+			loanContractDTO.setBalanceList(balanceList);
+		}
 		
 		try {
 			System.out.println("!!! postLoanContractProcess");
 
-			LoanContractDAO loanContractDAO = new LoanContractDAO();
-			List<LoanContractDTO> loanContracts = loanContractDAO.getLoanContracts();
+			List<LoanContractDTO> loanContractDTOList = LoanContractService.getLoanContractDetail(loanContractDTO);
 
 			// JSP에 데이터 전달
-			request.setAttribute("loanContracts", loanContracts);
+			request.setAttribute("loanContracts", loanContractDTOList);
+			request.setAttribute("searchInputValue", loanContractDTO);
 
 			// JSP 페이지로 포워드
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/view/loan/loanContract/loanContractList.jsp");
 			dispatcher.forward(request, response);
 			
 		} catch (Exception e) {
+			System.out.println("!!! LoanContractController 오류 " + e);
 			e.printStackTrace();
 		}
 	}

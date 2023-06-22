@@ -12,9 +12,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
-<body><%@ include file="../../../components/header/header.jsp" %>
+<body>
+	<%@ include file="../../../components/header/header.jsp" %>
+	<%@ page import="java.util.List" %>
+	<%@ page import="DTO.LoanContractDTO" %> 
 	<main>
 		<%@ include file="../../../components/aside/aside.jsp"%>
+		<% LoanContractDTO loanContractDTO = (LoanContractDTO)request.getAttribute("searchInputValue"); %>
+		
 		<div class="innerContainer">
 			<div class="innerTitle">
 				<h1>여신 이력</h1>
@@ -27,7 +32,7 @@
 				<div class="innerInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">상품 이름</div>
-						<input name="productName" class="loanContractSearchInput"></input>
+						<input name="loanName" class="loanContractSearchInput"></input>
 						<div class="innerInformationRowTitle">대출 구분</div>
 						<select id="loanType" name="loanType">
 							<option value="신용대출">신용 대출</option>
@@ -108,6 +113,18 @@
 					<button type="submit">검색</button>
 				</div>
 			</form>
+			
+			<div>
+				<%
+				String[] searchResults = (String[]) session.getAttribute("searchResults");
+				if (searchResults != null) {
+					for (String result : searchResults) {
+						out.println(result); // 또는 원하는 출력 방식으로 처리
+					}
+				}
+				%>
+			</div>
+			
 			<div>
 				<div class="innerSubTitle">
 					<h2>검색 결과</h2>

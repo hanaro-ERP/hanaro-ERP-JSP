@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DTO.LoanContractDTO;
+import DTO.LoanDTO;
 import util.DatabaseUtil;
 
 public class LoanContractDAO {
@@ -108,60 +109,90 @@ public class LoanContractDAO {
 	}
 
 	// loanContractId 에 따라 데이터 가져오기
-	public LoanContractDTO getLoanContractByLoanContractId(int loanContractId) {
-		LoanContractDTO loanContract = new LoanContractDTO();
+	public List<LoanContractDTO> getLoanContractByLoanContractId(int loanContractId) {
+		List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
 		String SQL = "SELECT * FROM loanContract WHERE lc_id = ?";
+		
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanContractId);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-					fillLoanContractDTOFromResultSet(loanContract, rs);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return loanContract;
+		return loanContractDTOList;
 	}
 	
-	// loanId에 따라 상품 테이블에서 대출 구분, 상품 이름 가져오기
-	public List<String> getLoanProductInformation(int loanId) {
-		//LoanContractDTO loanContract = new LoanContractDTO();
-		List<String> loanInfomationList = new ArrayList<>();
-		//String loanType, loanName;
-		String SQL = "select loan_name, loan_type from loans where l_id= ?";
+	public List<LoanContractDTO> getLoanContractByDTO(LoanContractDTO loanContractDTO) {
+		System.out.println("!!! dao - getLoanContractByDTO");
 		
-		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setInt(1, loanId);
+		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*, l.loan_type, l.loan_name, c.c_name, e.e_name"
+				+ " FROM loanContract lc");
+		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
+		queryBuilder.append(" JOIN customers c ON lc.e_id = c.e_id");
+		queryBuilder.append(" JOIN employees e ON c.e_id = e.e_id");
+		queryBuilder.append(" JOIN loanRepayments lr ON lr.lc_id = lc.lc_id");
+		queryBuilder.append(" WHERE 1=1");
+		
+		if (loanContractDTO.getLoanName() != null) {
+			queryBuilder.append(" AND l.loan_name LIKE ?");
+		}
+		if (loanContractDTO.getLoanType() != null) {
+			queryBuilder.append(" AND l.loan_type LIKE ?");
+		}
+		if (loanContractDTO.getCustomerName() != null) {
+			queryBuilder.append(" AND c.c_name LIKE ?");
+		}
+		if (loanContractDTO.getEmployeeName() != null) {
+			queryBuilder.append(" AND e.e_name LIKE ?");
+		}
+//		대출일, 만기일, 대출 잔액, 연체 넣어주기
+
+		
+		try (Connection conn = DatabaseUtil.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+			System.out.println("!!! dao - getLoanContractByDTO TRY 1");
+			
+			int parameterIndex = 1;
+
+			if (loanContractDTO.getLoanName() != null) {
+	            pstmt.setString(parameterIndex++, loanContractDTO.getLoanName());
+	        }
+	        if (loanContractDTO.getLoanType() != null) {
+	            pstmt.setString(parameterIndex++,  loanContractDTO.getLoanType() );
+	        }
+	        if (loanContractDTO.getCustomerName() != null) {
+	            pstmt.setString(parameterIndex++,  loanContractDTO.getCustomerName() );
+	        }
+	        if (loanContractDTO.getEmployeeName() != null) {
+	            pstmt.setString(parameterIndex++,  loanContractDTO.getEmployeeName() );
+	        }
+	       
+//			대출일, 만기일, 대출 잔액, 연체 넣어주기
+	        
+
+			System.out.println("!!! dao - pstmt= "+ pstmt);
+
+			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
+			
 			try (ResultSet rs = pstmt.executeQuery()) {
-				if (rs.next()) {
-					// loanType, loanName 순서로 들어감
-					loanInfomationList.add(rs.getString("loan_type"));
-					loanInfomationList.add(rs.getString("loan_name"));
-					//fillLoanContractDTOFromResultSet(loanContract, rs);
+				System.out.println("!!! dao - loanContractDTOList size = "+ loanContractDTOList.size() );
+			
+				while (rs.next()) {
+					LoanContractDTO loanContracts = new LoanContractDTO();
+					
+					fillLoanContractDTOFromResultSet(loanContracts, rs);
+					loanContractDTOList.add(loanContracts);
+					System.out.println("!!! dao - size = "+loanContractDTOList.size());
 				}
 			}
+			return loanContractDTOList;
 		} catch (Exception e) {
+			System.out.println("!!! DAO 오류 " + e);
 			e.printStackTrace();
 		}
-		return loanInfomationList;
-	}
-	
-	// 고객 테이블에서 고객 이름 가져오기
-	public String getCustomerName(int customerId) {
-		String customerName = "";
-		String SQL = "select c_name from customers where c_id= ?";
-		
-		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setInt(1, customerId);
-			try (ResultSet rs = pstmt.executeQuery()) {
-				if (rs.next()) {
-					customerName = rs.getString("c_name");
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return customerName;	
+		return null;
 	}
 }
