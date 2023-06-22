@@ -1,10 +1,12 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +93,6 @@ public class LoanContractDAO {
 		loanContract.setDelinquentAmount(rs.getLong("delinquent_amount"));
 		loanContract.setGuarantorId(rs.getInt("guarantor_id"));
 		loanContract.setInterestRate(rs.getLong("interest_rate"));
-		
 		loanContract.setLoanType(rs.getString("loan_type"));
 		loanContract.setLoanName(rs.getString("loan_name"));
 		loanContract.setEmployeeName(rs.getString("e_name"));
@@ -140,7 +141,6 @@ public class LoanContractDAO {
 		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
 		queryBuilder.append(" JOIN customers c ON lc.e_id = c.e_id AND lc.c_id = c.c_id");
 		queryBuilder.append(" JOIN employees e ON c.e_id = e.e_id");
-		queryBuilder.append(" JOIN loanRepayments lr ON lr.lc_id = lc.lc_id");
 		queryBuilder.append(" JOIN customers c2 ON lc.guarantor_id = c2.c_id");
 		queryBuilder.append(" WHERE 1=1");
 		
@@ -156,14 +156,23 @@ public class LoanContractDAO {
 		if (loanContractDTO.getEmployeeName() != null) {
 			queryBuilder.append(" AND e.e_name LIKE ?");
 		}
-//	 대출 잔액, 연체 넣어주기
 		if (loanContractDTO.getStartDate() != null ) {
 			queryBuilder.append(" AND lc.start_date >= ? AND lc.start_date < ?");
 		}
 		if (loanContractDTO.getMuturityDate() != null ) {
 			queryBuilder.append(" AND lc.muturity_date >= ? AND lc.muturity_date < ?");
 		}
-		
+		if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0 ) {
+			if (loanContractDTO.getBalanceRange()[0] >= 10000) {
+				queryBuilder.append(" AND lc.balance >= ?");					
+			}
+			else {
+				queryBuilder.append(" AND lc.balance >= ? AND lc.balance < ?");				
+			}
+		}
+		if (loanContractDTO.getLatePaymentPeriod() > -1) {
+			queryBuilder.append(" AND lc.late_payment_date < ?");
+		}
 		
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
@@ -172,7 +181,7 @@ public class LoanContractDAO {
 			int parameterIndex = 1;
 
 			if (loanContractDTO.getLoanName() != null) {
-	            pstmt.setString(parameterIndex++, loanContractDTO.getLoanName());
+	            pstmt.setString(parameterIndex++, "%"+ loanContractDTO.getLoanName()+ "%");
 	        }
 	        if (loanContractDTO.getLoanType() != null) {
 	            pstmt.setString(parameterIndex++,  loanContractDTO.getLoanType() );
@@ -195,23 +204,32 @@ public class LoanContractDAO {
 	            Timestamp nextDay = new Timestamp(loanContractDTO.getMuturityDate().getTime() + 24 * 60 * 60 * 1000);
 	            pstmt.setTimestamp(parameterIndex++, nextDay);
 	        }
-	       
-//			대출 잔액, 연체 넣어주기
-	        
-
+			if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0) {	
+				if (loanContractDTO.getBalanceRange()[0] >= 10000) {
+					pstmt.setInt(parameterIndex++, loanContractDTO.getBalanceRange()[0] * 10000);				
+				}
+				else {
+					pstmt.setInt(parameterIndex++, loanContractDTO.getBalanceRange()[0] * 10000);
+					pstmt.setInt(parameterIndex++, loanContractDTO.getBalanceRange()[1] * 10000);		
+				}
+			}	
+			if (loanContractDTO.getLatePaymentPeriod() > -1) {
+				LocalDate currentDate = LocalDate.now();
+				LocalDate latePaymentLocalDate = currentDate.minusDays(loanContractDTO.getLatePaymentPeriod());
+				Date latePaymentDate = new Date(latePaymentLocalDate.toEpochDay() * 24 * 60 * 60 * 1000);
+				pstmt.setDate(parameterIndex++, latePaymentDate);
+			}
+			
 			System.out.println("!!! dao - pstmt= "+ pstmt);
 
 			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
 			
-			try (ResultSet rs = pstmt.executeQuery()) {
-				
+			try (ResultSet rs = pstmt.executeQuery()) {				
 				while (rs.next()) {
-					LoanContractDTO loanContracts = new LoanContractDTO();
-					
-					fillLoanContractDTOFromResultSet(loanContracts, rs);
-					loanContractDTOList.add(loanContracts);
+						LoanContractDTO loanContracts = new LoanContractDTO();
+						fillLoanContractDTOFromResultSet(loanContracts, rs);
+						loanContractDTOList.add(loanContracts);
 					}
-
 				return loanContractDTOList;
 			}
 			catch (Exception e) {

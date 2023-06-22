@@ -23,7 +23,6 @@ public class LoanContractDTO {
 	private long delinquentAmount;
 	private int guarantorId;
 	private long interestRate;
-
 	private String loanType;
 	private String loanName;
 	private String employeeName;

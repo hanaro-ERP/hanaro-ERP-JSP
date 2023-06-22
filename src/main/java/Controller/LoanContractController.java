@@ -86,31 +86,30 @@ public class LoanContractController extends HttpServlet {
 			balanceRange[1] = Integer.parseInt(balanceList[1]);
 		}
 		else {
-			if (latePaymentDate.contains("2천")){
+			if (balanceList[0].contains("2천")){
 				balanceRange[0] = 0;
 				balanceRange[1] = 2000;
 			}
-			else if (latePaymentDate.contains("3천")){
+			else if (balanceList[0].contains("3천")){
 				balanceRange[0] = 0;
 				balanceRange[1] = 3000;
 			}
-			else if (latePaymentDate.contains("5천")){
+			else if (balanceList[0].contains("5천")){
 				balanceRange[0] = 0;
 				balanceRange[1] = 5000;
 			}
-			else if (latePaymentDate.contains("~1억")){
+			else if (balanceList[0].contains("~1억")){
 				balanceRange[0] = 0;
 				balanceRange[1] = 10000;
 			}
-			else {
-				balanceRange[0] = 10001;
+			else if (balanceList[0].contains("1억원 이상")){
+				balanceRange[0] = 10000;
 			}
-			loanContractDTO.setBalanceRange(balanceRange);
 		}
+		loanContractDTO.setBalanceRange(balanceRange);
 		
+		int latePaymentPeriod = -1;	// 전체
 		if (latePaymentDate != "") {
-			int latePaymentPeriod = 0;
-
 			if (latePaymentDate.contains("6개월")){
 				latePaymentPeriod = 180;
 			}
@@ -123,19 +122,13 @@ public class LoanContractController extends HttpServlet {
 			else if (latePaymentDate.contains("5년")){
 				latePaymentPeriod = 365 * 5;
 			}
-			else {
+			else if (latePaymentDate.contains("5년이상")){
 				latePaymentPeriod = 365 * 5 +1;
 			}
 			loanContractDTO.setLatePaymentPeriod(latePaymentPeriod);
 		}
 		
-		System.out.println("loanContractStartDate length= "+loanContractStartDate.length);
-		System.out.println("balanceList length= "+balanceList.length);
-		System.out.println("latePaymentDate= "+latePaymentDate);
-		
 		try {
-			System.out.println("!!! postLoanContractProcess");
-
 			List<LoanContractDTO> loanContractDTOList = LoanContractService.getLoanContractDetail(loanContractDTO);
 
 			// JSP에 데이터 전달
@@ -143,7 +136,6 @@ public class LoanContractController extends HttpServlet {
 			request.setAttribute("searchInputValue", loanContractDTO);
 			
 		} catch (Exception e) {
-			System.out.println("!!! LoanContractController 오류 " + e);
 			e.printStackTrace();
 		}
 
