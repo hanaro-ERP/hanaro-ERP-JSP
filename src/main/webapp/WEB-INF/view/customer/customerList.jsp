@@ -10,17 +10,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
-<<<<<<< HEAD:src/main/webapp/WEB-INF/view/customer/customerList.jsp
-<body>
-	<%@ include file="../../components/header.jsp" %>
-=======
 <body>	
 	<%@page import="java.util.Arrays"%>
 	<%@ page import="java.util.List" %>
 	<%@ page import="DTO.CustomerDTO" %>
 	<%@ page import="DTO.CustomerSearchDTO" %>
-	<%@ include file="../../../components/header/header.jsp" %>
->>>>>>> develop:src/main/webapp/view/customer/customerList/customerList.jsp
+	<%@ include file="../../components/header.jsp" %>	
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
