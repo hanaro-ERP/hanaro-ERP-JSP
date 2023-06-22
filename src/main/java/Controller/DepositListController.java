@@ -38,7 +38,7 @@ public class DepositListController extends HttpServlet {
 			        System.out.println(infos[i] + ": " + String.join(", ", selected));
 			    }
 			}
-			
+						
 			response.sendRedirect(request.getContextPath() + "/view/deposit/depositProductList/depositProductList.jsp");
 			} catch (Exception e) {
 			e.printStackTrace();

@@ -1,28 +1,34 @@
 function checkCheckBox(item, ulId) {
-	const checkbox = item.querySelector('input');
-	if (checkbox) {
-	    checkbox.checked = true;
-	    checkbox.setAttribute('name', ulId);
-	}
+	const checkboxes = item.querySelectorAll('input');
+
+	checkboxes.forEach(checkbox => {
+		if (checkbox) {
+			checkbox.checked = true;
+		    checkbox.setAttribute('name', ulId);
+		}
+	})
 }
 
 function uncheckCheckBox(item) {
-	const checkbox = item.querySelector('input');
-	if (checkbox) {
-	    checkbox.checked = false;
-	    checkbox.removeAttribute('name');
-	}
+	const checkboxes = item.querySelectorAll('input');
+
+	checkboxes.forEach(checkbox => {
+		if (checkbox) {
+			checkbox.checked = false;
+			checkbox.removeAttribute('name');
+		}
+	})
 }
 
 function toggleCheckBox(item, ulId) {
-    const itemCheckBox = item.querySelector('input');
-    if (itemCheckBox) {
-        if (item.classList.contains('selectedLi')) {
-            checkCheckBox(item, ulId);
-        } else {
-            uncheckCheckBox(item);
-        }
-    }
+	const itemCheckBox = item.querySelector('input');
+	if (itemCheckBox) {
+		if (item.classList.contains('selectedLi')) {
+        	checkCheckBox(item, ulId);
+		} else {
+			uncheckCheckBox(item);
+		}
+		}
 }
 
 function selectItem(item, ulId) {

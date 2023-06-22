@@ -1,8 +1,8 @@
 // select 부분 변수 및 함수 추가
 var countyList = new Array();
-countyList[0] = new Array("전체");
+countyList[0] = new Array("");
 countyList[1] = new Array(
-	"전체",
+	"",
 	"강남구",
 	"강동구",
 	"강북구",
@@ -30,7 +30,7 @@ countyList[1] = new Array(
 	"중랑구"
 );
 countyList[2] = new Array(
-	"전체",
+	"",
 	"강서구",
 	"금정구",
 	"남구",
@@ -49,7 +49,7 @@ countyList[2] = new Array(
 	"기장군"
 );
 countyList[3] = new Array(
-	"전체",
+	"",
 	"남구",
 	"달서구",
 	"동구",
@@ -60,7 +60,7 @@ countyList[3] = new Array(
     "달성군"
 );
 countyList[4] = new Array(
-	"전체",
+	"",
 	"계양구",
 	"남구",
 	"남동구",
@@ -72,11 +72,11 @@ countyList[4] = new Array(
 	"강화군",
 	"옹진군"
 );
-countyList[5] = new Array("전체", "광산구", "남구", "동구", "북구", "서구");
-countyList[6] = new Array("전체", "대덕구", "동구", "서구", "유성구", "중구");
-countyList[7] = new Array("전체", "남구", "동구", "북구", "중구", "울주군");
+countyList[5] = new Array("", "광산구", "남구", "동구", "북구", "서구");
+countyList[6] = new Array("", "대덕구", "동구", "서구", "유성구", "중구");
+countyList[7] = new Array("", "남구", "동구", "북구", "중구", "울주군");
 countyList[8] = new Array(
-	"전체",
+	"",
 	"고양시",
 	"과천시",
 	"광명시",
@@ -110,7 +110,7 @@ countyList[8] = new Array(
 	"화성시"
 );
 countyList[9] = new Array(
-	"전체",
+	"",
 	"강릉시",
 	"동해시",
 	"삼척시",
@@ -131,7 +131,7 @@ countyList[9] = new Array(
 	"황성군"
 );
 countyList[10] = new Array(
-	"전체",
+	"",
 	"제천시",
 	"청주시",
 	"충주시",
@@ -145,7 +145,7 @@ countyList[10] = new Array(
 	"청원군"
 );
 countyList[11] = new Array(
-	"전체",
+	"",
 	"공주시",
 	"보령시",
 	"서산시",
@@ -163,7 +163,7 @@ countyList[11] = new Array(
 	"홍성군"
 );
 countyList[12] = new Array(
-	"전체",
+	"",
 	"군산시",
 	"김제시",
 	"남원시",
@@ -180,7 +180,7 @@ countyList[12] = new Array(
 	"진안군"
 );
 countyList[13] = new Array(
-	"전체",
+	"",
 	"광양시",
 	"나주시",
 	"목포시",
@@ -207,7 +207,7 @@ countyList[13] = new Array(
 	"화순군"
 );
 countyList[14] = new Array(
-	"전체",
+	"",
 	"경산시",
 	"경주시",
 	"구미시",
@@ -233,7 +233,7 @@ countyList[14] = new Array(
 	"칠곡군"
 );
 countyList[15] = new Array(
-	"전체",
+	"",
 	"거제시",
 	"김해시",
 	"마산시",
@@ -256,10 +256,11 @@ countyList[15] = new Array(
 	"함양군",
 	"합천군"
 );
-countyList[16] = new Array("전체", "서귀포시", "제주시", "남제주군", "북제주군");
+countyList[16] = new Array("", "서귀포시", "제주시", "남제주군", "북제주군");
 
 function changeCounty(add) {
-	const selectElement = document.forms[0].district;
+	const selectElement = document.querySelector('select[name="district"]');
+
 	/* 옵션메뉴삭제 */
 	for (let i = selectElement.length - 1; i >= 0; i--) {
 		selectElement.options[i] = null;

@@ -49,11 +49,11 @@ public class EmployeeListController extends HttpServlet {
 			employeeDTO.setPosition(position);
 		
 		try {
-			List<EmployeeDTO> findEmployee = EmployeeService.getEmployeeList(employeeDTO);
+			List<EmployeeDTO> getEmlpoyeeList = EmployeeService.getEmployeeList(employeeDTO);
 			
 			//검색을 위해 입력받은 값
 			request.setAttribute("searchInputValue", employeeDTO);
-			request.setAttribute("findEmployee", findEmployee);
+			request.setAttribute("findEmployee", getEmlpoyeeList);
 		} catch (Exception e) {
 			System.out.println("employee Service 오류 " + e);
 		}

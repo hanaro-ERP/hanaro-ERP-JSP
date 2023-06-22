@@ -7,9 +7,61 @@
 	flex-wrap: wrap;
 	align-items: center;
 }
-ul > li > select {
-	width: 200px;
-	height: 30px;
-	text-align: center;
-	margin-right: 10px;
+.popupBox{
+	background: #FFFFFF;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	border-radius: 10px;
+	width: 1300px;
+	height: 520px;
+	position: fixed;
+	top: calc(50vh - 260px);
+	box-shadow : rgba(0,0,0,0.5) 0 0 0 9999px;
+	z-index : 100;
+}
+.popupExitButton{
+	width: 14px;
+	height: 14px;
+	fill: #323232;
+	margin-left: auto;
+	cursor: pointer;
+}
+.popupTitleBox{
+	font-weight: 700;
+	font-size: 30px;
+	line-height: 1.6;
+}
+#historyTable{
+	width: 100%;
+}
+#historyTable tr th:nth-child(1){
+	width: 180px;
+	border-top-left-radius: 5px;		
+}
+#historyTable tr th:nth-child(2){
+	width: 100px;
+}
+#historyTable tr th:nth-child(3){
+	width: 230px;
+}
+#historyTable tr th:nth-child(4){
+	width: 150px;
+}
+#historyTable tr th:nth-child(5){
+	width: 150px;
+}
+#historyTable tr th:nth-child(6){
+	width: 130px;
+}
+#historyTable tr th:nth-child(7){
+	width: 160px;
+}
+#historyTable tr th:nth-child(8){
+	width: 180px;
+	border-top-right-radius: 5px;	
+}
+.display{
+	display: none;
 }

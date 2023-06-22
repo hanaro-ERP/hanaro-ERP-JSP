@@ -2,13 +2,18 @@ package Controller;
 
 import java.io.*;
 import java.io.OutputStream;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import DTO.BankDTO;
+import Service.BankService;
 
 @WebServlet("/bankList")
 public class BankListController extends HttpServlet {
@@ -29,19 +34,34 @@ public class BankListController extends HttpServlet {
 	}
 	
 	protected void postBankListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			String[] infos = {"bankName", "citySelect", "district"};
+		String bankName = request.getParameter("bankName");
+		String citySelect = request.getParameter("citySelect");
+		String districtSelect = request.getParameter("district");
+		String location = "";
+		
+		BankDTO bankDTO = new BankDTO();
+		
+		if(bankName != "")
+			bankDTO.setBankName(bankName);
+		if(citySelect != "" ) {
+			bankDTO.setCity(citySelect);
 			
-			for (int i = 0; i < infos.length; i++) {
-			    String[] selectedJobs = request.getParameterValues(infos[i]);
-			    if (selectedJobs != null) {
-			        System.out.println(infos[i] + ": " + String.join(", ", selectedJobs));
-			    }
+			if(districtSelect != "") {
+				location = citySelect + " " + districtSelect;
+				bankDTO.setLocation(location);
+				bankDTO.setDistrict(districtSelect);		
 			}
-			
-			response.sendRedirect(request.getContextPath() + "/view/employee/bank/bankList.jsp");
-			} catch (Exception e) {
-			e.printStackTrace();
 		}
+
+		try {
+			List<BankDTO> getBankList = BankService.getBankList(bankDTO);
+		
+			request.setAttribute("searchInputValue", bankDTO);
+			request.setAttribute("findBankList", getBankList);
+		} catch (Exception e) {
+			
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/view/employee/bank/bankList.jsp");
+	    dispatcher.forward(request, response);
 	}
 }

@@ -25,7 +25,7 @@
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">이름(ID)</div>
 						<input name="employeeName" id="employeeNameSearchInput" class="innerSearchInput3"
-						value="<%= employeeDTO != null ? employeeDTO.getEmployeeName() : "" %>"></input>
+						value="<%= employeeDTO == null || employeeDTO.getEmployeeName() == null ? "" : employeeDTO.getEmployeeName() %>">
 					<div class="innerInformationRowTitle">소속 지점</div>
 					<select name="bankLocation" class="innerSelectBox">
 						<option value="">-</option>
