@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +33,8 @@ public class LoginController extends HttpServlet {
 			String errorMessage, String employeeId) throws ServletException, IOException {
 		request.getSession().setAttribute("employeeId", employeeId);
 		request.getSession().setAttribute("errorMessage", errorMessage);
-		response.sendRedirect(request.getContextPath() + "/view/login/login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/login/login.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -68,9 +70,14 @@ public class LoginController extends HttpServlet {
 			request.getSession().setAttribute("loginId", storedEmployeeDTO.getEmployeeId());
 			request.getSession().setAttribute("loginName", storedEmployeeDTO.getEmployeeName());
 			request.getSession().setAttribute("loginPosition", storedEmployeeDTO.getPosition());
-			response.sendRedirect(request.getContextPath() + "/view/main/main.jsp");
+			
+//			response.sendRedirect(request.getContextPath() + "/view/main/main.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/main/main.jsp");
+			dispatcher.forward(request, response);
 		} else {
-			redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 잘못 입력했습니다.", String.valueOf(employeeId));
+//			redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 잘못 입력했습니다.", String.valueOf(employeeId));
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/login/login.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 }
