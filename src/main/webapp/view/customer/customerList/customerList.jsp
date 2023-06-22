@@ -230,10 +230,12 @@
 		districtSelect.value = "${customerInput.district}";
 		
 		<%
-		if (isOpen.equals("open")) {
-			%>
-			revealDetail();
-			<%
+		if (isOpen != null) {
+			if (isOpen.equals("open")) {
+				%>
+				revealDetail();
+				<%
+			}
 		}
 		%>
 
