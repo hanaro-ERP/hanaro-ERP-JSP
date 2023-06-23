@@ -46,6 +46,16 @@ function toggleItem(item, ulId) {
 	toggleCheckBox(item, ulId);
 }
 
+function notSelectCheck(ulId) {
+	const ulElement = document.getElementById(ulId);
+	const firstListItem = ulElement.querySelectorAll('li')[0];
+	
+	const selectedItems = ulElement.querySelectorAll('.selectedLi');
+	if (selectedItems.length == 0) {
+		selectItem(firstListItem, ulId);
+	}
+}
+
 function selectMultiItems(ulId) {
 	const ulElement = document.getElementById(ulId);
 	
@@ -59,6 +69,8 @@ function selectMultiItems(ulId) {
 			item.addEventListener('click', () => {
 				toggleItem(item, ulId);
 				unselectItem(firstListItem);
+				
+				notSelectCheck(ulId);
 			});
 		}
 	});
@@ -93,6 +105,8 @@ function selectOneItem(ulId) {
 					toggleDirectInput(item, false);
 				}
 			});
+			
+			notSelectCheck(ulId);
 		});
 	});
 }
@@ -128,6 +142,8 @@ function selectMultiItemsWithDirectInput(ulId) {
 				unselectItem(secondListItem);
 				
 				toggleDirectInput(secondListItem, false);
+				
+				notSelectCheck(ulId);
 			});
 		}
 	});

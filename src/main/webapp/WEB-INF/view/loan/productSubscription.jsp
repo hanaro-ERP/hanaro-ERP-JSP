@@ -189,10 +189,10 @@ pageEncoding="UTF-8"%>
 				<div class="innerButtonContainer">
 					<button type="submit">검색</button>
 				</div>
-  			</form>
-        </div>
-    </main>
-    <script>
+			</form>
+		</div>
+	</main>
+	<script>
 		generateMenu('loan', 'productSubscription');		
 	</script>
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>

@@ -62,6 +62,6 @@ public class BankListController extends HttpServlet {
 			
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/employee/bankList.jsp");
-	    dispatcher.forward(request, response);
+		dispatcher.forward(request, response);
 	}
 }
