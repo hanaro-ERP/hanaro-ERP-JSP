@@ -15,4 +15,14 @@
 	<session-config>
 		<session-timeout>100</session-timeout>
 	</session-config>
+	<servlet>
+		<servlet-name>MyServlet</servlet-name>
+		<servlet-class>Controller.NavigationController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>MyServlet</servlet-name>
+		<url-pattern>/navigation/*</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

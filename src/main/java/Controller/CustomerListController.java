@@ -17,7 +17,7 @@ import DTO.CustomerSearchDTO;
 import Service.CustomerService;
 import util.CustomerUtil;
 
-@WebServlet("/customerList")
+@WebServlet("/customer/list")
 public class CustomerListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -105,7 +105,7 @@ public class CustomerListController extends HttpServlet {
 			request.setAttribute("customerInput", customerSearchDTO);
 			request.setAttribute("customerList", customerList);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/view/customer/customerList/customerList.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/customer/customerList.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
