@@ -1,0 +1,34 @@
+.searchTable {
+	width: 1444px;
+	margin-top: 15px;
+	margin-bottom: 20px;
+	box-sizing: border-box;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-collapse: separate;
+	border-spacing: 1;
+}
+.searchTable tr th {
+	background: #2DB400;
+	height: 40px;
+	color: #FFFFFF;
+	border: 0.5px solid #8B95A1;
+}
+.searchTable tr th:first-child {
+	border-top-left-radius: 5px;
+}
+.searchTable tr th:last-child {
+	border-top-right-radius: 5px;
+}
+.searchTable tr {
+	text-align: center;
+	color: #191F29;
+}
+.searchTable tr:hover {
+	cursor: pointer;
+	background-color: #F2F4F6;
+}
+.searchTable tr td {
+	height: 40px;
+	border: 0.5px solid #8B95A1;
+}

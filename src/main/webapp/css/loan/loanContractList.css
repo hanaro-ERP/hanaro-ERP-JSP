@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+#balanceList {
+	width: 900px;
+	height: 60px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+.innerInformationRow select {
+	width: 200px;
+	height: 30px;
+	text-align: center;
+	margin-right: 10px;
+}

@@ -1,0 +1,154 @@
+@charset "UTF-8";
+
+.container{
+	height: 100vh;
+	width: 100vw;
+}
+.headerBox{
+	width: 100%;
+	height: 80px;
+	background: #FFFFFF;
+	border-bottom: 1px solid #2DB400;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	position: fixed;
+	top: 0;
+	z-index: 10;
+}
+.headerContent{
+	font-weight: 700;
+	font-size: 25px;
+	line-height: 100%;
+	margin: auto;
+	width: fit-content;
+	height: fit-content;
+}
+.bodyBox{
+	width: 100%;
+	height: 100%;
+	background: #F9FAFB;
+	padding-top: 5vh;
+	box-sizing: border-box;
+}
+.mainGreen{
+	color: #2DB400;
+}
+.mainBlack1{
+	color: #191F29;
+}
+.mainBlack2{
+	color: #4E5968;
+}
+.bodyContainer{
+	height: fit-content;
+	width: fit-content;
+	margin: auto;
+	margin-top: 80px;
+}
+.bodyTitleBox{
+	width: 900px;
+	height: 96px;
+	margin-bottom: 2vh;
+}
+.bodyTitle{
+	font-weight: 700;
+	font-size: 60px;
+	line-height: 160%;
+	text-align: center;
+	margin-bottom: 50px;
+}
+.bodyContentBox{
+	width: 900px;
+	height: 600px;
+}
+.bodyCardBox{
+	width: 900px;
+	height: 250px;
+	display: flex;
+	justify-content: space-between;
+}
+.bodyCard{
+	width: 400px;
+	height: 250px;	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 40px;
+	gap: 10px;
+	box-sizing: border-box;
+	background: #FFFFFF;
+	color: #4E5968;
+	border-width: 0px 3px 3px 0px;
+	border-style: solid;
+	border-color: #E5E8EB;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.03);
+	border-radius: 12px;	
+	text-decoration: none;
+}
+.first{
+	margin-bottom: 60px;
+}
+.bodyCardContentBox{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.mainIconText{
+	font-size: 44pt;
+	line-height: 1.5;
+	font-weight: bold;	
+}
+.bodyCard:hover{
+	background:  #2DB400;
+	color: #FFFFFF;
+}
+.bodyCard:hover svg path{
+	fill: #FFFFFF;
+}
+
+.headerSessionInformationContainer {
+	width: fit-content;
+	height: 100%;
+	gap: 30px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 0px 72px;
+	box-sizing: border-box;
+	right: 0;
+	position: absolute;
+}
+.headerSessionTimeout {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}
+.headerSessionButton {
+	width: 50px;
+	height: 24px;
+	border: 1px solid #2EB400;
+	border-radius: 5px;
+	color: #2EB400;
+	display: flex;
+	align-items: center;
+	justify-content: center;	
+	cursor: pointer;
+	background: transparent;
+}
+.headerSessionButton:hover {
+	opacity: 0.8;
+	background: buttonface;
+}
+.headerSessionName {
+	font-weight: bold;
+}
+.headerSessionLogoutButton{
+	background: transparent;
+	cursor: pointer;
+	border: none;
+}
