@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import DTO.EmployeeDTO;
 import Service.EmployeeService;
 
-@WebServlet("/employeeList")
+@WebServlet("/employee/list")
 public class EmployeeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -58,7 +58,7 @@ public class EmployeeListController extends HttpServlet {
 			System.out.println("employee Service 오류 " + e);
 		}
 		
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("/view/employee/empList/empList.jsp");
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/employee/employeeList.jsp");
 	    dispatcher.forward(request, response);
 	}
 }

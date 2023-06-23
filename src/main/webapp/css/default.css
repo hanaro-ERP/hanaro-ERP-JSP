@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Hana2';
+	src: url('../public/fonts/Hana2-Regular.otf') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Hana2';
+	src: url('../public/fonts/Hana2-Bold.otf') format('woff');
+	font-weight: bold;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Hana2';
+	src: url('../public/fonts/Hana2-Regular.ttf') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Hana2';
+	src: url('../public/fonts/Hana2-Bold.ttf') format('woff');
+	font-weight: bold;
+	font-style: normal;
+}
+:root {
+ 	--primary-color: #2DB400;
+}
+* {
+	font-family: 'Hana2', 'Notosans_Regular', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+	box-sizing: border-box;
+}
+body {
+	width: 100vm;
+	height: 100%;
+	margin: 0;
+}
+main {
+	min-height: 900px;
+	display: flex;
+	margin-top: 80px;
+	background-color: #F9FAFB;
+}
+li {
+	list-style: none;
+	text-decoration: none;
+}
+a {
+	color: #191f29;
+	text-decoration: none;
+	outline: none;
+}
+h1 {
+	font-size: 30px;
+	font-weight: bold;
+	margin: 0;
+}
+h2 {
+	font-size: 26px;
+	font-weight: bold;
+	margin: 0;
+}
+.innerContainer {
+	display: inline-block;
+	padding-left: 30px;
+	background-color: #F9FAFB;
+}
+.innerTitle {
+	width: 1450px;
+	height: 68px;
+	display: flex;
+	align-items: center;
+}
+.innerSubTitle { 
+	width: 1450px;
+	height: 48px;
+	display: flex;
+	align-items: center;
+}
+
+.innerButtonContainer {
+	display: flex;
+	justify-content: end;
+	padding: 10px 10px 10px 0px;
+}
+.innerButtonContainer > button {
+	width: 130px;
+	height: 50px;
+	color: #FFFFFF;
+	font-size: 23px;
+	font-weight: bold;
+	border: #2DB400 1px solid;
+	border-radius: 5px;
+	background-color: #2DB400;
+}
+.innerButtonContainer > button:hover {
+	cursor: pointer;
+	opacity: 80%;
+}
