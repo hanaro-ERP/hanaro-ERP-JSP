@@ -5,15 +5,14 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8" />
 <title>상품 가입</title>
-<script src="../components/aside/aside.js "></script>
-<script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
-<link rel="stylesheet" href="productSubscription.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/components/inputTable/inputTable.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productSubscription.css?ver=1">
+<script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
 <body>
-	<%@ include file="../../../components/header/header.jsp" %>
+	<%@ include file="../../components/header.jsp" %>
 	<main>
-		<%@ include file="../../../components/aside/aside.jsp" %>
+		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 가입</h1></div>
 			<form action="${pageContext.request.contextPath}/loanSubscription" method="post" onsubmit="return validateForm()">
@@ -196,7 +195,7 @@ pageEncoding="UTF-8"%>
     <script>
 		generateMenu('loan', 'productSubscription');		
 	</script>
-	<script src="${pageContext.request.contextPath}/components/inputTable/inputTable.js "></script>
-	<script src="${pageContext.request.contextPath}/view/loan/productSubscription/productSubscription.js "></script>
+	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
+	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
 </body>
 </html>

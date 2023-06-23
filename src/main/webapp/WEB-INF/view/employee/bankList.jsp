@@ -5,22 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/view/employee/bank/bankList.css?ver=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchResultTable/searchResultTable.css?ver=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
-<script src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/employee/bankList.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
+<script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
 <body>
 	<%@ page import="java.util.List" %>
 	<%@ page import="DTO.BankDTO" %> 
-	<%@ include file="../../../components/header/header.jsp" %>
+	<%@ include file="../../components/header.jsp" %>
 	<main>
-		<%@ include file="../../../components/aside/aside.jsp" %>
+		<%@ include file="../../components/aside.jsp" %>
 		<% List<BankDTO> getBankList =(List<BankDTO>)request.getAttribute("findBankList");
 			BankDTO bankDTO = (BankDTO)request.getAttribute("searchInputValue");%>
 		<div class="innerContainer" id="container2">
 			<div class="innerTitle"><h1>지점 목록</h1></div>
-			<form action="${pageContext.request.contextPath}/bankList" method="post">
+			<form action="${pageContext.request.contextPath}/bank/list" method="post">
 				<div class="innerSubTitle"><h2>지점 정보</h2></div>
 				<div class="innerInformation">
 					<div class="innerInformationRow">
@@ -89,6 +89,6 @@
 	<script>
 		generateMenu('employee', 'bankList');		
 	</script>
-	<script src="${pageContext.request.contextPath}/view/employee/bank/bankList.js"></script>
+	<script src="${pageContext.request.contextPath}/js/employee/bankList.js"></script>
 </body>
 </html>

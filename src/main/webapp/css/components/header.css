@@ -41,6 +41,9 @@ header {
 	font-size: 18px;
 	font-weight: bold;
 }
+.headerMenuContainer > li > .active {
+	color: #2DB400;
+}
 .headerMenuContainer > li > a:hover {
 	color: var(--primary-color);
 	font-weight: bold;

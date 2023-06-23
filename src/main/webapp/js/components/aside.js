@@ -3,32 +3,32 @@ const menuData = {
 		menuTitle: '고객 관리',
 		menuIcon: 'customerBtnIcon',
 		menuItems: [
-			{ id: 'customerList', label: '고객 목록', link: '/dashboard' }
+			{ id: 'customerList', label: '고객 목록', link: '/hanaro-ERP-JSP/navigation/customer' }
 		]
 	},
 	employee: {
 		menuTitle: '직원 관리',
 		menuIcon: 'employeeBtnIcon',
 		menuItems: [
-			{ id: 'employeeList', label: '직원 목록', link: '/dashboard' },
-			{ id: 'bankList', label: '지점 목록', link: '/profile' }
+			{ id: 'employeeList', label: '직원 목록', link: '/hanaro-ERP-JSP/navigation/employee' },
+			{ id: 'bankList', label: '지점 목록', link: '/hanaro-ERP-JSP/navigation/bank' }
 		]
 	},
   	loan: {
 		menuTitle: '여신 관리',
 		menuIcon: 'loanBtnIcon',
 		menuItems: [
-			{ id: 'loanProductList', label: '여신 상품', link: '/dashboard' },
-			{ id: 'loanContract', label: '여신 이력', link: '/profile' },
-			{ id: 'productRegistration', label: '상품 등록', link: '/settings' },
-			{ id: 'productSubscription', label: '상품 가입', link: '/settings' }
+			{ id: 'loanProductList', label: '여신 상품', link: '/hanaro-ERP-JSP/navigation/loanList' },
+			{ id: 'loanContract', label: '여신 이력', link: '/hanaro-ERP-JSP/navigation/loanContract' },
+			{ id: 'productRegistration', label: '상품 등록', link: '/hanaro-ERP-JSP/navigation/loanRegistration' },
+			{ id: 'productSubscription', label: '상품 가입', link: '/hanaro-ERP-JSP/navigation/loanSubscription' }
 		]
 	},
 	deposit: {
 		menuTitle: '수신 관리',
 		menuIcon: 'depositBtnIcon',
 		menuItems: [
-			{ id: 'depositProductList', label: '계좌 목록', link: '/dashboard' }
+			{ id: 'depositProductList', label: '계좌 목록', link: '/hanaro-ERP-JSP/navigation/deposit' }
 		]
 	}
 };

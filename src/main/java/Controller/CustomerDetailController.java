@@ -40,7 +40,7 @@ public class CustomerDetailController extends HttpServlet {
 			
 			request.setAttribute("customer", customer);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/components/popup/customerInfo.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/customerInfo.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

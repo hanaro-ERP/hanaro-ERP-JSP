@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import DTO.BankDTO;
 import Service.BankService;
 
-@WebServlet("/bankList")
+@WebServlet("/bank/list")
 public class BankListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -61,7 +61,7 @@ public class BankListController extends HttpServlet {
 		} catch (Exception e) {
 			
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/view/employee/bank/bankList.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/employee/bankList.jsp");
 	    dispatcher.forward(request, response);
 	}
 }

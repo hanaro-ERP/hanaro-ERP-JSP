@@ -7,21 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Loan Contract</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/view/loan/loanContract/loanContractList.css?ver=1">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/components/searchResultTable/searchResultTable.css?ver=1">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/components/searchLayout/searchLayout.css?ver=1">
-<script
-	src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/loanContractList.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
+<script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
 <body>
-	<%@ include file="../../../components/header/header.jsp"%>
+	<%@ include file="../../components/header.jsp"%>
 	<%@ page import="java.util.List"%>
 	<%@ page import="DTO.LoanContractDTO"%>
 	<main>
-		<%@ include file="../../../components/aside/aside.jsp"%>
+		<%@ include file="../../components/aside.jsp"%>
 		<div class="innerContainer">
 			<div class="innerTitle">
 				<h1>여신 이력</h1>
@@ -170,13 +166,11 @@
 			</div>
 		</div>
 	</main>
-	<script
-		src="${pageContext.request.contextPath}/components/searchLayout/searchLayout.js"></script>
+	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js "></script>
 	<script>
-			generateMenu('loan', 'loanContractList');
-		</script>
-	<script
-		src="${pageContext.request.contextPath}/view/loan/loanContract/loanContractList.js"></script>
+		generateMenu('loan', 'loanContractList');
+	</script>
+	<script src="${pageContext.request.contextPath}/js/loan/loanContractList.js"></script>
 	<% LoanContractDTO loanContractDTO = (LoanContractDTO)request.getAttribute("searchInputValue"); %>
 
 	<div class="popupBox display">

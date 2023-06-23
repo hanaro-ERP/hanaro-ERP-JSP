@@ -20,7 +20,7 @@
 		<ul class="headerMenuContainer">
 			<li><a href="${pageContext.request.contextPath}/navigation/customer">고객관리</a></li>
 			<li><a href="${pageContext.request.contextPath}/navigation/employee">직원관리</a></li>
-			<li><a href="${pageContext.request.contextPath}/navigation/loan">여신관리</a></li>
+			<li><a href="${pageContext.request.contextPath}/navigation/loanList">여신관리</a></li>
 			<li><a href="${pageContext.request.contextPath}/navigation/deposit">수신관리</a></li>
 		</ul>
 			<div class="headerSessionInformationContainer">
@@ -35,6 +35,7 @@
 			</div>
 	</header>
 </body>
+	<script src="${pageContext.request.contextPath}/js/components/header.js "></script>
 <script>
 	const headerSessionName = document.querySelector(".headerSessionName");
 	const loginName = "<%= request.getSession().getAttribute("loginName") %>";

@@ -20,7 +20,7 @@
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>고객 검색</h1></div>
-			<form action="${pageContext.request.contextPath}/customerList" method="post">
+			<form action="${pageContext.request.contextPath}/customer/list" method="post">
 				<div class="innerSubTitle"><h2>기본 정보</h2></div>
 				<div class="innerInformation">
 					<div class="innerInformationRow">
@@ -193,7 +193,7 @@
 		generateMenu('customer', 'customerList');		
 	</script>
 
-	<script src="${pageContext.request.contextPath}/view/customer/customerList/customerList.js"></script>
+	<script src="${pageContext.request.contextPath}/js/customer/customerList.js"></script>
 	<%
 	CustomerSearchDTO customerSearchDTO = (CustomerSearchDTO) request.getAttribute("customerInput");
 	String[] customerAges = null;
@@ -209,7 +209,6 @@
 	    gender = customerSearchDTO.getStrGender();
 	    isOpen = customerSearchDTO.getIsOpen();
 	}
-
 
 	%>
 	<script>

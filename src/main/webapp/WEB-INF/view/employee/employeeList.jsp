@@ -19,7 +19,7 @@
 		<% EmployeeDTO employeeDTO = (EmployeeDTO)request.getAttribute("searchInputValue"); %>
 		<div class="innerContainer" id="container1">
 			<div class="innerTitle"><h1>직원 목록</h1></div>
-			<form action="${pageContext.request.contextPath}/employeeList" method="post">
+			<form action="${pageContext.request.contextPath}/employee/list" method="post">
 				<div class="innerSubTitle"><h2>기본 정보</h2></div>
 				<div class="innerInformation">
 					<div class="innerInformationRow">
