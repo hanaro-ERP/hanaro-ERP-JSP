@@ -28,7 +28,7 @@ function toggleCheckBox(item, ulId) {
 		} else {
 			uncheckCheckBox(item);
 		}
-		}
+	}
 }
 
 function selectItem(item, ulId) {
@@ -46,13 +46,37 @@ function toggleItem(item, ulId) {
 	toggleCheckBox(item, ulId);
 }
 
-function notSelectCheck(ulId) {
+function notSelectedCheck(ulId) {
 	const ulElement = document.getElementById(ulId);
-	const firstListItem = ulElement.querySelectorAll('li')[0];
+	const listItems = ulElement.querySelectorAll('li');
+
+	const firstListItem = listItems[0];
 	
 	const selectedItems = ulElement.querySelectorAll('.selectedLi');
-	if (selectedItems.length == 0) {
+	const selectedCount = selectedItems.length;
+	
+	if (selectedCount == 0) {
 		selectItem(firstListItem, ulId);
+	}
+}
+
+function allSelectedCheck(ulId, cnt) {
+	const ulElement = document.getElementById(ulId);
+	const listItems = ulElement.querySelectorAll('li');
+
+	const firstListItem = listItems[0];
+	
+	const selectedItems = ulElement.querySelectorAll('.selectedLi');
+	const selectedCount = selectedItems.length;
+	
+	if (selectedCount == listItems.length - cnt) {
+		selectItem(firstListItem, ulId);
+		
+		listItems.forEach((item, index) => {
+			if (index !== 0) {
+				unselectItem(item);
+			}
+		});
 	}
 }
 
@@ -70,7 +94,8 @@ function selectMultiItems(ulId) {
 				toggleItem(item, ulId);
 				unselectItem(firstListItem);
 				
-				notSelectCheck(ulId);
+				notSelectedCheck(ulId);
+				allSelectedCheck(ulId, 1);
 			});
 		}
 	});
@@ -106,7 +131,7 @@ function selectOneItem(ulId) {
 				}
 			});
 			
-			notSelectCheck(ulId);
+			notSelectedCheck(ulId);
 		});
 	});
 }
@@ -143,7 +168,8 @@ function selectMultiItemsWithDirectInput(ulId) {
 				
 				toggleDirectInput(secondListItem, false);
 				
-				notSelectCheck(ulId);
+				notSelectedCheck(ulId);
+				allSelectedCheck(ulId, 2);
 			});
 		}
 	});
