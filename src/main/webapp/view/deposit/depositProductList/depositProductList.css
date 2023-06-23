@@ -7,8 +7,6 @@
 	flex-wrap: wrap;
 	align-items: center;
 }
-<<<<<<< HEAD
-=======
 #depositSearchTable tr th:nth-child(1){
 	width: 150px;
 	border-top-left-radius: 5px;		
@@ -24,7 +22,6 @@
 	width: 200px;
 	border-top-right-radius: 5px;	
 }
->>>>>>> develop
 .popupBox{
 	background: #FFFFFF;
 	padding: 10px;

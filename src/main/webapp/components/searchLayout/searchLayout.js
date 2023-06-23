@@ -79,7 +79,7 @@ function selectOneItem(ulId) {
 	
 	const listItems = ulElement.querySelectorAll('li');
 	const firstListItem = listItems[0];
-
+	console.log(firstListItem.value);
 	selectItem(firstListItem, ulId);
 	
 	listItems.forEach((item, selectedIndex) => {

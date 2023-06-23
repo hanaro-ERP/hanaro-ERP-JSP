@@ -1,14 +1,20 @@
 package Controller;
 
 import java.io.*;
-import java.io.OutputStream;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import DTO.AccountDTO;
+import DTO.AccountSearchDTO;
+import DTO.BankDTO;
+import Service.AccountService;
+import Service.BankService;
 
 @WebServlet("/depositList")
 public class DepositListController extends HttpServlet {
@@ -30,16 +36,29 @@ public class DepositListController extends HttpServlet {
 	
 	protected void postDepositListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String[] infos = {"customerName", "employeeName", "accountNumber", "depositType", "depositBalance"};
+			String customerName = request.getParameter("customerName");
+			String identification = String.join("-", request.getParameterValues("identification"));
+			String accountNumber = request.getParameter("accountNumber");
+			String depositType = request.getParameter("depositType");
+			String depositOpenDate = String.join("-", request.getParameterValues("depositStartDate"));
+			String[] depositBalance = request.getParameterValues("depositBalance");
 			
-			for (int i = 0; i < infos.length; i++) {
-			    String[] selected = request.getParameterValues(infos[i]);
-			    if (selected != null) {
-			        System.out.println(infos[i] + ": " + String.join(", ", selected));
-			    }
-			}
-						
-			response.sendRedirect(request.getContextPath() + "/view/deposit/depositProductList/depositProductList.jsp");
+			AccountSearchDTO accountSearchDTO = new AccountSearchDTO();
+			accountSearchDTO.setCustomerName(customerName);
+			if (identification.length() == 14) accountSearchDTO.setIdentification(identification);
+			accountSearchDTO.setAccountNumber(accountNumber);
+			accountSearchDTO.setDepositType(depositType);
+			accountSearchDTO.setAccountOpenDate(depositOpenDate);
+			accountSearchDTO.setDepositBalance(depositBalance);
+			
+			List<AccountDTO> getAccountList = AccountService.getAccountList(accountSearchDTO);
+			AccountDTO accountDTO = new AccountDTO();
+			
+			request.setAttribute("accountDTO", accountDTO);
+			request.setAttribute("findAccountList", getAccountList);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/view/deposit/depositProductList/depositProductList.jsp");
+			dispatcher.forward(request, response);
 			} catch (Exception e) {
 			e.printStackTrace();
 		}
