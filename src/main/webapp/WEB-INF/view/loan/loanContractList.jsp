@@ -23,6 +23,7 @@
 				<h1>여신 이력</h1>
 			</div>
 			<form action="${pageContext.request.contextPath}/loanContractList" method="post">
+
 				<div class="innerSubTitle">
 					<h2>여신 정보</h2>
 				</div>
@@ -235,6 +236,5 @@
 		generateMenu('loan', 'loanContractList');
 	</script>
 	<script src="${pageContext.request.contextPath}/js/loan/loanContractList.js"></script>
-	
 </body>
 </html>

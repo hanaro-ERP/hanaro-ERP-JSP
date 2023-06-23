@@ -3,7 +3,11 @@ selectMultiItemsWithDirectInput("loanContractEndDate");
 selectMultiItemsWithDirectInput("balanceList");
 selectMultiItemsWithDirectInput("latePayment");
 
+<<<<<<< HEAD
 /*let yearSelectList, monthSelectList, daySelectList;
+=======
+let yearSelectList, monthSelectList, daySelectList;
+>>>>>>> 653cf5a8de819f8ef1fcec11969b3ff77a1e9c8d
 let yearSelectRow, monthSelectRow, daySelectRow;
 let yearSelect, monthSelect, daySelect;
 let rowIndex = 0;
@@ -141,7 +145,11 @@ function changeDateRowSelect(rowId) {
 	listItems = Array.from(ulElement.querySelectorAll('li'));
 	listItems[0].classList.remove('selectedLi'); // '전체' 해제하고
 	listItems[1].classList.add('selectedLi'); // '직접입력' 선택
+<<<<<<< HEAD
 }*/
+=======
+}
+>>>>>>> 653cf5a8de819f8ef1fcec11969b3ff77a1e9c8d
 
 setYearSelect();
 setMonthSelect();
