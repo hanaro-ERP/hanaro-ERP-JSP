@@ -11,11 +11,20 @@
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
 <body>
+
 	<%@ page import="java.util.List" %>
 	<%@ page import="DTO.EmployeeDTO" %> <!-- EmployeeDTO의 패키지 경로에 따라 수정해야 함 -->
 	<%@ include file="../../components/header.jsp" %>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
+		<%
+			String[] storeNames = {
+			  "개포점", "가회점", "교남점", "금호점", "논현점", "대치점", "도곡점", "마장점", "무악점", "부암점",
+			  "상왕십리점", "서울숲점", "성수역점", "성수점", "성북점", "신사점", "신자양점", "신촌점", "압구정점",
+			  "역삼점", "옥수점", "왕십리점", "용답점", "이화점", "정릉점", "창신점", "청담사거리점", "청담점",
+			  "청운효자점", "평창점", "하나로점"
+			};
+		%>
 		<% EmployeeDTO employeeDTO = (EmployeeDTO)request.getAttribute("searchInputValue"); %>
 		<div class="innerContainer" id="container1">
 			<div class="innerTitle"><h1>직원 목록</h1></div>
@@ -29,15 +38,11 @@
 					<div class="innerInformationRowTitle">소속 지점</div>
 					<select name="bankLocation" class="innerSelectBox">
 						<option value="">-</option>
-						<option value="성수점" <% if (employeeDTO != null && "성수점".equals(employeeDTO.getBankLocation())) { %>selected<% } %>>성수점</option>
-						<option value="하나로점" <% if (employeeDTO != null && "하나로점".equals(employeeDTO.getBankLocation())) { %>selected<% } %>>하나로점</option>
-						<option value="신자양점" <% if (employeeDTO != null && "신자양점".equals(employeeDTO.getBankLocation())) { %>selected<% } %>>신자양점</option>
-						<option value="성수역점" <% if (employeeDTO != null && "성수역점".equals(employeeDTO.getBankLocation())) { %>selected<% } %>>성수역점</option>
-						<option value="서울숲점" <% if (employeeDTO != null && "서울숲점".equals(employeeDTO.getBankLocation())) { %>selected<% } %>>서울숲점</option>
-						<option value="화양동점" <% if (employeeDTO != null && "화양동점".equals(employeeDTO.getBankLocation())) { %>selected<% } %>>화양동점</option>
-							<option value="청담사거리점" <% if (employeeDTO != null && "청담사거리점".equals(employeeDTO.getBankLocation())) { %>selected<% } %>>청담사거리점</option>
+						<% for(String storeName : storeNames) { %> 
+						<option value="<%= storeName %>" <% if (employeeDTO != null && storeName.equals(employeeDTO.getBankLocation())) { %>selected<% } %>><%= storeName %></option>
+					  	<% } %>
 					</select>
-				</div>
+					</div>
 				<div class="innerInformationRow">
 					<div class="innerInformationRowTitle">부서</div>
 					<select name="department" class="innerSelectBox">
@@ -103,9 +108,17 @@
 				%>
 			</table>
 		</div>
+		<script>
+    	var storeNames = [
+        "개포점", "가회점", "교남점", "금호점", "논현점", "대치점", "도곡점", "마장점", "무악점", "부암점",
+        "상왕십리점", "서울숲점", "성수역점", "성수점", "성북점", "신사점", "신자양점", "신촌점", "압구정점",
+        "역삼점", "옥수점", "왕십리점", "용답점", "이화점", "정릉점", "창신점", "청담사거리점", "청담점",
+        "청운효자점", "평창점", "하나로점"
+    	];
+		</script>
 	</main>
 	<script>
-		generateMenu('employee', 'employeeList');		
+		generateMenu('employee', 'employeeList');
 	</script>
 	<script src="${pageContext.request.contextPath}/js/employee/employeeList.js "></script>
 </body>
