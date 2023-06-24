@@ -189,10 +189,3 @@ public class AccountDAO {
 		return null;
 	}
 }
-
-// 계좌 유형	계좌 번호	계좌 개설일	고객 이름	담당 직원	계좌 잔액
-
-
-
-
-
