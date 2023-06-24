@@ -11,12 +11,17 @@
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
 <body>
+	<%@ page import="java.util.Arrays"%>
+	<%@ page import="java.util.List" %>
+	<%@ page import="DTO.AccountDTO" %>
+	<%@ page import="DTO.AccountSearchDTO" %>
+	<%@ page import="DTO.TransactionDTO" %>
 	<%@ include file="../../components/header.jsp" %>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>계좌 검색</h1></div>
-			<form action="${pageContext.request.contextPath}/depositList" method="post">
+			<form action="${pageContext.request.contextPath}/depositList/searchAccounts" method="post">
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
 				<div class="innerInformation">
 					<div class="innerInformationRow">
@@ -25,8 +30,8 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">주민번호</div>
-						<input name="regitrationNumber" class="innerMiddleInput2"></input>&nbsp;-&nbsp;
-						<input name="regitrationNumber" class="innerMiddleInput2"></input>
+						<input name="identification" class="innerMiddleInput2"></input>&nbsp;-&nbsp;
+						<input name="identification" class="innerMiddleInput2"></input>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">계좌 번호</div>
@@ -45,15 +50,15 @@
 						<ul class="loanIssueDate" id="depositStartDate">
 							<li>
 								<input type="checkbox" value="전체" id="issueDateAll"
-									name="loanContractStartDate">전체
+									name="depositStartDate">전체
 							</li>
 							<li id="directInput">
 								<p>직접 입력</p> 
-								<select name="loanContractStartDate"
+								<select name="depositStartDate"
 								class="yearSelect" disabled="true"></select> 
-								<select name="loanContractStartDate" class="monthSelect"
+								<select name="depositStartDate" class="monthSelect"
 								disabled="true"></select> 
-								<select name="loanContractStartDate" class="daySelect"
+								<select name="depositStartDate" class="daySelect"
 								disabled="true"></select>
 							</li>
 						</ul>
@@ -89,190 +94,85 @@
 					<th>담당 직원</th>
 					<th>계좌 잔액</th>
 				</tr>
-				<tr>
-					<td>입출금계좌</td>
-					<td>3333-08-9795700</td>
-					<td>2023-06-19</td>
-					<td>김민재</td>
-					<td>이상준</td>
-					<td>17,213,000원</td>
-				</tr>
-				<tr>
-					<td>입출금계좌</td>
-					<td>3333-08-9795700</td>
-					<td>2023-06-19</td>
-					<td>김민재</td>
-					<td>이상준</td>
-					<td>17,213,000원</td>
-				</tr>
-				<tr>
-					<td>입출금계좌</td>
-					<td>3333-08-9795700</td>
-					<td>2023-06-19</td>
-					<td>김민재</td>
-					<td>이상준</td>
-					<td>17,213,000원</td>
-				</tr>
-				<tr>
-					<td>입출금계좌</td>
-					<td>3333-08-9795700</td>
-					<td>2023-06-19</td>
-					<td>김민재</td>
-					<td>이상준</td>
-					<td>17,213,000원</td>
-				</tr>
-				<tr>
-					<td>나는</td>
-					<td>테이블</td>
-					<td>한다고</td>
-					<td>한 적이</td>
-					<td>없는데</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>입출금계좌</td>
-					<td>3333-08-9795700</td>
-					<td>2023-06-19</td>
-					<td>김민재</td>
-					<td>이상준</td>
-					<td>17,213,000원</td>
-				</tr>
-				<tr>
-					<td>입출금계좌</td>
-					<td>3333-08-9795700</td>
-					<td>2023-06-19</td>
-					<td>김민재</td>
-					<td>이상준</td>
-					<td>17,213,000원</td>
-				</tr>
-				<tr>
-					<td>입출금계좌</td>
-					<td>3333-08-9795700</td>
-					<td>2023-06-19</td>
-					<td>김민재</td>
-					<td>이상준</td>
-					<td>17,213,000원</td>
-				</tr>
-				<tr>
-					<td>입출금계좌</td>
-					<td>3333-08-9795700</td>
-					<td>2023-06-19</td>
-					<td>김민재</td>
-					<td>이상준</td>
-					<td>17,213,000원</td>
-				</tr>
-				<tr>
-					<td>입출금계좌</td>
-					<td>3333-08-9795700</td>
-					<td>2023-06-19</td>
-					<td>김민재</td>
-					<td>이상준</td>
-					<td>17,213,000원</td>
-				</tr>
+				<!-- 받아온 계좌 정보를 테이블로 나타내는 코드 -->
+				<%
+				List<AccountDTO> searchedAccountList = (List<AccountDTO>) request.getAttribute("searchedAccountList");
+
+				if (searchedAccountList != null && !searchedAccountList.isEmpty()) {
+					for (AccountDTO account : searchedAccountList) {
+						%>
+						<tr class="searchResultRow" id="<%= account.getAccountId() %>">
+							<td style="display: none">
+								<form id="<%= account.getAccountId() %>" action="${pageContext.request.contextPath}/depositList/searchTransactions" method="post">
+									<input name="selectedAccountId" value="<%= account.getAccountId() %>">
+									<input name="selectedAccountNumber" value="<%= account.getAccountNumber() %>">
+									<input name="selectedCustomerName" value="<%= account.getCustomerName() %>">
+								</form>
+							</td>
+							<td><%= account.getAccountType() %></td>
+							<td><%= account.getAccountNumber() %></td>
+							<td><%= account.getStringAccountOpenDate() %></td>
+							<td><%= account.getCustomerName() %>
+							<td><%= account.getEmployeeName() %></td>
+							<td><%= account.getStringAccountBalance() %></td>
+						</tr>
+						<%
+					}
+				}
+				%>
 			</table>
 			<div class="popupBox display">
 				<svg class="popupExitButton" width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M14 1.91L12.59 0.5L7 6.09L1.41 0.5L0 1.91L5.59 7.5L0 13.09L1.41 14.5L7 8.91L12.59 14.5L14 13.09L8.41 7.5L14 1.91Z" fill="#323232"/>
 				</svg>
 				<div class="popupTitleBox"><h1>입출금 내역</h1></div>
-				<table class="searchTable" id="historyTable">
-					<tr>
-						<th>계좌일자</th>
-						<th>거래유형</th>
-						<th>계좌번호</th>
-						<th>고객 이름</th>
-						<th>입금자명</th>
-						<th>거래처</th>
-						<th>거래 금액</th>
-						<th>계좌 잔액</th>
-					</tr>
-					<tr>
-						<td>2023-06-14</td>
-						<td>급여</td>
-						<td>3333-08-9795700</td>
-						<td>김민재</td>
-						<td>이상준</td>
-						<td>3조</td>
-						<td>9,400,000원</td>
-						<td>26,613,000원</td>
-					</tr>
-					<tr>
-						<td>2023-06-14</td>
-						<td>급여</td>
-						<td>3333-08-9795700</td>
-						<td>김민재</td>
-						<td>이상준</td>
-						<td>3조</td>
-						<td>9,400,000원</td>
-						<td>26,613,000원</td>
-					</tr>
-					<tr>
-						<td>2023-06-14</td>
-						<td>급여</td>
-						<td>3333-08-9795700</td>
-						<td>김민재</td>
-						<td>이상준</td>
-						<td>3조</td>
-						<td>9,400,000원</td>
-						<td>26,613,000원</td>
-					</tr>
-					<tr>
-						<td>2023-06-14</td>
-						<td>급여</td>
-						<td>3333-08-9795700</td>
-						<td>김민재</td>
-						<td>이상준</td>
-						<td>3조</td>
-						<td>9,400,000원</td>
-						<td>26,613,000원</td>
-					</tr>
-					<tr>
-						<td>2023-06-14</td>
-						<td>급여</td>
-						<td>3333-08-9795700</td>
-						<td>김민재</td>
-						<td>이상준</td>
-						<td>3조</td>
-						<td>9,400,000원</td>
-						<td>26,613,000원</td>
-					</tr>
-					<tr>
-						<td>2023-06-14</td>
-						<td>급여</td>
-						<td>3333-08-9795700</td>
-						<td>김민재</td>
-						<td>이상준</td>
-						<td>3조</td>
-						<td>9,400,000원</td>
-						<td>26,613,000원</td>
-					</tr>
-					<tr>
-						<td>2023-06-14</td>
-						<td>급여</td>
-						<td>3333-08-9795700</td>
-						<td>김민재</td>
-						<td>이상준</td>
-						<td>3조</td>
-						<td>9,400,000원</td>
-						<td>26,613,000원</td>
-					</tr>
-					<tr>
-						<td>나는</td>
-						<td>팝업도</td>
-						<td>한다고</td>
-						<td>한 적이</td>
-						<td>없는데</td>
-						<td>왜 나한테</td>
-						<td>시키는</td>
-						<td>거야</td>
-					</tr>
-				</table>
+				<div id="historyTableBox">
+					<table class="searchTable" id="historyTable">
+						<tr>
+							<th>계좌일자</th>
+							<th>거래유형</th>
+							<th>계좌번호</th>
+							<th>고객 이름</th>
+							<th>입금자명</th>
+							<th>거래처</th>
+							<th>거래 금액</th>
+							<th>계좌 잔액</th>
+						</tr>
+						<!-- 받아온 계좌 정보를 테이블로 나타내는 코드 -->
+						<%
+						List<TransactionDTO> searchedTransactionList = (List<TransactionDTO>) request.getAttribute("searchedTransactionList");
+		
+						if (searchedTransactionList != null && !searchedTransactionList.isEmpty()) {
+							for (TransactionDTO transaction : searchedTransactionList) {
+								%>
+								<tr class="searchResultRow" id="<%= transaction.getAccountId() %>">
+									<td><%= transaction.getStringTransactionDate() %></td>
+									<td><%= transaction.getTransactionType() %></td>
+									<td><%= transaction.getAccountNumber() %></td>
+									<td><%= transaction.getCustomerName() %></td>
+									<td><%= transaction.getDepositor() %></td>
+									<td><%= transaction.getTransactionLocation() %></td>
+									<td><%= transaction.getTransactionAmount() %></td>
+									<td>procedure 필요</td>
+								</tr>
+								<%
+							}
+						}
+						%>
+					</table>
+				</div>
 			</div>
 		</div>
 	</main>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script>
-		generateMenu('deposit', 'depositProductList');		
+		generateMenu('deposit', 'depositProductList');	
+		let showTransactions = "<%= request.getAttribute("showTransactions") %>";
+		if (showTransactions == "showTransactions") {
+			const popupBox = document.querySelector(".popupBox");
+			popupBox.classList.remove("display");
+		}
+
 	</script>
 	<script src="${pageContext.request.contextPath}/js/deposit/depositProductList.js"></script>
 </body>
