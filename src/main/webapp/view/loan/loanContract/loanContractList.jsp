@@ -17,11 +17,11 @@
 	src="${pageContext.request.contextPath}/components/aside/aside.js "></script>
 </head>
 <body>
-	<%@ include file="../../../components/header/header.jsp"%>
+	<%@ include file="../../../WEB-INF/components/header.jsp"%>
 	<%@ page import="java.util.List"%>
 	<%@ page import="DTO.LoanContractDTO"%>
 	<main>
-		<%@ include file="../../../components/aside/aside.jsp"%>
+		<%@ include file="../../../WEB-INF/components/aside.jsp"%>
 		<div class="innerContainer">
 			<div class="innerTitle">
 				<h1>여신 이력</h1>

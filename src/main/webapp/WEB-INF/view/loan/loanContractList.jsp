@@ -7,9 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Loan Contract</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/loanContractList.css?ver=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/loan/loanContractList.css?ver=1">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
 <body>
@@ -18,11 +21,16 @@
 	<%@ page import="DTO.LoanContractDTO"%>
 	<main>
 		<%@ include file="../../components/aside.jsp"%>
+		<%
+		List<LoanContractDTO> loanContracts = (List<LoanContractDTO>) request.getAttribute("loanContracts");
+		LoanContractDTO loanContractDTO = (LoanContractDTO) request.getAttribute("searchInputValue");
+		%>
 		<div class="innerContainer">
 			<div class="innerTitle">
 				<h1>여신 이력</h1>
 			</div>
-			<form action="${pageContext.request.contextPath}/loanContractList" method="post">
+			<form action="${pageContext.request.contextPath}/loanContractList"
+				method="post">
 				<div class="innerSubTitle">
 					<h2>여신 정보</h2>
 				</div>
@@ -49,13 +57,14 @@
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">대출일</div>
 						<ul class="loanIssueDate" id="loanContractStartDate">
-							<li>
-							<input type="checkbox" value="전체" id="issueDateAll" name="loanContractStartDate">전체</li>
+							<li><input type="checkbox" value="전체" id="issueDateAll"
+								name="loanContractStartDate">전체</li>
 							<li id="directInput">
-								<p>직접 입력</p> 
-								<select name="loanContractStartDate" class="yearSelect" disabled="true"></select> 
-								<select name="loanContractStartDate" class="monthSelect" disabled="true"></select>
-								<select name="loanContractStartDate" class="daySelect" disabled="true"></select>
+								<p>직접 입력</p> <select name="loanContractStartDate"
+								class="yearSelect" disabled="true"></select> <select
+								name="loanContractStartDate" class="monthSelect" disabled="true"></select>
+								<select name="loanContractStartDate" class="daySelect"
+								disabled="true"></select>
 							</li>
 						</ul>
 					</div>
@@ -65,9 +74,11 @@
 							<li><input type="checkbox" value="전체" id="muturityDateAll"
 								name="loanContractEndDate">전체</li>
 							<li id="directInput">
-								<p>직접 입력</p> <select name="loanContractEndDate" class="yearSelect" disabled="true"></select> 
-								<select name="loanContractEndDate" class="monthSelect" disabled="true"></select>
-								<select name="loanContractEndDate" class="daySelect" disabled="true"></select>
+								<p>직접 입력</p> <select name="loanContractEndDate"
+								class="yearSelect" disabled="true"></select> <select
+								name="loanContractEndDate" class="monthSelect" disabled="true"></select>
+								<select name="loanContractEndDate" class="daySelect"
+								disabled="true"></select>
 							</li>
 						</ul>
 					</div>
@@ -77,10 +88,10 @@
 							<li id="balanceAllLi"><input type="checkbox" value="전체"
 								id="balanceAll">전체</li>
 							<li id="directInput">
-								<p>직접 입력</p> 
-								<input id="directBalanceInput1" name="balanceList" class="directInputValue" disabled="true">
-								&nbsp;만원 이상&nbsp;&nbsp; 
-								<input id="directBalanceInput2" name="balanceList" class="directInputValue" disabled="true">
+								<p>직접 입력</p> <input id="directBalanceInput1" name="balanceList"
+								class="directInputValue" disabled="true"> &nbsp;만원
+								이상&nbsp;&nbsp; <input id="directBalanceInput2"
+								name="balanceList" class="directInputValue" disabled="true">
 								&nbsp;만원 이하&nbsp;
 							</li>
 							<li id="price2000Li"><input type="checkbox" value="~2천만원"
@@ -119,121 +130,117 @@
 					<button id="loanContractSearchButton" type="submit">검색</button>
 				</div>
 			</form>
-			<div>
-				<div class="searchTitle">
-					<h2>검색 결과</h2>
-				</div>
-				<table class="searchTable" id="loanSearchTable">
-					<tr>
-						<th>이력 ID</th>
-						<th>대출 구분</th>
-						<th>상품 이름</th>
-						<th>담당 직원</th>
-						<th>고객 이름</th>
-						<th>보증인</th>
-						<th>대출일</th>
-						<th>만기일</th>
-						<th>상환 방법</th>
-						<th>연체 금액</th>
-						<th>이자율</th>
-					</tr>
-					<% 
-					List<LoanContractDTO> loanContracts = (List<LoanContractDTO>)request.getAttribute("loanContracts");
-					
-					if(loanContracts != null && !loanContracts.isEmpty()) {
-						for (LoanContractDTO dto : loanContracts) { 
-						%>
-					<tr>
-						<td class="loanContractId"><%= dto.getLoanContractId() %></td>
-						<td><%= dto.getLoanType() %></td>
-						<td><%= dto.getLoanName() %></td>
-						<td><%= dto.getEmployeeName() %></td>
-						<td><%= dto.getCustomerName()%></td>
-						<td><%= dto.getGuarantorName()%></td>
-						<td><%= dto.getStartDate() %></td>
-						<td><%= dto.getMuturityDate() %></td>
-						<td><%= dto.getBalance() %></td>
-						<td><%= dto.getPaymentMethod()%></td>
-						<td><%= dto.getDelinquentAmount()%></td>
-						<td><%= dto.getInterestRate() %></td>
-					</tr>
-					<%
+			<div class="searchTitle">
+				<h2>검색 결과</h2>
+			</div>
+			<table class="searchTable" id="loanSearchTable">
+				<tr>
+					<th>이력 ID</th>
+					<th>대출 구분</th>
+					<th>상품 이름</th>
+					<th>담당 직원</th>
+					<th>고객 이름</th>
+					<th>보증인</th>
+					<th>대출일</th>
+					<th>만기일</th>
+					<th>상환 방법</th>
+					<th>연체 금액</th>
+					<th>이자율</th>
+				</tr>
+				<%
+					if (loanContracts != null && !loanContracts.isEmpty()) {
+						for (LoanContractDTO dto : loanContracts) {
+					%>
+				<tr>
+					<td class="loanContractId"><%=dto.getLoanContractId()%></td>
+					<td><%=dto.getLoanType()%></td>
+					<td><%=dto.getLoanName()%></td>
+					<td><%=dto.getEmployeeName()%></td>
+					<td><%=dto.getCustomerName()%></td>
+					<td><%=dto.getGuarantorName()%></td>
+					<td><%=dto.getStartDate()%></td>
+					<td><%=dto.getMuturityDate()%></td>
+					<td><%=dto.getBalance()%></td>
+					<td><%=dto.getPaymentMethod()%></td>
+					<td><%=dto.getDelinquentAmount()%></td>
+					<td><%=dto.getInterestRate()%></td>
+				</tr>
+				<%
 						}
 					}
 					%>
+			</table>
+			<div class="popupBox display">
+				<svg class="popupExitButton" width="14" height="15"
+					viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M14 1.91L12.59 0.5L7 6.09L1.41 0.5L0 1.91L5.59 7.5L0 13.09L1.41 14.5L7 8.91L12.59 14.5L14 13.09L8.41 7.5L14 1.91Z"
+						fill="#323232" />
+					</svg>
+				<div class="popupTitleBox">
+					<h1>입출금 내역</h1>
+				</div>
+				<table class="searchTable" id="historyTable">
+					<tr>
+						<th>계좌일자</th>
+						<th>거래유형</th>
+						<th>계좌번호</th>
+						<th>고객 이름</th>
+						<th>입금자명</th>
+						<th>거래처</th>
+						<th>거래 금액</th>
+						<th>계좌 잔액</th>
+					</tr>
+					<tr>
+						<td>2023-06-14</td>
+						<td>급여</td>
+						<td>3333-08-9795700</td>
+						<td>김민재</td>
+						<td>이상준</td>
+						<td>3조</td>
+						<td>9,400,000원</td>
+						<td>26,613,000원</td>
+					</tr>
+					<tr>
+						<td>2023-06-14</td>
+						<td>급여</td>
+						<td>3333-08-9795700</td>
+						<td>김민재</td>
+						<td>이상준</td>
+						<td>3조</td>
+						<td>9,400,000원</td>
+						<td>26,613,000원</td>
+					</tr>
+					<tr>
+						<td>2023-06-14</td>
+						<td>급여</td>
+						<td>3333-08-9795700</td>
+						<td>김민재</td>
+						<td>이상준</td>
+						<td>3조</td>
+						<td>9,400,000원</td>
+						<td>26,613,000원</td>
+					</tr>
+					<tr>
+						<td>2023-06-14</td>
+						<td>급여</td>
+						<td>3333-08-9795700</td>
+						<td>김민재</td>
+						<td>이상준</td>
+						<td>3조</td>
+						<td>9,400,000원</td>
+						<td>26,613,000원</td>
+					</tr>
 				</table>
 			</div>
 		</div>
 	</main>
-	<% LoanContractDTO loanContractDTO = (LoanContractDTO)request.getAttribute("searchInputValue"); %>
-
-	<div class="popupBox display">
-		<svg class="popupExitButton" width="14" height="15"
-			viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path
-				d="M14 1.91L12.59 0.5L7 6.09L1.41 0.5L0 1.91L5.59 7.5L0 13.09L1.41 14.5L7 8.91L12.59 14.5L14 13.09L8.41 7.5L14 1.91Z"
-				fill="#323232" />
-				</svg>
-		<div class="popupTitleBox">
-			<h1>입출금 내역</h1>
-		</div>
-		<table class="searchTable" id="historyTable">
-			<tr>
-				<th>계좌일자</th>
-				<th>거래유형</th>
-				<th>계좌번호</th>
-				<th>고객 이름</th>
-				<th>입금자명</th>
-				<th>거래처</th>
-				<th>거래 금액</th>
-				<th>계좌 잔액</th>
-			</tr>
-			<tr>
-				<td>2023-06-14</td>
-				<td>급여</td>
-				<td>3333-08-9795700</td>
-				<td>김민재</td>
-				<td>이상준</td>
-				<td>3조</td>
-				<td>9,400,000원</td>
-				<td>26,613,000원</td>
-			</tr>
-			<tr>
-				<td>2023-06-14</td>
-				<td>급여</td>
-				<td>3333-08-9795700</td>
-				<td>김민재</td>
-				<td>이상준</td>
-				<td>3조</td>
-				<td>9,400,000원</td>
-				<td>26,613,000원</td>
-			</tr>
-			<tr>
-				<td>2023-06-14</td>
-				<td>급여</td>
-				<td>3333-08-9795700</td>
-				<td>김민재</td>
-				<td>이상준</td>
-				<td>3조</td>
-				<td>9,400,000원</td>
-				<td>26,613,000원</td>
-			</tr>
-			<tr>
-				<td>2023-06-14</td>
-				<td>급여</td>
-				<td>3333-08-9795700</td>
-				<td>김민재</td>
-				<td>이상준</td>
-				<td>3조</td>
-				<td>9,400,000원</td>
-				<td>26,613,000원</td>
-			</tr>
-		</table>
-	</div>
-	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js "></script>
+	<script
+		src="${pageContext.request.contextPath}/js/components/searchLayout.js "></script>
 	<script>
 		generateMenu('loan', 'loanContractList');
 	</script>
-	<script src="${pageContext.request.contextPath}/js/loan/loanContractList.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/loan/loanContractList.js"></script>
 </body>
 </html>

@@ -35,10 +35,13 @@ public class LoanContractController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		System.out.println("~~~~~~~~~~controller - doPost");
 		postLoanContractProcess(request, response);
 	}
 
 	protected void postLoanContractProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		System.out.println("~~~~~~~~~~controller - postLoanContractProcess");
+		
 		try {
 			String loanName = request.getParameter("loanName");
 			String loanType = request.getParameter("loanType");
@@ -130,8 +133,11 @@ public class LoanContractController extends HttpServlet {
 
 			request.setAttribute("loanContracts", loanContractDTOList);
 			request.setAttribute("searchInputValue", loanContractDTO);
-			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/loanContractList.jsp");
+			
+			System.out.println("~~~~~~~~~~controller - dispatcher= "+dispatcher);
+			System.out.println("~~~~~~~~~~controller - request= "+request);
+			System.out.println("~~~~~~~~~~controller - response= "+response);
 			dispatcher.forward(request, response);
 		}
 		catch (Exception e) {
