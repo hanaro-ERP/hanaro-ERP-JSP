@@ -3,6 +3,10 @@ selectMultiItemsWithDirectInput("loanContractEndDate");
 selectMultiItemsWithDirectInput("balanceList");
 selectMultiItemsWithDirectInput("latePayment");
 
+/*selectOneItem("balanceList");
+selectOneItem("latePayment");
+*/
+
 setYearSelect();
 setMonthSelect();
 setDaySelect(true);
@@ -15,7 +19,7 @@ const popupExitButton = document.querySelector('.popupExitButton');
 
 console.log("searchTableRows", searchTableRows);
 
-searchTableRows.forEach((item) => {
+/*searchTableRows.forEach((item) => {
 	item.addEventListener('click', () => {
 		popupBox.classList.toggle('display');
 	});	
@@ -24,4 +28,18 @@ searchTableRows.forEach((item) => {
 popupExitButton.addEventListener('click', () => {
 	popupBox.classList.toggle('display');
 });
+*/
 
+searchTableRows.forEach((item) => {
+	item.addEventListener('click', () => {
+		popupBox.classList.toggle('display');
+		let parent = item.parentNode;
+		console.log(parent);
+		console.log(parent.querySelector('form'));
+		parent.querySelector('form').submit();
+	});	
+});
+
+popupExitButton.addEventListener('click', () => {
+	popupBox.classList.toggle('display');
+});

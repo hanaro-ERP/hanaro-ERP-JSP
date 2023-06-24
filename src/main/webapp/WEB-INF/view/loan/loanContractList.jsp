@@ -7,18 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Loan Contract</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/loan/loanContractList.css?ver=1">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/loanContractList.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
 <body>
 	<%@ include file="../../components/header.jsp"%>
 	<%@ page import="java.util.List"%>
 	<%@ page import="DTO.LoanContractDTO"%>
+	
+	<%@ page import="DTO.TransactionDTO" %>
+	
 	<main>
 		<%@ include file="../../components/aside.jsp"%>
 		<%
@@ -143,6 +143,7 @@
 					<th>보증인</th>
 					<th>대출일</th>
 					<th>만기일</th>
+					<th>대출 잔액</th>
 					<th>상환 방법</th>
 					<th>연체 금액</th>
 					<th>이자율</th>
@@ -180,6 +181,7 @@
 				<div class="popupTitleBox">
 					<h1>입출금 내역</h1>
 				</div>
+				<div id="historyTableBox">
 				<table class="searchTable" id="historyTable">
 					<tr>
 						<th>계좌일자</th>
@@ -191,47 +193,36 @@
 						<th>거래 금액</th>
 						<th>계좌 잔액</th>
 					</tr>
-					<tr>
-						<td>2023-06-14</td>
-						<td>급여</td>
-						<td>3333-08-9795700</td>
-						<td>김민재</td>
-						<td>이상준</td>
-						<td>3조</td>
-						<td>9,400,000원</td>
-						<td>26,613,000원</td>
-					</tr>
-					<tr>
-						<td>2023-06-14</td>
-						<td>급여</td>
-						<td>3333-08-9795700</td>
-						<td>김민재</td>
-						<td>이상준</td>
-						<td>3조</td>
-						<td>9,400,000원</td>
-						<td>26,613,000원</td>
-					</tr>
-					<tr>
-						<td>2023-06-14</td>
-						<td>급여</td>
-						<td>3333-08-9795700</td>
-						<td>김민재</td>
-						<td>이상준</td>
-						<td>3조</td>
-						<td>9,400,000원</td>
-						<td>26,613,000원</td>
-					</tr>
-					<tr>
-						<td>2023-06-14</td>
-						<td>급여</td>
-						<td>3333-08-9795700</td>
-						<td>김민재</td>
-						<td>이상준</td>
-						<td>3조</td>
-						<td>9,400,000원</td>
-						<td>26,613,000원</td>
-					</tr>
+					
+					
+					
+					
+						<%
+						List<TransactionDTO> searchedTransactionList = (List<TransactionDTO>) request.getAttribute("searchedTransactionList");
+		
+						if (searchedTransactionList != null && !searchedTransactionList.isEmpty()) {
+							for (TransactionDTO transaction : searchedTransactionList) {
+								%>
+								<tr class="searchResultRow" id="<%= transaction.getAccountId() %>">
+									<td><%= transaction.getStringTransactionDate() %></td>
+									<td><%= transaction.getTransactionType() %></td>
+									<td><%= transaction.getAccountNumber() %></td>
+									<td><%= transaction.getCustomerName() %></td>
+									<td><%= transaction.getDepositor() %></td>
+									<td><%= transaction.getTransactionLocation() %></td>
+									<td><%= transaction.getTransactionAmount() %></td>
+									<td>procedure 필요</td>
+								</tr>
+								<%
+							}
+						}
+						%>
+					
+					
+					
+				
 				</table>
+			</div>
 			</div>
 		</div>
 	</main>
@@ -239,6 +230,11 @@
 		src="${pageContext.request.contextPath}/js/components/searchLayout.js "></script>
 	<script>
 		generateMenu('loan', 'loanContractList');
+		let showTransactions = "<%= request.getAttribute("showTransactions") %>";
+		if (showTransactions == "showTransactions") {
+			const popupBox = document.querySelector(".popupBox");
+			popupBox.classList.remove("display");
+		}
 	</script>
 	<script
 		src="${pageContext.request.contextPath}/js/loan/loanContractList.js"></script>

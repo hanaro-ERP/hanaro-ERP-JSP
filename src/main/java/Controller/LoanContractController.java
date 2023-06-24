@@ -133,9 +133,9 @@ public class LoanContractController extends HttpServlet {
 
 			request.setAttribute("loanContracts", loanContractDTOList);
 			request.setAttribute("searchInputValue", loanContractDTO);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/loanContractList.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/loan/loanContractList.jsp");
 			
-			System.out.println("~~~~~~~~~~controller - dispatcher= "+dispatcher);
+			System.out.println("~~~~~~~~~~@@controller - dispatcher= "+dispatcher);
 			System.out.println("~~~~~~~~~~controller - request= "+request);
 			System.out.println("~~~~~~~~~~controller - response= "+response);
 			dispatcher.forward(request, response);

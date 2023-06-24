@@ -20,7 +20,7 @@ public class LoanContractDAO {
 
 	// insert a new loan contract
 	public int insertLoanContract(LoanContractDTO loanContract) {
-		String SQL = "INSERT INTO loancontract (lc_id, l_id, c_id, e_id, start_date, muturity_date, payment_method, balance, payment_date, "
+		String SQL = "INSERT INTO loanContracts (lc_id, l_id, c_id, e_id, start_date, muturity_date, payment_method, balance, payment_date, "
 				+ "delinquent_amount, guarantor_id, interest_rate) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanContract.getLoanContractId());
@@ -44,7 +44,7 @@ public class LoanContractDAO {
 
 	// Update a loan contract
 	public int updateLoanContract(LoanContractDTO loanContract) {
-		String SQL = "UPDATE loanContract SET l_id = ?, c_id = ?, e_id = ?, start_date = ?,"
+		String SQL = "UPDATE loanContracts SET l_id = ?, c_id = ?, e_id = ?, start_date = ?,"
 				+ " muturity_date = ?, payment_method = ?, balance = ?, payment_date = ?,"
 				+ " delinquent_amount = ?, guarantor_id = ?, interest_rate = ? WHERE lc_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -69,7 +69,7 @@ public class LoanContractDAO {
 
 	// Delete a loan contract
 	public int deleteLoanContract(int loanContractId) {
-		String SQL = "DELETE FROM loanContract WHERE lc_id = ?";
+		String SQL = "DELETE FROM loanContracts WHERE lc_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanContractId);
 			return pstmt.executeUpdate();
@@ -102,7 +102,7 @@ public class LoanContractDAO {
 
 	// 모든 데이터 가져오기
 	public List<LoanContractDTO> getLoanContracts() {
-		String SQL = "SELECT * FROM loanContract";
+		String SQL = "SELECT * FROM loanContracts";
 		List<LoanContractDTO> loanContracts = new ArrayList<>();
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -121,7 +121,7 @@ public class LoanContractDAO {
 	// loanContractId 에 따라 데이터 가져오기
 	public List<LoanContractDTO> getLoanContractByLoanContractId(int loanContractId) {
 		List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
-		String SQL = "SELECT * FROM loanContract WHERE lc_id = ?";
+		String SQL = "SELECT * FROM loanContracts WHERE lc_id = ?";
 		
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanContractId);
@@ -139,7 +139,7 @@ public class LoanContractDAO {
 		System.out.println("~~~~~~~~~~dao - getLoanContractByDTO");
 		
 		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name, c2.c_name as guarantor_name"
-				+ " FROM loanContract lc");
+				+ " FROM loanContracts lc");
 		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
 		queryBuilder.append(" JOIN customers c ON lc.e_id = c.e_id AND lc.c_id = c.c_id");
 		queryBuilder.append(" JOIN employees e ON c.e_id = e.e_id");
@@ -223,6 +223,8 @@ public class LoanContractDAO {
 
 			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
 			
+
+			System.out.println("pstmt = "+pstmt);
 			try (ResultSet rs = pstmt.executeQuery()) {				
 				while (rs.next()) {
 						LoanContractDTO loanContracts = new LoanContractDTO();
