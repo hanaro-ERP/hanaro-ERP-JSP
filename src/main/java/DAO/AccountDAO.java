@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DTO.AccountDTO;
+import DTO.AccountSearchDTO;
 import util.DatabaseUtil;
+import util.DepositUtil;
+import java.text.DecimalFormat;
 
 public class AccountDAO {
 
@@ -101,4 +104,95 @@ public class AccountDAO {
 		}
 		return accounts;
 	}
+
+	public List<AccountDTO> getAccountListByDTO(AccountSearchDTO accountSearchDTO) {
+		StringBuilder queryBuilder = new StringBuilder("SELECT a.*, c.c_name, e.e_name FROM accounts a ");
+		queryBuilder.append("JOIN customers c ON c.c_id = a.c_id ");
+		queryBuilder.append("JOIN employees e ON c.e_id = e.e_id ");
+		queryBuilder.append("WHERE 1=1");
+		
+		if (!accountSearchDTO.getAccountNumber().equals("")) {
+			queryBuilder.append(" AND a.account_number = ?");
+		} else {
+			if(!accountSearchDTO.getCustomerName().equals("")) {
+				queryBuilder.append(" AND c.c_name = ?");
+			}
+			if(accountSearchDTO.getIdentification() != null) {
+				queryBuilder.append(" AND c.identification = ?");
+			}
+			if(!accountSearchDTO.getDepositType().equals("전체")) {
+				queryBuilder.append(" AND a.account_type = ?");
+			}
+			if(!accountSearchDTO.getAccountOpenDate().equals("전체")) {
+				queryBuilder.append(" AND a.account_open_date between ? and ?");
+			}
+			if (accountSearchDTO.getDepositBalance()[0].equals("전체")) {				
+			} else if (accountSearchDTO.getDepositBalance()[0].equals("~2천만원")) {
+				queryBuilder.append(" AND a.account_balance <= 20000000");					
+			} else if (accountSearchDTO.getDepositBalance()[0].equals("~5천만원")) {
+				queryBuilder.append(" AND a.account_balance <= 50000000");					
+			} else if (accountSearchDTO.getDepositBalance()[0].equals("~1억원")) {
+				queryBuilder.append(" AND a.account_balance <= 100000000");					
+			} else if (accountSearchDTO.getDepositBalance()[0].equals("1억원 이상")) {
+				queryBuilder.append(" AND a.account_balance >= 100000000");					
+			} else {
+				queryBuilder.append(" AND a.account_balance between ? and ?");
+			}
+		}
+		System.out.println(queryBuilder);
+
+		try (Connection conn = DatabaseUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+			if (!accountSearchDTO.getAccountNumber().equals("")) {
+				pstmt.setString(1, accountSearchDTO.getAccountNumber());
+			} else {
+				int parameterIndex = 1;
+				if(!accountSearchDTO.getCustomerName().equals("")) {
+					pstmt.setString(parameterIndex++, accountSearchDTO.getCustomerName());
+				}
+				if(accountSearchDTO.getIdentification() != null) {
+					pstmt.setString(parameterIndex++, accountSearchDTO.getIdentification());
+				}
+				if(!accountSearchDTO.getDepositType().equals("전체")) {
+					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositType());
+				}
+				if(!accountSearchDTO.getAccountOpenDate().equals("전체")) {
+					pstmt.setString(parameterIndex++, accountSearchDTO.getAccountOpenDate() + " 00:00:00.000000");
+					pstmt.setString(parameterIndex++, DepositUtil.plusDay(accountSearchDTO.getAccountOpenDate()) + " 00:00:00.000000");
+				}
+				if (accountSearchDTO.getDepositBalance().length == 2) {
+					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[0]+"0000");
+					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[1]+"0000");
+				}
+			}
+			System.out.println(pstmt.toString());
+			
+			List<AccountDTO> findAccountList = new ArrayList<>();
+			try (ResultSet rs = pstmt.executeQuery()) {				
+				while (rs.next()) {
+					AccountDTO accountDTO = new AccountDTO();
+					accountDTO.setAccountId(rs.getInt("a_id"));
+					accountDTO.setAccountType(rs.getString("account_type"));
+					accountDTO.setAccountNumber(rs.getString("account_number"));
+					accountDTO.setStringAccountOpenDate(DepositUtil.convertTimestampToString(rs.getTimestamp("account_open_date")));
+					accountDTO.setCustomerName(rs.getString("c_name"));
+					accountDTO.setEmployeeName(rs.getString("e_name"));
+					DecimalFormat wonFormat = new DecimalFormat("#,###원");
+					accountDTO.setStringAccountBalance(wonFormat.format(rs.getLong("account_balance")));
+					findAccountList.add(accountDTO);
+				}
+			}
+			return findAccountList;	
+	        } catch (Exception e) {
+	        	e.printStackTrace();
+		}
+		return null;
+	}
 }
+
+// 계좌 유형	계좌 번호	계좌 개설일	고객 이름	담당 직원	계좌 잔액
+
+
+
+
+
