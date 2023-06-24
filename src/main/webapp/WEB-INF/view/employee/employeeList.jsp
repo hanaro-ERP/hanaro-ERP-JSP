@@ -18,11 +18,18 @@
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<%
+			//이쪽 부분 script로 따로 옮기고싶은데 자꾸만 데이터 인식을 못해서 그냥 여기에 임시로 뒀습니다 왜 안될까요 ㅜ-ㅜ?
 			String[] storeNames = {
 			  "개포점", "가회점", "교남점", "금호점", "논현점", "대치점", "도곡점", "마장점", "무악점", "부암점",
 			  "상왕십리점", "서울숲점", "성수역점", "성수점", "성북점", "신사점", "신자양점", "신촌점", "압구정점",
 			  "역삼점", "옥수점", "왕십리점", "용답점", "이화점", "정릉점", "창신점", "청담사거리점", "청담점",
 			  "청운효자점", "평창점", "하나로점"
+			};
+			String[] depatments = {
+			  "디지털 혁신팀", "디지털 보안팀", "디지털 관리팀", "신용여신팀", "담보여신팀", "기업여신팀", "가계여신팀"
+			};
+			String[] positions = {
+			  "대리", "사원", "과장", "차장", "부장", "이사"
 			};
 		%>
 		<% EmployeeDTO employeeDTO = (EmployeeDTO)request.getAttribute("searchInputValue"); %>
@@ -47,21 +54,16 @@
 					<div class="innerInformationRowTitle">부서</div>
 					<select name="department" class="innerSelectBox">
 						<option value="">-</option>
-						<option value="디지털 혁신팀" <% if (employeeDTO != null && "디지털 혁신팀".equals(employeeDTO.getDepartment())) { %>selected<% } %>>디지털 혁신팀</option>
-						<option value="디지털 보안팀" <% if (employeeDTO != null && "디지털 보안팀".equals(employeeDTO.getDepartment())) { %>selected<% } %>>디지털 보안팀</option>
-						<option value="디지털 관리팀" <% if (employeeDTO != null && "디지털 관리팀".equals(employeeDTO.getDepartment())) { %>selected<% } %>>디지털 관리팀</option>
+						<% for(String department : depatments) { %> 
+						<option value="<%= department %>" <% if (employeeDTO != null && department.equals(employeeDTO.getDepartment())) { %>selected<% } %>><%= department %></option>
+					  	<% } %>
 					</select>
 					<div class="innerInformationRowTitle">직책</div>
 					<select name="position" class="innerSelectBox">
-						<option value="">-</option>
-						<option value="사원" <% if (employeeDTO != null && "사원".equals(employeeDTO.getPosition())) { %>selected<% } %>>사원</option>
-						<option value="대리" <% if (employeeDTO != null && "대리".equals(employeeDTO.getPosition())) { %>selected<% } %>>대리</option>
-						<option value="팀장" <% if (employeeDTO != null && "팀장".equals(employeeDTO.getPosition())) { %>selected<% } %>>팀장</option>
-						<option value="차장" <% if (employeeDTO != null && "차장".equals(employeeDTO.getPosition())) { %>selected<% } %>>차장</option>
-						<option value="부장" <% if (employeeDTO != null && "부장".equals(employeeDTO.getPosition())) { %>selected<% } %>>부장</option>
-						<option value="부행장" <% if (employeeDTO != null && "부행장".equals(employeeDTO.getPosition())) { %>selected<% } %>>부행장</option>
-						<option value="상무" <% if (employeeDTO != null && "상무".equals(employeeDTO.getPosition())) { %>selected<% } %>>상무</option>
-						<option value="전무" <% if (employeeDTO != null && "전무".equals(employeeDTO.getPosition())) { %>selected<% } %>>전무</option>
+					<option value="">-</option>
+						<% for(String position : positions) { %> 
+						<option value="<%= position %>" <% if (employeeDTO != null && position.equals(employeeDTO.getPosition())) { %>selected<% } %>><%= position %></option>
+					  	<% } %>
 					</select>
 				</div>
 				</div>
@@ -108,14 +110,6 @@
 				%>
 			</table>
 		</div>
-		<script>
-    	var storeNames = [
-        "개포점", "가회점", "교남점", "금호점", "논현점", "대치점", "도곡점", "마장점", "무악점", "부암점",
-        "상왕십리점", "서울숲점", "성수역점", "성수점", "성북점", "신사점", "신자양점", "신촌점", "압구정점",
-        "역삼점", "옥수점", "왕십리점", "용답점", "이화점", "정릉점", "창신점", "청담사거리점", "청담점",
-        "청운효자점", "평창점", "하나로점"
-    	];
-		</script>
 	</main>
 	<script>
 		generateMenu('employee', 'employeeList');
