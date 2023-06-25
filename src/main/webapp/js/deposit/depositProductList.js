@@ -1,6 +1,6 @@
 selectOneItem('depositBalance');
 selectMultiItemsWithDirectInput("depositStartDate");
-selectOneItem('depositType');
+selectOneItemWithDirectInput('depositType');
 
 const searchTableRows = document.querySelectorAll('#depositSearchTable tr :not(th)');
 const popupBox = document.querySelector('.popupBox');

@@ -100,3 +100,6 @@ h2 {
 	cursor: pointer;
 	opacity: 80%;
 }
+.display{
+	display: none;
+}
