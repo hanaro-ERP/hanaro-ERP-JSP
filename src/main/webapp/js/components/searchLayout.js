@@ -60,6 +60,20 @@ function notSelectedCheck(ulId) {
 	}
 }
 
+function initializeCheckbox(ulId) {
+	const ulElement = document.getElementById(ulId);
+	const listItems = ulElement.querySelectorAll('li');
+	const firstListItem = listItems[0];
+	
+	selectItem(firstListItem, ulId);
+	
+	listItems.forEach((item, index) => {
+		if (index !== 0) {
+			unselectItem(item);
+		}
+	});
+}
+
 function allSelectedCheck(ulId, cnt) {
 	const ulElement = document.getElementById(ulId);
 	const listItems = ulElement.querySelectorAll('li');
@@ -70,13 +84,7 @@ function allSelectedCheck(ulId, cnt) {
 	const selectedCount = selectedItems.length;
 	
 	if (selectedCount == listItems.length - cnt) {
-		selectItem(firstListItem, ulId);
-		
-		listItems.forEach((item, index) => {
-			if (index !== 0) {
-				unselectItem(item);
-			}
-		});
+		initializeCheckbox(ulId);
 	}
 }
 
@@ -86,7 +94,7 @@ function selectMultiItems(ulId) {
 	const listItems = ulElement.querySelectorAll('li');
 	const firstListItem = listItems[0];
 
-	selectItem(firstListItem, ulId);
+	initializeCheckbox(ulId);
 	
 	listItems.forEach((item, index) => {
 		if (index !== 0) {
@@ -147,6 +155,8 @@ function toggleDirectInput(directInput, isDisabled) {
 		selectElements[0].disabled = !isDisabled;
 		selectElements[1].disabled = !isDisabled;
 		selectElements[2].disabled = !isDisabled;
+	} else {
+		inputElements[0].disabled = !isDisabled;
 	}
 }
 
@@ -195,6 +205,44 @@ function selectMultiItemsWithDirectInput(ulId) {
 		});
 		toggleDirectInput(secondListItem, true);
 	});	
+}
+
+function selectOneItemWithDirectInput(ulId) {
+	const ulElement = document.getElementById(ulId);
+	
+	const listItems = ulElement.querySelectorAll('li');
+	const firstListItem = listItems[0];
+	
+	selectItem(firstListItem, ulId);
+	
+	listItems.forEach((item, selectedIndex) => {
+		if (selectedIndex !== 1) {
+			item.addEventListener('click', () => {
+				toggleItem(item, ulId);
+				toggleDirectInput(item, true);
+				
+				listItems.forEach((item, anotherIndex) => {
+					if (selectedIndex !== anotherIndex) {
+						unselectItem(item);
+						toggleDirectInput(item, false);
+					}
+				});
+				
+				notSelectedCheck(ulId);
+			});
+		} else {
+			item.addEventListener('click', () => {
+				selectItem(item, ulId);
+
+				listItems.forEach((item, index) => {
+					if (index !== 1) {
+						unselectItem(item);
+					}
+				});
+				toggleDirectInput(item, true);
+			});	
+		}
+	});
 }
 
 let yearSelectList, monthSelectList, daySelectList;

@@ -23,7 +23,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="${pageContext.request.contextPath}/view/login/login.js"></script>
+	<script src="${pageContext.request.contextPath}/js/login/login.js"></script>
 	<script>
 		const loginId = "<%= request.getSession().getAttribute("loginId") %>";
 		if (loginId !== "null") {

@@ -13,5 +13,11 @@ public class AccountDTO {
 	private int customerId;
 	private String accountType;
 	private Timestamp accountOpenDate;
+	private String stringAccountOpenDate;
 	private long accountBalance;
+	private String stringAccountBalance;
+	private String accountNumber;
+	
+	private String customerName;
+	private String employeeName;
 }
