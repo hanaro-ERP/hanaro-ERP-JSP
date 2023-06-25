@@ -17,7 +17,7 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 import DAO.LoanContractDAO;
 import DTO.LoanContractDTO;
-import Service.LoanContractService;
+import Service.LoanService;
 
 @WebServlet("/loanContractList")
 public class LoanContractController extends HttpServlet {
@@ -129,7 +129,7 @@ public class LoanContractController extends HttpServlet {
 		}
 		
 		try {
-			List<LoanContractDTO> loanContractDTOList = LoanContractService.getLoanContractDetail(loanContractDTO);
+			List<LoanContractDTO> loanContractDTOList = LoanService.getLoanContractList(loanContractDTO);
 
 			// JSP에 데이터 전달
 			request.setAttribute("loanContracts", loanContractDTOList);

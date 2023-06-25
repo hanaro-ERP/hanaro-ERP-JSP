@@ -33,7 +33,7 @@ public class CustomerDetailController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 	}
 	
-	protected void getCustomerListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void getCustomerListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String id = request.getParameter("id");
 			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(id));
