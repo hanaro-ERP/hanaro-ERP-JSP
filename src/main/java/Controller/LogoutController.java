@@ -38,7 +38,6 @@ public class LogoutController extends HttpServlet {
 	protected void requestPro(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getSession().invalidate();
-//		response.sendRedirect(request.getContextPath() + "/view/login/login.jsp");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/login/login.jsp");
 		dispatcher.forward(request, response);
 	}
