@@ -9,6 +9,7 @@ const popupExitButton = document.querySelector('.popupExitButton');
 searchTableRows.forEach((item) => {
 	item.addEventListener('click', () => {
 		popupBox.classList.toggle('display');
+		item.parentNode.querySelector('form').submit();
 	});	
 });
 

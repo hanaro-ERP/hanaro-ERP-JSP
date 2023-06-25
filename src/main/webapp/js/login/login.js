@@ -1,5 +1,5 @@
-const MINIMUM_ID_LENGTH = 8;
-const MINIMUM_PW_LENGTH = 10;
+const MINIMUM_ID_LENGTH = 1;
+const MINIMUM_PW_LENGTH = 1;
 
 const employeeId = document.querySelector('#employeeId');
 const password = document.querySelector('#password');
