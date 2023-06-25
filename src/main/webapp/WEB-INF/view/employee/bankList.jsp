@@ -31,9 +31,8 @@
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">거주지</div>
 						<div class="innerInformationRowSubtitle">시·도</div>
-						<select name="citySelect" name="city" class="innerSelectBox customerCity" onchange="changeCounty(this.selectedIndex);">
+						<select name="citySelect" name="city" class="innerSelectBox2 customerCity" onchange="changeCounty(this.selectedIndex);">
 							<option value="">-</option>
-							<option value="성수점" >성수점</option>
 						    <option value="서울특별시" <% if (bankDTO != null && "서울특별시".equals(bankDTO.getCity())) { %>selected<% } %>>서울특별시</option>
 						    <option value="부산광역시" <% if (bankDTO != null && "부산광역시".equals(bankDTO.getCity())) { %>selected<% } %>>부산광역시</option>
 						    <option value="대구광역시" <% if (bankDTO != null && "대구광역시".equals(bankDTO.getCity())) { %>selected<% } %>>대구광역시</option>

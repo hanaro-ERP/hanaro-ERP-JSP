@@ -1,12 +1,5 @@
 @charset "UTF-8";
 
-#customerAge {
-	width: 900px;
-	height: 60px;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-}
 #customerDetailButton {
 	border: transparent;
 	background: transparent;

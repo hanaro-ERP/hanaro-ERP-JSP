@@ -20,7 +20,7 @@ import DTO.LoanContractDTO;
 import DTO.LoanRepaymentDTO;
 import DTO.TransactionDTO;
 import Service.AccountService;
-import Service.LoanContractService;
+import Service.LoanService;
 
 @WebServlet("/loanContracts/*")
 public class LoanContractController extends HttpServlet {
@@ -126,7 +126,7 @@ public class LoanContractController extends HttpServlet {
 					}
 					loanContractDTO.setLatePaymentPeriod(latePaymentPeriod);
 				}
-				List<LoanContractDTO> loanContractDTOList = LoanContractService.getLoanContractList(loanContractDTO);
+				List<LoanContractDTO> loanContractDTOList = LoanService.getLoanContractList(loanContractDTO);
 				request.setAttribute("loanContracts", loanContractDTOList);
 				request.setAttribute("searchInputValue", loanContractDTO);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/loanContractList.jsp");
@@ -147,7 +147,7 @@ public class LoanContractController extends HttpServlet {
 			loanContractDTO.setCustomerName(customerName);
 			loanContractDTO.setEmployeeName(employeeName);
 			
-			List<LoanRepaymentDTO> loanRepaymentDTOList = LoanContractService.getLoanRepaymentList(loanContractDTO);
+			List<LoanRepaymentDTO> loanRepaymentDTOList = LoanService.getLoanRepaymentList(loanContractDTO);
 			request.setAttribute("showRepaymentList", "showRepaymentList");
 			request.setAttribute("searchedRepaymentList", loanRepaymentDTOList);	
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/loanContractList.jsp");

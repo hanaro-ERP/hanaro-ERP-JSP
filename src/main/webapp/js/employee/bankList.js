@@ -1,6 +1,6 @@
 // select 부분 변수 및 함수 추가
 var countyList = new Array();
-countyList[0] = new Array("");
+countyList[0] = new Array("-");
 countyList[1] = new Array(
 	"",
 	"강남구",
@@ -258,15 +258,28 @@ countyList[15] = new Array(
 );
 countyList[16] = new Array("", "서귀포시", "제주시", "남제주군", "북제주군");
 
-function changeCounty(add) {
-	const selectElement = document.querySelector('select[name="district"]');
-
-	/* 옵션메뉴삭제 */
-	for (let i = selectElement.length - 1; i >= 0; i--) {
-		selectElement.options[i] = null;
+window.addEventListener('DOMContentLoaded', function() {
+	const citySelectElement = document.querySelector('select[name="citySelect"]');
+	const districtSelectElement = document.querySelector('select[name="district"]');
+  
+	// 초기 선택값에 대한 처리
+	const selectedCityIndex = citySelectElement.selectedIndex;
+	changeCounty(selectedCityIndex);
+  
+	// 시·도 select 변경 이벤트 핸들러
+	citySelectElement.addEventListener('change', function() {
+		const selectedIndex = this.selectedIndex;
+		changeCounty(selectedIndex);
+	});
+  
+	function changeCounty(add) {    
+	    /* 옵션메뉴삭제 */
+		for (let i = districtSelectElement.length - 1; i >= 0; i--) {
+			districtSelectElement.options[i] = null;
+		}
+	    /* 옵션박스추가 */
+		for (let i = 0; i < countyList[add].length; i++) {
+			districtSelectElement.options[i] = new Option(countyList[add][i], countyList[add][i]);
+		}
 	}
-	/* 옵션박스추가 */
-	for (let i = 0; i < countyList[add].length; i++) {
-		selectElement.options[i] = new Option(countyList[add][i], countyList[add][i]);
-	}
-}
+});

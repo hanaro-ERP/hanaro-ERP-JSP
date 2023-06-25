@@ -13,7 +13,6 @@ import java.util.List;
 import org.eclipse.jdt.internal.compiler.ast.AND_AND_Expression;
 
 import DTO.LoanContractDTO;
-import DTO.LoanDTO;
 import util.DatabaseUtil;
 
 public class LoanContractDAO {
