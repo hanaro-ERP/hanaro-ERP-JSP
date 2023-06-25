@@ -54,7 +54,7 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">나이</div>
-						<ul id="customerAge">
+						<ul id="customerAge" class="directInputUl">
 							<li id="ageAllLi"><input type="checkbox" value="" id="ageAll">전체</li>
 							<li id="directInput">
 							    <p>직접 입력</p>

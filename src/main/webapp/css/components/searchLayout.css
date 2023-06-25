@@ -103,10 +103,6 @@ li > div > input {
 	width: 400px;
 	height: 30px;
 }
-.innerSearchInput {
-	width: 400px;
-	height: 30px;
-}
 .innerMiddleInput2 {
 	width: 190px;	
 	height: 30px;
@@ -142,14 +138,21 @@ input[type="checkbox"] {
   margin: 0;
 }
 #directInput {
-	width: auto;
+	width: 750px;
 	display: flex;
 	align-items: center;
-	margin-right: 150px;
+	justify-content: start;
 }
 #directInput > p {
 	margin: 0 10px;
 }
 .directInputValue {
 	text-align: end;
+}
+.directInputUl {
+	width: 900px;
+	height: 60px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
 }

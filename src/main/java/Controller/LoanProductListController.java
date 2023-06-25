@@ -2,7 +2,9 @@ package Controller;
 
 import java.io.*;
 import java.io.OutputStream;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,10 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/loanProductList")
+import DTO.LoanSearchDTO;
+import DTO.LoanProductDTO;
+import Service.LoanService;
+
+@WebServlet("/loanProduct/list")
 public class LoanProductListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	LoanService loanService = new LoanService();
+
 	public LoanProductListController() {
 		super();
 	}
@@ -31,27 +39,38 @@ public class LoanProductListController extends HttpServlet {
 	protected void postLoanProductListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String type = request.getParameter("loanType");
-			String[] creditInfos = {"loanType", "loanProductJob", "loanProductPeriod", "loanProductIncome", "loanProductLimit", "loanName"};
-			String[] mortgageInfos = {"loanType", "loanProductMortgage", "loanName"};
+			String name = request.getParameter("loanName");
 
-			if (type.equals("신용대출")) {
-				for (int i = 0; i < creditInfos.length; i++) {
-				    String[] selectedJobs = request.getParameterValues(creditInfos[i]);
-				    if (selectedJobs != null) {
-				        System.out.println(creditInfos[i] + ": " + String.join(", ", selectedJobs));
-				    }
-				}
-			} else {
-				for (int i = 0; i < mortgageInfos.length; i++) {
-				    String[] selectedJobs = request.getParameterValues(mortgageInfos[i]);
-				    if (selectedJobs != null) {
-				        System.out.println(mortgageInfos[i] + ": " + String.join(", ", selectedJobs));
-				    }
-				}
-			}
+			String[] jobs = request.getParameterValues("loanProductJob");
+			String[] collaterals = request.getParameterValues("loanProductCollateral");
+			String[] periods = request.getParameterValues("loanProductPeriod");
+			String[] incomes = request.getParameterValues("loanProductIncome");
+			String[] limits = request.getParameterValues("loanProductLimit");
+
+			LoanSearchDTO loanSearchDTO = new LoanSearchDTO();
 			
+			if (type != null)
+				loanSearchDTO.setType(type);
+			if (name != null || name.equals(""))
+				loanSearchDTO.setName(name);
+			if (jobs != null)
+				loanSearchDTO.setJobs(jobs);
+			if (collaterals != null)
+				loanSearchDTO.setCollaterals(collaterals);
+			if (periods != null)
+				loanSearchDTO.setPeriods(periods);
+			if (incomes != null)
+				loanSearchDTO.setIncomes(incomes);
+			if (limits != null)
+				loanSearchDTO.setLimits(limits);
 			
-			response.sendRedirect(request.getContextPath() + "/view/loan/loanProductList/loanProductList.jsp");
+			List<LoanProductDTO> loanList = loanService.getLoanProductList(loanSearchDTO);
+			
+			request.setAttribute("loanProductInput", loanSearchDTO);
+			request.setAttribute("loanProductList", loanList);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/loanProductList.jsp");
+			dispatcher.forward(request, response);
 			} catch (Exception e) {
 			e.printStackTrace();
 		}

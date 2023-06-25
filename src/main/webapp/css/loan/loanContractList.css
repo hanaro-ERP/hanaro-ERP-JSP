@@ -1,12 +1,5 @@
 @charset "UTF-8";
 
-#balanceList {
-	width: 800px;
-	height: 60px;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-}
 .popupBox{
 	background: #FFFFFF;
 	padding: 10px;

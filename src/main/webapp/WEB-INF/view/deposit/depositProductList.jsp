@@ -65,7 +65,7 @@
 					</div>
 					<div class="innerInformationRow" id="balanceRow">
 						<div class="innerInformationRowTitle">계좌 잔액</div>
-						<ul id="depositBalance">
+						<ul id="depositBalance" class="directInputUl">
 							<li><input type="checkbox" value="전체" />전체</li>
 							<li id="directInput">
 								<p>직접 입력</p>
