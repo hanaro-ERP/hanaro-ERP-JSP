@@ -1,28 +1,19 @@
-
 const loanTypeSelect = document.querySelector('#loanType');
+const jobRow = document.querySelector('#loanProductJobRow');
+const collateralRow = document.querySelector('#loanProductCollateralRow');
+
+function toggleLoanType(selectedLoanType) {
+	if (selectedLoanType == "신용대출") {
+		collateralRow.classList.add('display');
+		jobRow.classList.remove('display');
+	} else {
+		jobRow.classList.add('display');
+		collateralRow.classList.remove('display');
+	}
+}
 
 loanTypeSelect.addEventListener('change', function () {
 	const selectedLoanType = this.value;
 	
-	const jobRow = document.querySelector('#loanProductJobRow');
-	const collateralRow = document.querySelector('#loanProductCollateralRow');
-
-	jobRow.classList.toggle('display');
-	collateralRow.classList.toggle('display');
-	
-	selectMultiItems("loanProductJob");
-	selectMultiItems("loanProductCollateral");
+	toggleLoanType(selectedLoanType);
 });
-
-const productInput = document.getElementById('loanProductSearchInput');
-
-function initializeSelectItems(selectedLoanType) {
-	selectMultiItems("loanProductJob");
-	productInput.value = "";
-}
-
-selectMultiItemsWithDirectInput("loanProductPeriod");
-selectOneItemWithDirectInput("loanProductIncome");
-selectOneItemWithDirectInput("loanProductLimit");
-
-initializeSelectItems(loanTypeSelect.value);

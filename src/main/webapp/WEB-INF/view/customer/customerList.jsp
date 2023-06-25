@@ -209,7 +209,6 @@
 	    gender = customerSearchDTO.getStrGender();
 	    isOpen = customerSearchDTO.getIsOpen();
 	}
-
 	%>
 	<script>
 		const jobCode = document.getElementById('jobCode');
@@ -295,8 +294,6 @@
 					} else {
 						const directInput = document.getElementById('directInput');
 						const inputs = directInput.querySelectorAll('input');
-						console.log(inputs);
-						console.log("<%= customerAges[0] %>");
 	
 						inputs[0].value = "<%= customerAges[0] %>"; 
 						<% if (customerAges.length >= 2) { %>

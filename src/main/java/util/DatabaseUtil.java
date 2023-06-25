@@ -61,7 +61,6 @@ public class DatabaseUtil {
 				} else {
 					String temp = String.format("income <= \'%s\'", grade + "0000000");
 					query.append(temp);
-					break;
 				}
 			} else {
 				if (grade.equals("")) {

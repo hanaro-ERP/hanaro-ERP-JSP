@@ -110,15 +110,14 @@ public class LoanProductDAO {
 		
 		if (loanSearchDTO.getType() != null) {
 			queryBuilder.append(" AND loan_type = ?");
+			if (loanSearchDTO.getType().equals("신용대출") && loanSearchDTO.getJobs() != null) {
+				queryBuilder.append(databaseUtil.getListQuery("loan_job", loanSearchDTO.getJobs()));
+			} else if (loanSearchDTO.getType().equals("담보대출") && loanSearchDTO.getCollaterals() != null) {
+				queryBuilder.append(databaseUtil.getListQuery("collateral", loanSearchDTO.getCollaterals()));
+			}
 		}
 		if (loanSearchDTO.getName() != null) {
 			queryBuilder.append(" AND loan_name LIKE ?");
-		}		
-		if (loanSearchDTO.getJobs() != null) {
-			queryBuilder.append(databaseUtil.getListQuery("loan_job", loanSearchDTO.getJobs()));
-		}
-		if (loanSearchDTO.getCollaterals() != null) {
-			queryBuilder.append(databaseUtil.getListQuery("collateral", loanSearchDTO.getCollaterals()));
 		}
 		if (loanSearchDTO.getPeriods() != null) {
 			queryBuilder.append(databaseUtil.getListRangeQuery("duration", loanSearchDTO.getPeriods()));
