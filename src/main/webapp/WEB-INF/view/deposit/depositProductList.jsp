@@ -52,7 +52,7 @@
 								<input type="checkbox" value="전체" id="issueDateAll"
 									name="depositStartDate">전체
 							</li>
-							<li id="directInput">
+							<li class="directInput">
 								<p>직접 입력</p> 
 								<select name="depositStartDate"
 								class="yearSelect" disabled="true"></select> 
@@ -67,7 +67,7 @@
 						<div class="innerInformationRowTitle">계좌 잔액</div>
 						<ul id="depositBalance" class="directInputUl">
 							<li><input type="checkbox" value="전체" />전체</li>
-							<li id="directInput">
+							<li class="directInput">
 								<p>직접 입력</p>
 								<input id="startBalance" name="depositBalance" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이상</p>
 								<input id="endBalance" name="depositBalance" class="directInputValue" disabled="true"><p class="directInputText"> 만원 이하</p>

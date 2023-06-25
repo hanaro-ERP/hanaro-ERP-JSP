@@ -56,7 +56,7 @@
 						<div class="innerInformationRowTitle">나이</div>
 						<ul id="customerAge" class="directInputUl">
 							<li id="ageAllLi"><input type="checkbox" value="" id="ageAll">전체</li>
-							<li id="directInput">
+							<li class="directInput">
 							    <p>직접 입력</p>
 							    <input id="directAgeInput1" name="customerAge" class="directInputValue" disabled="true">&nbsp;세 이상&nbsp;&nbsp;
 							    <input id="directAgeInput2" name="customerAge" class="directInputValue" disabled="true">&nbsp;세 이하&nbsp;
