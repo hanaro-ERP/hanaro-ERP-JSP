@@ -38,15 +38,11 @@ public class LoanContractController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		System.out.println("~~~~~~~~~~controller - doPost");
 		postLoanContractProcess(request, response);
 	}
 
 	protected void postLoanContractProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		System.out.println("~~~~~~~~~~controller - postLoanContractProcess");
-		
 		String requestURI = request.getRequestURI();
-		System.out.println("~~~~~~~~~~controller - url ="+  request.getRequestURI());
 		
 		if (requestURI.endsWith("contractList")) {
 			try {
@@ -63,32 +59,26 @@ public class LoanContractController extends HttpServlet {
 				
 				if (loanName != "") {
 					loanContractDTO.setLoanName(loanName);
-				}
-				
+				}				
 				if (loanType != "") {
 					loanContractDTO.setLoanType(loanType);
-				}
-				
+				}				
 				if (customerName != "") {
 					loanContractDTO.setCustomerName(customerName);
-				}
-				
+				}				
 				if (employeeName != "") {
 					loanContractDTO.setEmployeeName(employeeName);
-				}
-				
+				}				
 				if (loanContractStartDate.length > 1) {
 					String inputStartDate = loanContractStartDate[0] + "-" + loanContractStartDate[1] + "-" + loanContractStartDate[2] + " 00:00:00.0";
 					Timestamp inputStartDateTimestamp = Timestamp.valueOf(inputStartDate);
 					loanContractDTO.setStartDate(inputStartDateTimestamp);
 				}
-				
 				if (loanContractEndDate.length > 1) {
 					String inputMuturityDate = loanContractEndDate[0] + "-" + loanContractEndDate[1] + "-" + loanContractEndDate[2] + " 00:00:00.0";
 					Timestamp inputMuturityDateTimestamp = Timestamp.valueOf(inputMuturityDate);
 					loanContractDTO.setMuturityDate(inputMuturityDateTimestamp);
-				}
-				
+				}				
 				int[] balanceRange = {0,0};
 				if (balanceList.length > 1) {
 					balanceRange[0] = Integer.parseInt(balanceList[0]);
@@ -137,43 +127,30 @@ public class LoanContractController extends HttpServlet {
 					loanContractDTO.setLatePaymentPeriod(latePaymentPeriod);
 				}
 				List<LoanContractDTO> loanContractDTOList = LoanContractService.getLoanContractList(loanContractDTO);
-
 				request.setAttribute("loanContracts", loanContractDTOList);
 				request.setAttribute("searchInputValue", loanContractDTO);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/loanContractList.jsp");
-				
-				System.out.println("~~~~~~~~~~@@controller - dispatcher= "+dispatcher);
-				System.out.println("~~~~~~~~~~controller - request= "+request);
-				System.out.println("~~~~~~~~~~controller - response= "+response);
 				dispatcher.forward(request, response);
 			}
 			catch (Exception e) {
-				System.out.println("controller e ="+ e);
 				e.printStackTrace();
 			}
 		}
 
-		else if (requestURI.endsWith("repaymentList")) {
-			System.out.println("~~~~~~~~~~controller - repaymentList");
-			
+		else if (requestURI.endsWith("repaymentList")) {			
 			int loanContractId = Integer.parseInt(request.getParameter("selectedLoanContractId"));
 			String customerName = request.getParameter("selectedCustomerName");
 			String employeeName = request.getParameter("selectedEmployeeName");
 
 			LoanContractDTO loanContractDTO = new LoanContractDTO();
-			
 			loanContractDTO.setLoanContractId(loanContractId);
 			loanContractDTO.setCustomerName(customerName);
 			loanContractDTO.setEmployeeName(employeeName);
 			
 			List<LoanRepaymentDTO> loanRepaymentDTOList = LoanContractService.getLoanRepaymentList(loanContractDTO);
-
 			request.setAttribute("showRepaymentList", "showRepaymentList");
 			request.setAttribute("searchedRepaymentList", loanRepaymentDTOList);	
-
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/loanContractList.jsp");
-
-			System.out.println("~~~~~~~~~~controller - dispatcher= "+dispatcher);
 			dispatcher.forward(request, response);
 		}
 	}

@@ -23,8 +23,6 @@ public class LoanContractService {
 	
 	public static List<LoanContractDTO> getLoanContractList(LoanContractDTO loanContractDTO)
 			throws NoSuchAlgorithmException {
-		System.out.println("~~~~~~~~~~service - getLoanContractDetail");
-
 		LoanContractDAO loanContractDAO = new LoanContractDAO();
 		List<LoanContractDTO> loanContractDTOList = loanContractDAO.getLoanContractByDTO(loanContractDTO);
 

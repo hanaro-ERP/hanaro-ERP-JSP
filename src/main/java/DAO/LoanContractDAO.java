@@ -137,9 +137,7 @@ public class LoanContractDAO {
 		return loanContractDTOList;
 	}
 	
-	public List<LoanContractDTO> getLoanContractByDTO(LoanContractDTO loanContractDTO) {	
-		System.out.println("~~~~~~~~~~dao - getLoanContractByDTO");
-		
+	public List<LoanContractDTO> getLoanContractByDTO(LoanContractDTO loanContractDTO) {		
 		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name, c2.c_name as guarantor_name"
 				+ " FROM loanContracts lc");
 		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
@@ -181,7 +179,8 @@ public class LoanContractDAO {
 		
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
-			
+
+			System.out.println("pstmt ="+ pstmt);
 			int parameterIndex = 1;
 
 			if (loanContractDTO.getLoanName() != null) {
@@ -226,24 +225,19 @@ public class LoanContractDAO {
 
 			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();			
 
-			System.out.println("pstmt @@ = "+pstmt);
 			try (ResultSet rs = pstmt.executeQuery()) {				
 				while (rs.next()) {
 						LoanContractDTO loanContracts = new LoanContractDTO();
 						fillLoanContractDTOFromResultSet(loanContracts, rs);
 						loanContractDTOList.add(loanContracts);
-					}
-				System.out.println("~~~~~~~~~~dao - list length = "+ loanContractDTOList.size());
-				
+					}				
 				return loanContractDTOList;
 			}
 			catch (Exception e) {
-				System.out.println("~~~~~~~~~~dao - catch 1 ="+e);
 				e.printStackTrace();
 			} 
 		}
 		catch (Exception e) {
-			System.out.println("~~~~~~~~~~dao - catch 2 ="+e);
 			e.printStackTrace();
 		}
 		return null;

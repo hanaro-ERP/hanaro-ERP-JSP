@@ -117,9 +117,6 @@ public class LoanRepaymentDAO {
 		queryBuilder.append(" JOIN accounts a ON lr.a_id = a.a_id");
 		queryBuilder.append(" WHERE 1=1");
 		
-
-		System.out.println("~~~~~~~~~~REPAYMENT dao - loanContractDTO.getLoanId() = "+ loanContractDTO.getLoanId());
-		
 		if (loanContractDTO.getLoanId() != 0) {
 			queryBuilder.append(" AND lr.lc_id = ");
 			queryBuilder.append(loanContractDTO.getLoanId());
@@ -128,8 +125,8 @@ public class LoanRepaymentDAO {
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 
+			System.out.println("pstmt ="+ pstmt);
 			List<LoanRepaymentDTO> loanRepaymentDTOList = new ArrayList<>();	
-			System.out.println("pstmt @@ = "+pstmt);
 			
 			try (ResultSet rs = pstmt.executeQuery()) {				
 				while (rs.next()) {
@@ -139,16 +136,13 @@ public class LoanRepaymentDAO {
 					loanRepaymentDTO.setEmployeeName(loanContractDTO.getEmployeeName());
 					loanRepaymentDTOList.add(loanRepaymentDTO);
 				}
-				System.out.println("~~~~~~~~~~REPAYMENT dao - length = "+ loanRepaymentDTOList.size());
 				return loanRepaymentDTOList;
 			}
 			catch (Exception e) {
-				System.out.println("~~~~~~~~~~REPAYMENT dao - catch 1 ="+e);
 				e.printStackTrace();
 			} 
 		}
 		catch (Exception e) {
-			System.out.println("~~~~~~~~~~REPAYMENT dao - catch 2 ="+e);
 			e.printStackTrace();
 		}
 		return null;
