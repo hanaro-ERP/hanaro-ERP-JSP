@@ -5,6 +5,7 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8" />
 <title>상품 가입</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productsubscription.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productSubscription.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
@@ -23,37 +24,14 @@ pageEncoding="UTF-8"%>
 						<td><input id="customerName" name="customerName" class="middleInput"/></td>
 						<th>전화번호</th>
 						<td>
-							<input type="number" id="phoneNumber1" name="phoneNumber" class="shortInput"/>
-							-
-							<input type="number" id="phoneNumber2" name="phoneNumber" class="shortInput"/>
-							-
-							<input type="number" id="phoneNumber3" name="phoneNumber" class="shortInput"/>
+							<input id="phoneNumber" name="phoneNumber" class="middleInput"/>
 						</td>
 					</tr>
 					<tr>
-						<th>보증인</th>
-						<td><input id="suretyName" name="suretyName" class="middleInput"/></td>
-						<th>주민번호</th>
-						<td>
-							<input id="residentRegistrationNumber1" name="residentRegistrationNumber" class="shortInput"/>
-								-
-							<input id="residentRegistrationNumber2" name="residentRegistrationNumber" class="shortInput"/>
-						</td>
-					</tr>
-					<tr>
-						<th>국가</th>
-						<td>
-							<select name="country" class="shortSelect">
-								<option value="southKorea">대한민국</option>
-								<option value="usa">미국</option>
-								<option value="china">중국</option>
-								<option value="japan">일본</option>
-							</select>
-						</td>
 						<th>거주지</th>
-						<td>
-							<select name="city" class="shortSelect" onchange="changeCounty(this.selectedIndex);">
-								<option value="전체">전체</option>
+						<td colspan=4>
+							<select name="citySelect" class="innerSelectBox customerCity" onchange="changeCounty(this.selectedIndex);">
+								<option value="">-</option>
 								<option value="서울">서울특별시</option>
 								<option value="부산">부산광역시</option>
 								<option value="대구">대구광역시</option>
@@ -71,10 +49,44 @@ pageEncoding="UTF-8"%>
 								<option value="경남">경상남도</option>
 								<option value="제주">제주도</option>
 							</select>
-							<select name="district" class="shortSelect">
-								<option value="">전체</option>
+							<select name="district" class="select">
+								<option value="">-</option>
 							</select>
 						</td>
+					</tr>
+					<tr>
+						<th>주민번호</th>
+						<td>
+							<input id="residentRegistrationNumber1" name="residentRegistrationNumber" class="shortInput"/>
+								-
+							<input id="residentRegistrationNumber2" name="residentRegistrationNumber" class="shortInput"/>
+						</td>
+						<th>국가</th>
+						<td>
+							<select name="country" class="shortSelect">
+								<option value="southKorea">대한민국</option>
+								<option value="usa">미국</option>
+								<option value="china">중국</option>
+								<option value="japan">일본</option>
+							</select>
+						</td>
+					</tr>
+					<tr>						
+						<th>직업</th>
+						<td>
+							<select id="loanTypeSelect" name="job" class="shortSelect">
+								<option value="직장인">직장인</option>
+								<option value="공무원">공무원</option>
+								<option value="군인">군인</option>
+								<option value="금융인">금융인</option>
+								<option value="전문직">전문직</option>
+								<option value="의사">의사</option>
+								<option value="자영업">자영업</option>
+								<option value="무직">무직</option>
+							</select>
+						</td>
+						<th>보증인</th>
+						<td><input id="suretyName" name="suretyName" class="middleInput"/></td>
 					</tr>
 					<tr>
 						<th>담당 직원</th>
@@ -86,53 +98,40 @@ pageEncoding="UTF-8"%>
 						<th>고객 등급</th>
 						<td>
 							<select name="customerRank" class="shortSelect">
-								<option value="Green">Green</option>
-								<option value="Famil">Family</option>
-								<option value="Hana Family">Hana Family</option>
+								<option value="SILVER">SILVER</option>
+								<option value="GOLD">GOLD</option>
 								<option value="VIP">VIP</option>
-								<option value="Hana">Hana VIP</option>
+								<option value="VVIP">VVIP</option>
 							</select>
 						</td>
 						<th>신용 등급</th>
 						<td>
 							<select name="creditRank" class="shortSelect">
-								<option value="credit1">1</option>
-								<option value="credit2">2</option>
-								<option value="credit3">3</option>
-								<option value="credit4">4</option>
-								<option value="credit4">5</option>
+								<option value="1급">1</option>
+								<option value="2급">2</option>
+								<option value="3급">3</option>
+								<option value="4급">4</option>
+								<option value="5급">5</option>
 							</select>
 							급
 						</td>
 					</tr>
-					<tr>
-						<th>직업</th>
-						<td>
-							<select name="job" class="shortSelect">
-								<option value="governmentEmployee">공무원</option>
-								<option value="personalBussiness">자영업</option>
-								<option value="houseWife">주부</option>
-								<option value="unemployed">무직</option>
-							</select>
-						</td>
-					</tr>
 				</table>
+
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
 				<table class="inputTable">
 					<tr>
 						<th>대출 구분</th>
 						<td>
-							<select name="loanType" class="shortSelect">
-								<option value="creditLoan">신용대출</option>
-								<option value="collateralLoan">담보대출</option>
+							<select name="loanType" class="shortSelect" onchange="changeLoan(this.selectedIndex);">
+								<option value="담보대출">담보대출</option>
+								<option value="신용대출">신용대출</option>
 							</select>
 						</td>
 						<th>상품명</th>
 						<td>
 							<select name="loanProductName" class="longSelect">
-								<option value="prod1">상품1</option>
-								<option value="prod2">상품2</option>
-								<option value="prod3">상품3</option>
+								<option value="">-</option>
 							</select>
 						</td>
 					</tr>
@@ -140,9 +139,9 @@ pageEncoding="UTF-8"%>
 						<th>담보</th>
 						<td>
 							<select name="collateral" class="shortSelect">
-								<option value="house">주택</option>
-								<option value="car">자동차</option>
-								<option value="car">주식</option>
+								<option value="예적금">예적금</option>
+								<option value="주택">주택</option>
+								<option value="전세자금">전세자금</option>
 							</select>
 						</td>
 						<th>담보가치</th>
@@ -180,14 +179,15 @@ pageEncoding="UTF-8"%>
 						<th>상환 방법</th>
 						<td>
 							<select name="repaymentMethod" class="shortSelect">
-								<option value="dunno">??</option>
-								<option value="dunno">??</option>
+								<option value="원리금균등분할상환">원리금균등분할상환</option>
+								<option value="원금균등분할상환">원금균등분할상환</option>
+								<option value="만기일시상환">만기일시상환</option>
 							</select>
 						</td>
 					</tr>
 				</table>
 				<div class="innerButtonContainer">
-					<button type="submit">검색</button>
+					<button type="submit">등록</button>
 				</div>
 			</form>
 		</div>
