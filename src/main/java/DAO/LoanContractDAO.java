@@ -90,6 +90,8 @@ public class LoanContractDAO {
 		loanContract.setPaymentMethod(rs.getString("payment_method"));
 		loanContract.setBalance(rs.getLong("balance"));
 		loanContract.setPaymentDate(rs.getDate("payment_date"));
+		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));	
+		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));
 		loanContract.setDelinquentAmount(rs.getLong("delinquent_amount"));
 		loanContract.setGuarantorId(rs.getInt("guarantor_id"));
 		loanContract.setInterestRate(rs.getLong("interest_rate"));
@@ -141,7 +143,8 @@ public class LoanContractDAO {
 		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name, c2.c_name as guarantor_name"
 				+ " FROM loanContracts lc");
 		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
-		queryBuilder.append(" JOIN customers c ON lc.e_id = c.e_id AND lc.c_id = c.c_id");
+		queryBuilder.append(" JOIN customers c ON lc.c_id = c.c_id");
+		// lc.e_id = c.e_id AND 
 		queryBuilder.append(" JOIN employees e ON c.e_id = e.e_id");
 		queryBuilder.append(" JOIN customers c2 ON lc.guarantor_id = c2.c_id");
 		queryBuilder.append(" WHERE 1=1");
@@ -221,10 +224,9 @@ public class LoanContractDAO {
 				pstmt.setDate(parameterIndex++, latePaymentDate);
 			}
 
-			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
-			
+			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();			
 
-			System.out.println("pstmt = "+pstmt);
+			System.out.println("pstmt @@ = "+pstmt);
 			try (ResultSet rs = pstmt.executeQuery()) {				
 				while (rs.next()) {
 						LoanContractDTO loanContracts = new LoanContractDTO();

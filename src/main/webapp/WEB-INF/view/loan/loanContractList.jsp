@@ -15,9 +15,8 @@
 <body>
 	<%@ include file="../../components/header.jsp"%>
 	<%@ page import="java.util.List"%>
-	<%@ page import="DTO.LoanContractDTO"%>
-	
-	<%@ page import="DTO.TransactionDTO" %>
+	<%@ page import="DTO.LoanContractDTO"%>	
+	<%@ page import="DTO.LoanRepaymentDTO" %>
 	
 	<main>
 		<%@ include file="../../components/aside.jsp"%>
@@ -29,8 +28,7 @@
 			<div class="innerTitle">
 				<h1>여신 이력</h1>
 			</div>
-			<form action="${pageContext.request.contextPath}/loanContractList"
-				method="post">
+			<form action="${pageContext.request.contextPath}/loanContracts/contractList" method="post">
 				<div class="innerSubTitle">
 					<h2>여신 정보</h2>
 				</div>
@@ -151,8 +149,15 @@
 				<%
 					if (loanContracts != null && !loanContracts.isEmpty()) {
 						for (LoanContractDTO dto : loanContracts) {
-					%>
-				<tr>
+				%>
+				<tr class="searchResultRow" id="<%=dto.getLoanContractId()%>">
+					<td style="display: none">
+						<form id="<%= dto.getLoanContractId()%>" action="${pageContext.request.contextPath}/loanContracts/repaymentList" method="post">
+							<input name="selectedLoanContractId" value="<%=dto.getLoanContractId()%>"> 
+							<input name="selectedCustomerName" value="<%=dto.getCustomerName()%>">
+							<input name="selectedEmployeeName" value="<%=dto.getEmployeeName()%>">
+						</form>
+					</td>
 					<td class="loanContractId"><%=dto.getLoanContractId()%></td>
 					<td><%=dto.getLoanType()%></td>
 					<td><%=dto.getLoanName()%></td>
@@ -169,7 +174,7 @@
 				<%
 						}
 					}
-					%>
+				%>
 			</table>
 			<div class="popupBox display">
 				<svg class="popupExitButton" width="14" height="15"
@@ -179,48 +184,40 @@
 						fill="#323232" />
 					</svg>
 				<div class="popupTitleBox">
-					<h1>입출금 내역</h1>
+					<h1>상환 이력</h1>
 				</div>
 				<div id="historyTableBox">
 				<table class="searchTable" id="historyTable">
-					<tr>
-						<th>계좌일자</th>
-						<th>거래유형</th>
+					<tr>						
+						<th>여신 ID</th>
+						<th>거래일자</th>
 						<th>계좌번호</th>
 						<th>고객 이름</th>
-						<th>입금자명</th>
-						<th>거래처</th>
-						<th>거래 금액</th>
-						<th>계좌 잔액</th>
-					</tr>
-					
-					
-					
-					
+						<th>담당자</th>
+						<th>상환 금액</th>
+						<th>대출 잔액</th>
+						<th>대리인</th>
+					</tr>				
 						<%
-						List<TransactionDTO> searchedTransactionList = (List<TransactionDTO>) request.getAttribute("searchedTransactionList");
+						List<LoanRepaymentDTO> searchedRepaymentList = (List<LoanRepaymentDTO>) request.getAttribute("searchedRepaymentList");
 		
-						if (searchedTransactionList != null && !searchedTransactionList.isEmpty()) {
-							for (TransactionDTO transaction : searchedTransactionList) {
+						if (searchedRepaymentList != null && !searchedRepaymentList.isEmpty()) {
+							for (LoanRepaymentDTO dto : searchedRepaymentList) {
 								%>
-								<tr class="searchResultRow" id="<%= transaction.getAccountId() %>">
-									<td><%= transaction.getStringTransactionDate() %></td>
-									<td><%= transaction.getTransactionType() %></td>
-									<td><%= transaction.getAccountNumber() %></td>
-									<td><%= transaction.getCustomerName() %></td>
-									<td><%= transaction.getDepositor() %></td>
-									<td><%= transaction.getTransactionLocation() %></td>
-									<td><%= transaction.getTransactionAmount() %></td>
-									<td>procedure 필요</td>
+								<tr class="searchResultRow" id="<%= dto.getAccountId() %>">
+									<td><%= dto.getLoanContractId() %></td>
+									<td><%= dto.getTradeDatetime() %></td>
+									<td><%= dto.getAccountNumber() %></td>
+									<td><%= dto.getCustomerName() %></td>
+									<td><%= dto.getEmployeeName() %></td>
+									<td><%= dto.getTradeAmount() %></td>
+									<td><%= dto.getLoanAmount() %></td>
+									<td><%= dto.isAgent() %></td>
 								</tr>
 								<%
 							}
 						}
-						%>
-					
-					
-					
-				
+						%>				
 				</table>
 			</div>
 			</div>
@@ -230,8 +227,8 @@
 		src="${pageContext.request.contextPath}/js/components/searchLayout.js "></script>
 	<script>
 		generateMenu('loan', 'loanContractList');
-		let showTransactions = "<%= request.getAttribute("showTransactions") %>";
-		if (showTransactions == "showTransactions") {
+		let showRepaymentList = "<%= request.getAttribute("showRepaymentList") %>";
+		if (showRepaymentList == "showRepaymentList") {
 			const popupBox = document.querySelector(".popupBox");
 			popupBox.classList.remove("display");
 		}
