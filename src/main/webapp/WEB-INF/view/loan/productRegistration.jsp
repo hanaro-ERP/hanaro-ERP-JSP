@@ -19,52 +19,64 @@ pageEncoding="UTF-8"%>
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
 				<table class="inputTable">
  					<tr>
-						<th>상품명</th>
-						<td>
-							<input name="productName" class="longInput"/>
-						</td>
-						<th>대출 기간</th>
-						<td>
-							<input type="number" name="loanPeriod" class="shortInput"/>
-							개월
-						</td>
-					</tr>
-					<tr>
-						<th>대출 구분</th>
+ 						<th>대출 구분</th>
 						<td>
 							<select name="loanType" class="shortSelect">
 								<option value="신용대출">신용 대출</option>
 								<option value="담보대출">담보 대출</option>
 							</select>
 						</td>
-						<th id="collateralTypeContainer">직업</th>
+						<th>상품명</th>
 						<td>
-							<select id="loanTypeSelect" name="job" class="shortSelect">
-								<option value="직장인">직장인</option>
-								<option value="공무원">공무원</option>
-								<option value="군인">군인</option>
-								<option value="금융인">금융인</option>
-								<option value="전문직">전문직</option>
-								<option value="의사">의사</option>
-								<option value="자영업">자영업</option>
-								<option value="무직">무직</option>
-							</select>
+							<input name="productName" class="longInput"/>
 						</td>
 					</tr>
 					<tr>
-						<th>최대 한도</th>
+						<th id="collateralTypeContainer">직업</th>
 						<td>
-							&nbsp;최대
-							<input name="loanLimit" class="shortInput" type="number" min="1" max="999" step="1" />
-							천만 원
+							<select id="loanTypeSelect" name="jobCode" class="shortSelect">
+								<option value="000">무관</option>
+								<option value="001">직장인</option>
+								<option value="002">공무원</option>
+								<option value="003">군인</option>
+								<option value="004">금융인</option>
+								<option value="005">전문직</option>
+								<option value="006">의사</option>
+								<option value="007">자영업</option>
+								<option value="100">무직</option>
+							</select>
 						</td>
-						<th>이자</th>
+						<th>연수입</th>
 						<td>
-							&nbsp;&nbsp;최소&nbsp;
-							<input name="interestRate" class="shortInput" type="number" min="0" max="10" step="0.1"/>
-							&nbsp;&nbsp;최대&nbsp;
-							<input name="interestRate" class="shortInput" type="number" min="0" max="10" step="0.1"/>
-							%
+							&nbsp;연
+							<input type="number" name="loanIncome" class="shortInput"/>
+							천만원
+						</td>
+
+					</tr>
+					<tr>
+						<th>대출 금액</th>
+						<td>
+							&nbsp;최소
+							<input name="loanMinLimit" class="shortInput" type="number" min="1" max="999" step="1" />&nbsp;천만원
+							&nbsp;&nbsp;&nbsp;최대
+							<input name="loanMaxLimit" class="shortInput" type="number" min="1" max="999" step="1" />&nbsp;천만원
+						</td>
+						<th>대출 기간</th>
+						<td>
+							&nbsp;최소
+							<input name="loanMinPeriod" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;년
+							&nbsp;&nbsp;&nbsp;최대&nbsp;
+							<input name="loanMaxPeriod" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;년
+						</td>
+					</tr>
+					<tr>
+						<th>대출 이율</th>
+						<td>
+							&nbsp;최소
+							<input name="loanMinRate" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;%
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;최대
+							<input name="loanMaxRate" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;%
 						</td>
 					</tr>
 				</table>
@@ -88,20 +100,22 @@ pageEncoding="UTF-8"%>
 					collateralTypeContainer.innerHTML = '직업';
 					collateralTypeSelect.setAttribute('name', 'job');
 					collateralTypeSelect.innerHTML = `
-						<option value="직장인">직장인</option>
-						<option value="공무원">공무원</option>
-						<option value="군인">군인</option>
-						<option value="금융인">금융인</option>
-						<option value="전문직">전문직</option>
-						<option value="의사">의사</option>
-						<option value="자영업">자영업</option>
-						<option value="무직">무직</option>
+						<option value="000">무관</option>
+						<option value="001">직장인</option>
+						<option value="002">공무원</option>
+						<option value="003">군인</option>
+						<option value="004">금융인</option>
+						<option value="005">전문직</option>
+						<option value="006">의사</option>
+						<option value="007">자영업</option>
+						<option value="100">무직</option>
 					`;
 				} else if (selectedLoanType === '담보대출') {
 					collateralTypeContainer.innerHTML = '담보 종류';
 					collateralTypeSelect.setAttribute('name', 'collateralType');
 					collateralTypeSelect.innerHTML = `
-						<option value="예적금">예적금</option>
+						<option value="예금">예금</option>
+						<option value="적금">적금</option>
 						<option value="주택">주택</option>
 						<option value="전세자금">전세자금</option>
 					`;
