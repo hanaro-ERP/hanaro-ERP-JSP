@@ -6,7 +6,6 @@ pageEncoding="UTF-8"%>
 <meta charset="UTF-8" />
 <title>상품 가입</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productRegistration.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
 <body>
@@ -15,7 +14,7 @@ pageEncoding="UTF-8"%>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 등록</h1></div>
-			<form action="${pageContext.request.contextPath}/loanRegistration" method="post" onsubmit="return validateForm()">
+			<form id="productRegistrationForm" onsubmit="return registerForm()" action="${pageContext.request.contextPath}/loan/registration" method="post">
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
 				<table class="inputTable">
  					<tr>
@@ -52,31 +51,30 @@ pageEncoding="UTF-8"%>
 							<input type="number" name="loanIncome" class="shortInput"/>
 							천만원
 						</td>
-
 					</tr>
 					<tr>
 						<th>대출 금액</th>
 						<td>
 							&nbsp;최소
-							<input name="loanMinLimit" class="shortInput" type="number" min="1" max="999" step="1" />&nbsp;천만원
+							<input id="loanMinLimitId" name="loanMinLimit" class="shortInput" type="number" min="1" max="999" step="1" />&nbsp;천만원
 							&nbsp;&nbsp;&nbsp;최대
-							<input name="loanMaxLimit" class="shortInput" type="number" min="1" max="999" step="1" />&nbsp;천만원
+							<input id="loanMaxLimitId" name="loanMaxLimit" class="shortInput" type="number" min="1" max="999" step="1" />&nbsp;천만원
 						</td>
 						<th>대출 기간</th>
 						<td>
 							&nbsp;최소
-							<input name="loanMinPeriod" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;년
+							<input id="loanMinPeriodId" name="loanMinPeriod" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;년
 							&nbsp;&nbsp;&nbsp;최대&nbsp;
-							<input name="loanMaxPeriod" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;년
+							<input id="loanMaxPeriodId" name="loanMaxPeriod" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;년
 						</td>
 					</tr>
 					<tr>
 						<th>대출 이율</th>
 						<td>
 							&nbsp;최소
-							<input name="loanMinRate" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;%
+							<input id="loanMinRateId" name="loanMinRate" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;%
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;최대
-							<input name="loanMaxRate" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;%
+							<input id="loanMaxRateId" name="loanMaxRate" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;%
 						</td>
 					</tr>
 				</table>
@@ -125,9 +123,25 @@ pageEncoding="UTF-8"%>
 
     	// 호출하여 함수 실행
     	toggleCollateralType();
-		generateMenu('loan', 'productRegistration');		
+		generateMenu('loan', 'productRegistration');
+		
 	</script>
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productRegistration.js"></script>
+	<script>
+		<%
+			Integer isLoanRegistered = (Integer) request.getAttribute("isLoanRegistered");
+			System.out.println(isLoanRegistered);
+		    if (isLoanRegistered != null && isLoanRegistered != -1) {
+				%>
+				alert("여신 상품이 성공적으로 등록되었습니다.");
+				<%
+			} else {
+				%>
+				alert("여신 상품이 등록에 실패하였습니다.");
+				<%
+			}
+		%>
+	</script>
 </body>
 </html>

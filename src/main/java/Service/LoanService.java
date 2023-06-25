@@ -13,6 +13,7 @@ import DTO.CustomerDTO;
 import DTO.EmployeeDTO;
 import DTO.LoanContractDTO;
 import DTO.LoanProductDTO;
+import DTO.LoanRegistrationDTO;
 import DTO.LoanSearchDTO;
 
 public class LoanService {
@@ -34,5 +35,13 @@ public class LoanService {
 		List<LoanProductDTO> loanProductList = loanDAO.getLoansByDTO(loanSearchDTO);
 		
 		return loanProductList;		
+	}
+	
+	public int registerLoanProduct(LoanProductDTO loanProductDTO) throws NoSuchAlgorithmException {
+		LoanProductDAO loanDAO = new LoanProductDAO();
+		
+		int isLoanRegistered = loanDAO.insertLoanProduct(loanProductDTO);
+		
+		return isLoanRegistered;		
 	}
 }

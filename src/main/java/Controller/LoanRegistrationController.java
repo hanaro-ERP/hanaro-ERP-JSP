@@ -3,6 +3,7 @@ package Controller;
 import java.io.*;
 import java.io.OutputStream;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,12 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DTO.LoanRegistrationDTO;
+import DTO.LoanProductDTO;
+import Service.LoanService;
 
-@WebServlet("/loanRegistration")
+@WebServlet("/loan/registration")
 public class LoanRegistrationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	LoanService loanService = new LoanService();
+
 	public LoanRegistrationController() {
 		super();
 	}
@@ -46,34 +50,40 @@ public class LoanRegistrationController extends HttpServlet {
 			String loanMinRate = request.getParameter("loanMinRate");
 			String loanMaxRate = request.getParameter("loanMaxRate");
 
-			LoanRegistrationDTO loanRegistrationDTO = new LoanRegistrationDTO();
+			LoanProductDTO loanProductDTO = new LoanProductDTO();
 			
 			if (productName != null)
-				loanRegistrationDTO.setProductName(productName);
+				loanProductDTO.setLoanName(productName);
 			if (loanType != null)
-				loanRegistrationDTO.setLoanType(loanType);
+				loanProductDTO.setLoanType(loanType);
 			if (collateralType != null)
-				loanRegistrationDTO.setCollateralType(collateralType);
+				loanProductDTO.setCollateral(collateralType);
+			else 
+				loanProductDTO.setCollateral("");
 			if (jobCode != null)
-				loanRegistrationDTO.setJobCode(jobCode);
+				loanProductDTO.setJob(jobCode);
+			else
+				loanProductDTO.setJob("");
 			if (loanIncome != null)
-				loanRegistrationDTO.setLoanIncome(Long.parseLong(loanIncome));
+				loanProductDTO.setIncome(Long.parseLong(loanIncome)*10000000);
 			if (loanMinLimit != null)
-				loanRegistrationDTO.setLoanMinLimit(Integer.parseInt(loanMinLimit));
+				loanProductDTO.setMinAmount(Long.parseLong(loanMinLimit)*10000000);
 			if (loanMaxLimit != null)
-				loanRegistrationDTO.setLoanMaxLimit(Integer.parseInt(loanMaxLimit));
+				loanProductDTO.setMaxAmount(Long.parseLong(loanMaxLimit)*10000000);
 			if (loanMinPeriod != null)
-				loanRegistrationDTO.setLoanMinPeriod(Integer.parseInt(loanMinPeriod));
+				loanProductDTO.setMinDuration(Integer.parseInt(loanMinPeriod));
 			if (loanMaxPeriod != null)
-				loanRegistrationDTO.setLoanMaxPeriod(Integer.parseInt(loanMaxPeriod));
+				loanProductDTO.setMaxDuration(Integer.parseInt(loanMaxPeriod));
 			if (loanMinRate != null)
-				loanRegistrationDTO.setLoanMinRate(Float.parseFloat(loanMinRate));
+				loanProductDTO.setMinRate(Float.parseFloat(loanMinRate));
 			if (loanMaxRate != null)
-				loanRegistrationDTO.setLoanMaxRate(Float.parseFloat(loanMaxRate));
+				loanProductDTO.setMaxRate(Float.parseFloat(loanMaxRate));
 			
+			int isLoanRegistered = loanService.registerLoanProduct(loanProductDTO);
 			
-
-			response.sendRedirect(request.getContextPath() + "../WEB-INF/view/loan/productRegistration.jsp");
+			request.setAttribute("isLoanRegistered", isLoanRegistered);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productRegistration.jsp");
+			dispatcher.forward(request, response);
 			} catch (Exception e) {
 			e.printStackTrace();
 		}

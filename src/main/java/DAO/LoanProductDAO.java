@@ -10,6 +10,7 @@ import java.util.List;
 import DTO.CustomerDTO;
 import DTO.CustomerSearchDTO;
 import DTO.LoanProductDTO;
+import DTO.LoanRegistrationDTO;
 import DTO.LoanSearchDTO;
 import util.DatabaseUtil;
 import util.LoanUtil;
@@ -19,13 +20,22 @@ public class LoanProductDAO {
 	DatabaseUtil databaseUtil = new DatabaseUtil();
 	
 	// insert a new loan
-	public int insertLoan(LoanProductDTO loan) {
-		String SQL = "INSERT INTO loans (l_id, duration, amount, interest_rate) VALUES (?, ?, ?, ?)";
+	public int insertLoanProduct(LoanProductDTO loanProductDTO) {
+		String SQL = "INSERT INTO loans (loan_name, loan_type, loan_job, collateral, income, "
+				+ "min_duration, max_duration, min_amount, max_amount, min_interest_rate, max_interest_rate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setInt(1, loan.getLoanId());
-			pstmt.setInt(2, loan.getDuration());
-			pstmt.setLong(3, loan.getAmount());
-			pstmt.setFloat(4, loan.getInterestRate());
+			pstmt.setString(1, loanProductDTO.getLoanName());
+			pstmt.setString(2, loanProductDTO.getLoanType());
+			pstmt.setString(3, loanProductDTO.getJob());
+			pstmt.setString(4, loanProductDTO.getCollateral());
+			pstmt.setLong(5, loanProductDTO.getIncome());
+			pstmt.setInt(6, loanProductDTO.getMinDuration());
+			pstmt.setInt(7, loanProductDTO.getMaxDuration());
+			pstmt.setLong(8, loanProductDTO.getMinAmount());
+			pstmt.setLong(9, loanProductDTO.getMaxAmount());
+			pstmt.setFloat(10, loanProductDTO.getMinRate());
+			pstmt.setFloat(11, loanProductDTO.getMaxRate());
+			System.out.println(pstmt.toString());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
