@@ -25,7 +25,7 @@
 				<div class="innerInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">고객 이름</div>
-						<input name="customerName" class="innerSearchInput" value="${customerInput.customerName}"></input>
+						<input name="customerName" class="innerSearchInput3" value="${customerInput.customerName}"></input>
 						<div class="innerInformationRowTitle">직업 코드</div>
 						<select id="jobCode" name="jobCode" class="innerSelectBox">
 							<option value="">-</option>
@@ -35,7 +35,7 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">담당 직원</div>
-						<input name="customerEmployee" class="innerSearchInput" value="${customerInput.employeeName}"></input>
+						<input name="customerEmployee" class="innerSearchInput3" value="${customerInput.employeeName}"></input>
 						<div class="innerInformationRowTitle">담당 지점</div>
 						<select id="bankLocation" name="bankLocation" class="innerSelectBox">
 							<option value="">-</option>
@@ -113,33 +113,33 @@
 						<div class="innerInformationRowTitle">소속 국가</div>
 						<select id="countrySelect" name="country" class="innerSelectBox">
 							<option value="">-</option>
-							<option value="SouthKorea">대한민국</option>
-							<option value="USA">미국</option>
-							<option value="China">중국</option>
-							<option value="Japan">일본</option>
+							<option value="대한민국">대한민국</option>
+							<option value="미국">미국</option>
+							<option value="중국">중국</option>
+							<option value="일본">일본</option>
 						</select>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">거주지</div>
 						<div class="innerInformationRowSubtitle">시·도</div>
-						<select id="citySelect" name="city" class="innerSelectBox customerCity" onchange="changeCounty(this.selectedIndex);">
+						<select id="citySelect" name="city" class="innerSelectBox2 customerCity" onchange="changeCounty(this.selectedIndex);">
 							<option value="">-</option>
-						    <option value="서울시">서울특별시</option>
-						    <option value="부산">부산광역시</option>
-						    <option value="대구">대구광역시</option>
-						    <option value="인천">인천광역시</option>
-						    <option value="광주">광주광역시</option>
-						    <option value="대전">대전광역시</option>
-						    <option value="울산">울산광역시</option>
-						    <option value="경기">경기도</option>
-						    <option value="강원">강원도</option>
-						    <option value="충북">충청북도</option>
-						    <option value="충남">충청남도</option>
-						    <option value="전북">전라북도</option>
-						    <option value="전남">전라남도</option>
-						    <option value="경북">경상북도</option>
-						    <option value="경남">경상남도</option>
-						    <option value="제주">제주도</option>
+						    <option value="서울특별시">서울특별시</option>
+						    <option value="부산광역시">부산광역시</option>
+						    <option value="대구광역시">대구광역시</option>
+						    <option value="인천광역시">인천광역시</option>
+						    <option value="광주광역시">광주광역시</option>
+						    <option value="대전광역시">대전광역시</option>
+						    <option value="울산광역시">울산광역시</option>
+						    <option value="경기도">경기도</option>
+						    <option value="강원도">강원도</option>
+						    <option value="충청북도">충청북도</option>
+						    <option value="충청남도">충청남도</option>
+						    <option value="전라북도">전라북도</option>
+						    <option value="전라남도">전라남도</option>
+						    <option value="경상북도">경상북도</option>
+						    <option value="경상남도">경상남도</option>
+						    <option value="제주도">제주도</option>
 						</select>
 						<div class="innerInformationRowSubtitle">시·군·구</div>
 						<select id="districtSelect" name="district" class="select">

@@ -147,8 +147,12 @@
 .headerSessionName {
 	font-weight: bold;
 }
-.headerSessionLogoutButton{
+.headerSessionLogoutButton {
 	background: transparent;
 	cursor: pointer;
 	border: none;
+	color: #6B7684;
+}
+.headerSessionLogoutButton:hover {
+	color: #2DB400;
 }
