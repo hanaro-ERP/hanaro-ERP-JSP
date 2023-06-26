@@ -113,10 +113,10 @@
 						<div class="innerInformationRowTitle">소속 국가</div>
 						<select id="countrySelect" name="country" class="innerSelectBox">
 							<option value="">-</option>
-							<option value="SouthKorea">대한민국</option>
-							<option value="USA">미국</option>
-							<option value="China">중국</option>
-							<option value="Japan">일본</option>
+							<option value="대한민국">대한민국</option>
+							<option value="미국">미국</option>
+							<option value="중국">중국</option>
+							<option value="일본">일본</option>
 						</select>
 					</div>
 					<div class="innerInformationRow">
