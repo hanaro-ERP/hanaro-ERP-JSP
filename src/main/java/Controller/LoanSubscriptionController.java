@@ -14,11 +14,13 @@ import javax.servlet.http.HttpSession;
 
 import DTO.CustomerDTO;
 import DTO.LoanContractDTO;
+import Service.LoanService;
 import util.CustomerUtil;
 
 @WebServlet("/loan/subscription")
 public class LoanSubscriptionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	LoanService loanService = new LoanService();
 	
 	public LoanSubscriptionController() {
 		super();
@@ -51,9 +53,8 @@ public class LoanSubscriptionController extends HttpServlet {
 
 			String identification = id[0] + "-" + id[1];
 			int age = customerUtil.getAgeFromIdentification(id[0]);
-			boolean gender = customerUtil.convertGenderToBinary(id[1].substring(0,1));
+			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(id[1].substring(0,1)));
 
-			
 			String country = request.getParameter("country");
 			String jobCode = request.getParameter("job");
 			String suretyName = request.getParameter("suretyName");			
@@ -61,7 +62,6 @@ public class LoanSubscriptionController extends HttpServlet {
 			String bankName = request.getParameter("bank"); //주거래지점
 			String customerRank = request.getParameter("customerRank");
 			String creditRank = request.getParameter("creditRank");
-			
 			
 			if(customerName != "")
 				customerDTO.setCustomerName(customerName);
@@ -101,12 +101,15 @@ public class LoanSubscriptionController extends HttpServlet {
 			String repaymentMethod = request.getParameter("repaymentMethod");
 			
 			
+			
 			if(loanType != null)
 				loanContractDTO.setLoanType(loanType);
 			if(loanProductName != null)
 				loanContractDTO.setLoanName(loanProductName);
-			if(loanAmount != null)
-				loanContractDTO.setBalance(Integer.parseInt(interestRate));
+			if(loanAmount != null) {
+				loanContractDTO.setLoanAmount(Integer.parseInt(loanAmount+"0000"));
+				loanContractDTO.setBalance(Integer.parseInt(loanAmount+"0000")); //대출 잔금
+			}
 			if(interestRate != null) 
 				loanContractDTO.setInterestRate(Integer.parseInt(interestRate));
 			if(repaymentMethod != null)
@@ -134,14 +137,7 @@ public class LoanSubscriptionController extends HttpServlet {
 			System.out.println("repaymentMethod: " + repaymentMethod);
 			*/
 			
-			/*for (int i = 0; i < infos.length; i++) {
-			    String[] selectedJobs = request.getParameterValues(infos[i]);
-			    if (selectedJobs != null) {
-			        System.out.println(infos[i] + ": " + String.join(", ", selectedJobs));
-			    }
-			}*/
-			
-			//request.setAttribute("searchInputValue", bankDTO);
+			int isLoanRegistered = loanService.subscriptionLoan(customerDTO, loanContractDTO);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productSubscription.jsp");
 			dispatcher.forward(request, response);

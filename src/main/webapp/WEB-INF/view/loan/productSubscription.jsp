@@ -23,13 +23,11 @@ pageEncoding="UTF-8"%>
 						<th>이름</th>
 						<td><input id="customerName" name="customerName" class="middleInput"/></td>
 						<th>전화번호</th>
-						<td>
-							<input id="phoneNumber" name="phoneNumber" class="middleInput"/>
-						</td>
+						<td><input id="phoneNumber" name="phoneNumber" class="middleInput"/></td>
 					</tr>
 					<tr>
 						<th>거주지</th>
-						<td colspan=4>
+						<td>
 							<select name="citySelect" class="innerSelectBox customerCity" onchange="changeCounty(this.selectedIndex);">
 								<option value="">전체</option>
 								<option value="서울특별시">서울특별시</option>
@@ -49,17 +47,9 @@ pageEncoding="UTF-8"%>
 								<option value="경상남도">경상남도</option>
 								<option value="제주도">제주도</option>
 							</select>
-							<select name="district" class="select">
+							<select name="district" class="select" id="districtSelect">
 								<option value="">-</option>
 							</select>
-						</td>
-					</tr>
-					<tr>
-						<th>주민번호</th>
-						<td>
-							<input id="residentRegistrationNumber1" name="residentRegistrationNumber" class="shortInput"/>
-								-
-							<input id="residentRegistrationNumber2" name="residentRegistrationNumber" class="shortInput"/>
 						</td>
 						<th>국가</th>
 						<td>
@@ -71,7 +61,13 @@ pageEncoding="UTF-8"%>
 							</select>
 						</td>
 					</tr>
-					<tr>						
+					<tr>
+						<th>주민번호</th>
+						<td>
+							<input id="residentRegistrationNumber1" name="residentRegistrationNumber" class="shortInput"/>
+								-
+							<input type="password" id="residentRegistrationNumber2" name="residentRegistrationNumber" class="shortInput" maxlength="7"/>
+						</td>
 						<th>직업</th>
 						<td>
 							<select id="loanTypeSelect" name="job" class="shortSelect">
@@ -85,16 +81,10 @@ pageEncoding="UTF-8"%>
 								<option value="100">무직</option>
 							</select>
 						</td>
+					</tr>
+					<tr>						
 						<th>보증인</th>
 						<td><input id="suretyName" name="suretyName" class="middleInput"/></td>
-					</tr>
-					<tr>
-						<th>담당 직원</th>
-						<td><input type="text" id="employeeName" name="employeeName" class="middleInput"/></td>
-						<th class="office">주거래지점</th>
-						<td><input type="text" id="bank" name="bank" class="middleInput"/></td>
-					</tr>
-					<tr>
 						<th>고객 등급</th>
 						<td>
 							<select name="customerRank" class="shortSelect">
@@ -104,6 +94,14 @@ pageEncoding="UTF-8"%>
 								<option value="VVIP">VVIP</option>
 							</select>
 						</td>
+					</tr>
+					<tr>
+						<th>담당 직원</th>
+						<td><input type="text" id="employeeName" name="employeeName" class="middleInput"/></td>
+						<th class="office">주거래지점</th>
+						<td><input type="text" id="bank" name="bank" class="middleInput"/></td>
+					</tr>
+					<tr>
 						<th>신용 등급</th>
 						<td>
 							<select name="creditRank" class="shortSelect">
@@ -115,6 +113,8 @@ pageEncoding="UTF-8"%>
 							</select>
 							급
 						</td>
+						<th>내부 위험도</th>
+						<td> - <button type="button">계산하기</button></td>
 					</tr>
 				</table>
 
@@ -146,12 +146,12 @@ pageEncoding="UTF-8"%>
 						</td>
 						<th>대출 금액</th>
 						<td>
-							<input type="number" id="loanAmount" name="loanAmount" class="shortInput" type="number" min="0" max="999" step="1"/>
+							<input type="number" id="loanAmount" name="loanAmount" class="shortInput" type="number" min="0" max="5000" step="1"/>
 							만원
 						</td>
 					</tr>
 					<tr>
-						<th>이자</th>
+						<th>이자 / 대출기간</th>
 						<td>
 							<!-- <select name="interest" class="shortSelect">
 								<option value="simple">복리</option>
@@ -160,9 +160,12 @@ pageEncoding="UTF-8"%>
 							&nbsp;연
 							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
 							%
+							&nbsp; | &nbsp;&nbsp;
+							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
+							년
 						</td>
 						<th>상환 방법</th>
-						<td>
+						<td colspan=3>
 							<select name="repaymentMethod" class="shortSelect">
 								<option value="원리금균등분할상환">원리금균등분할상환</option>
 								<option value="원금균등분할상환">원금균등분할상환</option>
@@ -181,6 +184,7 @@ pageEncoding="UTF-8"%>
 		generateMenu('loan', 'productSubscription');		
 	</script>
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
+	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
 </body>
 </html>

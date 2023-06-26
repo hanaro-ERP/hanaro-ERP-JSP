@@ -42,6 +42,22 @@ public class LoanProductDAO {
 		return -1; // Database operation failed
 	}
 
+	public int getLoanIdByLoanName(String loanName) {
+		int lId = -1;
+	    String SQL = "SELECT l_id FROM loans WHERE loan_name = ?";
+	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	        pstmt.setString(1, loanName);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	            	lId = rs.getInt("l_id");
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return lId;
+	}
+	
 	// Read a loan by loanId
 	public LoanProductDTO getLoanByLoanId(int loanId) {
 		LoanProductDTO loan = new LoanProductDTO();

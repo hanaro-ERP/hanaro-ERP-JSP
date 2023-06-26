@@ -12,6 +12,13 @@ public class CustomerUtil {
 		return phoneNumber;
 	}
 
+	public boolean convertIntToGender(int gender) {
+		if(gender % 2 == 0) //여성
+			return true;
+		else
+			return false;
+	}
+	
 	public boolean convertGenderToBinary(String gender) {
 		if (gender.equals("여성"))
 			return true;
