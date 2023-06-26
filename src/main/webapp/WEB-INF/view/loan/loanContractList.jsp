@@ -55,22 +55,19 @@
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">대출일</div>
 						<ul class="loanIssueDate" id="loanContractStartDate">
-							<li><input type="checkbox" value="전체" id="issueDateAll"
-								name="loanContractStartDate">전체</li>
+							<li><input type="checkbox" value="전체" id="issueDateAll" name="loanContractStartDate">전체</li>
 							<li class="directInput">
-								<p>직접 입력</p> <select name="loanContractStartDate"
-								class="yearSelect" disabled="true"></select> <select
-								name="loanContractStartDate" class="monthSelect" disabled="true"></select>
-								<select name="loanContractStartDate" class="daySelect"
-								disabled="true"></select>
+								<p>직접 입력</p>
+								<select name="loanContractStartDate" class="yearSelect" disabled="true"></select> 
+								<select name="loanContractStartDate" class="monthSelect" disabled="true"></select>
+								<select name="loanContractStartDate" class="daySelect" disabled="true"></select>
 							</li>
 						</ul>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">만기일</div>
 						<ul class="loanMuturityDate" id="loanContractEndDate">
-							<li><input type="checkbox" value="전체" id="muturityDateAll"
-								name="loanContractEndDate">전체</li>
+							<li><input type="checkbox" value="전체" id="muturityDateAll" name="loanContractEndDate">전체</li>
 							<li class="directInput">
 								<p>직접 입력</p> 
 								<select name="loanContractEndDate" class="yearSelect" disabled="true"></select> 

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import DTO.AccountDTO;
 import DTO.AccountSearchDTO;
+import DTO.CustomerDTO;
 import DTO.TransactionDTO;
 import Service.AccountService;
 
@@ -24,8 +25,8 @@ public class DepositListController extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		getTransactionListProcess(request, response);
 	}
 	
 	@Override
@@ -38,15 +39,17 @@ public class DepositListController extends HttpServlet {
 		if (requestURI.endsWith("/depositList/searchAccounts")) {
 			try {
 				String customerName = request.getParameter("customerName");
-				String identification = String.join("-", request.getParameterValues("identification"));
+				String identification1 = request.getParameter("identification1");
+				String identification2 = request.getParameter("identification2");
 				String accountNumber = request.getParameter("accountNumber");
 				String depositType = request.getParameter("depositType");
-				String depositOpenDate = String.join("-", request.getParameterValues("depositStartDate"));
+				String[] depositOpenDate = request.getParameterValues("depositStartDate");
 				String[] depositBalance = request.getParameterValues("depositBalance");
 				
 				AccountSearchDTO accountSearchDTO = new AccountSearchDTO();
 				accountSearchDTO.setCustomerName(customerName);
-				if (identification.length() == 14) accountSearchDTO.setIdentification(identification);
+				accountSearchDTO.setIdentification1(identification1);
+				accountSearchDTO.setIdentification2(identification2);
 				accountSearchDTO.setAccountNumber(accountNumber);
 				accountSearchDTO.setDepositType(depositType);
 				accountSearchDTO.setAccountOpenDate(depositOpenDate);
@@ -55,18 +58,23 @@ public class DepositListController extends HttpServlet {
 				List<AccountDTO> accountList = AccountService.getAccountList(accountSearchDTO);
 				AccountDTO accountDTO = new AccountDTO();
 				
-				request.setAttribute("accountDTO", accountDTO);
+				request.setAttribute("accountDTO", accountSearchDTO);
 				request.setAttribute("searchedAccountList", accountList);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/deposit/depositProductList.jsp");
 				dispatcher.forward(request, response);
 				} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (requestURI.endsWith("/depositList/searchTransactions")) {
+		}
+	}
+	
+	protected void getTransactionListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String requestURI = request.getRequestURI();
+		if (requestURI.endsWith("/depositList/searchTransactions")) {
 			try {
-				int accountId = Integer.parseInt(request.getParameter("selectedAccountId"));
-				String accountNumber = request.getParameter("selectedAccountNumber");
-				String customerName = request.getParameter("selectedCustomerName");
+				int accountId = Integer.parseInt(request.getParameter("id"));
+				String accountNumber = request.getParameter("number");
+				String customerName = request.getParameter("name");
 				
 				AccountDTO accountDTO = new AccountDTO();
 				accountDTO.setAccountId(accountId);
@@ -77,7 +85,7 @@ public class DepositListController extends HttpServlet {
 				
 				request.setAttribute("showTransactions", "showTransactions");
 				request.setAttribute("searchedTransactionList", transactionList);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/deposit/depositProductList.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/components/transactionPopup.jsp");
 				dispatcher.forward(request, response);
 				} catch (Exception e) {
 				e.printStackTrace();

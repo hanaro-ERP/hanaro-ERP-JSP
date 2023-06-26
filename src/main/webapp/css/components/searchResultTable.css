@@ -8,6 +8,9 @@
 	border-collapse: separate;
 	border-spacing: 1;
 }
+.popUpTable {
+	width: 100%;
+}
 .searchTable tr th {
 	background: #2DB400;
 	height: 40px;
@@ -28,7 +31,17 @@
 	cursor: pointer;
 	background-color: #F2F4F6;
 }
+.popUpTable tr:hover {
+	cursor: auto;
+	background-color: #FFFFFF;
+}
 .searchTable tr td {
 	height: 40px;
 	border: 0.5px solid #8B95A1;
+}
+.popupTitleBox {
+	width: 500px;
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
 }
