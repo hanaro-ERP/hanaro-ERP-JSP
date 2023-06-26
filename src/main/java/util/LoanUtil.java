@@ -1,11 +1,14 @@
 package util;
 
 public class LoanUtil {
-	public String convertMoneyUnit(long money) {
-
-		if (money >= 100000000) {
+	public String convertMoneyUnit(long money) {		
+		if (money == 0) {
+			return "-";
+		}
+		else if (money >= 100000000) {
 			return money/100000000 + "억원";
-		} else {
+		} 
+		else {
 			return money/10000 + "만원";
 		}
 	}	
