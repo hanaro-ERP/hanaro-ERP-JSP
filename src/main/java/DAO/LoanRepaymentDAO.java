@@ -13,6 +13,7 @@ import java.util.List;
 import DTO.LoanContractDTO;
 import DTO.LoanRepaymentDTO;
 import util.DatabaseUtil;
+import util.LoanUtil;
 
 public class LoanRepaymentDAO {
 
@@ -58,8 +59,8 @@ public class LoanRepaymentDAO {
 		loanRepayment.setAccountId(rs.getInt("a_id"));
 		loanRepayment.setTradeDatetime(rs.getTimestamp("trade_datetime"));
 		loanRepayment.setTradeAmount(rs.getLong("trade_amount"));
+		loanRepayment.setBalance(rs.getLong("balance"));
 		loanRepayment.setAgent(rs.getBoolean("agent"));
-		loanRepayment.setTradeAmount(rs.getLong("loan_amount"));
 		loanRepayment.setAccountNumber(rs.getString("account_number"));
 	}
 
@@ -111,21 +112,24 @@ public class LoanRepaymentDAO {
 	}
 	
 	public List<LoanRepaymentDTO> getLoanRepaymentByDTO(LoanContractDTO loanContractDTO) {	
-		StringBuilder queryBuilder = new StringBuilder("SELECT lr.*, a.account_number"
+		StringBuilder queryBuilder = new StringBuilder("SELECT lr.*, a.account_number, lc.balance"
 				+ " FROM loanRepayments lr");
 
 		queryBuilder.append(" JOIN accounts a ON lr.a_id = a.a_id");
+		queryBuilder.append(" JOIN loanContracts lc ON lr.lc_id = lc.lc_id");
 		queryBuilder.append(" WHERE 1=1");
-		
-		if (loanContractDTO.getLoanId() != 0) {
+
+		if (loanContractDTO.getLoanContractId() != 0) {
 			queryBuilder.append(" AND lr.lc_id = ");
-			queryBuilder.append(loanContractDTO.getLoanId());
+			queryBuilder.append(loanContractDTO.getLoanContractId());
 		}		
 
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 
-			System.out.println("pstmt ="+ pstmt);
+			System.out.println("REPAYMENT DAO pstmt ="+ pstmt);
+			
+			LoanUtil loanUtil = new LoanUtil();
 			List<LoanRepaymentDTO> loanRepaymentDTOList = new ArrayList<>();	
 			
 			try (ResultSet rs = pstmt.executeQuery()) {				
@@ -134,6 +138,12 @@ public class LoanRepaymentDAO {
 					fillLoanRepaymentDTOFromResultSet(loanRepaymentDTO, rs);
 					loanRepaymentDTO.setCustomerName(loanContractDTO.getCustomerName());
 					loanRepaymentDTO.setEmployeeName(loanContractDTO.getEmployeeName());
+
+					String tradeAmountString = loanUtil.convertMoneyUnit(loanRepaymentDTO.getTradeAmount());
+					loanRepaymentDTO.setTradeAmountString(tradeAmountString);
+					String balanceString = loanUtil.convertMoneyUnit(loanRepaymentDTO.getBalance());
+					loanRepaymentDTO.setBalanceString(balanceString);
+
 					loanRepaymentDTOList.add(loanRepaymentDTO);
 				}
 				return loanRepaymentDTOList;

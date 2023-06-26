@@ -69,8 +69,8 @@
 						<ul class="loanMuturityDate" id="loanContractEndDate">
 							<li><input type="checkbox" value="전체" id="muturityDateAll" name="loanContractEndDate">전체</li>
 							<li class="directInput">
-								<p>직접 입력</p>
-								<select name="loanContractEndDate" class="yearSelect" disabled="true"></select>
+								<p>직접 입력</p> 
+								<select name="loanContractEndDate" class="yearSelect" disabled="true"></select> 
 								<select name="loanContractEndDate" class="monthSelect" disabled="true"></select>
 								<select name="loanContractEndDate" class="daySelect" disabled="true"></select>
 							</li>
@@ -161,10 +161,10 @@
 					<td><%=dto.getCustomerName()%></td>
 					<td><%=dto.getGuarantorName()%></td>
 					<td><%=dto.getStartDate()%></td>
-					<td><%=dto.getMuturityDate()%></td>
-					<td><%=dto.getBalance()%></td>
+					<td><%=dto.getMuturityDateString()%></td>
+					<td><%=dto.getBalanceString()%></td>
 					<td><%=dto.getPaymentMethod()%></td>
-					<td><%=dto.getDelinquentAmount()%></td>
+					<td><%=dto.getDelinquentAmountString()%></td>
 					<td><%=dto.getInterestRate()%></td>
 				</tr>
 				<%
@@ -206,9 +206,15 @@
 									<td><%= dto.getAccountNumber() %></td>
 									<td><%= dto.getCustomerName() %></td>
 									<td><%= dto.getEmployeeName() %></td>
-									<td><%= dto.getTradeAmount() %></td>
-									<td><%= dto.getLoanAmount() %></td>
-									<td><%= dto.isAgent() %></td>
+									<td><%= dto.getTradeAmountString()%></td>
+									<td><%= dto.getBalanceString()%></td>
+									<td>
+									  <% if (dto.isAgent()) { %>
+									    <%= "O" %>
+									  <% } else { %>
+									    <%= "X" %>
+									  <% } %>
+									</td>
 								</tr>
 								<%
 							}

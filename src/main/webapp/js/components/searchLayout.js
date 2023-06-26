@@ -524,18 +524,24 @@ let yearSelect, monthSelect, daySelect;
 let rowIndex = 0;
 
 // 연도 설정
-function setYearSelect() {
-	yearSelectList = document.getElementsByClassName("yearSelect");
-	const currentYear = new Date().getFullYear();
-
-	Array.from(yearSelectList).forEach(yearSelectList => {
-		for (let year = 1990; year <= currentYear; year++) {
-			const option = document.createElement("option");
-			option.value = year;
-			option.textContent = year;
-			yearSelectList.appendChild(option);
-		}
-	});
+function setYearSelect(ulId) {
+	yearSelectList = document.querySelector('#' + ulId + ' .yearSelect');
+	
+	let endOfYearList = ""
+	
+	if (ulId.includes("Start")){		
+		endOfYearList = new Date().getFullYear();
+	}
+	else {
+		endOfYearList = 2050;
+	}
+	
+	for (let year = 1990; year <= endOfYearList; year++) {
+		const option = document.createElement("option");
+		option.value = year;
+		option.textContent = year;
+		yearSelectList.appendChild(option);
+	}
 }
 
 //월 설정
@@ -561,7 +567,7 @@ function setMonthSelect() {
 }
 
 // 일 설정
-function setDaySelect(isInitial) {
+function setDaySelect(isInitial) {	
 	daySelectList = document.getElementsByClassName("daySelect");
 	daySelectRow = document.getElementsByClassName("daySelect")[rowIndex];
 	let endDay;	// 선택한 월에 따라 endDay 다르게
@@ -619,7 +625,6 @@ function setDaySelect(isInitial) {
 function changeDate() {
 	yearSelectList = document.getElementsByClassName("yearSelect");
 	monthSelectList = document.getElementsByClassName("monthSelect");
-	let ulId;
 
 	if (yearSelectList.length > 0) {
 		Array.from(yearSelectList).forEach(yearSelectRow => {
@@ -668,11 +673,9 @@ function changeDateRowSelect(rowId) {
 
 	if (rowId === "loanContractStartDate") {
 		ulElement = document.getElementById("loanContractStartDate");
-		rowIndex = 0;
 	}
 	else if (rowId === "loanContractEndDate") {
 		ulElement = document.getElementById("loanContractEndDate");
-		rowIndex = 1;
 	}
 	else if (rowId === "depositStartDate") {
 		ulElement = document.getElementById("depositStartDate");
@@ -682,12 +685,7 @@ function changeDateRowSelect(rowId) {
 		return; // 유효한 rowId가 아닌 경우 함수 종료
 	}
 	listItems = Array.from(ulElement.querySelectorAll('li'));
-	if (rowIndex == 0) {
-		listItems[0].classList.remove('selectedLi'); // '전체' 해제하고
-		listItems[1].classList.add('selectedLi'); // '직접입력' 선택
-	}
-	else {
-		listItems[1].classList.remove('selectedLi'); // '전체' 해제하고
-		listItems[0].classList.add('selectedLi'); // '직접입력' 선택
-	}
+	
+	listItems[0].classList.remove('selectedLi'); // '전체' 해제하고
+	listItems[1].classList.add('selectedLi'); // '직접입력' 선택
 }
