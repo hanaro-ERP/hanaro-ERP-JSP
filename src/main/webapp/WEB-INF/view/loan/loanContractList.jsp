@@ -35,7 +35,7 @@
 				<div class="innerInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">상품 이름</div>
-						<input name="loanName" class="loanContractSearchInput"
+						<input name="loanName" class="innerSearchInput"
 							value="${loanContractInput.productName}"></input>
 						<div class="innerInformationRowTitle">대출 구분</div>
 						<select id="loanType" name="loanType" class="innerSelectBox">
@@ -46,37 +46,33 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">고객 이름</div>
-						<input name="customerName" class="loanContractSearchInput"
+						<input name="customerName" class="innerSearchInput3"
 							value="${loanContractInput.customerName}"></input>
 						<div class="innerInformationRowTitle">담당 직원</div>
-						<input name="employeeName" class="loanContractSearchInput"
+						<input name="employeeName" class="innerSearchInput3"
 							value="${loanContractInput.employeeName}"></input>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">대출일</div>
 						<ul class="loanIssueDate" id="loanContractStartDate">
-							<li><input type="checkbox" value="전체" id="issueDateAll"
-								name="loanContractStartDate">전체</li>
-							<li id="directInput">
-								<p>직접 입력</p> <select name="loanContractStartDate"
-								class="yearSelect" disabled="true"></select> <select
-								name="loanContractStartDate" class="monthSelect" disabled="true"></select>
-								<select name="loanContractStartDate" class="daySelect"
-								disabled="true"></select>
+							<li><input type="checkbox" value="전체" id="issueDateAll" name="loanContractStartDate">전체</li>
+							<li class="directInput">
+								<p>직접 입력</p>
+								<select name="loanContractStartDate" class="yearSelect" disabled="true"></select> 
+								<select name="loanContractStartDate" class="monthSelect" disabled="true"></select>
+								<select name="loanContractStartDate" class="daySelect" disabled="true"></select>
 							</li>
 						</ul>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">만기일</div>
 						<ul class="loanMuturityDate" id="loanContractEndDate">
-							<li><input type="checkbox" value="전체" id="muturityDateAll"
-								name="loanContractEndDate">전체</li>
-							<li id="directInput">
-								<p>직접 입력</p> <select name="loanContractEndDate"
-								class="yearSelect" disabled="true"></select> <select
-								name="loanContractEndDate" class="monthSelect" disabled="true"></select>
-								<select name="loanContractEndDate" class="daySelect"
-								disabled="true"></select>
+							<li><input type="checkbox" value="전체" id="muturityDateAll" name="loanContractEndDate">전체</li>
+							<li class="directInput">
+								<p>직접 입력</p> 
+								<select name="loanContractEndDate" class="yearSelect" disabled="true"></select> 
+								<select name="loanContractEndDate" class="monthSelect" disabled="true"></select>
+								<select name="loanContractEndDate" class="daySelect" disabled="true"></select>
 							</li>
 						</ul>
 					</div>
@@ -85,7 +81,7 @@
 						<ul id="balanceList">
 							<li id="balanceAllLi"><input type="checkbox" value="전체"
 								id="balanceAll">전체</li>
-							<li id="directInput">
+							<li class="directInput">
 								<p>직접 입력</p> <input id="directBalanceInput1" name="balanceList"
 								class="directInputValue" disabled="true"> &nbsp;만원
 								이상&nbsp;&nbsp; <input id="directBalanceInput2"
@@ -129,7 +125,7 @@
 				</div>
 			</form>
 			<div class="searchTitle">
-				<h2>검색 결과</h2>
+				<h1>검색 결과</h1>
 			</div>
 			<table class="searchTable" id="loanSearchTable">
 				<tr>
@@ -165,10 +161,10 @@
 					<td><%=dto.getCustomerName()%></td>
 					<td><%=dto.getGuarantorName()%></td>
 					<td><%=dto.getStartDate()%></td>
-					<td><%=dto.getMuturityDate()%></td>
-					<td><%=dto.getBalance()%></td>
+					<td><%=dto.getMuturityDateString()%></td>
+					<td><%=dto.getBalanceString()%></td>
 					<td><%=dto.getPaymentMethod()%></td>
-					<td><%=dto.getDelinquentAmount()%></td>
+					<td><%=dto.getDelinquentAmountString()%></td>
 					<td><%=dto.getInterestRate()%></td>
 				</tr>
 				<%
@@ -210,9 +206,15 @@
 									<td><%= dto.getAccountNumber() %></td>
 									<td><%= dto.getCustomerName() %></td>
 									<td><%= dto.getEmployeeName() %></td>
-									<td><%= dto.getTradeAmount() %></td>
-									<td><%= dto.getLoanAmount() %></td>
-									<td><%= dto.isAgent() %></td>
+									<td><%= dto.getTradeAmountString()%></td>
+									<td><%= dto.getBalanceString()%></td>
+									<td>
+									  <% if (dto.isAgent()) { %>
+									    <%= "O" %>
+									  <% } else { %>
+									    <%= "X" %>
+									  <% } %>
+									</td>
 								</tr>
 								<%
 							}
@@ -226,7 +228,7 @@
 	<script
 		src="${pageContext.request.contextPath}/js/components/searchLayout.js "></script>
 	<script>
-		generateMenu('loan', 'loanContractList');
+		generateMenu('loan', 'loanContract');
 		let showRepaymentList = "<%= request.getAttribute("showRepaymentList") %>";
 		if (showRepaymentList == "showRepaymentList") {
 			const popupBox = document.querySelector(".popupBox");

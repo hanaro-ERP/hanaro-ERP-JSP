@@ -26,7 +26,7 @@ public class LoanService {
 		LoanContractDAO loanContractDAO = new LoanContractDAO();
 
 		List<LoanContractDTO> loanContractDTOList = loanContractDAO.getLoanContractByDTO(loanContractDTO);
-		
+
 		return loanContractDTOList;		
 	}
 	
@@ -48,6 +48,7 @@ public class LoanService {
 	
 	public static List<LoanRepaymentDTO> getLoanRepaymentList(LoanContractDTO loanContractDTO) {
 		LoanRepaymentDAO loanRepaymentDAO = new LoanRepaymentDAO();
+
 		List<LoanRepaymentDTO> loanRepaymentDTOList = loanRepaymentDAO.getLoanRepaymentByDTO(loanContractDTO);
 
 		return loanRepaymentDTOList;
