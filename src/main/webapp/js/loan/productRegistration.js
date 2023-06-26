@@ -32,18 +32,17 @@ function validateRate() {
 }
 
 function registerForm() {
-    if (!validateLimit()) {
-    	return false;
-    }
-    if (!validatePeriod()) {
-        return false;
-    }
-    if (!validateRate()) {
-        return false;
-    }
-    if (!validateForm()) {
-    	return false;
-    }
-
-    return true;
+	if (!validateLimit()) {
+		return false;
+	}
+	if (!validatePeriod()) {
+		return false;
+	}
+	if (!validateRate()) {
+		return false;
+	}
+	if (!validateForm()) {
+		return false;
+	}
+	return true;
 }

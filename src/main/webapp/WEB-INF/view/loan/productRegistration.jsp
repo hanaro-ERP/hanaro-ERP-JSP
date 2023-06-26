@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
 				<div class="innerSubTitle"><h2>상품 정보</h2></div>
 				<table class="inputTable">
  					<tr>
- 						<th>대출 구분</th>
+						<th>대출 구분</th>
 						<td>
 							<select name="loanType" class="shortSelect">
 								<option value="신용대출">신용 대출</option>
