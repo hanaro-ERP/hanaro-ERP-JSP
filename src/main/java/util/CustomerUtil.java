@@ -22,5 +22,5 @@ public class CustomerUtil {
 			return "여성";
 		else
 			return "남성";
-	}
+	}	
 }

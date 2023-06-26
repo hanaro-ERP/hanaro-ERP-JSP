@@ -54,9 +54,9 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">나이</div>
-						<ul id="customerAge">
+						<ul id="customerAge" class="directInputUl">
 							<li id="ageAllLi"><input type="checkbox" value="" id="ageAll">전체</li>
-							<li id="directInput">
+							<li class="directInput">
 							    <p>직접 입력</p>
 							    <input id="directAgeInput1" name="customerAge" class="directInputValue" disabled="true">&nbsp;세 이상&nbsp;&nbsp;
 							    <input id="directAgeInput2" name="customerAge" class="directInputValue" disabled="true">&nbsp;세 이하&nbsp;
@@ -209,7 +209,6 @@
 	    gender = customerSearchDTO.getStrGender();
 	    isOpen = customerSearchDTO.getIsOpen();
 	}
-
 	%>
 	<script>
 		const jobCode = document.getElementById('jobCode');
@@ -295,8 +294,6 @@
 					} else {
 						const directInput = document.getElementById('directInput');
 						const inputs = directInput.querySelectorAll('input');
-						console.log(inputs);
-						console.log("<%= customerAges[0] %>");
 	
 						inputs[0].value = "<%= customerAges[0] %>"; 
 						<% if (customerAges.length >= 2) { %>

@@ -62,7 +62,6 @@ public class LoginController extends HttpServlet {
 		try {
 			storedEmployeeDTO = (EmployeeDTO) LoginService.authenticateEmployee(employeeDTO);
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -71,11 +70,9 @@ public class LoginController extends HttpServlet {
 			request.getSession().setAttribute("loginName", storedEmployeeDTO.getEmployeeName());
 			request.getSession().setAttribute("loginPosition", storedEmployeeDTO.getPosition());
 			
-//			response.sendRedirect(request.getContextPath() + "/view/main/main.jsp");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/main/main.jsp");
 			dispatcher.forward(request, response);
 		} else {
-//			redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 잘못 입력했습니다.", String.valueOf(employeeId));
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/login/login.jsp");
 			dispatcher.forward(request, response);
 		}
