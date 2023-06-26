@@ -13,6 +13,15 @@
 	text-align: center;
 	margin-right: 10px;
 }
+#directInput {
+	width: auto;
+	display: flex;
+	align-items: center;
+	margin-right: 150px;
+}
+#directInput > p {
+	margin: 0 10px;
+}
 .popupBox{
 	background: #FFFFFF;
 	padding: 10px;
@@ -39,7 +48,7 @@
 	font-size: 30px;
 	line-height: 1.6;
 }
-/* #historyTableBox{
+#historyTableBox{
 	width: 100%;
 	height: 370px;
 	overflow-y: auto; 
@@ -51,9 +60,7 @@
 }
 #historyTable tr th{
 	position: sticky;
-	top: 0; */
-#historyTable{
-	width: 100%;
+	top: 0; 
 }
 #historyTable tr th:nth-child(1){
 	width: 180px;
