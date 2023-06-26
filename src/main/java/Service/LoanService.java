@@ -8,12 +8,13 @@ import DAO.CustomerDAO;
 import DAO.EmployeeDAO;
 import DAO.LoanContractDAO;
 import DAO.LoanProductDAO;
+import DAO.LoanRepaymentDAO;
 import DTO.BankDTO;
 import DTO.CustomerDTO;
 import DTO.EmployeeDTO;
 import DTO.LoanContractDTO;
 import DTO.LoanProductDTO;
-import DTO.LoanRegistrationDTO;
+import DTO.LoanRepaymentDTO;
 import DTO.LoanSearchDTO;
 
 public class LoanService {
@@ -42,6 +43,13 @@ public class LoanService {
 		
 		int isLoanRegistered = loanDAO.insertLoanProduct(loanProductDTO);
 		
-		return isLoanRegistered;		
+		return isLoanRegistered;
+	}
+	
+	public static List<LoanRepaymentDTO> getLoanRepaymentList(LoanContractDTO loanContractDTO) {
+		LoanRepaymentDAO loanRepaymentDAO = new LoanRepaymentDAO();
+		List<LoanRepaymentDTO> loanRepaymentDTOList = loanRepaymentDAO.getLoanRepaymentByDTO(loanContractDTO);
+
+		return loanRepaymentDTOList;
 	}
 }

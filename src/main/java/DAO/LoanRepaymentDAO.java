@@ -1,12 +1,16 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import DTO.LoanContractDTO;
 import DTO.LoanRepaymentDTO;
 import util.DatabaseUtil;
 
@@ -55,6 +59,8 @@ public class LoanRepaymentDAO {
 		loanRepayment.setTradeDatetime(rs.getTimestamp("trade_datetime"));
 		loanRepayment.setTradeAmount(rs.getLong("trade_amount"));
 		loanRepayment.setAgent(rs.getBoolean("agent"));
+		loanRepayment.setTradeAmount(rs.getLong("loan_amount"));
+		loanRepayment.setAccountNumber(rs.getString("account_number"));
 	}
 
 	// Update a loan repayment
@@ -102,5 +108,43 @@ public class LoanRepaymentDAO {
 			e.printStackTrace();
 		}
 		return loanRepayments;
+	}
+	
+	public List<LoanRepaymentDTO> getLoanRepaymentByDTO(LoanContractDTO loanContractDTO) {	
+		StringBuilder queryBuilder = new StringBuilder("SELECT lr.*, a.account_number"
+				+ " FROM loanRepayments lr");
+
+		queryBuilder.append(" JOIN accounts a ON lr.a_id = a.a_id");
+		queryBuilder.append(" WHERE 1=1");
+		
+		if (loanContractDTO.getLoanId() != 0) {
+			queryBuilder.append(" AND lr.lc_id = ");
+			queryBuilder.append(loanContractDTO.getLoanId());
+		}		
+
+		try (Connection conn = DatabaseUtil.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+
+			System.out.println("pstmt ="+ pstmt);
+			List<LoanRepaymentDTO> loanRepaymentDTOList = new ArrayList<>();	
+			
+			try (ResultSet rs = pstmt.executeQuery()) {				
+				while (rs.next()) {
+					LoanRepaymentDTO loanRepaymentDTO = new LoanRepaymentDTO();
+					fillLoanRepaymentDTOFromResultSet(loanRepaymentDTO, rs);
+					loanRepaymentDTO.setCustomerName(loanContractDTO.getCustomerName());
+					loanRepaymentDTO.setEmployeeName(loanContractDTO.getEmployeeName());
+					loanRepaymentDTOList.add(loanRepaymentDTO);
+				}
+				return loanRepaymentDTOList;
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			} 
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

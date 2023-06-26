@@ -61,28 +61,21 @@ public class LoanProductDAO {
 	}
 
 	// Fill a LoanDTO from a ResultSet
-	private void fillLoanDTOFromResultSet(LoanProductDTO loan, ResultSet rs) throws SQLException {
-		loan.setLoanId(rs.getInt("l_id"));
-		loan.setDuration(rs.getInt("duration"));
-		loan.setAmount(rs.getLong("amount"));
-		loan.setInterestRate(rs.getFloat("interest_rate"));
+	private void fillLoanDTOFromResultSet(LoanProductDTO loanProduct, ResultSet rs) throws SQLException {
+		loanProduct.setLoanId(rs.getInt("l_id"));
+		loanProduct.setLoanType(rs.getString("loan_type"));
+		loanProduct.setLoanName(rs.getString("loan_name"));
+		loanProduct.setMinDuration(rs.getInt("min_duration"));
+		loanProduct.setMaxDuration(rs.getInt("max_duration"));
+		loanProduct.setMinAmount(rs.getLong("min_amount"));
+		loanProduct.setMaxAmount(rs.getLong("max_amount"));
+		loanProduct.setMinRate(rs.getFloat("min_interest_rate"));
+		loanProduct.setMaxRate(rs.getFloat("max_interest_rate"));
+		loanProduct.setJob(rs.getString("loan_job"));
+		loanProduct.setCollateral(rs.getString("collateral"));
+		loanProduct.setIncome(rs.getLong("income"));
 	}
-
-	// Update a loan
-	public int updateLoan(LoanProductDTO loan) {
-		String SQL = "UPDATE loans SET duration = ?, amount = ?, interest_rate = ? WHERE l_id = ?";
-		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setInt(1, loan.getDuration());
-			pstmt.setLong(2, loan.getAmount());
-			pstmt.setFloat(3, loan.getInterestRate());
-			pstmt.setInt(4, loan.getLoanId());
-			return pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return -1; // Database operation failed
-	}
-
+	
 	// Delete a loan
 	public int deleteLoan(int loanId) {
 		String SQL = "DELETE FROM loans WHERE l_id = ?";
@@ -156,18 +149,7 @@ public class LoanProductDAO {
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					LoanProductDTO loanProduct = new LoanProductDTO();
-					loanProduct.setLoanId(rs.getInt("l_id"));
-					loanProduct.setLoanType(rs.getString("loan_type"));
-					loanProduct.setLoanName(rs.getString("loan_name"));
-					loanProduct.setMinDuration(rs.getInt("min_duration"));
-					loanProduct.setMaxDuration(rs.getInt("max_duration"));
-					loanProduct.setMinAmount(rs.getLong("min_amount"));
-					loanProduct.setMaxAmount(rs.getLong("max_amount"));
-					loanProduct.setMinRate(rs.getFloat("min_interest_rate"));
-					loanProduct.setMaxRate(rs.getFloat("max_interest_rate"));
-					loanProduct.setJob(rs.getString("loan_job"));
-					loanProduct.setCollateral(rs.getString("collateral"));
-					loanProduct.setIncome(rs.getLong("income"));
+					fillLoanDTOFromResultSet(loanProduct, rs);
 
 					findLoanProducts.add(loanProduct);
 				}
