@@ -31,27 +31,27 @@
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">거주지</div>
 						<div class="innerInformationRowSubtitle">시·도</div>
-						<select name="citySelect" name="city" class="innerSelectBox2 customerCity" onchange="changeCounty(this.selectedIndex);">
+						<select id="citySelect" name="citySelect" class="innerSelectBox2 customerCity" onchange="changeCounty(this.selectedIndex);">
 							<option value="">-</option>
-						    <option value="서울특별시" <% if (bankDTO != null && "서울특별시".equals(bankDTO.getCity())) { %>selected<% } %>>서울특별시</option>
-						    <option value="부산광역시" <% if (bankDTO != null && "부산광역시".equals(bankDTO.getCity())) { %>selected<% } %>>부산광역시</option>
-						    <option value="대구광역시" <% if (bankDTO != null && "대구광역시".equals(bankDTO.getCity())) { %>selected<% } %>>대구광역시</option>
-						    <option value="인천광역시" <% if (bankDTO != null && "인천광역시".equals(bankDTO.getCity())) { %>selected<% } %>>인천광역시</option>
-						    <option value="광주광역시" <% if (bankDTO != null && "광주광역시".equals(bankDTO.getCity())) { %>selected<% } %>>광주광역시</option>
-						    <option value="대전광역시" <% if (bankDTO != null && "대전광역시".equals(bankDTO.getCity())) { %>selected<% } %>>대전광역시</option>
-						    <option value="울산광역시" <% if (bankDTO != null && "울산광역시".equals(bankDTO.getCity())) { %>selected<% } %>>울산광역시</option>
-						    <option value="경기도" <% if (bankDTO != null && "경기도".equals(bankDTO.getCity())) { %>selected<% } %>>경기도</option>
-						    <option value="강원도" <% if (bankDTO != null && "강원도".equals(bankDTO.getCity())) { %>selected<% } %>>강원도</option>
-						    <option value="충청북도" <% if (bankDTO != null && "충청북도".equals(bankDTO.getCity())) { %>selected<% } %>>충청북도</option>
-						    <option value="충청남도" <% if (bankDTO != null && "충청남도".equals(bankDTO.getCity())) { %>selected<% } %>>충청남도</option>
-						    <option value="전라북도" <% if (bankDTO != null && "전라북도".equals(bankDTO.getCity())) { %>selected<% } %>>전라북도</option>
-						    <option value="전라남도" <% if (bankDTO != null && "전라남도".equals(bankDTO.getCity())) { %>selected<% } %>>전라남도</option>
-						    <option value="경상북도" <% if (bankDTO != null && "경상북도".equals(bankDTO.getCity())) { %>selected<% } %>>경상북도</option>
-						    <option value="경상남도" <% if (bankDTO != null && "경상남도".equals(bankDTO.getCity())) { %>selected<% } %>>경상남도</option>
-						    <option value="제주도" <% if (bankDTO != null && "제주도".equals(bankDTO.getCity())) { %>selected<% } %>>제주도</option>
+						    <option value="서울특별시">서울특별시</option>
+						    <option value="부산광역시">부산광역시</option>
+						    <option value="대구광역시">대구광역시</option>
+						    <option value="인천광역시">인천광역시</option>
+						    <option value="광주광역시">광주광역시</option>
+						    <option value="대전광역시">대전광역시</option>
+						    <option value="울산광역시">울산광역시</option>
+						    <option value="경기도">경기도</option>
+						    <option value="강원도">강원도</option>
+						    <option value="충청북도">충청북도</option>
+						    <option value="충청남도">충청남도</option>
+						    <option value="전라북도">전라북도</option>
+						    <option value="전라남도">전라남도</option>
+						    <option value="경상북도">경상북도</option>
+						    <option value="경상남도">경상남도</option>
+						    <option value="제주도">제주도</option>
 						</select>
 						<div class="innerInformationRowSubtitle">시·군·구</div>
-						<select name="district" class="select">
+						<select id="districtSelect" name="district" class="select">
 							<option value="">-</option>
 						</select>
 					</div>
@@ -85,9 +85,17 @@
 			</table>
 		</div>
 	</main>
+	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script>
-		generateMenu('employee', 'bankList');		
+		generateMenu('employee', 'bankList');	
+		
+		const citySelect = document.getElementById('citySelect');
+		citySelect.value = "${searchInputValue.city}";
+		
+		changeCounty(citySelect.selectedIndex);
+		
+		const districtSelect = document.getElementById('districtSelect');
+		districtSelect.value = "${searchInputValue.district}";
 	</script>
-	<script src="${pageContext.request.contextPath}/js/employee/bankList.js"></script>
 </body>
 </html>
