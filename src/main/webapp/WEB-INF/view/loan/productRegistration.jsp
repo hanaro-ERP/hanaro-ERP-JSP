@@ -132,14 +132,16 @@ pageEncoding="UTF-8"%>
 		<%
 			Integer isLoanRegistered = (Integer) request.getAttribute("isLoanRegistered");
 			System.out.println(isLoanRegistered);
-		    if (isLoanRegistered != null && isLoanRegistered != -1) {
-				%>
-				alert("여신 상품이 성공적으로 등록되었습니다.");
-				<%
-			} else {
-				%>
-				alert("여신 상품이 등록에 실패하였습니다.");
-				<%
+			if (isLoanRegistered != null) {
+			    if (isLoanRegistered != -1) {
+					%>
+					alert("여신 상품이 성공적으로 등록되었습니다.");
+					<%
+				} else {
+					%>
+					alert("여신 상품이 등록에 실패하였습니다.");
+					<%
+				}
 			}
 		%>
 	</script>
