@@ -239,7 +239,6 @@ public class LoanContractDAO {
 					String delinquentAmountString = loanUtil.convertMoneyUnit(loanContracts.getDelinquentAmount());
 					loanContracts.setDelinquentAmountString(delinquentAmountString);
 					
-					System.out.println("dao delinquentAmountString = "+delinquentAmountString);
 					loanContractDTOList.add(loanContracts);
 				}
 				return loanContractDTOList;
