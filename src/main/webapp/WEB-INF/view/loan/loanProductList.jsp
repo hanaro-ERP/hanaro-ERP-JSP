@@ -121,7 +121,7 @@
 				</div>
 			</form>
 			<div>
-				<div class="innerSubTitle"><h2>검색 결과</h2></div>
+				<div class="innerSubTitle"><h1>검색 결과</h1></div>
 				<table class="searchTable" id="loanSearchTable">
 					<tr>
 						<th>상품 ID</th>
@@ -147,7 +147,7 @@
 									<td><%= loanProduct.getLoanName() %></td>
 									<td><%= loanProduct.getCollateral() %>
 									<td><%= loanUtil.convertJobCode(loanProduct.getJob()) %></td>
-									<td><%= loanProduct.getIncome() %></td>
+									<td><%= loanUtil.convertMoneyUnit(loanProduct.getIncome()) %></td>
 									<td><%= loanUtil.convertMoneyUnit(loanProduct.getMinAmount()) %></td>
 									<td><%= loanUtil.convertMoneyUnit(loanProduct.getMaxAmount()) %></td>
 									<td><%= loanProduct.getMinDuration() %>년</td>

@@ -211,7 +211,7 @@
 									<td><%= dto.getCustomerName() %></td>
 									<td><%= dto.getEmployeeName() %></td>
 									<td><%= dto.getTradeAmount() %></td>
-									<td><%= dto.getLoanAmount() %></td>
+									<td><%= dto.getBalance()%></td>
 									<td><%= dto.isAgent() %></td>
 								</tr>
 								<%

@@ -17,6 +17,7 @@ public class LoanContractDTO {
 	private Timestamp startDate;
 	private Timestamp muturityDate;
 	private String paymentMethod;
+	private long loanAmount;
 	private long balance;
 	private Date paymentDate;
 	private Date latePaymentDate;

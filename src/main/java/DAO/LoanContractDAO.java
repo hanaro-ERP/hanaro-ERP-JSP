@@ -19,8 +19,8 @@ public class LoanContractDAO {
 
 	// insert a new loan contract
 	public int insertLoanContract(LoanContractDTO loanContract) {
-		String SQL = "INSERT INTO loanContracts (lc_id, l_id, c_id, e_id, start_date, muturity_date, payment_method, balance, payment_date, "
-				+ "delinquent_amount, guarantor_id, interest_rate) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO loanContracts (lc_id, l_id, c_id, e_id, start_date, muturity_date, payment_method, loan_amount, balance, payment_date, "
+				+ "late_payment_date, delinquent_amount, guarantor_id, interest_rate) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanContract.getLoanContractId());
 			pstmt.setInt(2, loanContract.getLoanId());
@@ -29,11 +29,13 @@ public class LoanContractDAO {
 			pstmt.setTimestamp(5, loanContract.getStartDate());
 			pstmt.setTimestamp(6, loanContract.getMuturityDate());
 			pstmt.setString(7, loanContract.getPaymentMethod());
-			pstmt.setLong(8, loanContract.getBalance());
-			pstmt.setDate(9, loanContract.getPaymentDate());
-			pstmt.setLong(10, loanContract.getDelinquentAmount());
-			pstmt.setInt(11, loanContract.getGuarantorId());
-			pstmt.setLong(12, loanContract.getInterestRate());
+			pstmt.setLong(8, loanContract.getLoanAmount());
+			pstmt.setLong(9, loanContract.getBalance());
+			pstmt.setDate(10, loanContract.getPaymentDate());
+			pstmt.setDate(11, loanContract.getLatePaymentDate());
+			pstmt.setLong(12, loanContract.getDelinquentAmount());
+			pstmt.setInt(13, loanContract.getGuarantorId());
+			pstmt.setLong(14, loanContract.getInterestRate());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,6 +89,7 @@ public class LoanContractDAO {
 		loanContract.setStartDate(rs.getTimestamp("start_date"));
 		loanContract.setMuturityDate(rs.getTimestamp("muturity_date"));
 		loanContract.setPaymentMethod(rs.getString("payment_method"));
+		loanContract.setLoanAmount(rs.getLong("loan_amount"));
 		loanContract.setBalance(rs.getLong("balance"));
 		loanContract.setPaymentDate(rs.getDate("payment_date"));
 		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));	
@@ -141,7 +144,6 @@ public class LoanContractDAO {
 				+ " FROM loanContracts lc");
 		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
 		queryBuilder.append(" JOIN customers c ON lc.c_id = c.c_id");
-		// lc.e_id = c.e_id AND 
 		queryBuilder.append(" JOIN employees e ON c.e_id = e.e_id");
 		queryBuilder.append(" JOIN customers c2 ON lc.guarantor_id = c2.c_id");
 		queryBuilder.append(" WHERE 1=1");

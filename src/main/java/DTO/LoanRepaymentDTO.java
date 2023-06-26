@@ -15,7 +15,7 @@ public class LoanRepaymentDTO {
 	private Timestamp tradeDatetime;
 	private long tradeAmount;
 	private boolean agent;
-	private long loanAmount;
+	private long balance;
 	private String accountNumber;
 	private String customerName;
 	private String employeeName;

@@ -38,8 +38,18 @@ public class LoanService {
 		return loanProductList;		
 	}
 	
+	public int registerLoanProduct(LoanProductDTO loanProductDTO) throws NoSuchAlgorithmException {
+		LoanProductDAO loanDAO = new LoanProductDAO();
+		
+		int isLoanRegistered = loanDAO.insertLoanProduct(loanProductDTO);
+		
+		return isLoanRegistered;
+	}
+	
 	public static List<LoanRepaymentDTO> getLoanRepaymentList(LoanContractDTO loanContractDTO) {
 		LoanRepaymentDAO loanRepaymentDAO = new LoanRepaymentDAO();
+
+		System.out.println("SERVICE getLoanContractId =" + loanContractDTO.getLoanContractId());
 		List<LoanRepaymentDTO> loanRepaymentDTOList = loanRepaymentDAO.getLoanRepaymentByDTO(loanContractDTO);
 
 		return loanRepaymentDTOList;

@@ -1,6 +1,6 @@
 selectMultiItemsWithDirectInput("loanContractStartDate");
 selectMultiItemsWithDirectInput("loanContractEndDate");
-selectMultiItemsWithDirectInput("balanceList");
+selectOneItemWithDirectInput("balanceList");
 selectMultiItemsWithDirectInput("latePayment");
 
 /*selectOneItem("balanceList");
