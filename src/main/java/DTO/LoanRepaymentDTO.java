@@ -19,4 +19,6 @@ public class LoanRepaymentDTO {
 	private String accountNumber;
 	private String customerName;
 	private String employeeName;
+	private String tradeAmountString;
+	private String balanceString;
 }

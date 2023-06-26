@@ -239,6 +239,9 @@ public class LoanContractDAO {
 					String delinquentAmountString = loanUtil.convertMoneyUnit(loanContracts.getDelinquentAmount());
 					loanContracts.setDelinquentAmountString(delinquentAmountString);
 					
+					String muturityDateString = loanContracts.getMuturityDate().toString().substring(0,10);
+					loanContracts.setMuturityDateString(muturityDateString);
+					
 					loanContractDTOList.add(loanContracts);
 				}
 				return loanContractDTOList;

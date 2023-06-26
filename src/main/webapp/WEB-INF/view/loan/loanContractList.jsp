@@ -164,7 +164,7 @@
 					<td><%=dto.getCustomerName()%></td>
 					<td><%=dto.getGuarantorName()%></td>
 					<td><%=dto.getStartDate()%></td>
-					<td><%=dto.getMuturityDate()%></td>
+					<td><%=dto.getMuturityDateString()%></td>
 					<td><%=dto.getBalanceString()%></td>
 					<td><%=dto.getPaymentMethod()%></td>
 					<td><%=dto.getDelinquentAmountString()%></td>
@@ -209,8 +209,8 @@
 									<td><%= dto.getAccountNumber() %></td>
 									<td><%= dto.getCustomerName() %></td>
 									<td><%= dto.getEmployeeName() %></td>
-									<td><%= dto.getTradeAmount() %></td>
-									<td><%= dto.getBalance()%></td>
+									<td><%= dto.getTradeAmountString()%></td>
+									<td><%= dto.getBalanceString()%></td>
 									<td>
 									  <% if (dto.isAgent()) { %>
 									    <%= "O" %>

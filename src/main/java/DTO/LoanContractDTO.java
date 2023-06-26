@@ -33,5 +33,5 @@ public class LoanContractDTO {
 	private int latePaymentPeriod;
 	private String balanceString;
 	private String delinquentAmountString;
-	
+	private String muturityDateString;
 }
