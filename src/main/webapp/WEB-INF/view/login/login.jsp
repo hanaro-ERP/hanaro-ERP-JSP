@@ -25,8 +25,8 @@
 	</div>
 	<script src="${pageContext.request.contextPath}/js/login/login.js"></script>
 	<script>
-		const loginId = "<%= request.getSession().getAttribute("loginId") %>";
-		if (loginId !== "null") {
+		const sessionId = "<%= request.getSession().getAttribute("sessionId") %>";
+		if (sessionId !== "null") {
 			window.location.href = "${pageContext.request.contextPath}/navigation/main";			
 		}
  		let previousEmployeeId = "<%= request.getSession().getAttribute("employeeId") %>";

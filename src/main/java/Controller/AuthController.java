@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -11,8 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DTO.BankDTO;
 import DTO.EmployeeDTO;
-import Service.LoginService;
+import Service.AuthService;
+import Service.BankService;
 
 @WebServlet("/AuthController/*")
 public class AuthController extends HttpServlet {
@@ -63,15 +66,19 @@ public class AuthController extends HttpServlet {
 			EmployeeDTO storedEmployeeDTO = new EmployeeDTO();
 			
 			try {
-				storedEmployeeDTO = (EmployeeDTO) LoginService.authenticateEmployee(employeeDTO);
+				storedEmployeeDTO = (EmployeeDTO) AuthService.authenticateEmployee(employeeDTO);
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
 
 			if (storedEmployeeDTO != null) {
+				UUID uuid = UUID.randomUUID();
+				request.getSession().setAttribute("sessionId", uuid.toString());
 				request.getSession().setAttribute("loginId", storedEmployeeDTO.getEmployeeId());
 				request.getSession().setAttribute("loginName", storedEmployeeDTO.getEmployeeName());
 				request.getSession().setAttribute("loginPosition", storedEmployeeDTO.getPosition());
+				BankDTO bankDTO = BankService.getBankName(storedEmployeeDTO);
+				request.getSession().setAttribute("bankName", bankDTO.getBankName());
 
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/main/main.jsp");
 				dispatcher.forward(request, response);
