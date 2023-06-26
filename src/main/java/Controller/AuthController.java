@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import DTO.EmployeeDTO;
 import Service.LoginService;
 
-@WebServlet("/LoginController")
-public class LoginController extends HttpServlet {
+@WebServlet("/AuthController/*")
+public class AuthController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public LoginController() {
+	public AuthController() {
 		super();
 	}
 
@@ -49,32 +49,40 @@ public class LoginController extends HttpServlet {
 
 	protected void requestPro(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getParameter("employeeId") == "" || request.getParameter("password") == "") {
-			redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 입력하지 않았습니다.", request.getParameter("employeeId"));
-			return;
-		}
-		int employeeId = Integer.parseInt(request.getParameter("employeeId"));
-		String password = request.getParameter("password");
-		EmployeeDTO employeeDTO = new EmployeeDTO();
-		employeeDTO.setEmployeeId(employeeId);
-		employeeDTO.setPassword(password);
-		EmployeeDTO storedEmployeeDTO = new EmployeeDTO();
-		try {
-			storedEmployeeDTO = (EmployeeDTO) LoginService.authenticateEmployee(employeeDTO);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-
-		if (storedEmployeeDTO != null) {
-			request.getSession().setAttribute("loginId", storedEmployeeDTO.getEmployeeId());
-			request.getSession().setAttribute("loginName", storedEmployeeDTO.getEmployeeName());
-			request.getSession().setAttribute("loginPosition", storedEmployeeDTO.getPosition());
+		String requestURI = request.getRequestURI();
+		if (requestURI.endsWith("/AuthController/Login/")) {
+			if (request.getParameter("employeeId") == "" || request.getParameter("password") == "") {
+				redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 입력하지 않았습니다.", request.getParameter("employeeId"));
+				return;
+			}
+			int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+			String password = request.getParameter("password");
+			EmployeeDTO employeeDTO = new EmployeeDTO();
+			employeeDTO.setEmployeeId(employeeId);
+			employeeDTO.setPassword(password);
+			EmployeeDTO storedEmployeeDTO = new EmployeeDTO();
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/main/main.jsp");
-			dispatcher.forward(request, response);
-		} else {
+			try {
+				storedEmployeeDTO = (EmployeeDTO) LoginService.authenticateEmployee(employeeDTO);
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+
+			if (storedEmployeeDTO != null) {
+				request.getSession().setAttribute("loginId", storedEmployeeDTO.getEmployeeId());
+				request.getSession().setAttribute("loginName", storedEmployeeDTO.getEmployeeName());
+				request.getSession().setAttribute("loginPosition", storedEmployeeDTO.getPosition());
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/main/main.jsp");
+				dispatcher.forward(request, response);
+			} else {
+				redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 잘못 입력했습니다.", String.valueOf(employeeId));
+			}
+		} else if (requestURI.endsWith("/AuthController/Logout/")) {
+			request.getSession().invalidate();
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/login/login.jsp");
 			dispatcher.forward(request, response);
 		}
+		return;
 	}
 }
