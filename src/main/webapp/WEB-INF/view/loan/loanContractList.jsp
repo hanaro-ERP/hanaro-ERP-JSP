@@ -166,9 +166,9 @@
 					<td><%=dto.getGuarantorName()%></td>
 					<td><%=dto.getStartDate()%></td>
 					<td><%=dto.getMuturityDate()%></td>
-					<td><%=dto.getBalance()%></td>
+					<td><%=dto.getBalanceString()%></td>
 					<td><%=dto.getPaymentMethod()%></td>
-					<td><%=dto.getDelinquentAmount()%></td>
+					<td><%=dto.getDelinquentAmountString()%></td>
 					<td><%=dto.getInterestRate()%></td>
 				</tr>
 				<%

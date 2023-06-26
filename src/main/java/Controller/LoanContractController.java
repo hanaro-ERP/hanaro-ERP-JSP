@@ -142,7 +142,6 @@ public class LoanContractController extends HttpServlet {
 			String customerName = request.getParameter("selectedCustomerName");
 			String employeeName = request.getParameter("selectedEmployeeName");
 
-			System.out.println("CONTROLLER contract id =" + loanContractId);
 			LoanContractDTO loanContractDTO = new LoanContractDTO();
 			loanContractDTO.setLoanContractId(loanContractId);
 			loanContractDTO.setCustomerName(customerName);

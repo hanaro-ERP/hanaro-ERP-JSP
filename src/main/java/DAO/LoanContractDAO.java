@@ -14,6 +14,7 @@ import org.eclipse.jdt.internal.compiler.ast.AND_AND_Expression;
 
 import DTO.LoanContractDTO;
 import util.DatabaseUtil;
+import util.LoanUtil;
 
 public class LoanContractDAO {
 
@@ -224,14 +225,23 @@ public class LoanContractDAO {
 				pstmt.setDate(parameterIndex++, latePaymentDate);
 			}
 
+			LoanUtil loanUtil = new LoanUtil();
 			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();			
 
-			try (ResultSet rs = pstmt.executeQuery()) {				
+			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-						LoanContractDTO loanContracts = new LoanContractDTO();
-						fillLoanContractDTOFromResultSet(loanContracts, rs);
-						loanContractDTOList.add(loanContracts);
-					}				
+					LoanContractDTO loanContracts = new LoanContractDTO();
+					fillLoanContractDTOFromResultSet(loanContracts, rs);
+
+					String balanceString = loanUtil.convertMoneyUnit(loanContracts.getBalance());
+					loanContracts.setBalanceString(balanceString);
+
+					String delinquentAmountString = loanUtil.convertMoneyUnit(loanContracts.getDelinquentAmount());
+					loanContracts.setDelinquentAmountString(delinquentAmountString);
+					
+					System.out.println("dao delinquentAmountString = "+delinquentAmountString);
+					loanContractDTOList.add(loanContracts);
+				}
 				return loanContractDTOList;
 			}
 			catch (Exception e) {

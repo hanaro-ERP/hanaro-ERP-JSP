@@ -31,4 +31,7 @@ public class LoanContractDTO {
 	private String guarantorName;
 	private int[] balanceRange;
 	private int latePaymentPeriod;
+	private String balanceString;
+	private String delinquentAmountString;
+	
 }
