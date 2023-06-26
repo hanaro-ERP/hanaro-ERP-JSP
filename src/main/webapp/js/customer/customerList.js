@@ -26,7 +26,7 @@ customerDetailSelect.addEventListener('click', function() {
 });
 
 selectMultiItemsWithDirectInput('customerAge');
-selectOneItem('customerGender');
+selectMultiItems('customerGender');
 selectMultiItems('customerGrade');
 selectMultiItems('customerCredit');
 

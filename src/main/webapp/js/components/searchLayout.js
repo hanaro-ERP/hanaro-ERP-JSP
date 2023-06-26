@@ -538,13 +538,21 @@ function setYearSelect() {
 	});
 }
 
-// 월 설정
+//월 설정
 function setMonthSelect() {
 	monthSelect = document.getElementsByClassName("monthSelect");
 
 	Array.from(monthSelect).forEach(monthSelect => {
+		const option = document.createElement("option");
+		option.value = "";
+		option.textContent = "";
+		monthSelect.appendChild(option);
+		
 		for (let month = 1; month <= 12; month++) {
 			const option = document.createElement("option");
+			if (month < 10) {
+				month = "0"+month;
+			}
 			option.value = month;
 			option.textContent = month;
 			monthSelect.appendChild(option);
@@ -562,7 +570,7 @@ function setDaySelect(isInitial) {
 		yearSelectRow = document.getElementsByClassName("yearSelect")[rowIndex];
 		monthSelectRow = document.getElementsByClassName("monthSelect")[rowIndex];
 		yearSelectRow.value = 1990;
-		monthSelectRow.value = 1;
+		monthSelectRow.value = "";
 
 		yearSelect = parseInt(yearSelectRow.value);
 		monthSelect = parseInt(monthSelectRow.value);
@@ -571,10 +579,17 @@ function setDaySelect(isInitial) {
 
 		Array.from(daySelectList).forEach(daySelectRow => {
 			daySelectRow.innerHTML = "";
+			const option = document.createElement("option");
+			option.value = "";
+			option.textContent = "";
+			daySelectRow.appendChild(option);
 		});
 		Array.from(daySelectList).forEach(daySelectRow => {
 			for (let day = 1; day <= endDay; day++) {
 				const option = document.createElement("option");
+				if (day < 10) {
+					day = "0"+day;
+				}
 				option.value = day;
 				option.textContent = day;
 				daySelectRow.appendChild(option);
@@ -584,8 +599,15 @@ function setDaySelect(isInitial) {
 	else {
 		endDay = new Date(yearSelect, monthSelect, 0).getDate();
 		daySelectRow.innerHTML = "";
+		const option = document.createElement("option");
+		option.value = "";
+		option.textContent = "";
+		daySelectRow.appendChild(option);
 		for (let day = 1; day <= endDay; day++) {
 			const option = document.createElement("option");
+			if (day < 10) {
+				day = "0"+day;
+			}
 			option.value = day;
 			option.textContent = day;
 			daySelectRow.appendChild(option);
@@ -601,15 +623,15 @@ function changeDate() {
 
 	if (yearSelectList.length > 0) {
 		Array.from(yearSelectList).forEach(yearSelectRow => {
-			yearSelectRow.removeEventListener("change", (event) => handleDateSelect(event, true));
-			yearSelectRow.addEventListener("change", (event) => handleDateSelect(event, true));
+			yearSelectRow.removeEventListener("click", (event) => handleDateSelect(event, true));
+			yearSelectRow.addEventListener("click", (event) => handleDateSelect(event, true));
 		});
 	}
 
 	if (monthSelectList.length > 0) {
 		Array.from(monthSelectList).forEach(monthSelectRow => {
-			monthSelectRow.removeEventListener("change", (event) => handleDateSelect(event, false));
-			monthSelectRow.addEventListener("change", (event) => handleDateSelect(event, false));
+			monthSelectRow.removeEventListener("click", (event) => handleDateSelect(event, false));
+			monthSelectRow.addEventListener("click", (event) => handleDateSelect(event, false));
 		});
 	}
 }
@@ -619,7 +641,10 @@ function handleDateSelect(event, isYear) {
 	const liElement = selectedDate.closest('ul').querySelector('li');
 	const ulId = selectedDate.closest('ul').id;
 
-	if (ulId.includes("Start")) {
+	if (ulId.includes("deposit")) {
+		changeDateRowSelect("depositStartDate");
+	}
+	else if (ulId.includes("Start")) {
 		changeDateRowSelect("loanContractStartDate");
 	}
 	else {
@@ -649,10 +674,13 @@ function changeDateRowSelect(rowId) {
 		ulElement = document.getElementById("loanContractEndDate");
 		rowIndex = 1;
 	}
+	else if (rowId === "depositStartDate") {
+		ulElement = document.getElementById("depositStartDate");
+		rowIndex = 0;
+	}
 	else {
 		return; // 유효한 rowId가 아닌 경우 함수 종료
 	}
-
 	listItems = Array.from(ulElement.querySelectorAll('li'));
 	if (rowIndex == 0) {
 		listItems[0].classList.remove('selectedLi'); // '전체' 해제하고
