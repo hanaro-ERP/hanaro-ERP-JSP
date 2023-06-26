@@ -43,7 +43,7 @@ public class LoanContractController extends HttpServlet {
 
 	protected void postLoanContractProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		String requestURI = request.getRequestURI();
-		
+
 		if (requestURI.endsWith("contractList")) {
 			try {
 				String loanName = request.getParameter("loanName");
