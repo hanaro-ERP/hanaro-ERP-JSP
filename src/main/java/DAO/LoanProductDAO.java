@@ -10,7 +10,6 @@ import java.util.List;
 import DTO.CustomerDTO;
 import DTO.CustomerSearchDTO;
 import DTO.LoanProductDTO;
-import DTO.LoanRegistrationDTO;
 import DTO.LoanSearchDTO;
 import util.DatabaseUtil;
 import util.LoanUtil;

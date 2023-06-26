@@ -31,7 +31,7 @@ pageEncoding="UTF-8"%>
 						<th>거주지</th>
 						<td colspan=4>
 							<select name="citySelect" class="innerSelectBox customerCity" onchange="changeCounty(this.selectedIndex);">
-								<option value="">-</option>
+								<option value="">전체</option>
 								<option value="서울">서울특별시</option>
 								<option value="부산">부산광역시</option>
 								<option value="대구">대구광역시</option>
@@ -144,37 +144,22 @@ pageEncoding="UTF-8"%>
 								<option value="전세자금">전세자금</option>
 							</select>
 						</td>
-						<th>담보가치</th>
+						<th>대출 금액</th>
 						<td>
-							<input type="number" id="collateralValue" name="collateralValue" class="shortInput" type="number" min="0" max="999" step="1"/>
-							천만 원
+							<input type="number" id="loanAmount" name="loanAmount" class="shortInput" type="number" min="0" max="999" step="1"/>
+							만원
 						</td>
 					</tr>
 					<tr>
-						<th>대출 금액</th>
-						<td>
-							&nbsp;최대
-							<input type="number" id="loanAmount" name="loanAmount" class="shortInput" type="number" min="0" max="999" step="1"/>
-							천만 원
-						</td>
 						<th>이자</th>
 						<td>
-							<select name="interest" class="shortSelect">
+							<!-- <select name="interest" class="shortSelect">
 								<option value="simple">복리</option>
 								<option value="compound">단리</option>
-							</select>
+							</select>  -->
 							&nbsp;연
 							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
 							%
-						</td>
-					</tr>
-					<tr>
-						<th>대출 목적</th>
-						<td>
-							<select name="loanPerpose" class="shortSelect">
-								<option value="dunno" >??</option>
-								<option value="dunno">??</option>
-							</select>
 						</td>
 						<th>상환 방법</th>
 						<td>

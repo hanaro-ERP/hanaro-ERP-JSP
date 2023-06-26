@@ -28,24 +28,18 @@ function changeLoan(add) {
 	}
 	
 	var collateralField = document.getElementsByName("collateral")[0];
-	var collateralValueField = document.getElementById("collateralValue");
 	
 	// selectedIndex가 2 (신용대출)이면 담보 필드를 비활성화하고 값을 초기화합니다.
 	if (add === 1) {
 		collateralField.disabled = true;
 		collateralField.value = "";
-		collateralValueField.disabled = true;
-		collateralValueField.value = "";
 		
 		collateralField.style.backgroundColor = "#E5E8EB";
-		collateralValueField.style.backgroundColor = "#E5E8EB";
 	} else {
 		collateralField.disabled = false;
-		collateralValueField.disabled = false;
 		
 		// 색상 변경
 		collateralField.style.backgroundColor = "#fff";
-		collateralValueField.style.backgroundColor = "#fff"
 	}
 }
 changeLoan(0);
@@ -53,7 +47,7 @@ changeLoan(0);
 var countyList = new Array();
 countyList[0] = new Array("-");
 countyList[1] = new Array(
-	"-",
+	"",
 	"강남구",
 	"강동구",
 	"강북구",
@@ -81,7 +75,7 @@ countyList[1] = new Array(
 	"중랑구"
 );
 countyList[2] = new Array(
-	"-",
+	"",
 	"강서구",
 	"금정구",
 	"남구",
@@ -100,7 +94,7 @@ countyList[2] = new Array(
 	"기장군"
 );
 countyList[3] = new Array(
-	"-",
+	"",
 	"남구",
 	"달서구",
 	"동구",
@@ -111,7 +105,7 @@ countyList[3] = new Array(
     "달성군"
 );
 countyList[4] = new Array(
-	"-",
+	"",
 	"계양구",
 	"남구",
 	"남동구",
@@ -127,7 +121,7 @@ countyList[5] = new Array("-", "광산구", "남구", "동구", "북구", "서�
 countyList[6] = new Array("-", "대덕구", "동구", "서구", "유성구", "중구");
 countyList[7] = new Array("-", "남구", "동구", "북구", "중구", "울주군");
 countyList[8] = new Array(
-	"-",
+	"",
 	"고양시",
 	"과천시",
 	"광명시",
@@ -161,7 +155,7 @@ countyList[8] = new Array(
 	"화성시"
 );
 countyList[9] = new Array(
-	"-",
+	"",
 	"강릉시",
 	"동해시",
 	"삼척시",
@@ -182,7 +176,7 @@ countyList[9] = new Array(
 	"황성군"
 );
 countyList[10] = new Array(
-	"-",
+	"",
 	"제천시",
 	"청주시",
 	"충주시",
@@ -196,7 +190,7 @@ countyList[10] = new Array(
 	"청원군"
 );
 countyList[11] = new Array(
-	"-",
+	"",
 	"공주시",
 	"보령시",
 	"서산시",
@@ -214,7 +208,7 @@ countyList[11] = new Array(
 	"홍성군"
 );
 countyList[12] = new Array(
-	"-",
+	"",
 	"군산시",
 	"김제시",
 	"남원시",
@@ -231,7 +225,7 @@ countyList[12] = new Array(
 	"진안군"
 );
 countyList[13] = new Array(
-	"-",
+	"",
 	"광양시",
 	"나주시",
 	"목포시",
@@ -258,7 +252,7 @@ countyList[13] = new Array(
 	"화순군"
 );
 countyList[14] = new Array(
-	"-",
+	"",
 	"경산시",
 	"경주시",
 	"구미시",
@@ -284,7 +278,7 @@ countyList[14] = new Array(
 	"칠곡군"
 );
 countyList[15] = new Array(
-	"-",
+	"",
 	"거제시",
 	"김해시",
 	"마산시",
@@ -307,7 +301,7 @@ countyList[15] = new Array(
 	"함양군",
 	"합천군"
 );
-countyList[16] = new Array("-", "서귀포시", "제주시", "남제주군", "북제주군");
+countyList[16] = new Array("", "서귀포시", "제주시", "남제주군", "북제주군");
 
 function changeCounty(add) {
 	const selectElement = document.getElementsByName("district")[0];
