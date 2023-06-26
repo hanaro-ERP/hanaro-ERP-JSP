@@ -147,4 +147,22 @@ public class BankDAO {
 		
 		return null;
 	}
+
+	public BankDTO getBankNameByBankID(EmployeeDTO employeeDTO) {
+		String SQL = "SELECT b_name FROM banks WHERE b_id = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setInt(1, employeeDTO.getBankId());
+			BankDTO bank = new BankDTO();
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					bank.setBankName(rs.getString("b_name"));
+				}
+				return bank;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }
