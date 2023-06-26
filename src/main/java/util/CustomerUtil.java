@@ -1,5 +1,7 @@
 package util;
 
+import java.time.LocalDate;
+
 public class CustomerUtil {
 	public String InvertDash(String[] array) {
 		String phoneNumber = String.join("-", array);
@@ -23,4 +25,17 @@ public class CustomerUtil {
 		else
 			return "남성";
 	}	
+	
+	public int getAgeFromIdentification(String id) {
+		int year = Integer.parseInt(id.substring(0, 2));
+		int month = Integer.parseInt(id.substring(2, 4));
+		int day = Integer.parseInt(id.substring(4, 6));
+
+		LocalDate currentDate = LocalDate.now();
+		int currentYear = currentDate.getYear();
+
+		int age = currentYear - (year+1900);
+                
+		return age;
+	}
 }

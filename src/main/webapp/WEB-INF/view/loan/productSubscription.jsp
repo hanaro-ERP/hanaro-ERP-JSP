@@ -16,7 +16,7 @@ pageEncoding="UTF-8"%>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 가입</h1></div>
-			<form action="${pageContext.request.contextPath}/loanSubscription" method="post" onsubmit="return validateForm()">
+			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle"><h2>고객 정보</h2></div>
 				<table class="inputTable">
  					<tr>
@@ -32,22 +32,22 @@ pageEncoding="UTF-8"%>
 						<td colspan=4>
 							<select name="citySelect" class="innerSelectBox customerCity" onchange="changeCounty(this.selectedIndex);">
 								<option value="">전체</option>
-								<option value="서울">서울특별시</option>
-								<option value="부산">부산광역시</option>
-								<option value="대구">대구광역시</option>
-								<option value="인천">인천광역시</option>
-								<option value="광주">광주광역시</option>
-								<option value="대전">대전광역시</option>
-								<option value="울산">울산광역시</option>
-								<option value="경기">경기도</option>
-								<option value="강원">강원도</option>
-								<option value="충북">충청북도</option>
-								<option value="충남">충청남도</option>
-								<option value="전북">전라북도</option>
-								<option value="전남">전라남도</option>
-								<option value="경북">경상북도</option>
-								<option value="경남">경상남도</option>
-								<option value="제주">제주도</option>
+								<option value="서울특별시">서울특별시</option>
+								<option value="부산광역시">부산광역시</option>
+								<option value="대구광역시">대구광역시</option>
+								<option value="인천광역시">인천광역시</option>
+								<option value="광주광역시">광주광역시</option>
+								<option value="대전광역시">대전광역시</option>
+								<option value="울산광역시">울산광역시</option>
+								<option value="경기도">경기도</option>
+								<option value="강원도">강원도</option>
+								<option value="충청북도">충청북도</option>
+								<option value="충청남도">충청남도</option>
+								<option value="전라북도">전라북도</option>
+								<option value="전라남도">전라남도</option>
+								<option value="경상북도">경상북도</option>
+								<option value="경상남도">경상남도</option>
+								<option value="제주도">제주도</option>
 							</select>
 							<select name="district" class="select">
 								<option value="">-</option>
@@ -75,14 +75,14 @@ pageEncoding="UTF-8"%>
 						<th>직업</th>
 						<td>
 							<select id="loanTypeSelect" name="job" class="shortSelect">
-								<option value="직장인">직장인</option>
-								<option value="공무원">공무원</option>
-								<option value="군인">군인</option>
-								<option value="금융인">금융인</option>
-								<option value="전문직">전문직</option>
-								<option value="의사">의사</option>
-								<option value="자영업">자영업</option>
-								<option value="무직">무직</option>
+								<option value="001">직장인</option>
+								<option value="002">공무원</option>
+								<option value="003">군인</option>
+								<option value="004">금융인</option>
+								<option value="005">전문직</option>
+								<option value="006">의사</option>
+								<option value="007">자영업</option>
+								<option value="100">무직</option>
 							</select>
 						</td>
 						<th>보증인</th>
