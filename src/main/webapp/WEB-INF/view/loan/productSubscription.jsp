@@ -190,6 +190,34 @@ pageEncoding="UTF-8"%>
 					<button type="submit">검색</button>
 				</div>
 			</form>
+			
+			
+			
+			
+			
+			
+			<h3>원금균등상환</h3>
+			<table>
+				<tr>			
+					<th>회차</th>
+					<th>월 상환금</th>
+					<th>납입 원금</th>
+					<th>이자</th>
+					<th>납입원금누계</th>
+					<th>잔금</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>3천만원</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+			</table>
+			
+			
+			
 		</div>
 	</main>
 	<script>
