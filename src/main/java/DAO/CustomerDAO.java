@@ -133,7 +133,7 @@ public class CustomerDAO {
 	}
 
 //	Get some customers
-	public List<CustomerDTO> getCustomersByDTO(CustomerSearchDTO customerSearchDTO) {
+	public List<CustomerDTO> getCustomersByDTO(CustomerSearchDTO customerSearchDTO, int page) {
 		StringBuilder queryBuilder = new StringBuilder("SELECT c.*, e.e_name, b.b_name FROM customers c ");
 		queryBuilder.append("JOIN employees e ON c.e_id = e.e_id ");
 		queryBuilder.append("JOIN banks b ON c.b_id = b.b_id ");
@@ -184,7 +184,8 @@ public class CustomerDAO {
 		if (customerSearchDTO.getCity() != null) {
 			queryBuilder.append(" AND c.address LIKE ?");
 		}
-
+		queryBuilder.append(" LIMIT 20 OFFSET ?");
+		
 		try (Connection conn = DatabaseUtil.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
@@ -228,6 +229,8 @@ public class CustomerDAO {
 					temp = customerSearchDTO.getCity() + " " + customerSearchDTO.getDistrict();
 				pstmt.setString(parameterIndex++, temp);
 			}
+			pstmt.setInt(parameterIndex++, (page-1)*20);
+			
 			System.out.println(pstmt.toString());
 			List<CustomerDTO> findCustomers = new ArrayList<>();
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -240,7 +243,8 @@ public class CustomerDAO {
 					customer.setCredit(rs.getString("credit"));
 					customer.setJobCode(rs.getString("job_code"));
 					customer.setGrade(rs.getString("grade"));
-
+					customer.setRisk(rs.getInt("risk"));
+					
 					findCustomers.add(customer);
 				}
 			}

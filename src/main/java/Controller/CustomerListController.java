@@ -100,7 +100,12 @@ public class CustomerListController extends HttpServlet {
 			if (isOpen != "")
 				customerSearchDTO.setIsOpen(isOpen);
 			
-			List<CustomerDTO> customerList = customerService.getCustomerList(customerSearchDTO);
+			int pageNo = 1;
+			String page = request.getParameter("page");
+			if (page != null && !page.equals(""))
+				pageNo = Integer.parseInt(page);
+			System.out.println(pageNo);
+			List<CustomerDTO> customerList = customerService.getCustomerList(customerSearchDTO, pageNo);
 			
 			request.setAttribute("customerInput", customerSearchDTO);
 			request.setAttribute("customerList", customerList);

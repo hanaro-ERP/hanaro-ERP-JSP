@@ -150,7 +150,7 @@
 				<div class="innerButtonContainer">
 					<button id="customerSearchButton" type="submit">검색</button>
 				</div>
-			</form>
+
 			
 			<div class="searchTitle"><h1>검색 결과</h1></div>
 			<table class="searchTable" id="customerSearchTable">
@@ -169,23 +169,29 @@
 				List<CustomerDTO> findCustomers = (List<CustomerDTO>) request.getAttribute("customerList");
 
 				if (findCustomers != null && !findCustomers.isEmpty()) {
-				    for (CustomerDTO customer : findCustomers) {
-				      %>
-				      <tr>
-				        <td class="customerId"><%= customer.getCustomerId() %></td>
-				        <td><%= customer.getCustomerName() %></td>
-				        <td><%= customer.getAge() %></td>
-				        <td><%= customer.getStrGender() %>
-				        <td><%= customer.getCredit() %></td>
-				        <td><%= customer.getJobCode() %></td>
+				for (CustomerDTO customer : findCustomers) {
+					%>
+					<tr>
+						<td class="customerId"><%= customer.getCustomerId() %></td>
+						<td><%= customer.getCustomerName() %></td>
+						<td><%= customer.getAge() %></td>
+						<td><%= customer.getStrGender() %>
+						<td><%= customer.getCredit() %></td>
+						<td><%= customer.getJobCode() %></td>
 						<td><%= customer.getGrade() %></td>
-						<td>더미데이터 98</td>
-				      </tr>
-				      <%
-				    }
-				  }
+						<td><%= customer.getRisk() %></td>
+					</tr>
+					<%
+					}
+				}
 				%>
 			</table>
+			<ul>
+				<li><input type="submit" name="page" value="1">1</input></li>
+				<li><input type="submit" name="page" value="2">2</input></li>	
+				<li><input type="submit" name="page" value="3">3</input></li>	
+			</ul>
+			</form>
 		</div>
 	</main>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
