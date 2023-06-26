@@ -131,7 +131,6 @@ pageEncoding="UTF-8"%>
 	<script>
 		<%
 			Integer isLoanRegistered = (Integer) request.getAttribute("isLoanRegistered");
-			System.out.println(isLoanRegistered);
 			if (isLoanRegistered != null) {
 			    if (isLoanRegistered != -1) {
 					%>
