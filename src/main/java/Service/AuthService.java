@@ -6,9 +6,9 @@ import DAO.EmployeeDAO;
 import DTO.EmployeeDTO;
 import util.PasswordUtil;
 
-public class LoginService {
+public class AuthService {
 
-	public LoginService() {
+	public AuthService() {
 	}
 
 	public static Object authenticateEmployee(EmployeeDTO employeeDTO) throws NoSuchAlgorithmException {
