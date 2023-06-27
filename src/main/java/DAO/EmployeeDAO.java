@@ -278,8 +278,8 @@ public class EmployeeDAO {
 		if(employeeDTO.getBankLocation() != null) {
 			queryBuilder.append("AND b.b_name = ?");
 		}
+		queryBuilder.append(" ORDER BY e.e_id ASC"); // 정렬 조건
 		queryBuilder.append(" LIMIT 20 OFFSET ?");
-		queryBuilder.append(" ORDER BY e.e_id ASC "); // 정렬 조건
 
 		try (Connection conn = DatabaseUtil.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
