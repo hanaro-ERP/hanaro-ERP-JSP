@@ -2,19 +2,19 @@ package Service.evaluators;
 
 import DTO.CreditScoringDTO;
 
-public class AgeEvaluator extends EvaluatorParent implements EvaluatorInterface<Integer> {
+public class PropertyEvaluator extends EvaluatorParent implements EvaluatorInterface<Integer> {
 
 	@Override
 	public Integer getTarget(CreditScoringDTO creditScoringDTO) {
-		int age = 0;
-		return age;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public int calculateScore(CreditScoringDTO creditScoringDTO) {
 		int score = 0;
 
-		return (int) (score * getWeightForAge());
+		return (int) (score * getWeightForProperty());
 	}
 
 }

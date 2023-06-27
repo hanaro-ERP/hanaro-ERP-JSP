@@ -9,8 +9,10 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class CustomerRiskDTO {
-	private int customerId;
+public class CreditScoringDTO {
+	private String customerId;
+	private String Identification;
+	private String guaranteeId;
 	private int riskResult;
 	private String jobCode;
 	private int loanCount;

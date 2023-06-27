@@ -1,54 +1,72 @@
 package Service.evaluators;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class EvaluatorParent {
-	private final static double WEIGHT_FOR_CB_SCORE = 0.1;
-	private final static double WEIGHT_FOR_PROFESSION = 0.1;
-	private final static double WEIGHT_FOR_INCOME = 0.1;
-	private final static double WEIGHT_FOR_AGE = 0.1;
-	private final static double WEIGHT_FOR_REPAYMENT_HISTORY = 0.1;
-	private final static double WEIGHT_FOR_LOAN_BALANCE = 0.1;
-	private final static double WEIGHT_FOR_DEPOSIT_HISTORY = 0.1;
-	private final static double WEIGHT_FOR_PROPERTY = 0.1;
-	private final static double WEIGHT_FOR_GUARANTEE = 0.1;
-	private final static double WEIGHT_FOR_GUARANTOR = 0.1;
+	private static final Map<String, Double> WEIGHTS = new HashMap<>();
 
-	protected double getWeightForCBScore() {
-		return WEIGHT_FOR_CB_SCORE;
+	static {
+		WEIGHTS.put("AGE", 0.05);
+		WEIGHTS.put("CB_SCORE", 0.05);
+		WEIGHTS.put("DEPOSIT_HISTORY", 0.05);
+		WEIGHTS.put("GUARANTEE", 0.15);
+		WEIGHTS.put("GUARANTOR", 0.15);
+		WEIGHTS.put("INCOME", 0.1);
+		WEIGHTS.put("LOAN_BALANCE", 0.05);
+		WEIGHTS.put("PROFESSION", 0.1);
+		WEIGHTS.put("PROPERTY", 0.1);
+		WEIGHTS.put("REPAYMENT_HISTORY", 0.2);
 	}
 
-	protected double getWeightForProfession() {
-		return WEIGHT_FOR_PROFESSION;
+	public boolean isValid() {
+		double sum = WEIGHTS.values().stream().mapToDouble(Double::doubleValue).sum();
+
+		return (int) sum == 1;
 	}
 
-	protected double getWeightForIncome() {
-		return WEIGHT_FOR_INCOME;
+	protected double getWeightForField(String field) {
+		return WEIGHTS.get(field);
 	}
 
 	protected double getWeightForAge() {
-		return WEIGHT_FOR_AGE;
+		return getWeightForField("AGE");
 	}
 
-	protected double getWeightForRepaymentHistory() {
-		return WEIGHT_FOR_REPAYMENT_HISTORY;
+	protected double getWeightForCBScore() {
+		return getWeightForField("CB_SCORE");
 	}
 
-	protected double getWeightForLoanBalance() {
-		return WEIGHT_FOR_LOAN_BALANCE;
-	}
-
-	protected double getWeightForDepsoitHistory() {
-		return WEIGHT_FOR_DEPOSIT_HISTORY;
-	}
-
-	protected double getWeightForProperty() {
-		return WEIGHT_FOR_PROPERTY;
+	protected double getWeightForDepositHistory() {
+		return getWeightForField("DEPOSIT_HISTORY");
 	}
 
 	protected double getWeightForGuarantee() {
-		return WEIGHT_FOR_GUARANTEE;
+		return getWeightForField("GUARANTEE");
 	}
 
 	protected double getWeightForGuarantor() {
-		return WEIGHT_FOR_GUARANTOR;
+		return getWeightForField("GUARANTOR");
 	}
+
+	protected double getWeightForIncome() {
+		return getWeightForField("INCOME");
+	}
+
+	protected double getWeightForLoanBalance() {
+		return getWeightForField("LOAN_BALANCE");
+	}
+
+	protected double getWeightForProfession() {
+		return getWeightForField("PROFESSION");
+	}
+
+	protected double getWeightForProperty() {
+		return getWeightForField("PROPERTY");
+	}
+
+	protected double getWeightForRepaymentHistory() {
+		return getWeightForField("REPAYMENT_HISTORY");
+	}
+
 }

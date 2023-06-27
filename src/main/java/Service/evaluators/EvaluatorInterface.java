@@ -1,7 +1,11 @@
 package Service.evaluators;
 
-public interface EvaluatorInterface<T> {
-	T getDTO();
+import DTO.CreditScoringDTO;
 
-	int evaluate();
+public interface EvaluatorInterface<T> {
+
+	T getTarget(CreditScoringDTO creditScoringDTO);
+
+	int calculateScore(CreditScoringDTO creditScoringDTO);
+
 }
