@@ -226,7 +226,6 @@ public class LoanContractDAO {
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 
-			System.out.println("DAO pstmt ="+pstmt);
 			int parameterIndex = 1;
 
 			if (loanContractDTO.getLoanName() != null) {
@@ -251,8 +250,6 @@ public class LoanContractDAO {
 	            pstmt.setTimestamp(parameterIndex++, loanContractDTO.getMaturityDate());
 	            
 	            Timestamp nextDay = new Timestamp(loanContractDTO.getMaturityDate().getTime() + 24 * 60 * 60 * 1000);
-
-	    		System.out.println("DAO nextDay2222 ="+nextDay);
 	            pstmt.setTimestamp(parameterIndex++, nextDay);
 	        }
 			if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0) {	
@@ -272,6 +269,9 @@ public class LoanContractDAO {
 				pstmt.setDate(parameterIndex++, latePaymentDate);
 			}
 
+
+			System.out.println(pstmt.toString());
+			
 			LoanUtil loanUtil = new LoanUtil();
 			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();			
 
@@ -331,22 +331,25 @@ public class LoanContractDAO {
 				System.out.println("id not null");
 	            pstmt.setString(1, "%"+idString+"%");
 	        }
-			
-			int i= 0;
 
+			System.out.println(pstmt.toString());
+			
 			LoanContractDTO loanContractDTO = new LoanContractDTO();
 			
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
+
+					System.out.println("rs");
 					
-					System.out.println("DAO i ="+i);
-					i++;
 					fillLoanContractDTOFromTable(loanContractDTO, rs);
 				}
-				System.out.println("dao loanContractDTO cid= "+ loanContractDTO.getCustomerId());
 				
 				String repaymentMethodString = loanContractDTO.getPaymentMethod();				
 				List<RepaymentMethodDTO> repaymentMethodDTOList = new ArrayList<>();
+				
+				if (loanContractDTO.getStartDate() == null || loanContractDTO.getMaturityDate() == null) {
+					  throw new IllegalArgumentException("Start date or maturity date is null.");
+					}
 				
 				Timestamp startDate = loanContractDTO.getStartDate();
 				Timestamp maturityDate = loanContractDTO.getMaturityDate();
@@ -421,8 +424,8 @@ public class LoanContractDAO {
 						}
 						// 거치 기간 없는 경우
 						else {
-							interest = (long) (loanAmount * interestRate);	// 이자
-							repaymentAmount = principalPayment + interest;	// 상환금 = 이자 + 납입 원금
+							interest = (long) (balance * interestRate);	// 이자
+							repaymentAmount = interest + principalPayment;	// 상환금 = 이자 + 납입 원금
 							cumulativePrincipalPayment += principalPayment;	// 납입원금누계
 							balance -= principalPayment;	// 남은 대출 원금
 						}
@@ -452,6 +455,12 @@ public class LoanContractDAO {
 							interest = (long) (balance * interestRate);
 							principalPayment = repaymentAmount - interest;
 							cumulativePrincipalPayment += principalPayment;
+							
+							if (cumulativePrincipalPayment > loanAmount) {
+								long amountDifference = cumulativePrincipalPayment - loanAmount;
+								cumulativePrincipalPayment = loanAmount;
+								principalPayment -= amountDifference;
+							}
 							balance -= principalPayment;
 						}
 						
