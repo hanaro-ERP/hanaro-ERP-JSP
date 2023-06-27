@@ -29,6 +29,22 @@ public class BankDAO {
 		return -1; // Database operation failed
 	}
 
+	public int getBankIdByBankName(String bankName) {
+		int bId = -1;
+	    String SQL = "SELECT b_id FROM banks WHERE b_name = ?";
+	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	        pstmt.setString(1, bankName);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	            	bId = rs.getInt("b_id");
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return bId;
+	}
+	
 	// Read a bank by bankId
 	public BankDTO getBankByBankId(int bankId) {
 		BankDTO bank = new BankDTO();

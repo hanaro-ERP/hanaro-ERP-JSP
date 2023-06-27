@@ -128,30 +128,50 @@ public class CustomerDAO {
 
 	
 	// insert a new customer
-	public int insertCustomer(CustomerDTO customer) {
-		String SQL = "INSERT INTO customers (c_id, e_id, b_id, c_name, identification, grade, age, gender, phone_number, address, job_code, country, credit) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	public int insertCustomer(CustomerDTO customer, int e_id, int b_id) {
+		String SQL = "INSERT INTO customers (e_id, b_id, c_name, identification, grade, age, gender, phone_no, address, job_code, country, credit, risk) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setInt(1, customer.getCustomerId());
-			pstmt.setInt(2, customer.getEmployeeId());
-			pstmt.setInt(3, customer.getBankId());
-			pstmt.setString(4, customer.getCustomerName());
-			pstmt.setString(5, customer.getIdentification());
-			pstmt.setString(6, customer.getGrade());
-			pstmt.setInt(7, customer.getAge());
-			pstmt.setBoolean(8, customer.isGender());
-			pstmt.setString(9, customer.getPhoneNumber());
-			pstmt.setString(10, customer.getAddress());
-			pstmt.setString(11, customer.getJobCode());
-			pstmt.setString(12, customer.getCountry());
-			pstmt.setString(13, customer.getCredit());
+			//pstmt.setInt(1, customer.getCustomerId());
+			pstmt.setInt(1, e_id);
+			pstmt.setInt(2, b_id);
+			pstmt.setString(3, customer.getCustomerName());
+			pstmt.setString(4, customer.getIdentification());
+			pstmt.setString(5, customer.getGrade());
+			pstmt.setInt(6, customer.getAge());
+			pstmt.setBoolean(7, customer.isGender());
+			pstmt.setString(8, customer.getPhoneNumber());
+			pstmt.setString(9, customer.getAddress());
+			pstmt.setString(10, customer.getJobCode());
+			pstmt.setString(11, customer.getCountry());
+			pstmt.setString(12, customer.getCredit());
+			pstmt.setInt(13, 0);
+			
 			return pstmt.executeUpdate();
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return -1; // Database operation failed
+	}	
+	
+	public int getCustomerIdByCustomerName(String customerName) {
+		int cId = -1;
+	    String SQL = "SELECT c_id FROM customers WHERE c_name = ?";
+	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	        pstmt.setString(1, customerName);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	            	cId = rs.getInt("c_id");
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return cId;
 	}
-
+	
 	// Read a customer by customerId
 	public CustomerDTO getCustomerByCustomerId(int customerId) {
 		CustomerDTO customer = new CustomerDTO();

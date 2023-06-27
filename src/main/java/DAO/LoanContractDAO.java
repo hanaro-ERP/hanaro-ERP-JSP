@@ -19,29 +19,46 @@ import util.LoanUtil;
 public class LoanContractDAO {
 
 	// insert a new loan contract
-	public int insertLoanContract(LoanContractDTO loanContract) {
-		String SQL = "INSERT INTO loanContracts (lc_id, l_id, c_id, e_id, start_date, muturity_date, payment_method, loan_amount, balance, payment_date, "
-				+ "late_payment_date, delinquent_amount, guarantor_id, interest_rate) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setInt(1, loanContract.getLoanContractId());
-			pstmt.setInt(2, loanContract.getLoanId());
-			pstmt.setInt(3, loanContract.getCustomerId());
-			pstmt.setInt(4, loanContract.getEmployeeId());
-			pstmt.setTimestamp(5, loanContract.getStartDate());
-			pstmt.setTimestamp(6, loanContract.getMuturityDate());
-			pstmt.setString(7, loanContract.getPaymentMethod());
-			pstmt.setLong(8, loanContract.getLoanAmount());
-			pstmt.setLong(9, loanContract.getBalance());
-			pstmt.setDate(10, loanContract.getPaymentDate());
-			pstmt.setDate(11, loanContract.getLatePaymentDate());
-			pstmt.setLong(12, loanContract.getDelinquentAmount());
-			pstmt.setInt(13, loanContract.getGuarantorId());
-			pstmt.setLong(14, loanContract.getInterestRate());
-			return pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return -1; // Database operation failed
+	public int insertLoanContract(LoanContractDTO loanContract, int l_id, int c_id, int e_id, int numberOfYears) {
+	    String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, start_date, muturity_date, "
+	            + "payment_method, loan_amount, balance, payment_date, "
+	            + "late_payment_date, delinquent_amount, guarantor_id, interest_rate) " 
+	            + "VALUES (?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? YEAR), ?, ?, ?, ?, ?, ?, ?, ?)";
+
+	    if(loanContract.getGuarantorId() == -1) {
+	    	//...
+	    }
+	    
+	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	        pstmt.setInt(1, l_id);
+	        pstmt.setInt(2, c_id);
+	        pstmt.setInt(3, e_id);
+	        pstmt.setInt(4, numberOfYears);
+	        pstmt.setString(5, loanContract.getPaymentMethod());
+	        pstmt.setLong(6, loanContract.getLoanAmount());
+	        pstmt.setLong(7, loanContract.getBalance());
+	        pstmt.setInt(8, loanContract.getPaymentDate());
+	        pstmt.setDate(9, loanContract.getLatePaymentDate());
+	        pstmt.setLong(10, loanContract.getDelinquentAmount());
+	        pstmt.setInt(11, loanContract.getGuarantorId());
+	        pstmt.setLong(12, loanContract.getInterestRate());
+	        int rowsAffected = pstmt.executeUpdate();
+
+	        // Set the muturity_date value in the loanContract object as Timestamp
+	        /*if (rowsAffected > 0) {
+	            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+	                if (generatedKeys.next()) {
+	                    Timestamp muturityDate = generatedKeys.getTimestamp(1);
+	                    loanContract.setMuturityDate(muturityDate);
+	                }
+	            }
+	        }*/
+
+	        return rowsAffected;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return -1; // Database operation failed
 	}
 
 	// Update a loan contract
@@ -57,7 +74,7 @@ public class LoanContractDAO {
 			pstmt.setTimestamp(5, loanContract.getMuturityDate());
 			pstmt.setString(6, loanContract.getPaymentMethod());
 			pstmt.setLong(7, loanContract.getBalance());
-			pstmt.setDate(8, loanContract.getPaymentDate());
+			pstmt.setInt(8, loanContract.getPaymentDate());
 			pstmt.setLong(9, loanContract.getDelinquentAmount());
 			pstmt.setInt(10, loanContract.getGuarantorId());
 			pstmt.setLong(11, loanContract.getInterestRate());
