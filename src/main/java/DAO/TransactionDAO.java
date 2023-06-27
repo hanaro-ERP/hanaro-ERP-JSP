@@ -103,11 +103,32 @@ public class TransactionDAO {
 	}
 
 	// Get transactions by accountId
-	public List<TransactionDTO> getTransactionListByAccountId(AccountDTO accountDTO) {
-		String query = "SELECT * FROM transactions where a_id = ?";
-		List<TransactionDTO> transactions = new ArrayList<>();
+	public int getTransactionCountByAccountId(int accountId) {
+		int cnt = 0;
+
+		String query = "SELECT count(*) AS cnt FROM transactions where a_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+			pstmt.setInt(1, accountId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					cnt = rs.getInt("cnt");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+		
+	// Get transactions by accountId
+	public List<TransactionDTO> getTransactionListByAccountId(AccountDTO accountDTO, int page) {
+		StringBuilder queryBuilder = new StringBuilder("SELECT * FROM transactions where a_id = ?");
+		queryBuilder.append(" LIMIT 10 OFFSET ?");
+
+		List<TransactionDTO> transactions = new ArrayList<>();
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			pstmt.setInt(1, accountDTO.getAccountId());
+			pstmt.setInt(2, (page-1)*10);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					TransactionDTO transaction = new TransactionDTO();

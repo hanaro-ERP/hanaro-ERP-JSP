@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class CustomerSearchDTO {
+public class CustomerSearchDTO extends PaginationDTO {
 	private String customerName;
 	private String employeeName;
 	private String bankName;

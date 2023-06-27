@@ -11,11 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DTO.CustomerDTO;
 import DTO.EmployeeDTO;
 import Service.EmployeeService;
 
 @WebServlet("/employee/list")
 public class EmployeeListController extends HttpServlet {
+	
+	EmployeeService employeeService = new EmployeeService();
+	
 	private static final long serialVersionUID = 1L;
 	
 	public EmployeeListController() {
@@ -48,8 +52,17 @@ public class EmployeeListController extends HttpServlet {
 		if(position != "")
 			employeeDTO.setPosition(position);
 		
+		int pageNo = 1;
+		String page = request.getParameter("page");
+		if (page != null && !page.equals(""))
+			pageNo = Integer.parseInt(page);
+
+		int employeeCount = employeeService.getEmployeeCount(employeeDTO);
+		employeeDTO.setCount(employeeCount);
+		employeeDTO.setPage(pageNo);
+		
 		try {
-			List<EmployeeDTO> getEmlpoyeeList = EmployeeService.getEmployeeList(employeeDTO);
+			List<EmployeeDTO> getEmlpoyeeList = employeeService.getEmployeeList(employeeDTO, pageNo);
 			
 			//검색을 위해 입력받은 값
 			request.setAttribute("searchInputValue", employeeDTO);

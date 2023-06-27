@@ -59,8 +59,7 @@
 						<button type="submit">검색</button>
 					</div>
 				</div>
-			</form>
-			<div class="searchTitle"><h1>검색 결과</h1></div>
+			<div class="searchTitle"><h1>검색 결과</h1><p><%= (bankDTO != null && bankDTO != null) ? "총 " + bankDTO.getCount() + "개의 검색 결과가 있습니다." : "" %></p></div>
 			<table class="searchTable" id="customerSearchTable">
 				<tr>
 					<th>지점 ID</th>
@@ -83,6 +82,49 @@
 				}
 				%>
 			</table>
+			<%
+				// customerSearchDTO에서 page 값과 count 변수 추출
+				int count = (bankDTO != null && bankDTO.getCount() != 0) ? bankDTO.getCount() : 0;
+				int pages = (bankDTO != null && bankDTO != null) ? bankDTO.getPage() : 1;
+
+				// 페이징 처리 로직
+				int pageSize = 20; // 한 페이지에 표시할 레코드 수
+				int totalPages = (int) Math.ceil((double) count / pageSize); // 전체 페이지 수
+				int currentPage = pages; // 현재 페이지
+				int startPage = Math.max(1, currentPage - ((currentPage-1) % 10)) ; // 시작 페이지
+				int endPage = Math.min(startPage + 9, totalPages); // 끝 페이지
+				System.out.println(count);
+
+				// 이전 페이지와 다음 페이지 계산
+				int prevPage = startPage - 1;
+				int nextPage = endPage + 1;
+				
+				// 이전 페이지와 다음 페이지 범위 검사
+				prevPage = Math.max(1, prevPage);
+				nextPage = Math.min(totalPages, nextPage);
+				%>
+				
+				<!-- 페이지 번호 표시 -->
+				<div class="pagination">
+					<% if (currentPage > 1) { %>
+						<button type="submit" name="page" value="1"><<</button>
+						<button type="submit" name="page" value="<%= prevPage %>"><</button>
+					<% } %>
+					
+					<% for (int i = startPage; i <= endPage; i++) { %>
+						<% if (i == currentPage) { %>
+							<button type="submit" class="activePage" name="page" value="<%= i %>"><%= i %></button>
+						<% } else { %>
+							<button type="submit" name="page" value="<%= i %>"><%= i %></button>
+						<% } %>
+					<% } %>
+					
+					<% if (currentPage < totalPages) { %>
+						<button type="submit" name="page" value="<%= nextPage %>">></button>
+						<button type="submit" name="page" value="<%= totalPages %>">>></button>
+					<% } %>
+				</div>
+			</form>
 		</div>
 	</main>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>

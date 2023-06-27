@@ -168,8 +168,8 @@
 					<td><%=dto.getInterestRate()%></td>
 				</tr>
 				<%
-						}
 					}
+				}
 				%>
 			</table>
 			<div class="popupBox display">
@@ -209,11 +209,11 @@
 									<td><%= dto.getTradeAmountString()%></td>
 									<td><%= dto.getBalanceString()%></td>
 									<td>
-									  <% if (dto.isAgent()) { %>
-									    <%= "O" %>
-									  <% } else { %>
-									    <%= "X" %>
-									  <% } %>
+									<% if (dto.isAgent()) { %>
+										<%= "O" %>
+									<% } else { %>
+										<%= "X" %>
+									<% } %>
 									</td>
 								</tr>
 								<%
