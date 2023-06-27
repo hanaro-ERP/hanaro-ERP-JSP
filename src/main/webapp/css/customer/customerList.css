@@ -29,3 +29,6 @@
 .searchTable tr th:nth-child(7){
 	width: 180px;
 }
+.activePage {
+	background-color: #2DB400;
+}

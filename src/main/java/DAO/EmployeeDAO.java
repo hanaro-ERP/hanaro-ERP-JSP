@@ -9,6 +9,7 @@ import java.util.List;
 
 import DTO.BankDTO;
 import DTO.CustomerDTO;
+import DTO.CustomerSearchDTO;
 import DTO.EmployeeDTO;
 import DTO.LoanContractDTO;
 import util.DatabaseUtil;
@@ -196,7 +197,55 @@ public class EmployeeDAO {
 		return bank;
 	}
 	
-	public List<EmployeeDTO> getEmployeesByDTO(EmployeeDTO employeeDTO) {
+	public int getEmployeeCount(EmployeeDTO employeeDTO) {
+	    int cnt = 0;
+	    StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt, b.b_name FROM employees e ");
+		queryBuilder.append("JOIN banks b ON e.b_id = b.b_id ");
+		queryBuilder.append("WHERE 1=1 ");
+
+		if (employeeDTO.getEmployeeName() != null) {
+			queryBuilder.append("AND e.e_name = ?");
+		}
+		if (employeeDTO.getDepartment() != null) {
+			queryBuilder.append("AND e.department = ?");
+		}
+		if (employeeDTO.getPosition() != null) {
+			queryBuilder.append("AND e.position = ?");
+		}
+		if(employeeDTO.getBankLocation() != null) {
+			queryBuilder.append("AND b.b_name = ?");
+		}
+		
+		try (Connection conn = DatabaseUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+			int parameterIndex = 1;
+
+			if (employeeDTO.getEmployeeName() != null) {
+				pstmt.setString(parameterIndex++, employeeDTO.getEmployeeName());
+			}
+			if (employeeDTO.getDepartment() != null) {
+				pstmt.setString(parameterIndex++, employeeDTO.getDepartment());
+			}
+			if (employeeDTO.getPosition() != null) {
+				pstmt.setString(parameterIndex++, employeeDTO.getPosition());
+			}
+			if(employeeDTO.getBankLocation() != null) {
+				pstmt.setString(parameterIndex++, employeeDTO.getBankLocation());
+			}
+			
+			System.out.println(pstmt.toString());
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+		            cnt = rs.getInt("cnt");
+		        }
+			}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	    return cnt;
+	}
+	
+	public List<EmployeeDTO> getEmployeesByDTO(EmployeeDTO employeeDTO, int page) {
 		StringBuilder queryBuilder = new StringBuilder("SELECT e.*, b.b_name FROM employees e ");
 		queryBuilder.append("JOIN banks b ON e.b_id = b.b_id ");
 		queryBuilder.append("WHERE 1=1 ");
@@ -213,6 +262,7 @@ public class EmployeeDAO {
 		if(employeeDTO.getBankLocation() != null) {
 			queryBuilder.append("AND b.b_name = ?");
 		}
+		queryBuilder.append(" LIMIT 20 OFFSET ?");
 
 		try (Connection conn = DatabaseUtil.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
@@ -230,7 +280,8 @@ public class EmployeeDAO {
 			if(employeeDTO.getBankLocation() != null) {
 				pstmt.setString(parameterIndex++, employeeDTO.getBankLocation());
 			}
-	    
+			pstmt.setInt(parameterIndex++, (page-1)*20);
+
 			List<EmployeeDTO> findEmployees = new ArrayList<>();
 			try (ResultSet rs = pstmt.executeQuery()) {				
 				while (rs.next()) {

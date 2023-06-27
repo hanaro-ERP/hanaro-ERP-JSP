@@ -5,7 +5,7 @@ import lombok.*;
 @Getter
 @Setter
 
-public class EmployeeDTO {
+public class EmployeeDTO extends PaginationDTO{
 	private int employeeId;
 	private int bankId;
 	private String employeeName;
@@ -15,6 +15,5 @@ public class EmployeeDTO {
 	private String phoneNumber;
 	private boolean admin;
 	private String salt;
-	
 	private String bankLocation;
 }

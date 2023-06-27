@@ -40,4 +40,8 @@ public class CustomerService {
 		
 		return customerList;
 	}
+	
+	public int getCustomerCount(CustomerSearchDTO customerSearchDTO) {
+		return customerDAO.getCustomerCount(customerSearchDTO);
+	}
 }

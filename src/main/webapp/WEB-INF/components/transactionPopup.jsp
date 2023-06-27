@@ -5,14 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 </head>
 <body>
 	<%@ page import="java.util.List" %>
 	<%@ page import="DTO.TransactionDTO" %>
-	<%
-		List<TransactionDTO> searchedTransactionList = (List<TransactionDTO>) request.getAttribute("searchedTransactionList");
-	%>
+	<%@ page import="DTO.PaginationDTO" %>
+	<%List<TransactionDTO> searchedTransactionList = (List<TransactionDTO>) request.getAttribute("searchedTransactionList"); %>
+	<% PaginationDTO paginationDTO = (PaginationDTO) request.getAttribute("paginationDTO"); %>
 	<div class="popupTitleBox">
 		<h1>입출금 내역</h1>
 		<h2><%= searchedTransactionList.get(0).getCustomerName() %></h2>
@@ -46,6 +47,47 @@
 			}
 			%>
 		</table>
+		<%
+		// customerSearchDTO에서 page 값과 count 변수 추출
+		int count = (paginationDTO != null && paginationDTO.getCount() != 0) ? paginationDTO.getCount() : 0;
+		int pages = (paginationDTO != null && paginationDTO.getPage() != 0) ? paginationDTO.getPage() : 1;
+
+		// 페이징 처리 로직
+		int pageSize = 10; // 한 페이지에 표시할 레코드 수
+		int totalPages = (int) Math.ceil((double) count / pageSize); // 전체 페이지 수
+		int currentPage = pages; // 현재 페이지
+		int startPage = Math.max(1, currentPage - ((currentPage-1) % 10)) ; // 시작 페이지
+		int endPage = Math.min(startPage + 9, totalPages); // 끝 페이지
+		System.out.println(count);
+
+		// 이전 페이지와 다음 페이지 계산
+		int prevPage = startPage - 1;
+		int nextPage = endPage + 1;
+		
+		// 이전 페이지와 다음 페이지 범위 검사
+		prevPage = Math.max(1, prevPage);
+		nextPage = Math.min(totalPages, nextPage);
+		%>
+		<div class="pagination">
+		    <% if (currentPage > 1) { %>
+		        <a href=""><<</a>
+				<a type="submit" name="page" value="<%= prevPage %>"><</a>
+		    <% } %>
+		
+		
+		    <% for (int i = startPage; i <= endPage; i++) { %>
+		        <% if (i == currentPage) { %>
+		            <a href="?name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= i %>" class="activePage"><%= i %></a>
+		        <% } else { %>
+		            <a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= i %>"><%= i %></a>
+		        <% } %>
+		    <% } %>
+		
+		    <% if (currentPage < totalPages) { %>
+				<a type="submit" name="page" value="<%= nextPage %>">></a>
+		        <a type="submit" name="page" value="<%= totalPages %>">>></a>
+		    <% } %>
+		</div>
 	</div>
 </body>
 </html>

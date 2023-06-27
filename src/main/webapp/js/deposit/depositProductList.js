@@ -2,7 +2,7 @@ selectMultiItems('depositType');
 selectMultiItemsWithDirectInput("depositStartDate");
 selectOneItemWithDirectInput('depositBalance');
 
-setYearSelect();
+setYearSelect("depositStartDate");
 setMonthSelect();
 setDaySelect(true);
 changeDate();
@@ -19,7 +19,7 @@ searchTableRows.forEach((item, index) => {
 			var nameValue = nameTd.innerHTML;
 			var numberValue = numberTd.innerHTML;
 
-			window.open("/hanaro-ERP-JSP/depositList/searchTransactions?id=" + idValue + "&name=" + nameValue + "&number=" + numberValue, "_blank", "width=1000,height=600");
+			window.open("/hanaro-ERP-JSP/depositList/searchTransactions?id=" + idValue + "&name=" + nameValue + "&number=" + numberValue + "&page=1", "_blank", "width=1000,height=600");
 		});	
 	}
 });

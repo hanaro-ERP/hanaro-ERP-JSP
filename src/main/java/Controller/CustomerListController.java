@@ -104,10 +104,13 @@ public class CustomerListController extends HttpServlet {
 			String page = request.getParameter("page");
 			if (page != null && !page.equals(""))
 				pageNo = Integer.parseInt(page);
-			System.out.println(pageNo);
+
 			List<CustomerDTO> customerList = customerService.getCustomerList(customerSearchDTO, pageNo);
+			int customerCount = customerService.getCustomerCount(customerSearchDTO);
+			customerSearchDTO.setCount(customerCount);
+			customerSearchDTO.setPage(pageNo);
 			
-			request.setAttribute("customerInput", customerSearchDTO);
+			request.setAttribute("customerSearchDTO", customerSearchDTO);
 			request.setAttribute("customerList", customerList);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/customer/customerList.jsp");

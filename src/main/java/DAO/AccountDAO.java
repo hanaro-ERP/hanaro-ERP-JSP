@@ -9,6 +9,7 @@ import java.util.List;
 
 import DTO.AccountDTO;
 import DTO.AccountSearchDTO;
+import DTO.BankDTO;
 import util.DatabaseUtil;
 import util.DepositUtil;
 import java.text.DecimalFormat;
@@ -105,7 +106,93 @@ public class AccountDAO {
 		return accounts;
 	}
 
-	public List<AccountDTO> getAccountListByDTO(AccountSearchDTO accountSearchDTO) {
+	public int getAccountCount(AccountSearchDTO accountSearchDTO) {
+	    int cnt = 0;
+		StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt FROM accounts a ");
+		queryBuilder.append("JOIN customers c ON c.c_id = a.c_id ");
+		queryBuilder.append("JOIN employees e ON c.e_id = e.e_id ");
+		queryBuilder.append("WHERE 1=1");
+		
+		if (!accountSearchDTO.getAccountNumber().equals("")) {
+			queryBuilder.append(" AND a.account_number LIKE ?");
+		}
+		if (!accountSearchDTO.getCustomerName().equals("")) {
+			queryBuilder.append(" AND c.c_name LIKE ?");
+		}
+		if (!accountSearchDTO.getIdentification1().equals("")) {
+			queryBuilder.append(" AND c.identification LIKE ?");
+		}
+		if (!accountSearchDTO.getDepositType().equals("전체")) {
+			queryBuilder.append(" AND a.account_type = ?");
+		}
+		if (!accountSearchDTO.getAccountOpenDate()[0].equals("전체")) {
+			queryBuilder.append(" AND a.account_open_date LIKE ?");
+		}
+		if (accountSearchDTO.getDepositBalance()[0].equals("전체")) {				
+		} else if (accountSearchDTO.getDepositBalance()[0].equals("~2천만원")) {
+			queryBuilder.append(" AND a.account_balance <= 20000000");					
+		} else if (accountSearchDTO.getDepositBalance()[0].equals("~3천만원")) {
+			queryBuilder.append(" AND a.account_balance <= 30000000");					
+		} else if (accountSearchDTO.getDepositBalance()[0].equals("~5천만원")) {
+			queryBuilder.append(" AND a.account_balance <= 50000000");					
+		} else if (accountSearchDTO.getDepositBalance()[0].equals("~1억원")) {
+			queryBuilder.append(" AND a.account_balance <= 100000000");					
+		} else if (accountSearchDTO.getDepositBalance()[0].equals("1억원 이상")) {
+			queryBuilder.append(" AND a.account_balance >= 100000000");					
+		} else {
+			queryBuilder.append(" AND a.account_balance between ? and ?");
+		}
+		
+		try (Connection conn = DatabaseUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+			int parameterIndex = 1;
+			if (!accountSearchDTO.getAccountNumber().equals("")) {
+				pstmt.setString(parameterIndex++, "%" + accountSearchDTO.getAccountNumber() + "%");
+			} 
+			if (!accountSearchDTO.getCustomerName().equals("")) {
+				pstmt.setString(parameterIndex++, "%" + accountSearchDTO.getCustomerName() + "%");
+			}
+			if (!accountSearchDTO.getIdentification1().equals("")) {
+				if (!accountSearchDTO.getIdentification2().equals(""))
+					pstmt.setString(parameterIndex++, accountSearchDTO.getIdentification1() + "-" + accountSearchDTO.getIdentification1());
+				else
+					pstmt.setString(parameterIndex++, accountSearchDTO.getIdentification1() + "-%");
+			}
+			if (!accountSearchDTO.getDepositType().equals("전체")) {
+				pstmt.setString(parameterIndex++, accountSearchDTO.getDepositType());
+			}
+			if (!accountSearchDTO.getAccountOpenDate()[0].equals("전체")) {
+				if (accountSearchDTO.getAccountOpenDate()[1].equals(""))
+					pstmt.setString(parameterIndex++, accountSearchDTO.getAccountOpenDate()[0] + "-%");
+				else if (accountSearchDTO.getAccountOpenDate()[2].equals(""))
+					pstmt.setString(parameterIndex++, accountSearchDTO.getAccountOpenDate()[0] + "-" + accountSearchDTO.getAccountOpenDate()[1] + "-%");
+				else
+					pstmt.setString(parameterIndex++, accountSearchDTO.getAccountOpenDate()[0] + "-" + accountSearchDTO.getAccountOpenDate()[1] + "-" + accountSearchDTO.getAccountOpenDate()[2] + "%");
+			}
+			if (accountSearchDTO.getDepositBalance().length == 2) {
+				if (accountSearchDTO.getDepositBalance()[0].equals(""))
+					pstmt.setString(parameterIndex++, "0");
+				else 
+					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[0]+"0000");
+				if (accountSearchDTO.getDepositBalance()[1].equals(""))
+					pstmt.setString(parameterIndex++, "99999999999999");
+				else
+					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[1]+"0000");
+			}
+			
+			System.out.println(pstmt.toString());
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+		            cnt = rs.getInt("cnt");
+		        }
+			}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	    return cnt;
+	}
+	
+	public List<AccountDTO> getAccountListByDTO(AccountSearchDTO accountSearchDTO, int page) {
 		StringBuilder queryBuilder = new StringBuilder("SELECT a.*, c.c_name, e.e_name FROM accounts a ");
 		queryBuilder.append("JOIN customers c ON c.c_id = a.c_id ");
 		queryBuilder.append("JOIN employees e ON c.e_id = e.e_id ");
@@ -140,7 +227,8 @@ public class AccountDAO {
 		} else {
 			queryBuilder.append(" AND a.account_balance between ? and ?");
 		}
-	
+		queryBuilder.append(" LIMIT 20 OFFSET ?");
+
 		System.out.println(queryBuilder);
 
 		try (Connection conn = DatabaseUtil.getConnection();
@@ -179,6 +267,7 @@ public class AccountDAO {
 				else
 					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[1]+"0000");
 			}
+			pstmt.setInt(parameterIndex++, (page-1)*20);
 			
 			System.out.println(pstmt.toString());
 			

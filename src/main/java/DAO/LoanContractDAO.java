@@ -88,11 +88,11 @@ public class LoanContractDAO {
 		loanContract.setCustomerId(rs.getInt("c_id"));
 		loanContract.setEmployeeId(rs.getInt("e_id"));
 		loanContract.setStartDate(rs.getTimestamp("start_date"));
-		loanContract.setMuturityDate(rs.getTimestamp("muturity_date"));
+		loanContract.setMuturityDate(rs.getTimestamp("maturity_date"));
 		loanContract.setPaymentMethod(rs.getString("payment_method"));
 		loanContract.setLoanAmount(rs.getLong("loan_amount"));
 		loanContract.setBalance(rs.getLong("balance"));
-		loanContract.setPaymentDate(rs.getDate("payment_date"));
+		loanContract.setPaymentDate(rs.getInt("payment_date"));
 		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));	
 		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));
 		loanContract.setDelinquentAmount(rs.getLong("delinquent_amount"));
@@ -165,7 +165,7 @@ public class LoanContractDAO {
 			queryBuilder.append(" AND lc.start_date >= ? AND lc.start_date < ?");
 		}
 		if (loanContractDTO.getMuturityDate() != null ) {
-			queryBuilder.append(" AND lc.muturity_date >= ? AND lc.muturity_date < ?");
+			queryBuilder.append(" AND lc.maturity_date >= ? AND lc.maturity_date < ?");
 		}
 		if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0 ) {
 			if (loanContractDTO.getBalanceRange()[0] >= 10000) {

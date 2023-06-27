@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DTO.LoanSearchDTO;
+import DTO.CustomerDTO;
 import DTO.LoanProductDTO;
 import Service.LoanService;
 
@@ -64,7 +65,17 @@ public class LoanProductListController extends HttpServlet {
 			if (limits != null)
 				loanSearchDTO.setLimits(limits);
 			
-			List<LoanProductDTO> loanList = loanService.getLoanProductList(loanSearchDTO);
+			int pageNo = 1;
+			String page = request.getParameter("page");
+			if (page != null && !page.equals(""))
+				pageNo = Integer.parseInt(page);
+
+			int loanCount = loanService.getLoanCount(loanSearchDTO);
+			loanSearchDTO.setCount(loanCount);
+			loanSearchDTO.setPage(pageNo);
+			System.out.println(loanCount);
+			
+			List<LoanProductDTO> loanList = loanService.getLoanProductList(loanSearchDTO, pageNo);
 			
 			request.setAttribute("loanProductInput", loanSearchDTO);
 			request.setAttribute("loanProductList", loanList);
