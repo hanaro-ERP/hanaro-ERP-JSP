@@ -99,13 +99,14 @@ public class LoanSubscriptionController extends HttpServlet {
 			String loanAmount = request.getParameter("loanAmount");
 			String interestRate = request.getParameter("interestRate");
 			String repaymentMethod = request.getParameter("repaymentMethod");
-			
-			
-			
+			String gracePeriod = request.getParameter("gracePeriod");
+						
 			if(loanType != null)
 				loanContractDTO.setLoanType(loanType);
 			if(loanProductName != null)
 				loanContractDTO.setLoanName(loanProductName);
+			if(collateral != null)
+				loanContractDTO.setCollateralDetails(collateral);
 			if(loanAmount != null) {
 				loanContractDTO.setLoanAmount(Integer.parseInt(loanAmount+"0000"));
 				loanContractDTO.setBalance(Integer.parseInt(loanAmount+"0000")); //대출 잔금
@@ -114,7 +115,8 @@ public class LoanSubscriptionController extends HttpServlet {
 				loanContractDTO.setInterestRate(Integer.parseInt(interestRate));
 			if(repaymentMethod != null)
 				loanContractDTO.setPaymentMethod(repaymentMethod);
-			
+			if(gracePeriod != null)
+				loanContractDTO.setGracePeriod(Integer.parseInt(gracePeriod));
 			/*
 			System.out.println("customerName: " + customerName);
 			System.out.println("phoneNumber: " + phoneNumber);

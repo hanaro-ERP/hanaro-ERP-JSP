@@ -6,6 +6,7 @@ tr td select {
 .select {
 	width: 150px;
 }
-.shortSelect {
+.shortSelect,
+.middleInput {
 	width: 200px;
 }

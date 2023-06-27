@@ -69,6 +69,8 @@ public class LoanService {
 		int b_id = bankDAO.getBankIdByBankName(customerDTO.getBankName());
 		int l_id = loanDAO.getLoanIdByLoanName(loanContractDTO.getLoanName());
 		
+		System.out.println(l_id + " l_id");
+		
 		int isCustomerRegister = customerDAO.insertCustomer(customerDTO, e_id, b_id);
 		
 		int c_id = customerDAO.getCustomerIdByCustomerName(customerDTO.getCustomerName());

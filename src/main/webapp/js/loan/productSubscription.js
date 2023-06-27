@@ -32,7 +32,7 @@ function changeLoan(add) {
 	// selectedIndex가 2 (신용대출)이면 담보 필드를 비활성화하고 값을 초기화합니다.
 	if (add === 1) {
 		collateralField.disabled = true;
-		collateralField.value = "";
+		collateralField.value = "-";
 		
 		collateralField.style.backgroundColor = "#E5E8EB";
 	} else {

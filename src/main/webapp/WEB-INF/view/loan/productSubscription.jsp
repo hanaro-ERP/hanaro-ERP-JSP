@@ -164,7 +164,6 @@ pageEncoding="UTF-8"%>
 						<th> 거치 기간</th>
 						<td>
 						<input name="gracePeriod" class="shortInput"> 년
-						
 					</tr>
 					<tr>
 						<th>상환 방법</th>

@@ -20,14 +20,16 @@ public class LoanContractDAO {
 
 	// insert a new loan contract
 	public int insertLoanContract(LoanContractDTO loanContract, int l_id, int c_id, int e_id, int numberOfYears) {
-	    String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, start_date, muturity_date, "
-	            + "payment_method, loan_amount, balance, payment_date, "
-	            + "late_payment_date, delinquent_amount, guarantor_id, interest_rate) " 
-	            + "VALUES (?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? YEAR), ?, ?, ?, ?, ?, ?, ?, ?)";
+	    String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, start_date, muturity_date, payment_method,  "
+	            + "grace_period, loan_amount, balance, payment_date, late_payment_date, "
+	            + "delinquent_amount, guarantor_id, interest_rate, collateral_details) " 
+	            + "VALUES (?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? YEAR), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	    if(loanContract.getGuarantorId() == -1) {
 	    	//...
 	    }
+	    
+	    //l_id를 통한 해당 상품의 정보 가져오기
 	    
 	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 	        pstmt.setInt(1, l_id);
@@ -35,13 +37,16 @@ public class LoanContractDAO {
 	        pstmt.setInt(3, e_id);
 	        pstmt.setInt(4, numberOfYears);
 	        pstmt.setString(5, loanContract.getPaymentMethod());
-	        pstmt.setLong(6, loanContract.getLoanAmount());
-	        pstmt.setLong(7, loanContract.getBalance());
-	        pstmt.setInt(8, loanContract.getPaymentDate());
-	        pstmt.setDate(9, loanContract.getLatePaymentDate());
-	        pstmt.setLong(10, loanContract.getDelinquentAmount());
-	        pstmt.setInt(11, loanContract.getGuarantorId());
-	        pstmt.setLong(12, loanContract.getInterestRate());
+	        pstmt.setLong(6, loanContract.getGracePeriod());	        
+	        pstmt.setLong(7, loanContract.getLoanAmount());
+	        pstmt.setLong(8, loanContract.getBalance());
+	        pstmt.setInt(9, loanContract.getPaymentDate());
+	        pstmt.setDate(10, loanContract.getLatePaymentDate());
+	        pstmt.setLong(11, loanContract.getDelinquentAmount());
+	        pstmt.setInt(12, loanContract.getGuarantorId());
+	        pstmt.setLong(13, loanContract.getInterestRate());
+	        pstmt.setString(14, loanContract.getCollateralDetails());
+	        
 	        int rowsAffected = pstmt.executeUpdate();
 
 	        // Set the muturity_date value in the loanContract object as Timestamp
