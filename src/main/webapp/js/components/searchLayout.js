@@ -256,7 +256,7 @@ countyList[15] = new Array(
 	"함양군",
 	"합천군"
 );
-countyList[16] = new Array("전체", "서귀포시", "제주시", "남제주군", "북제주군");
+countyList[16] = new Array("", "서귀포시", "제주시", "남제주군", "북제주군");
 
 function changeCounty(add) {
 	const selectElement = document.getElementById('districtSelect');
