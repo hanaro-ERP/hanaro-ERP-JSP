@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 
 public class CreditScoringDTO {
-	private String customerId;
+	private String customerName;
 	private String Identification;
 	private String guaranteeId;
 	private int riskResult;
