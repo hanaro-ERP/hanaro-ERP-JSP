@@ -129,13 +129,13 @@ li > div > input {
 	font-weight: bold;
 }
 input[type="checkbox"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  outline: none;
-  background: none;
-  margin: 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+	margin: 0;
 }
 .directInput {
 	width: 750px !important;

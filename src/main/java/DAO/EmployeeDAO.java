@@ -35,6 +35,22 @@ public class EmployeeDAO {
 		return -1; // Database operation failed
 	}
 
+	public int getEmployeeIdByEmployeeName(String employeeName) {
+		int eId = -1;
+	    String SQL = "SELECT e_id FROM employees WHERE e_name = ?";
+	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	        pstmt.setString(1, employeeName);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                eId = rs.getInt("e_id");
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return eId;
+	}
+	
 	// Read an employee by EmployeeId
 	public EmployeeDTO getEmployeeByEmployeeId(int employeeId) {
 		EmployeeDTO employee = new EmployeeDTO();
@@ -147,7 +163,7 @@ public class EmployeeDAO {
 					loanContract.setMuturityDate(rs.getTimestamp("muturiy_date"));
 					loanContract.setPaymentMethod(rs.getString("payment_method"));
 					loanContract.setBalance(rs.getLong("balance"));
-					loanContract.setPaymentDate(rs.getDate("payment_date"));
+					loanContract.setPaymentDate(rs.getInt("payment_date"));
 					loanContract.setDelinquentAmount(rs.getLong("delinquent_amount"));
 					loanContract.setGuarantorId(rs.getInt("guarantor"));
 					loanContract.setInterestRate(rs.getLong("interest_rate"));
@@ -213,6 +229,8 @@ public class EmployeeDAO {
 		if(employeeDTO.getBankLocation() != null) {
 			queryBuilder.append("AND b.b_name = ?");
 		}
+		
+		queryBuilder.append(" ORDER BY e.e_id ASC "); // 정렬 조건
 
 		try (Connection conn = DatabaseUtil.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {

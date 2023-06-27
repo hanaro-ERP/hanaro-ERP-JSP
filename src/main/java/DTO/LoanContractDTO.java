@@ -20,7 +20,7 @@ public class LoanContractDTO {
 	private int gracePeriod;
 	private long loanAmount;
 	private long balance;
-	private Date paymentDate;
+	private int paymentDate;
 	private Date latePaymentDate;
 	private long delinquentAmount;
 	private int guarantorId;

@@ -256,7 +256,7 @@ countyList[15] = new Array(
 	"함양군",
 	"합천군"
 );
-countyList[16] = new Array("전체", "서귀포시", "제주시", "남제주군", "북제주군");
+countyList[16] = new Array("", "서귀포시", "제주시", "남제주군", "북제주군");
 
 function changeCounty(add) {
 	const selectElement = document.getElementById('districtSelect');
@@ -544,13 +544,21 @@ function setYearSelect(ulId) {
 	}
 }
 
-// 월 설정
+//월 설정
 function setMonthSelect() {
 	monthSelect = document.getElementsByClassName("monthSelect");
 
 	Array.from(monthSelect).forEach(monthSelect => {
+		const option = document.createElement("option");
+		option.value = "";
+		option.textContent = "";
+		monthSelect.appendChild(option);
+		
 		for (let month = 1; month <= 12; month++) {
 			const option = document.createElement("option");
+			if (month < 10) {
+				month = "0"+month;
+			}
 			option.value = month;
 			option.textContent = month;
 			monthSelect.appendChild(option);
@@ -568,7 +576,7 @@ function setDaySelect(isInitial) {
 		yearSelectRow = document.getElementsByClassName("yearSelect")[rowIndex];
 		monthSelectRow = document.getElementsByClassName("monthSelect")[rowIndex];
 		yearSelectRow.value = 1990;
-		monthSelectRow.value = 1;
+		monthSelectRow.value = "";
 
 		yearSelect = parseInt(yearSelectRow.value);
 		monthSelect = parseInt(monthSelectRow.value);
@@ -577,10 +585,17 @@ function setDaySelect(isInitial) {
 
 		Array.from(daySelectList).forEach(daySelectRow => {
 			daySelectRow.innerHTML = "";
+			const option = document.createElement("option");
+			option.value = "";
+			option.textContent = "";
+			daySelectRow.appendChild(option);
 		});
 		Array.from(daySelectList).forEach(daySelectRow => {
 			for (let day = 1; day <= endDay; day++) {
 				const option = document.createElement("option");
+				if (day < 10) {
+					day = "0"+day;
+				}
 				option.value = day;
 				option.textContent = day;
 				daySelectRow.appendChild(option);
@@ -590,8 +605,15 @@ function setDaySelect(isInitial) {
 	else {
 		endDay = new Date(yearSelect, monthSelect, 0).getDate();
 		daySelectRow.innerHTML = "";
+		const option = document.createElement("option");
+		option.value = "";
+		option.textContent = "";
+		daySelectRow.appendChild(option);
 		for (let day = 1; day <= endDay; day++) {
 			const option = document.createElement("option");
+			if (day < 10) {
+				day = "0"+day;
+			}
 			option.value = day;
 			option.textContent = day;
 			daySelectRow.appendChild(option);
@@ -606,15 +628,15 @@ function changeDate() {
 
 	if (yearSelectList.length > 0) {
 		Array.from(yearSelectList).forEach(yearSelectRow => {
-			yearSelectRow.removeEventListener("change", (event) => handleDateSelect(event, true));
-			yearSelectRow.addEventListener("change", (event) => handleDateSelect(event, true));
+			yearSelectRow.removeEventListener("click", (event) => handleDateSelect(event, true));
+			yearSelectRow.addEventListener("click", (event) => handleDateSelect(event, true));
 		});
 	}
 
 	if (monthSelectList.length > 0) {
 		Array.from(monthSelectList).forEach(monthSelectRow => {
-			monthSelectRow.removeEventListener("change", (event) => handleDateSelect(event, false));
-			monthSelectRow.addEventListener("change", (event) => handleDateSelect(event, false));
+			monthSelectRow.removeEventListener("click", (event) => handleDateSelect(event, false));
+			monthSelectRow.addEventListener("click", (event) => handleDateSelect(event, false));
 		});
 	}
 }
@@ -624,7 +646,10 @@ function handleDateSelect(event, isYear) {
 	const liElement = selectedDate.closest('ul').querySelector('li');
 	const ulId = selectedDate.closest('ul').id;
 
-	if (ulId.includes("Start")) {
+	if (ulId.includes("deposit")) {
+		changeDateRowSelect("depositStartDate");
+	}
+	else if (ulId.includes("Start")) {
 		changeDateRowSelect("loanContractStartDate");
 	}
 	else {
@@ -651,6 +676,10 @@ function changeDateRowSelect(rowId) {
 	}
 	else if (rowId === "loanContractEndDate") {
 		ulElement = document.getElementById("loanContractEndDate");
+	}
+	else if (rowId === "depositStartDate") {
+		ulElement = document.getElementById("depositStartDate");
+		rowIndex = 0;
 	}
 	else {
 		return; // 유효한 rowId가 아닌 경우 함수 종료
