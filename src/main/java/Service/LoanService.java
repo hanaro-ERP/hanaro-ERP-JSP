@@ -31,12 +31,18 @@ public class LoanService {
 		return loanContractDTOList;		
 	}
 	
-	public static List<LoanProductDTO> getLoanProductList(LoanSearchDTO loanSearchDTO) throws NoSuchAlgorithmException {
+	public List<LoanProductDTO> getLoanProductList(LoanSearchDTO loanSearchDTO, int page) throws NoSuchAlgorithmException {
 		LoanProductDAO loanDAO = new LoanProductDAO();
 
-		List<LoanProductDTO> loanProductList = loanDAO.getLoansByDTO(loanSearchDTO);
+		List<LoanProductDTO> loanProductList = loanDAO.getLoansByDTO(loanSearchDTO, page);
 		
 		return loanProductList;		
+	}
+	
+	public int getLoanCount(LoanSearchDTO loanSearchDTO) {
+		LoanProductDAO loanDAO = new LoanProductDAO();
+
+		return loanDAO.getLoanCount(loanSearchDTO);
 	}
 	
 	public int registerLoanProduct(LoanProductDTO loanProductDTO) throws NoSuchAlgorithmException {

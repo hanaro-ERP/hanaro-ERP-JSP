@@ -566,12 +566,20 @@ function setMonthSelect() {
 	});
 }
 
+function temp(year, month) {
+	yearSelect = year;
+	monthSelect = month;
+	console.log(yearSelect);
+	console.log(monthSelect);
+	endDay = new Date(yearSelect, monthSelect, 0).getDate();
+	return endDay;
+}
 // 일 설정
-function setDaySelect(isInitial) {	
+function setDaySelect(isInitial, year, month) {	
 	daySelectList = document.getElementsByClassName("daySelect");
 	daySelectRow = document.getElementsByClassName("daySelect")[rowIndex];
 	let endDay;	// 선택한 월에 따라 endDay 다르게
-
+	endDay = new Date(year, month, 0).getDate();
 	if (isInitial) {
 		yearSelectRow = document.getElementsByClassName("yearSelect")[rowIndex];
 		monthSelectRow = document.getElementsByClassName("monthSelect")[rowIndex];
@@ -603,7 +611,6 @@ function setDaySelect(isInitial) {
 		});
 	}
 	else {
-		endDay = new Date(yearSelect, monthSelect, 0).getDate();
 		daySelectRow.innerHTML = "";
 		const option = document.createElement("option");
 		option.value = "";
@@ -664,7 +671,7 @@ function handleDateSelect(event, isYear) {
 		monthSelect = selectedDate.value;
 		yearSelect = parseInt(yearSelectRow.value);
 	}
-	setDaySelect(false); // 일 범위 바꾸기
+	setDaySelect(false, yearSelect, monthSelect); // 일 범위 바꾸기
 }
 
 // 대출일, 만기일 날짜 선택하면 '전체' -> '직접입력'

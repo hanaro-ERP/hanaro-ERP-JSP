@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class LoanSearchDTO {
+public class LoanSearchDTO extends PaginationDTO {
 	private String type;
 	private String name;
 	private String[] jobs;

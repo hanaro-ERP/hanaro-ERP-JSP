@@ -18,6 +18,7 @@
 	<%@ include file="../../components/header.jsp" %>	
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
+		<% CustomerSearchDTO customerSearchDTO = (CustomerSearchDTO)request.getAttribute("customerSearchDTO"); %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>고객 검색</h1></div>
 			<form action="${pageContext.request.contextPath}/customer/list" method="post">
@@ -150,9 +151,7 @@
 				<div class="innerButtonContainer">
 					<button id="customerSearchButton" type="submit">검색</button>
 				</div>
-			</form>
-			
-			<div class="searchTitle"><h1>검색 결과</h1></div>
+			<div class="searchTitle"><h1>검색 결과</h1><p><%= (customerSearchDTO != null && customerSearchDTO.getCount() != 0) ? "총 " + customerSearchDTO.getCount() + "개의 검색 결과가 있습니다." : "" %></p></div>
 			<table class="searchTable" id="customerSearchTable">
 				<tr>
 					<th>고객 ID</th>
@@ -169,23 +168,66 @@
 				List<CustomerDTO> findCustomers = (List<CustomerDTO>) request.getAttribute("customerList");
 
 				if (findCustomers != null && !findCustomers.isEmpty()) {
-				    for (CustomerDTO customer : findCustomers) {
-				      %>
-				      <tr>
-				        <td class="customerId"><%= customer.getCustomerId() %></td>
-				        <td><%= customer.getCustomerName() %></td>
-				        <td><%= customer.getAge() %></td>
-				        <td><%= customer.getStrGender() %>
-				        <td><%= customer.getCredit() %></td>
-				        <td><%= customer.getJobCode() %></td>
+				for (CustomerDTO customer : findCustomers) {
+					%>
+					<tr>
+						<td class="customerId"><%= customer.getCustomerId() %></td>
+						<td><%= customer.getCustomerName() %></td>
+						<td><%= customer.getAge() %></td>
+						<td><%= customer.getStrGender() %>
+						<td><%= customer.getCredit() %></td>
+						<td><%= customer.getJobCode() %></td>
 						<td><%= customer.getGrade() %></td>
-						<td>더미데이터 98</td>
-				      </tr>
-				      <%
-				    }
-				  }
+						<td><%= customer.getRisk() %></td>
+					</tr>
+					<%
+					}
+				}
 				%>
 			</table>
+				<%
+				// customerSearchDTO에서 page 값과 count 변수 추출
+				int count = (customerSearchDTO != null && customerSearchDTO.getCount() != 0) ? customerSearchDTO.getCount() : 0;
+				int pages = (customerSearchDTO != null && customerSearchDTO.getPage() != 0) ? customerSearchDTO.getPage() : 1;
+
+				// 페이징 처리 로직
+				int pageSize = 20; // 한 페이지에 표시할 레코드 수
+				int totalPages = (int) Math.ceil((double) count / pageSize); // 전체 페이지 수
+				int currentPage = pages; // 현재 페이지
+				int startPage = Math.max(1, currentPage - ((currentPage-1) % 10)) ; // 시작 페이지
+				int endPage = Math.min(startPage + 9, totalPages); // 끝 페이지
+				System.out.println(count);
+
+				// 이전 페이지와 다음 페이지 계산
+				int prevPage = startPage - 1;
+				int nextPage = endPage + 1;
+				
+				// 이전 페이지와 다음 페이지 범위 검사
+				prevPage = Math.max(1, prevPage);
+				nextPage = Math.min(totalPages, nextPage);
+				%>
+				
+				<!-- 페이지 번호 표시 -->
+				<div class="pagination">
+					<% if (currentPage > 1) { %>
+						<button type="submit" name="page" value="1"><<</button>
+						<button type="submit" name="page" value="<%= prevPage %>"><</button>
+				    <% } %>
+				    
+					<% for (int i = startPage; i <= endPage; i++) { %>
+						<% if (i == currentPage) { %>
+							<button type="submit" class="activePage" name="page" value="<%= i %>"><%= i %></button>
+						<% } else { %>
+							<button type="submit" name="page" value="<%= i %>"><%= i %></button>
+						<% } %>
+					<% } %>
+					
+					<% if (currentPage < totalPages) { %>
+						<button type="submit" name="page" value="<%= nextPage %>">></button>
+						<button type="submit" name="page" value="<%= totalPages %>">>></button>
+					<% } %>
+				</div>
+			</form>
 		</div>
 	</main>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
@@ -195,7 +237,6 @@
 
 	<script src="${pageContext.request.contextPath}/js/customer/customerList.js"></script>
 	<%
-	CustomerSearchDTO customerSearchDTO = (CustomerSearchDTO) request.getAttribute("customerInput");
 	String[] customerAges = null;
 	String[] customerGrades = null;
 	String[] customerCredits = null;
@@ -203,11 +244,11 @@
 	String isOpen = null;
 	
 	if (customerSearchDTO != null) {
-	    customerAges = customerSearchDTO.getCustomerAges();
-	    customerGrades = customerSearchDTO.getCustomerGrades();
-	    customerCredits = customerSearchDTO.getCustomerCredits();
-	    gender = customerSearchDTO.getStrGender();
-	    isOpen = customerSearchDTO.getIsOpen();
+		customerAges = customerSearchDTO.getCustomerAges();
+		customerGrades = customerSearchDTO.getCustomerGrades();
+		customerCredits = customerSearchDTO.getCustomerCredits();
+		gender = customerSearchDTO.getStrGender();
+		isOpen = customerSearchDTO.getIsOpen();
 	}
 	%>
 	<script>
