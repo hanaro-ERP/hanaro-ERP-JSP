@@ -107,7 +107,7 @@ public class LoanProductDAO {
 	}
 	
 	public int getLoanCount(LoanSearchDTO loanSearchDTO) {
-	    int cnt = 0;
+		int cnt = 0;
 		StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt FROM loans ");
 		queryBuilder.append("WHERE 1=1");
 		
@@ -146,13 +146,13 @@ public class LoanProductDAO {
 			System.out.println(pstmt.toString());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-		            cnt = rs.getInt("cnt");
-		        }
+					cnt = rs.getInt("cnt");
+				}
 			}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	    return cnt;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 	
 	//	Get some loans

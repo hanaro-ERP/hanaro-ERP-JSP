@@ -103,22 +103,22 @@ public class TransactionDAO {
 	}
 
 	// Get transactions by accountId
-		public int getTransactionCountByAccountId(int accountId) {
-		    int cnt = 0;
-		    
-			String query = "SELECT count(*) AS cnt FROM transactions where a_id = ?";
-			try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
-				pstmt.setInt(1, accountId);
-				try (ResultSet rs = pstmt.executeQuery()) {
-					if (rs.next()) {
-			            cnt = rs.getInt("cnt");
-			        }
+	public int getTransactionCountByAccountId(int accountId) {
+		int cnt = 0;
+
+		String query = "SELECT count(*) AS cnt FROM transactions where a_id = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+			pstmt.setInt(1, accountId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					cnt = rs.getInt("cnt");
 				}
-	        } catch (Exception e) {
-	        	e.printStackTrace();
-	        }
-			return cnt;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return cnt;
+	}
 		
 	// Get transactions by accountId
 	public List<TransactionDTO> getTransactionListByAccountId(AccountDTO accountDTO, int page) {

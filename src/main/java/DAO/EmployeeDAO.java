@@ -198,8 +198,8 @@ public class EmployeeDAO {
 	}
 	
 	public int getEmployeeCount(EmployeeDTO employeeDTO) {
-	    int cnt = 0;
-	    StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt, b.b_name FROM employees e ");
+		int cnt = 0;
+		StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt, b.b_name FROM employees e ");
 		queryBuilder.append("JOIN banks b ON e.b_id = b.b_id ");
 		queryBuilder.append("WHERE 1=1 ");
 
@@ -236,13 +236,13 @@ public class EmployeeDAO {
 			System.out.println(pstmt.toString());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-		            cnt = rs.getInt("cnt");
+					cnt = rs.getInt("cnt");
 		        }
 			}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	    return cnt;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 	
 	public List<EmployeeDTO> getEmployeesByDTO(EmployeeDTO employeeDTO, int page) {
