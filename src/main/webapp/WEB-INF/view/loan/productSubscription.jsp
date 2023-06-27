@@ -105,11 +105,11 @@ pageEncoding="UTF-8"%>
 						<th>신용 등급</th>
 						<td>
 							<select name="creditRank" class="shortSelect">
-								<option value="1급">1</option>
-								<option value="2급">2</option>
-								<option value="3급">3</option>
-								<option value="4급">4</option>
-								<option value="5급">5</option>
+								<option value="1등급">1</option>
+								<option value="2등급">2</option>
+								<option value="3등급">3</option>
+								<option value="4등급">4</option>
+								<option value="5등급">5</option>
 							</select>
 							급
 						</td>
@@ -138,11 +138,12 @@ pageEncoding="UTF-8"%>
 					<tr>
 						<th>담보</th>
 						<td>
-							<select name="collateral" class="shortSelect">
+							<input name="collateral" class="middleInput">
+							<!-- <select name="collateral" class="shortSelect">
 								<option value="예적금">예적금</option>
 								<option value="주택">주택</option>
 								<option value="전세자금">전세자금</option>
-							</select>
+							</select>-->
 						</td>
 						<th>대출 금액</th>
 						<td>
@@ -153,10 +154,6 @@ pageEncoding="UTF-8"%>
 					<tr>
 						<th>이자 / 대출기간</th>
 						<td>
-							<!-- <select name="interest" class="shortSelect">
-								<option value="simple">복리</option>
-								<option value="compound">단리</option>
-							</select>  -->
 							&nbsp;연
 							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
 							%
@@ -164,6 +161,12 @@ pageEncoding="UTF-8"%>
 							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
 							년
 						</td>
+						<th> 거치 기간</th>
+						<td>
+						<input name="gracePeriod" class="shortInput"> 년
+						
+					</tr>
+					<tr>
 						<th>상환 방법</th>
 						<td colspan=3>
 							<select name="repaymentMethod" class="shortSelect">
