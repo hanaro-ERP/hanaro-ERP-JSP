@@ -116,8 +116,6 @@ public class DatabaseUtil {
 			} else if (age.equals("80대 이상")) {
 				query.append("(c.age >= 80)");
 			} else {
-				System.out.println(selectedAges[0]);
-				System.out.println(selectedAges[1]);
 				String temp1 = selectedAges[0];
 				String temp2 = selectedAges[1];
 

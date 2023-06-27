@@ -1,13 +1,10 @@
 selectMultiItemsWithDirectInput("loanContractStartDate");
 selectMultiItemsWithDirectInput("loanContractEndDate");
-selectMultiItemsWithDirectInput("balanceList");
-selectMultiItemsWithDirectInput("latePayment");
+selectOneItemWithDirectInput("balanceList");
+selectOneItemWithDirectInput("latePayment");
 
-/*selectOneItem("balanceList");
-selectOneItem("latePayment");
-*/
-
-setYearSelect();
+setYearSelect("loanContractStartDate");
+setYearSelect("loanContractEndDate");
 setMonthSelect();
 setDaySelect(true);
 changeDate();
@@ -16,19 +13,6 @@ changeDate();
 const searchTableRows = document.querySelectorAll('#loanSearchTable tr :not(th)');
 const popupBox = document.querySelector('.popupBox');
 const popupExitButton = document.querySelector('.popupExitButton');
-
-console.log("searchTableRows", searchTableRows);
-
-/*searchTableRows.forEach((item) => {
-	item.addEventListener('click', () => {
-		popupBox.classList.toggle('display');
-	});	
-});
-
-popupExitButton.addEventListener('click', () => {
-	popupBox.classList.toggle('display');
-});
-*/
 
 searchTableRows.forEach((item) => {
 	item.addEventListener('click', () => {

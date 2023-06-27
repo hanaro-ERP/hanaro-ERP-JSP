@@ -5,8 +5,14 @@ window.addEventListener('DOMContentLoaded', function() {
 	const menus = ["customer", "employee", "loan", "deposit"];
 
 	menuItems.forEach((item, index) => {
-		if (currentAnchor.includes(menus[index])) {
-			menuItems[index].classList.add('active');
-		} 
+		if (index === 1) {
+			if (currentAnchor.includes(menus[index]) || currentAnchor.includes("bank")) {
+				menuItems[index].classList.add('active');
+			} 
+		} else {
+			if (currentAnchor.includes(menus[index])) {
+				menuItems[index].classList.add('active');
+			} 	
+		}
 	})
 });
