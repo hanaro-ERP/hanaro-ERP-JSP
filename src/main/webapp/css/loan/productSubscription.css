@@ -2,11 +2,6 @@
 #search {
 	float: left;
 }
-#repaymentDetailButton {
-	float: left;
-  	margin-right: 15px;
-  	font-size: 17px;
-}
 tr td select {
 	width: 150px;
 }
@@ -15,4 +10,7 @@ tr td select {
 }
 .shortSelect {
 	width: 200px;
+}
+#repaymentMethodTableTitle {
+	margin-top: 100px !important;
 }

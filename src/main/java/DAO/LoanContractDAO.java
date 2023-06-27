@@ -343,7 +343,7 @@ public class LoanContractDAO {
 					i++;
 					fillLoanContractDTOFromTable(loanContractDTO, rs);
 				}
-				System.out.println("loanContractDTO cid= "+ loanContractDTO.getCustomerId());
+				System.out.println("dao loanContractDTO cid= "+ loanContractDTO.getCustomerId());
 				
 				String repaymentMethodString = loanContractDTO.getPaymentMethod();				
 				List<RepaymentMethodDTO> repaymentMethodDTOList = new ArrayList<>();
@@ -376,7 +376,7 @@ public class LoanContractDAO {
 				long balance = loanAmount;	// 남은 대출 원금
 				
 				// 상환 방법에 따라 다르게 계산
-				if (repaymentMethodString.contains("원금만기")){	// 원금만기일시상환
+				if (repaymentMethodString.contains("만기")){	// 원금만기일시상환
 					interest = (long) (loanAmount * interestRate * totalMonthsDifference);	// 이자
 					principalPayment = 0;	// 납입 원금
 					cumulativePrincipalPayment = 0; 	// 납입원금누계
@@ -466,7 +466,6 @@ public class LoanContractDAO {
 					}
 				}
 				
-				System.out.println("DAO repaymentlist  ="+ repaymentMethodDTOList.size());
 				return repaymentMethodDTOList;
 			}
 			catch (Exception e) {

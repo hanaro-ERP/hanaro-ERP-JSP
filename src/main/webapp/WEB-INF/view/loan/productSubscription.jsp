@@ -6,15 +6,16 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8" />
 <title>상품 가입</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productsubscription.css?ver=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productSubscription.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js"></script>
 </head>
 <body>
 	<%@ include file="../../components/header.jsp" %>	
 	<%@ page import="java.util.List"%>
 	<%@ page import="DTO.LoanContractDTO"%>	
+	<%@ page import="util.LoanUtil"%>	
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
@@ -187,24 +188,25 @@ pageEncoding="UTF-8"%>
 				
 				
 				<div id="equalRepaymentOfPrincipal">
-					<%-- <h3>
+					<h3 id="repaymentMethodTableTitle">
 				
 						<%List<RepaymentMethodDTO> repaymentMethodDTOList = (List<RepaymentMethodDTO>) request.getAttribute("repaymentMethod");
 
-						
-						String method = repaymentMethodDTOList.get(0).getMethod();
-						if (method.equals("원금만기")) {
-							out.println("만기일시상환");
-						} 
-						else if (method.contains("원금균등")) {
-							out.println("원금균등상환");
-						} 
-						else {
-							out.println("원리금균등상환");
-						}
+						if (repaymentMethodDTOList != null) {
+							System.out.println("jsp repaymentlist notnotnot null");							
+							String method = repaymentMethodDTOList.get(0).getMethod();
+							if (method.equals("만기")) {
+								out.println("만기일시상환");
+							} 
+							else if (method.contains("원금균등")) {
+								out.println("원금균등상환");
+							} 
+							else {
+								out.println("원리금균등상환");
+							}
 						%>
 					</h3>
-					<table>
+					<table class="searchTable" id="repaymentMethodTable">
 						<tr>
 							<th>회차</th>
 							<th>상환금</th>
@@ -214,22 +216,28 @@ pageEncoding="UTF-8"%>
 							<th>잔금</th>
 						</tr>
 								
-						<%if (repaymentMethodDTOList != null && !repaymentMethodDTOList.isEmpty()) {
-							for (RepaymentMethodDTO dto : repaymentMethodDTOList) {
-								%>
-								<tr class="searchResultRow" >
-									<td><%= dto.getTimes()%></td>
-									<td><%= dto.getRepaymentAmount()%></td>
-									<td><%= dto.getPrincipalPayment()%></td>
-									<td><%= dto.getInterest()%></td>
-									<td><%= dto.getCumulativePrincipalPayment() %></td>
-									<td><%= dto.getBalance()%></td>									
-								</tr>
-								<%
+						<%
+							LoanUtil loanUtil = new LoanUtil();
+							if (repaymentMethodDTOList != null && !repaymentMethodDTOList.isEmpty()) {
+								for (RepaymentMethodDTO dto : repaymentMethodDTOList) {
+									%>
+									<tr class="searchResultRow" >
+										<td><%= dto.getTimes()%></td>
+										<td><%= loanUtil.formatCurrency(dto.getRepaymentAmount())%></td>									
+										<td><%= loanUtil.formatCurrency(dto.getPrincipalPayment())%></td>
+										<td><%= loanUtil.formatCurrency(dto.getInterest())%></td>
+										<td><%= loanUtil.formatCurrency(dto.getCumulativePrincipalPayment())%></td>
+										<td><%= loanUtil.formatCurrency(dto.getBalance())%></td>
+									</tr>
+									<%
+								}
 							}
 						}
+						else{
+							System.out.println("jsp repaymentlist null");
+						}
 						%>
-				</table> --%>
+				</table>
 				</div>
 				
 			</form>

@@ -121,12 +121,7 @@ public class LoanSubscriptionController extends HttpServlet {
 				loanContractDTO.setPaymentMethod(repaymentMethod);
 			
 			int isLoanRegistered = loanService.subscriptionLoan(customerDTO, loanContractDTO);
-			
-			
-			
-			
-			
-			System.out.println("CONTROLLER id = "+ id[0]);
+						
 			List<RepaymentMethodDTO> repaymentMethodDTOList = loanService.getRepaymentMethod(id);
 			request.setAttribute("repaymentMethod", repaymentMethodDTOList);
 
