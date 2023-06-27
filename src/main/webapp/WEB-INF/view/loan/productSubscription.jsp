@@ -10,12 +10,13 @@ pageEncoding="UTF-8"%>
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
 <body>
-	<%@ include file="../../components/header.jsp" %>
+	<%@ include file="../../components/header.jsp" %>	
+	<%@ page import="DTO.LoanContractDTO"%>	
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 가입</h1></div>
-			<form action="${pageContext.request.contextPath}/loanSubscription" method="post" onsubmit="return validateForm()">
+			<form action="${pageContext.request.contextPath}/loanSubscription/customer" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle"><h2>고객 정보</h2></div>
 				<table class="inputTable">
  					<tr>
@@ -187,37 +188,49 @@ pageEncoding="UTF-8"%>
 					</tr>
 				</table>
 				<div class="innerButtonContainer">
-					<button type="submit">검색</button>
+					
+					<button id="repaymentDetailButton"> 상환 방법 <br>자세히 보기 </button>
+					<button type="submit" id="search">검색</button>
 				</div>
+				
+				
+				
+				
+				<%LoanContractDTO loanContractDTO = (LoanContractDTO) request.getAttribute("searchInputValue");%>
+				
+				<div id="repaymentAtOneTime">
+				<h3>원금만기일시상환</h3>
+				</div>
+				
+				<div id="equalRepaymentOfPrincipal">
+				<h3>원금균등상환</h3>
+					<table>
+						<tr>
+							<th>회차</th>
+							<th>월 상환금</th>
+							<th>납입 원금</th>
+							<th>이자</th>
+							<th>납입원금누계</th>
+							<th>잔금</th>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>3천만원</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+						</tr>
+					</table>
+				</div>
+				
+				
+				
+				<div id="equalRepaymentOfPrincipalAndInterest">
+				<h3>원리금균등상환</h3>
+				</div>
+				
 			</form>
-			
-			
-			
-			
-			
-			
-			<h3>원금균등상환</h3>
-			<table>
-				<tr>			
-					<th>회차</th>
-					<th>월 상환금</th>
-					<th>납입 원금</th>
-					<th>이자</th>
-					<th>납입원금누계</th>
-					<th>잔금</th>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>3천만원</td>
-					<td>1</td>
-					<td>1</td>
-					<td>1</td>
-					<td>1</td>
-				</tr>
-			</table>
-			
-			
-			
 		</div>
 	</main>
 	<script>
