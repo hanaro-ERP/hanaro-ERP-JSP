@@ -100,16 +100,16 @@ public class BankDAO {
 	}
 	
 	public int getBankCount(BankDTO bankDTO) {
-	    int cnt = 0;
+		int cnt = 0;
 		StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt FROM banks ");
-	    queryBuilder.append("WHERE 1=1 ");
+		queryBuilder.append("WHERE 1=1 ");
 
 		if (bankDTO.getBankName() != null) {
 			queryBuilder.append("AND b_name LIKE ?");
 		}
 		if (bankDTO.getCity() != null) 
 			queryBuilder.append("AND location LIKE ?");
-		
+
 		try (Connection conn = DatabaseUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
@@ -129,13 +129,13 @@ public class BankDAO {
 			System.out.println(pstmt.toString());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-		            cnt = rs.getInt("cnt");
+					cnt = rs.getInt("cnt");
 		        }
 			}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	    return cnt;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 	
 	public List<BankDTO> getBankListByDTO(BankDTO bankDTO, int page) {

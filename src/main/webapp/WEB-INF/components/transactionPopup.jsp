@@ -69,24 +69,23 @@
 		nextPage = Math.min(totalPages, nextPage);
 		%>
 		<div class="pagination">
-		    <% if (currentPage > 1) { %>
-		        <a href=""><<</a>
+			<% if (currentPage > 1) { %>
+				<a href=""><<</a>
 				<a type="submit" name="page" value="<%= prevPage %>"><</a>
-		    <% } %>
-		
-		
-		    <% for (int i = startPage; i <= endPage; i++) { %>
-		        <% if (i == currentPage) { %>
-		            <a href="?name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= i %>" class="activePage"><%= i %></a>
-		        <% } else { %>
-		            <a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= i %>"><%= i %></a>
-		        <% } %>
-		    <% } %>
-		
-		    <% if (currentPage < totalPages) { %>
+			<% } %>
+			
+			<% for (int i = startPage; i <= endPage; i++) { %>
+				<% if (i == currentPage) { %>
+					<a href="?name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= i %>" class="activePage"><%= i %></a>
+				<% } else { %>
+					<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= i %>"><%= i %></a>
+				<% } %>
+			<% } %>
+			
+			<% if (currentPage < totalPages) { %>
 				<a type="submit" name="page" value="<%= nextPage %>">></a>
-		        <a type="submit" name="page" value="<%= totalPages %>">>></a>
-		    <% } %>
+				<a type="submit" name="page" value="<%= totalPages %>">>></a>
+			<% } %>
 		</div>
 	</div>
 </body>

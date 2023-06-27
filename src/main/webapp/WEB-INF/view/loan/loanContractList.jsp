@@ -143,33 +143,33 @@
 					<th>이자율</th>
 				</tr>
 				<%
-					if (loanContracts != null && !loanContracts.isEmpty()) {
-						for (LoanContractDTO dto : loanContracts) {
-				%>
-				<tr class="searchResultRow" id="<%=dto.getLoanContractId()%>">
-					<td style="display: none">
-						<form id="<%= dto.getLoanContractId()%>" action="${pageContext.request.contextPath}/loanContracts/repaymentList" method="post">
-							<input name="selectedLoanContractId" value="<%=dto.getLoanContractId()%>"> 
-							<input name="selectedCustomerName" value="<%=dto.getCustomerName()%>">
-							<input name="selectedEmployeeName" value="<%=dto.getEmployeeName()%>">
-						</form>
-					</td>
-					<td class="loanContractId"><%=dto.getLoanContractId()%></td>
-					<td><%=dto.getLoanType()%></td>
-					<td><%=dto.getLoanName()%></td>
-					<td><%=dto.getEmployeeName()%></td>
-					<td><%=dto.getCustomerName()%></td>
-					<td><%=dto.getGuarantorName()%></td>
-					<td><%=dto.getStartDate()%></td>
-					<td><%=dto.getMuturityDateString()%></td>
-					<td><%=dto.getBalanceString()%></td>
-					<td><%=dto.getPaymentMethod()%></td>
-					<td><%=dto.getDelinquentAmountString()%></td>
-					<td><%=dto.getInterestRate()%></td>
-				</tr>
-				<%
-						}
+				if (loanContracts != null && !loanContracts.isEmpty()) {
+					for (LoanContractDTO dto : loanContracts) {
+					%>
+					<tr class="searchResultRow" id="<%=dto.getLoanContractId()%>">
+						<td style="display: none">
+							<form id="<%= dto.getLoanContractId()%>" action="${pageContext.request.contextPath}/loanContracts/repaymentList" method="post">
+								<input name="selectedLoanContractId" value="<%=dto.getLoanContractId()%>"> 
+								<input name="selectedCustomerName" value="<%=dto.getCustomerName()%>">
+								<input name="selectedEmployeeName" value="<%=dto.getEmployeeName()%>">
+							</form>
+						</td>
+						<td class="loanContractId"><%=dto.getLoanContractId()%></td>
+						<td><%=dto.getLoanType()%></td>
+						<td><%=dto.getLoanName()%></td>
+						<td><%=dto.getEmployeeName()%></td>
+						<td><%=dto.getCustomerName()%></td>
+						<td><%=dto.getGuarantorName()%></td>
+						<td><%=dto.getStartDate()%></td>
+						<td><%=dto.getMuturityDateString()%></td>
+						<td><%=dto.getBalanceString()%></td>
+						<td><%=dto.getPaymentMethod()%></td>
+						<td><%=dto.getDelinquentAmountString()%></td>
+						<td><%=dto.getInterestRate()%></td>
+					</tr>
+					<%
 					}
+				}
 				%>
 			</table>
 			<div class="popupBox display">
@@ -209,11 +209,11 @@
 									<td><%= dto.getTradeAmountString()%></td>
 									<td><%= dto.getBalanceString()%></td>
 									<td>
-									  <% if (dto.isAgent()) { %>
-									    <%= "O" %>
-									  <% } else { %>
-									    <%= "X" %>
-									  <% } %>
+									<% if (dto.isAgent()) { %>
+										<%= "O" %>
+									<% } else { %>
+										<%= "X" %>
+									<% } %>
 									</td>
 								</tr>
 								<%

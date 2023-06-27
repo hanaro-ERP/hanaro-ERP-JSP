@@ -107,7 +107,7 @@ public class AccountDAO {
 	}
 
 	public int getAccountCount(AccountSearchDTO accountSearchDTO) {
-	    int cnt = 0;
+		int cnt = 0;
 		StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt FROM accounts a ");
 		queryBuilder.append("JOIN customers c ON c.c_id = a.c_id ");
 		queryBuilder.append("JOIN employees e ON c.e_id = e.e_id ");
@@ -186,10 +186,10 @@ public class AccountDAO {
 		            cnt = rs.getInt("cnt");
 		        }
 			}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	    return cnt;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 	
 	public List<AccountDTO> getAccountListByDTO(AccountSearchDTO accountSearchDTO, int page) {

@@ -85,28 +85,27 @@
 				List<EmployeeDTO> findEmployee = (List<EmployeeDTO>)request.getAttribute("findEmployee");
 
 				if (findEmployee != null && !findEmployee.isEmpty()) {
-				    for (EmployeeDTO employee : findEmployee) {
-				      %>
-				      <tr>
-				        <td><%= employee.getEmployeeId() %></td>
-				        <td><%= employee.getBankLocation() %></td>
-				        <td><%= employee.getEmployeeName() %></td>
-				        <td><%= employee.getPhoneNumber() %>
-				        <td><%= employee.getDepartment() %></td>
-				        <td><%= employee.getPosition() %></td>
-				        <td>
-				        <% if(employee.isAdmin()) { %>
-				        관리자
-				        <% } else { %>
-				        행원
-				        <% } %>
-				        </td>
-				      </tr>
-				      <%
-				    }
-				  }
-				
-				%>
+					for (EmployeeDTO employee : findEmployee) {
+					%>
+						<tr>
+							<td><%= employee.getEmployeeId() %></td>
+							<td><%= employee.getBankLocation() %></td>
+							<td><%= employee.getEmployeeName() %></td>
+							<td><%= employee.getPhoneNumber() %>
+							<td><%= employee.getDepartment() %></td>
+							<td><%= employee.getPosition() %></td>
+							<td>
+							<% if(employee.isAdmin()) { %>
+								관리자
+								<% } else { %>
+								행원
+								<% } %>
+							</td>
+						</tr>
+					<%
+				}
+			}
+			%>
 			</table>
 				<%
 				// customerSearchDTO에서 page 값과 count 변수 추출
@@ -132,24 +131,23 @@
 				
 				<!-- 페이지 번호 표시 -->
 				<div class="pagination">
-				    <% if (currentPage > 1) { %>
-				        <button type="submit" name="page" value="1"><<</button>
+					<% if (currentPage > 1) { %>
+						<button type="submit" name="page" value="1"><<</button>
 						<button type="submit" name="page" value="<%= prevPage %>"><</button>
-				    <% } %>
-				
-				
-				    <% for (int i = startPage; i <= endPage; i++) { %>
-				        <% if (i == currentPage) { %>
-				            <button type="submit" class="activePage" name="page" value="<%= i %>"><%= i %></button>
-				        <% } else { %>
-				            <button type="submit" name="page" value="<%= i %>"><%= i %></button>
-				        <% } %>
-				    <% } %>
-				
-				    <% if (currentPage < totalPages) { %>
+					<% } %>
+					
+					<% for (int i = startPage; i <= endPage; i++) { %>
+						<% if (i == currentPage) { %>
+							<button type="submit" class="activePage" name="page" value="<%= i %>"><%= i %></button>
+						<% } else { %>
+							<button type="submit" name="page" value="<%= i %>"><%= i %></button>
+						<% } %>
+					<% } %>
+					
+					<% if (currentPage < totalPages) { %>
 						<button type="submit" name="page" value="<%= nextPage %>">></button>
-				        <button type="submit" name="page" value="<%= totalPages %>">>></button>
-				    <% } %>
+						<button type="submit" name="page" value="<%= totalPages %>">>></button>
+					<% } %>
 				</div>
 			</form>
 		</div>

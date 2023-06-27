@@ -18,12 +18,12 @@ public class CustomerDAO {
 	DatabaseUtil databaseUtil = new DatabaseUtil();
 	
 	public int getCustomerCount(CustomerSearchDTO customerSearchDTO) {
-	    int cnt = 0;
-	    StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt FROM customers c ");
+		int cnt = 0;
+		StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt FROM customers c ");
 		queryBuilder.append("JOIN employees e ON c.e_id = e.e_id ");
 		queryBuilder.append("JOIN banks b ON c.b_id = b.b_id ");
 		queryBuilder.append("WHERE 1=1");
-		
+
 		if (customerSearchDTO.getCustomerName() != null) {
 			queryBuilder.append(" AND c.c_name LIKE ?");
 		}
@@ -117,13 +117,13 @@ public class CustomerDAO {
 			System.out.println(pstmt.toString());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-		            cnt = rs.getInt("cnt");
-		        }
+					cnt = rs.getInt("cnt");
+				}
 			}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	    return cnt;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 
 	
