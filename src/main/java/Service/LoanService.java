@@ -31,6 +31,12 @@ public class LoanService {
 		return loanContractDTOList;		
 	}
 	
+	public LoanProductDTO getLoanProductDetail(int loanProductId) {
+		LoanProductDAO loanDAO = new LoanProductDAO();
+
+		return loanDAO.getLoanByLoanId(loanProductId);
+	}
+	
 	public List<LoanProductDTO> getLoanProductList(LoanSearchDTO loanSearchDTO, int page) throws NoSuchAlgorithmException {
 		LoanProductDAO loanDAO = new LoanProductDAO();
 
@@ -43,6 +49,20 @@ public class LoanService {
 		LoanProductDAO loanDAO = new LoanProductDAO();
 
 		return loanDAO.getLoanCount(loanSearchDTO);
+	}
+	
+	public int getLoanContractCountByLoanProductId(int loanProductId) {
+		LoanContractDAO loanContractDAO = new LoanContractDAO();
+		
+		return loanContractDAO.getLoanContractCountByLoanProductId(loanProductId);
+	}
+	
+	public int modifyLoanProduct(LoanProductDTO loanProductDTO, int loanProductId) throws NoSuchAlgorithmException {
+		LoanProductDAO loanDAO = new LoanProductDAO();
+		
+		int isLoanModified = loanDAO.updateLoanProduct(loanProductDTO, loanProductId);
+		
+		return isLoanModified;
 	}
 	
 	public int registerLoanProduct(LoanProductDTO loanProductDTO) throws NoSuchAlgorithmException {

@@ -121,7 +121,24 @@ public class LoanContractDAO {
 		loanContract.setCustomerName(rs.getString("c_name"));
 		loanContract.setGuarantorName(rs.getString("guarantor_name"));
 	}
+	
+	public int getLoanContractCountByLoanProductId(int loanProductId) {
+		int cnt = 0;
 
+		String query = "SELECT count(*) AS cnt FROM loanContracts where l_id = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+			pstmt.setInt(1, loanProductId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					cnt = rs.getInt("cnt");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
 	// 모든 데이터 가져오기
 	public List<LoanContractDTO> getLoanContracts() {
 		String SQL = "SELECT * FROM loanContracts";

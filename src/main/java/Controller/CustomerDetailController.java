@@ -26,14 +26,14 @@ public class CustomerDetailController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		getCustomerListProcess(request, response);
+		getCustomerDetailProcess(request, response);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 	}
 	
-	private void getCustomerListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void getCustomerDetailProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String id = request.getParameter("id");
 			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(id));
