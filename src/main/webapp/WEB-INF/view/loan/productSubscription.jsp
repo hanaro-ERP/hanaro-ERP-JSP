@@ -13,6 +13,7 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 	<%@ include file="../../components/header.jsp" %>	
+	<%@ page import="java.util.List"%>
 	<%@ page import="DTO.LoanContractDTO"%>	
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
@@ -180,22 +181,29 @@ pageEncoding="UTF-8"%>
 					</tr>
 				</table>
 				<div class="innerButtonContainer">					
-					<button id="repaymentDetailButton"> 상환 방법 <br>자세히 보기 </button>
+	<!-- 				<button id="repaymentDetailButton"> 상환 방법 <br>자세히 보기 </button> -->
 					<button type="submit" id="search">검색</button>
 				</div>
 				
 				
-				
-				
-				<%LoanContractDTO loanContractDTO = (LoanContractDTO) request.getAttribute("loanContract");
-				RepaymentMethodDTO repaymentMethodDTO = (RepaymentMethodDTO) request.getAttribute("repaymentMethod");%>
-				
-				<div id="repaymentAtOneTime">
-				<h3>원금만기일시상환</h3>
-				</div>
-				
 				<div id="equalRepaymentOfPrincipal">
-				<h3>원금균등상환</h3>
+					<%-- <h3>
+				
+						<%List<RepaymentMethodDTO> repaymentMethodDTOList = (List<RepaymentMethodDTO>) request.getAttribute("repaymentMethod");
+
+						
+						String method = repaymentMethodDTOList.get(0).getMethod();
+						if (method.equals("원금만기")) {
+							out.println("만기일시상환");
+						} 
+						else if (method.contains("원금균등")) {
+							out.println("원금균등상환");
+						} 
+						else {
+							out.println("원리금균등상환");
+						}
+						%>
+					</h3>
 					<table>
 						<tr>
 							<th>회차</th>
@@ -205,20 +213,23 @@ pageEncoding="UTF-8"%>
 							<th>납입원금누계</th>
 							<th>잔금</th>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>3천만원</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-					</table>
-				</div>
-				
-				
-				<div id="equalRepaymentOfPrincipalAndInterest">
-				<h3>원리금균등상환</h3>
+								
+						<%if (repaymentMethodDTOList != null && !repaymentMethodDTOList.isEmpty()) {
+							for (RepaymentMethodDTO dto : repaymentMethodDTOList) {
+								%>
+								<tr class="searchResultRow" >
+									<td><%= dto.getTimes()%></td>
+									<td><%= dto.getRepaymentAmount()%></td>
+									<td><%= dto.getPrincipalPayment()%></td>
+									<td><%= dto.getInterest()%></td>
+									<td><%= dto.getCumulativePrincipalPayment() %></td>
+									<td><%= dto.getBalance()%></td>									
+								</tr>
+								<%
+							}
+						}
+						%>
+				</table> --%>
 				</div>
 				
 			</form>

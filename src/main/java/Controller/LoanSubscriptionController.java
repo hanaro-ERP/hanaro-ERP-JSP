@@ -39,6 +39,11 @@ public class LoanSubscriptionController extends HttpServlet {
 	}
 	
 	protected void postLoanSubscriptionProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("CONTROLLER postLoanSubscriptionProcess ");
+		
+		
+		
 		CustomerUtil customerUtil = new CustomerUtil();
 		try {
 			String[] infos = {"customerName", "phoneNumber", "suretyName", "residentRegistrationNumber", "age", "gender", "country", "city", "district", "employeeName", "bank", "customerRank", "creditRank", "disalbitilityRank", "job", "loanType", "loanProductName", "collateral", "collateralValue", "loanAmount", "interest", "interestRate", "loanPerpose", "repaymentMethod"};
@@ -125,14 +130,6 @@ public class LoanSubscriptionController extends HttpServlet {
 			List<RepaymentMethodDTO> repaymentMethodDTOList = loanService.getRepaymentMethod(id);
 			request.setAttribute("repaymentMethod", repaymentMethodDTOList);
 
-			
-			
-			
-			
-			
-			
-			
-			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productSubscription.jsp");
 			dispatcher.forward(request, response);
 			

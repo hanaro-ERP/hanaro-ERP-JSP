@@ -128,6 +128,26 @@ public class LoanContractDAO {
 		loanContract.setCustomerName(rs.getString("c_name"));
 		loanContract.setGuarantorName(rs.getString("guarantor_name"));
 	}
+	
+	
+	private void fillLoanContractDTOFromTable(LoanContractDTO loanContract, ResultSet rs) throws SQLException {
+		loanContract.setLoanContractId(rs.getInt("lc_id"));
+		loanContract.setLoanId(rs.getInt("l_id"));
+		loanContract.setCustomerId(rs.getInt("c_id"));
+		loanContract.setEmployeeId(rs.getInt("e_id"));
+		loanContract.setStartDate(rs.getTimestamp("start_date"));
+		loanContract.setMaturityDate(rs.getTimestamp("maturity_date"));
+		loanContract.setPaymentMethod(rs.getString("payment_method"));
+		loanContract.setGracePeriod(rs.getInt("grace_period"));
+		loanContract.setLoanAmount(rs.getLong("loan_amount"));
+		loanContract.setBalance(rs.getLong("balance"));
+		loanContract.setPaymentDate(rs.getInt("payment_date"));
+		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));	
+		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));
+		loanContract.setDelinquentAmount(rs.getLong("delinquent_amount"));
+		loanContract.setGuarantorId(rs.getInt("guarantor_id"));
+		loanContract.setInterestRate(rs.getLong("interest_rate"));
+	}
 
 	// 모든 데이터 가져오기
 	public List<LoanContractDTO> getLoanContracts() {
@@ -206,6 +226,7 @@ public class LoanContractDAO {
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 
+			System.out.println("DAO pstmt ="+pstmt);
 			int parameterIndex = 1;
 
 			if (loanContractDTO.getLoanName() != null) {
@@ -283,26 +304,32 @@ public class LoanContractDAO {
 	}
 	
 	public List<RepaymentMethodDTO> getRepaymentMethod(String[] id) {
-		
+
+		System.out.println("dao getRepaymentMethod ");
 		System.out.println("DAO id ="+ id[0]);
 		
-		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*"
-				+ " FROM loanContracts lc, customers c");
+		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*, c.identification, c.c_id"
+				+ " FROM loanContracts lc");
+		queryBuilder.append(" JOIN customers c ON c.c_id = lc.c_id");
 		queryBuilder.append(" WHERE 1=1");
 
 		String idString = "";
 		
 		if (id != null){
-			for (int i=0; i<id.length; i++) {
-				idString += id[i];				
-			}
+			idString = id[0] + "-" + id[1];
+
+			System.out.println("idString ="+idString);
 			queryBuilder.append(" AND c.identification LIKE ?");
 		}
 		
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+			
+			System.out.println("DAO pstmt ="+pstmt);
+			
 			if (id != null){
-	            pstmt.setString(1, idString);
+				System.out.println("id not null");
+	            pstmt.setString(1, "%"+idString+"%");
 	        }
 			
 			int i= 0;
@@ -314,8 +341,9 @@ public class LoanContractDAO {
 					
 					System.out.println("DAO i ="+i);
 					i++;
-					fillLoanContractDTOFromResultSet(loanContractDTO, rs);
+					fillLoanContractDTOFromTable(loanContractDTO, rs);
 				}
+				System.out.println("loanContractDTO cid= "+ loanContractDTO.getCustomerId());
 				
 				String repaymentMethodString = loanContractDTO.getPaymentMethod();				
 				List<RepaymentMethodDTO> repaymentMethodDTOList = new ArrayList<>();
@@ -359,6 +387,7 @@ public class LoanContractDAO {
 						
 						repaymentAmount += interest;	// 상환금
 						
+						repaymentMethodDTO.setMethod(repaymentMethodString);
 						repaymentMethodDTO.setRepaymentAmount(repaymentAmount);
 						repaymentMethodDTO.setPrincipalPayment(principalPayment);
 						repaymentMethodDTO.setInterest(interest);
@@ -397,7 +426,8 @@ public class LoanContractDAO {
 							cumulativePrincipalPayment += principalPayment;	// 납입원금누계
 							balance -= principalPayment;	// 남은 대출 원금
 						}
-						
+
+						repaymentMethodDTO.setMethod(repaymentMethodString);
 						repaymentMethodDTO.setRepaymentAmount(repaymentAmount);
 						repaymentMethodDTO.setPrincipalPayment(principalPayment);
 						repaymentMethodDTO.setInterest(interest);
@@ -424,6 +454,8 @@ public class LoanContractDAO {
 							cumulativePrincipalPayment += principalPayment;
 							balance -= principalPayment;
 						}
+						
+						repaymentMethodDTO.setMethod(repaymentMethodString);
 						repaymentMethodDTO.setRepaymentAmount(repaymentAmount);
 						repaymentMethodDTO.setPrincipalPayment(principalPayment);
 						repaymentMethodDTO.setInterest(interest);

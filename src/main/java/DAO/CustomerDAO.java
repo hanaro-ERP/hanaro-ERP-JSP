@@ -24,6 +24,9 @@ public class CustomerDAO {
 		
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			//pstmt.setInt(1, customer.getCustomerId());
+			
+			System.out.println("customer dao insert");
+			
 			pstmt.setInt(1, e_id);
 			pstmt.setInt(2, b_id);
 			pstmt.setString(3, customer.getCustomerName());

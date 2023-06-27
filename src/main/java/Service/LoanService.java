@@ -92,6 +92,10 @@ public class LoanService {
 	}
 	
 	public List<RepaymentMethodDTO> getRepaymentMethod(String[] id) {
+
+		System.out.println("service getRepaymentMethod ");
+		
+		
 		LoanContractDAO loanContractDAO = new LoanContractDAO();
 		List<RepaymentMethodDTO> repaymentMethodDTOList = loanContractDAO.getRepaymentMethod(id);
 		

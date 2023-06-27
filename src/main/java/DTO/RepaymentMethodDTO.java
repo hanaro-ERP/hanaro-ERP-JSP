@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 
 public class RepaymentMethodDTO {
+	private String method;	// 상환 방법
 	private int times;	// 회차
 	private long repaymentAmount;	// 상환금
 	private long principalPayment;	// 납입 원금
