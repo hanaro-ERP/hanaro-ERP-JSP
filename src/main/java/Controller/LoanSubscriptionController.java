@@ -3,6 +3,7 @@ package Controller;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import DTO.CustomerDTO;
 import DTO.LoanContractDTO;
+import DTO.RepaymentMethodDTO;
 import Service.LoanService;
 import util.CustomerUtil;
 
@@ -100,8 +102,6 @@ public class LoanSubscriptionController extends HttpServlet {
 			String interestRate = request.getParameter("interestRate");
 			String repaymentMethod = request.getParameter("repaymentMethod");
 			
-			
-			
 			if(loanType != null)
 				loanContractDTO.setLoanType(loanType);
 			if(loanProductName != null)
@@ -116,6 +116,22 @@ public class LoanSubscriptionController extends HttpServlet {
 				loanContractDTO.setPaymentMethod(repaymentMethod);
 			
 			int isLoanRegistered = loanService.subscriptionLoan(customerDTO, loanContractDTO);
+			
+			
+			
+			
+			
+			System.out.println("CONTROLLER id = "+ id[0]);
+			List<RepaymentMethodDTO> repaymentMethodDTOList = loanService.getRepaymentMethod(id);
+			request.setAttribute("repaymentMethod", repaymentMethodDTOList);
+
+			
+			
+			
+			
+			
+			
+			
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productSubscription.jsp");
 			dispatcher.forward(request, response);

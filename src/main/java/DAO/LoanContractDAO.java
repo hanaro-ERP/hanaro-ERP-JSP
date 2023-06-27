@@ -1,5 +1,6 @@
 package DAO;
 
+import java.awt.font.NumericShaper.Range;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,11 +9,16 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
+import org.eclipse.jdt.internal.compiler.IDebugRequestor;
 import org.eclipse.jdt.internal.compiler.ast.AND_AND_Expression;
 
 import DTO.LoanContractDTO;
+import DTO.RepaymentMethodDTO;
 import util.DatabaseUtil;
 import util.LoanUtil;
 
@@ -20,7 +26,7 @@ public class LoanContractDAO {
 
 	// insert a new loan contract
 	public int insertLoanContract(LoanContractDTO loanContract, int l_id, int c_id, int e_id, int numberOfYears) {
-	    String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, start_date, muturity_date, "
+	    String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, start_date, maturity_date, "
 	            + "payment_method, loan_amount, balance, payment_date, "
 	            + "late_payment_date, delinquent_amount, guarantor_id, interest_rate) " 
 	            + "VALUES (?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? YEAR), ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -41,7 +47,7 @@ public class LoanContractDAO {
 	        pstmt.setDate(9, loanContract.getLatePaymentDate());
 	        pstmt.setLong(10, loanContract.getDelinquentAmount());
 	        pstmt.setInt(11, loanContract.getGuarantorId());
-	        pstmt.setLong(12, loanContract.getInterestRate());
+	        pstmt.setDouble(12, loanContract.getInterestRate());
 	        int rowsAffected = pstmt.executeUpdate();
 
 	        // Set the muturity_date value in the loanContract object as Timestamp
@@ -64,20 +70,20 @@ public class LoanContractDAO {
 	// Update a loan contract
 	public int updateLoanContract(LoanContractDTO loanContract) {
 		String SQL = "UPDATE loanContracts SET l_id = ?, c_id = ?, e_id = ?, start_date = ?,"
-				+ " muturity_date = ?, payment_method = ?, balance = ?, payment_date = ?,"
+				+ " maturity_date = ?, payment_method = ?, balance = ?, payment_date = ?,"
 				+ " delinquent_amount = ?, guarantor_id = ?, interest_rate = ? WHERE lc_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanContract.getLoanId());
 			pstmt.setInt(2, loanContract.getCustomerId());
 			pstmt.setInt(3, loanContract.getEmployeeId());
 			pstmt.setTimestamp(4, loanContract.getStartDate());
-			pstmt.setTimestamp(5, loanContract.getMuturityDate());
+			pstmt.setTimestamp(5, loanContract.getMaturityDate());
 			pstmt.setString(6, loanContract.getPaymentMethod());
 			pstmt.setLong(7, loanContract.getBalance());
 			pstmt.setInt(8, loanContract.getPaymentDate());
 			pstmt.setLong(9, loanContract.getDelinquentAmount());
 			pstmt.setInt(10, loanContract.getGuarantorId());
-			pstmt.setLong(11, loanContract.getInterestRate());
+			pstmt.setDouble(11, loanContract.getInterestRate());
 			pstmt.setInt(12, loanContract.getLoanContractId());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -105,7 +111,7 @@ public class LoanContractDAO {
 		loanContract.setCustomerId(rs.getInt("c_id"));
 		loanContract.setEmployeeId(rs.getInt("e_id"));
 		loanContract.setStartDate(rs.getTimestamp("start_date"));
-		loanContract.setMuturityDate(rs.getTimestamp("muturity_date"));
+		loanContract.setMaturityDate(rs.getTimestamp("maturity_date"));
 		loanContract.setPaymentMethod(rs.getString("payment_method"));
 		loanContract.setGracePeriod(rs.getInt("grace_period"));
 		loanContract.setLoanAmount(rs.getLong("loan_amount"));
@@ -159,9 +165,6 @@ public class LoanContractDAO {
 	}
 	
 	public List<LoanContractDTO> getLoanContractByDTO(LoanContractDTO loanContractDTO) {		
-		
-		System.out.println("dao getLoanContractByDTO =");
-		
 		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name, c2.c_name as guarantor_name"
 				+ " FROM loanContracts lc");
 		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
@@ -185,8 +188,8 @@ public class LoanContractDAO {
 		if (loanContractDTO.getStartDate() != null ) {
 			queryBuilder.append(" AND lc.start_date >= ? AND lc.start_date < ?");
 		}
-		if (loanContractDTO.getMuturityDate() != null ) {
-			queryBuilder.append(" AND lc.muturity_date >= ? AND lc.muturity_date < ?");
+		if (loanContractDTO.getMaturityDate() != null ) {
+			queryBuilder.append(" AND lc.maturity_date >= ? AND lc.maturity_date < ?");
 		}
 		if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0 ) {
 			if (loanContractDTO.getBalanceRange()[0] >= 10000) {
@@ -223,10 +226,10 @@ public class LoanContractDAO {
 	            Timestamp nextDay = new Timestamp(loanContractDTO.getStartDate().getTime() + 24 * 60 * 60 * 1000);
 	            pstmt.setTimestamp(parameterIndex++, nextDay);
 	        }
-	        if (loanContractDTO.getMuturityDate() != null) {
-	            pstmt.setTimestamp(parameterIndex++, loanContractDTO.getMuturityDate());
+	        if (loanContractDTO.getMaturityDate() != null) {
+	            pstmt.setTimestamp(parameterIndex++, loanContractDTO.getMaturityDate());
 	            
-	            Timestamp nextDay = new Timestamp(loanContractDTO.getMuturityDate().getTime() + 24 * 60 * 60 * 1000);
+	            Timestamp nextDay = new Timestamp(loanContractDTO.getMaturityDate().getTime() + 24 * 60 * 60 * 1000);
 
 	    		System.out.println("DAO nextDay2222 ="+nextDay);
 	            pstmt.setTimestamp(parameterIndex++, nextDay);
@@ -262,8 +265,8 @@ public class LoanContractDAO {
 					String delinquentAmountString = loanUtil.convertMoneyUnit(loanContracts.getDelinquentAmount());
 					loanContracts.setDelinquentAmountString(delinquentAmountString);
 					
-					String muturityDateString = loanContracts.getMuturityDate().toString().substring(0,10);
-					loanContracts.setMuturityDateString(muturityDateString);
+					String maturityDateString = loanContracts.getMaturityDate().toString().substring(0,10);
+					loanContracts.setMaturityDateString(maturityDateString);
 					
 					loanContractDTOList.add(loanContracts);
 				}
@@ -278,4 +281,169 @@ public class LoanContractDAO {
 		}
 		return null;
 	}
+	
+	public List<RepaymentMethodDTO> getRepaymentMethod(String[] id) {
+		
+		System.out.println("DAO id ="+ id[0]);
+		
+		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*"
+				+ " FROM loanContracts lc, customers c");
+		queryBuilder.append(" WHERE 1=1");
+
+		String idString = "";
+		
+		if (id != null){
+			for (int i=0; i<id.length; i++) {
+				idString += id[i];				
+			}
+			queryBuilder.append(" AND c.identification LIKE ?");
+		}
+		
+		try (Connection conn = DatabaseUtil.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+			if (id != null){
+	            pstmt.setString(1, idString);
+	        }
+			
+			int i= 0;
+
+			LoanContractDTO loanContractDTO = new LoanContractDTO();
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					
+					System.out.println("DAO i ="+i);
+					i++;
+					fillLoanContractDTOFromResultSet(loanContractDTO, rs);
+				}
+				
+				String repaymentMethodString = loanContractDTO.getPaymentMethod();				
+				List<RepaymentMethodDTO> repaymentMethodDTOList = new ArrayList<>();
+				
+				Timestamp startDate = loanContractDTO.getStartDate();
+				Timestamp maturityDate = loanContractDTO.getMaturityDate();
+
+				Calendar startCalendar = Calendar.getInstance();
+				startCalendar.setTime(startDate);
+				int startYear = startCalendar.get(Calendar.YEAR);
+				int startMonth = startCalendar.get(Calendar.MONTH);
+
+				Calendar maturityCalendar = Calendar.getInstance();
+				maturityCalendar.setTime(maturityDate);
+				int maturityYear = maturityCalendar.get(Calendar.YEAR);
+				int maturityMonth = maturityCalendar.get(Calendar.MONTH);
+				
+				int yearDifference = maturityYear - startYear;
+				int monthDifference = maturityMonth - startMonth;
+
+				long totalMonthsDifference = yearDifference * 12 + monthDifference;	// 기간
+				long loanAmount = loanContractDTO.getLoanAmount();	// 대출 원금
+				double interestRate = loanContractDTO.getInterestRate() * 0.01;	// 대출 금리
+				int gracePeriod = loanContractDTO.getGracePeriod();	// 거치 기간
+				
+				long repaymentAmount = 0;	// 상환금 = 상환한 원금 + 이자
+				long principalPayment = 0;	// 납입 원금
+				long interest = 0;	// 이자
+				long cumulativePrincipalPayment = 0;	// 납입원금누계
+				long balance = loanAmount;	// 남은 대출 원금
+				
+				// 상환 방법에 따라 다르게 계산
+				if (repaymentMethodString.contains("원금만기")){	// 원금만기일시상환
+					interest = (long) (loanAmount * interestRate * totalMonthsDifference);	// 이자
+					principalPayment = 0;	// 납입 원금
+					cumulativePrincipalPayment = 0; 	// 납입원금누계
+					balance = loanAmount; // 남은 대출 원금
+					for (int month = 1; month < totalMonthsDifference; month++) {
+						RepaymentMethodDTO repaymentMethodDTO = new RepaymentMethodDTO();						
+						repaymentMethodDTO.setTimes(month);
+						
+						repaymentAmount += interest;	// 상환금
+						
+						repaymentMethodDTO.setRepaymentAmount(repaymentAmount);
+						repaymentMethodDTO.setPrincipalPayment(principalPayment);
+						repaymentMethodDTO.setInterest(interest);
+						repaymentMethodDTO.setCumulativePrincipalPayment(cumulativePrincipalPayment);
+						repaymentMethodDTO.setBalance(balance);
+						
+						repaymentMethodDTOList.add(repaymentMethodDTO);
+					}
+					RepaymentMethodDTO repaymentMethodDTO = new RepaymentMethodDTO();						
+					
+					principalPayment = loanAmount;	// 납입 원금
+					cumulativePrincipalPayment = loanAmount; 	// 납입원금누계
+					balance = 0; // 남은 대출 원금
+					repaymentAmount += principalPayment + interest;	
+
+					repaymentMethodDTOList.add(repaymentMethodDTO);
+				}
+				
+				else if (repaymentMethodString.contains("원금균등")){ // 원금균등상환
+
+					principalPayment = loanAmount / totalMonthsDifference;	// 납입 원금
+					
+					for (int month = 1; month <= totalMonthsDifference; month++) {
+						RepaymentMethodDTO repaymentMethodDTO = new RepaymentMethodDTO();
+						repaymentMethodDTO.setTimes(month);
+						
+						// 거치 기간 있는 경우
+						if (gracePeriod > 0) {
+							interest = (long) (loanAmount * interestRate * ((12*(totalMonthsDifference)/12)-(gracePeriod*12)+1) / 24);
+							// 계산 해야 함
+						}
+						// 거치 기간 없는 경우
+						else {
+							interest = (long) (loanAmount * interestRate);	// 이자
+							repaymentAmount = principalPayment + interest;	// 상환금 = 이자 + 납입 원금
+							cumulativePrincipalPayment += principalPayment;	// 납입원금누계
+							balance -= principalPayment;	// 남은 대출 원금
+						}
+						
+						repaymentMethodDTO.setRepaymentAmount(repaymentAmount);
+						repaymentMethodDTO.setPrincipalPayment(principalPayment);
+						repaymentMethodDTO.setInterest(interest);
+						repaymentMethodDTO.setCumulativePrincipalPayment(cumulativePrincipalPayment);
+						repaymentMethodDTO.setBalance(balance);
+
+						repaymentMethodDTOList.add(repaymentMethodDTO);
+					}					
+				}
+				else {	// 원리금균등상환
+					
+					for (int month = 1; month <= totalMonthsDifference; month++) {
+						RepaymentMethodDTO repaymentMethodDTO = new RepaymentMethodDTO();
+						repaymentMethodDTO.setTimes(month);
+						// 거치 기간 있는 경우
+						if (gracePeriod > 0) {
+							// 계산 해야 함
+						}
+						else {
+							double rate = Math.pow((1+interestRate), totalMonthsDifference);
+							repaymentAmount = (long) (loanAmount * interestRate * (rate)/((rate)-1));
+							interest = (long) (balance * interestRate);
+							principalPayment = repaymentAmount - interest;
+							cumulativePrincipalPayment += principalPayment;
+							balance -= principalPayment;
+						}
+						repaymentMethodDTO.setRepaymentAmount(repaymentAmount);
+						repaymentMethodDTO.setPrincipalPayment(principalPayment);
+						repaymentMethodDTO.setInterest(interest);
+						repaymentMethodDTO.setCumulativePrincipalPayment(cumulativePrincipalPayment);
+						repaymentMethodDTO.setBalance(balance);
+						
+						repaymentMethodDTOList.add(repaymentMethodDTO);
+					}
+				}
+				
+				System.out.println("DAO repaymentlist  ="+ repaymentMethodDTOList.size());
+				return repaymentMethodDTOList;
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}	
 }

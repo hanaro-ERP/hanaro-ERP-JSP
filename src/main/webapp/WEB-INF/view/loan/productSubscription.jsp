@@ -1,3 +1,4 @@
+<%@page import="DTO.RepaymentMethodDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,7 +9,7 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productsubscription.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productSubscription.css?ver=1">
-<script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
+<script src="${pageContext.request.contextPath}/js/components/aside.js"></script>
 </head>
 <body>
 	<%@ include file="../../components/header.jsp" %>	
@@ -186,7 +187,8 @@ pageEncoding="UTF-8"%>
 				
 				
 				
-				<%LoanContractDTO loanContractDTO = (LoanContractDTO) request.getAttribute("searchInputValue");%>
+				<%LoanContractDTO loanContractDTO = (LoanContractDTO) request.getAttribute("loanContract");
+				RepaymentMethodDTO repaymentMethodDTO = (RepaymentMethodDTO) request.getAttribute("repaymentMethod");%>
 				
 				<div id="repaymentAtOneTime">
 				<h3>원금만기일시상환</h3>
@@ -197,7 +199,7 @@ pageEncoding="UTF-8"%>
 					<table>
 						<tr>
 							<th>회차</th>
-							<th>월 상환금</th>
+							<th>상환금</th>
 							<th>납입 원금</th>
 							<th>이자</th>
 							<th>납입원금누계</th>
@@ -213,7 +215,6 @@ pageEncoding="UTF-8"%>
 						</tr>
 					</table>
 				</div>
-				
 				
 				
 				<div id="equalRepaymentOfPrincipalAndInterest">

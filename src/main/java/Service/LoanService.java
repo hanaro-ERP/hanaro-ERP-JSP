@@ -16,6 +16,7 @@ import DTO.LoanContractDTO;
 import DTO.LoanProductDTO;
 import DTO.LoanRepaymentDTO;
 import DTO.LoanSearchDTO;
+import DTO.RepaymentMethodDTO;
 import util.LoanUtil;
 
 public class LoanService {
@@ -88,5 +89,12 @@ public class LoanService {
 		int isLoanContract = loanContractDAO.insertLoanContract(loanContractDTO, l_id, c_id, e_id, 5);
 		
 		return isCustomerRegister;
+	}
+	
+	public List<RepaymentMethodDTO> getRepaymentMethod(String[] id) {
+		LoanContractDAO loanContractDAO = new LoanContractDAO();
+		List<RepaymentMethodDTO> repaymentMethodDTOList = loanContractDAO.getRepaymentMethod(id);
+		
+		return repaymentMethodDTOList;
 	}
 }
