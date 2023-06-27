@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+tr td select {
+	width: 150px;
+}
+.select {
+	width: 150px;
+}
+.shortSelect {
+	width: 200px;
+}
