@@ -35,9 +35,7 @@ public class LoanRegistrationController extends HttpServlet {
 	}
 	
 	protected void postLoanRegistrationProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			String[] infos = {"productName", "loanType", "collateralType", "jobCode", "loanIncome", "loanMinLimit", "loanMaxLimit", "loanMinPeriod", "loanMaxPeriod", "loanMinRate", "loanMaxRate"};
-			
+		try {		
 			String productName = request.getParameter("productName");
 			String loanType = request.getParameter("loanType");
 			String collateralType = request.getParameter("collateralType");
