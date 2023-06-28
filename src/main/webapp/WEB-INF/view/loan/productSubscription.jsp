@@ -12,6 +12,7 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 	<%@ include file="../../components/header.jsp" %>
+	<%@ page import="DTO.CustomerDTO" %>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
@@ -19,99 +20,78 @@ pageEncoding="UTF-8"%>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle"><h2>고객 정보</h2></div>
 				<table class="inputTable">
- 					<tr>
+ 					<% CustomerDTO customer = (CustomerDTO) request.getAttribute("customer"); %>
+					<input type="hidden" name="customerDTO" id="customerDTO" value="<%= customer != null ? customer : "" %>" />
+					<tr>
 						<th>이름</th>
-						<td><input id="customerName" name="customerName" class="middleInput"/></td>
+						<td><input id="customerName" name="customerName" class="middleInput" value="<%= customer != null ? customer.getCustomerName() : "" %>"/>
+						<button type="button" onclick="openSearchPopup()">검색</button></td>						
 						<th>전화번호</th>
-						<td><input id="phoneNumber" name="phoneNumber" class="middleInput"/></td>
+						<td><%= customer != null ? customer.getPhoneNumber() : "" %>
+						<input type="hidden" id="phoneNumber" name="phoneNumber" value="<%= customer != null ? customer.getPhoneNumber() : "" %>"/>
+						</td>
 					</tr>
 					<tr>
 						<th>거주지</th>
 						<td>
-							<select name="citySelect" class="innerSelectBox customerCity" onchange="changeCounty(this.selectedIndex);">
-								<option value="">전체</option>
-								<option value="서울특별시">서울특별시</option>
-								<option value="부산광역시">부산광역시</option>
-								<option value="대구광역시">대구광역시</option>
-								<option value="인천광역시">인천광역시</option>
-								<option value="광주광역시">광주광역시</option>
-								<option value="대전광역시">대전광역시</option>
-								<option value="울산광역시">울산광역시</option>
-								<option value="경기도">경기도</option>
-								<option value="강원도">강원도</option>
-								<option value="충청북도">충청북도</option>
-								<option value="충청남도">충청남도</option>
-								<option value="전라북도">전라북도</option>
-								<option value="전라남도">전라남도</option>
-								<option value="경상북도">경상북도</option>
-								<option value="경상남도">경상남도</option>
-								<option value="제주도">제주도</option>
-							</select>
-							<select name="district" class="select" id="districtSelect">
-								<option value="">-</option>
-							</select>
+						<input type="hidden" id="address" name="address" value="<%= customer != null ? customer.getAddress() : "" %>">
+						<%= customer != null ? customer.getAddress() : "" %>
 						</td>
 						<th>국가</th>
 						<td>
-							<select name="country" class="shortSelect">
-								<option value="southKorea">대한민국</option>
-								<option value="usa">미국</option>
-								<option value="china">중국</option>
-								<option value="japan">일본</option>
-							</select>
+						<input type="hidden" id="country" name="country" value="<%= customer != null ? customer.getCountry() : "" %>">
+						<%= customer != null ? customer.getCountry() : "" %>
 						</td>
 					</tr>
 					<tr>
 						<th>주민번호</th>
 						<td>
-							<input id="residentRegistrationNumber1" name="residentRegistrationNumber" class="shortInput"/>
-								-
-							<input type="password" id="residentRegistrationNumber2" name="residentRegistrationNumber" class="shortInput" maxlength="7"/>
+						<% 	
+							String id1 = "";
+							String id2 = "";
+							if(customer != null) {
+								id1 = customer.getIdentification().substring(0, 6);
+								id2 = customer.getIdentification().substring(7,14);
+						%>
+						<%= id1 + "-" + id2%>
+						<input type="hidden" id="identification" name="identification" value="<%= customer != null ? customer.getIdentification() : "" %>">
+						<% } %>
 						</td>
 						<th>직업</th>
 						<td>
-							<select id="loanTypeSelect" name="job" class="shortSelect">
-								<option value="001">직장인</option>
-								<option value="002">공무원</option>
-								<option value="003">군인</option>
-								<option value="004">금융인</option>
-								<option value="005">전문직</option>
-								<option value="006">의사</option>
-								<option value="007">자영업</option>
-								<option value="100">무직</option>
-							</select>
+							<input type="hidden" id="jobCode" name="jobCode" value="<%= customer != null ? customer.getJobName() : "" %>">
+							<%= customer != null ? customer.getJobName() : "" %>
 						</td>
 					</tr>
-					<tr>						
-						<th>보증인</th>
-						<td><input id="suretyName" name="suretyName" class="middleInput"/></td>
+					<tr>												
 						<th>고객 등급</th>
 						<td>
-							<select name="customerRank" class="shortSelect">
-								<option value="SILVER">SILVER</option>
-								<option value="GOLD">GOLD</option>
-								<option value="VIP">VIP</option>
-								<option value="VVIP">VVIP</option>
-							</select>
+						<input type="hidden" id="grade" name="grade" value="<%= customer != null ? customer.getGrade() : "" %>">
+						<%= customer != null ? customer.getGrade() : "" %>
+						</td>
+						<th>신용 등급</th>
+						<td>
+						<input type="hidden" id="credit" name="credit" value="<%= customer != null ? customer.getCredit() : "" %>">
+						<%= customer != null ? customer.getCredit() : "" %>
 						</td>
 					</tr>
 					<tr>
 						<th>담당 직원</th>
-						<td><input type="text" id="employeeName" name="employeeName" class="middleInput"/></td>
+						<td>
+						<input type="hidden" id="employeeName" name="employeeName" value="<%= customer != null ? customer.getEmployeeName() : "" %>">
+						<%= customer != null ? customer.getEmployeeName() : "" %>
+						</td>
 						<th class="office">주거래지점</th>
-						<td><input type="text" id="bank" name="bank" class="middleInput"/></td>
+						<td>
+						<input type="hidden" id="bankName" name="bankName" value="<%= customer != null ? customer.getBankName() : "" %>">
+						<%= customer != null ? customer.getBankName() : "" %>
+						</td>
 					</tr>
 					<tr>
-						<th>신용 등급</th>
+						<th>보증인</th>
 						<td>
-							<select name="creditRank" class="shortSelect">
-								<option value="1등급">1</option>
-								<option value="2등급">2</option>
-								<option value="3등급">3</option>
-								<option value="4등급">4</option>
-								<option value="5등급">5</option>
-							</select>
-							급
+						<input type="hidden" id="suretyName" name="suretyName" value="<%= customer != null ? customer.getSuretyName() : "" %>">
+						<%= customer != null ? customer.getSuretyName() : "" %>
 						</td>
 						<th>내부 위험도</th>
 						<td> - <button type="button">계산하기</button></td>
@@ -183,10 +163,17 @@ pageEncoding="UTF-8"%>
 		</div>
 	</main>
 	<script>
-		generateMenu('loan', 'productSubscription');		
+		generateMenu('loan', 'productSubscription');	
 	</script>
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
+	<script>
+	    function openSearchPopup() {
+	    	var firstTd = document.getElementById("customerName"); // customerName 필드를 가리키는 변수 firstTd
+	    	if(firstTd.value !== '')
+		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value, "_blank", "width=500,height=300");
+	    }
+	</script>
 </body>
 </html>

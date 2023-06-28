@@ -13,6 +13,8 @@
 	<%@ include file="../../components/header.jsp" %>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
+		<%@ page import="DTO.CustomerDTO" %>
+		<% CustomerDTO customer = (CustomerDTO) request.getAttribute("customer"); %>			
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>고객 등록</h1></div>
 			<form action="${pageContext.request.contextPath}/customer/register" method="post" onsubmit="return validateForm()">
@@ -82,8 +84,17 @@
 						</td>
 					</tr>
 					<tr>						
-						<th>보증인</th>
-						<td><input id="suretyName" name="suretyName" class="middleInput"/></td>
+						<th>신용 등급</th>
+						<td>
+							<select name="creditRank" class="shortSelect">
+								<option value="1등급">1</option>
+								<option value="2등급">2</option>
+								<option value="3등급">3</option>
+								<option value="4등급">4</option>
+								<option value="5등급">5</option>
+							</select>
+							등급
+						</td>
 						<th>고객 등급</th>
 						<td>
 							<select name="customerRank" class="shortSelect">
@@ -101,19 +112,10 @@
 						<td><input type="text" id="bank" name="bank" class="middleInput"/></td>
 					</tr>
 					<tr>
-						<th>신용 등급</th>
-						<td>
-							<select name="creditRank" class="shortSelect">
-								<option value="1등급">1</option>
-								<option value="2등급">2</option>
-								<option value="3등급">3</option>
-								<option value="4등급">4</option>
-								<option value="5등급">5</option>
-							</select>
-							급
-						</td>
-						<th>내부 위험도</th>
-						<td> - <button type="button">계산하기</button></td>
+						<th>보증인</th>
+						<td colspan=4>
+						<input id="suretyName" name="suretyName" class="shortInput" value="<%= customer != null ? customer.getCustomerName() : "" %>"/>
+						<button type="button" onclick="openSearchPopup()">검색</button></td>						
 					</tr>
 				</table>
 				<div class="innerButtonContainer">
@@ -128,5 +130,12 @@
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/customer/customerList.js"></script>
+	<script>
+	    function openSearchPopup() {
+	    	var firstTd = document.getElementById("suretyName"); // customerName 필드를 가리키는 변수 firstTd
+	    	if(firstTd.value !== '')
+		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value, "_blank", "width=500,height=300");
+	    }
+	</script>
 </body>
 </html>
