@@ -10,11 +10,11 @@ public class EvaluatorParent {
 		WEIGHTS.put("AGE", 0.05);
 		WEIGHTS.put("CB_SCORE", 0.05);
 		WEIGHTS.put("DEPOSIT_HISTORY", 0.05);
-		WEIGHTS.put("GUARANTEE", 0.15);
 		WEIGHTS.put("GUARANTOR", 0.15);
 		WEIGHTS.put("INCOME", 0.1);
+		WEIGHTS.put("JOB", 0.1);
 		WEIGHTS.put("LOAN_BALANCE", 0.05);
-		WEIGHTS.put("PROFESSION", 0.1);
+		WEIGHTS.put("LOAN_SCALE", 0.15);
 		WEIGHTS.put("PROPERTY", 0.1);
 		WEIGHTS.put("REPAYMENT_HISTORY", 0.2);
 	}
@@ -41,10 +41,6 @@ public class EvaluatorParent {
 		return getWeightForField("DEPOSIT_HISTORY");
 	}
 
-	protected double getWeightForGuarantee() {
-		return getWeightForField("GUARANTEE");
-	}
-
 	protected double getWeightForGuarantor() {
 		return getWeightForField("GUARANTOR");
 	}
@@ -53,12 +49,16 @@ public class EvaluatorParent {
 		return getWeightForField("INCOME");
 	}
 
+	protected double getWeightForJob() {
+		return getWeightForField("JOB");
+	}
+
 	protected double getWeightForLoanBalance() {
 		return getWeightForField("LOAN_BALANCE");
 	}
 
-	protected double getWeightForProfession() {
-		return getWeightForField("PROFESSION");
+	protected double getWeightForLoanScale() {
+		return getWeightForField("LOAN_SCALE");
 	}
 
 	protected double getWeightForProperty() {

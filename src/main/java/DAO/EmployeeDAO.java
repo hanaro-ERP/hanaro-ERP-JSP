@@ -37,20 +37,20 @@ public class EmployeeDAO {
 
 	public int getEmployeeIdByEmployeeName(String employeeName) {
 		int eId = -1;
-	    String SQL = "SELECT e_id FROM employees WHERE e_name = ?";
-	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-	        pstmt.setString(1, employeeName);
-	        try (ResultSet rs = pstmt.executeQuery()) {
-	            if (rs.next()) {
-	                eId = rs.getInt("e_id");
-	            }
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return eId;
+		String SQL = "SELECT e_id FROM employees WHERE e_name = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setString(1, employeeName);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					eId = rs.getInt("e_id");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return eId;
 	}
-	
+
 	// Read an employee by EmployeeId
 	public EmployeeDTO getEmployeeByEmployeeId(int employeeId) {
 		EmployeeDTO employee = new EmployeeDTO();
@@ -211,7 +211,7 @@ public class EmployeeDAO {
 		}
 		return bank;
 	}
-	
+
 	public List<EmployeeDTO> getEmployeesByDTO(EmployeeDTO employeeDTO) {
 		StringBuilder queryBuilder = new StringBuilder("SELECT e.*, b.b_name FROM employees e ");
 		queryBuilder.append("JOIN banks b ON e.b_id = b.b_id ");
@@ -226,14 +226,14 @@ public class EmployeeDAO {
 		if (employeeDTO.getPosition() != null) {
 			queryBuilder.append("AND e.position = ?");
 		}
-		if(employeeDTO.getBankLocation() != null) {
+		if (employeeDTO.getBankLocation() != null) {
 			queryBuilder.append("AND b.b_name = ?");
 		}
-		
+
 		queryBuilder.append(" ORDER BY e.e_id ASC "); // 정렬 조건
 
 		try (Connection conn = DatabaseUtil.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
 
 			if (employeeDTO.getEmployeeName() != null) {
@@ -245,15 +245,15 @@ public class EmployeeDAO {
 			if (employeeDTO.getPosition() != null) {
 				pstmt.setString(parameterIndex++, employeeDTO.getPosition());
 			}
-			if(employeeDTO.getBankLocation() != null) {
+			if (employeeDTO.getBankLocation() != null) {
 				pstmt.setString(parameterIndex++, employeeDTO.getBankLocation());
 			}
-	    
+
 			List<EmployeeDTO> findEmployees = new ArrayList<>();
-			try (ResultSet rs = pstmt.executeQuery()) {				
+			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					EmployeeDTO employee = new EmployeeDTO();
-					
+
 					employee.setEmployeeId(rs.getInt("e_id"));
 					employee.setEmployeeName(rs.getString("e_name"));
 					employee.setPhoneNumber(rs.getString("e_phone_no"));
@@ -265,14 +265,14 @@ public class EmployeeDAO {
 					String bankName = rs.getString("b_name");
 					employee.setBankLocation(bankName);
 
-	                findEmployees.add(employee);
-	            }
-	        }
-	        return findEmployees;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return null;
+					findEmployees.add(employee);
+				}
+			}
+			return findEmployees;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

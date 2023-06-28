@@ -4,41 +4,51 @@ import DAO.CustomerDAO;
 import DTO.CreditScoringDTO;
 import DTO.CustomerDTO;
 
-public class CBScoreEvaluator extends EvaluatorParent implements EvaluatorInterface<String> {
+public class JobEvaluator extends EvaluatorParent implements EvaluatorInterface<String> {
 
 	@Override
 	public String getTarget(CreditScoringDTO creditScoringDTO) {
 		CustomerDAO customerDAO = new CustomerDAO();
 		CustomerDTO customerDTO = customerDAO.getCustomerByCustomerId(creditScoringDTO.getCustomerId());
 
-		return customerDTO.getCredit();
+		return customerDTO.getJobCode();
 	}
 
 	@Override
 	public int calculateScore(CreditScoringDTO creditScoringDTO) {
 		int score = 0;
-		String CBScore = getTarget(creditScoringDTO);
-		int grade = Character.getNumericValue(CBScore.charAt(0));
+		String jobCode = getTarget(creditScoringDTO);
 
-		switch (grade) {
-		case 1:
-			score = 100;
+		switch (jobCode) {
+		case "000":
+			score = 50;
 			break;
-		case 2:
+		case "001":
+			score = 40;
+			break;
+		case "002":
+			score = 90;
+			break;
+		case "003":
 			score = 60;
 			break;
-		case 3:
-			score = 30;
+		case "004":
+			score = 60;
 			break;
-		case 4:
-			score = 10;
+		case "005":
+			score = 90;
 			break;
-		case 5:
+		case "006":
+			score = 100;
+			break;
+		case "007":
+			score = 50;
+			break;
+		case "100":
 			score = 0;
 			break;
 		}
 
-		return (int) (score * getWeightForCBScore());
+		return (int) (score * getWeightForJob());
 	}
-
 }

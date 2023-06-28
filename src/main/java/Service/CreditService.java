@@ -5,11 +5,11 @@ import Service.evaluators.AgeEvaluator;
 import Service.evaluators.CBScoreEvaluator;
 import Service.evaluators.DepositHistoryEvaluator;
 import Service.evaluators.EvaluatorParent;
-import Service.evaluators.GuaranteeEvaluator;
 import Service.evaluators.GuarantorEvaluator;
+import Service.evaluators.LoanScaleEvaluator;
 import Service.evaluators.IncomeEvaluator;
 import Service.evaluators.LoanBalanceEvaluator;
-import Service.evaluators.ProfessionEvaluator;
+import Service.evaluators.JobEvaluator;
 import Service.evaluators.PropertyEvaluator;
 import Service.evaluators.RepaymentHistoryEvaluator;
 
@@ -34,11 +34,11 @@ public class CreditService {
 		score += new AgeEvaluator().calculateScore(creditScoringDTO);
 		score += new CBScoreEvaluator().calculateScore(creditScoringDTO);
 		score += new DepositHistoryEvaluator().calculateScore(creditScoringDTO);
-		score += new GuaranteeEvaluator().calculateScore(creditScoringDTO);
 		score += new GuarantorEvaluator().calculateScore(creditScoringDTO);
+		score += new LoanScaleEvaluator().calculateScore(creditScoringDTO);
 		score += new IncomeEvaluator().calculateScore(creditScoringDTO);
 		score += new LoanBalanceEvaluator().calculateScore(creditScoringDTO);
-		score += new ProfessionEvaluator().calculateScore(creditScoringDTO);
+		score += new JobEvaluator().calculateScore(creditScoringDTO);
 		score += new PropertyEvaluator().calculateScore(creditScoringDTO);
 		score += new RepaymentHistoryEvaluator().calculateScore(creditScoringDTO);
 

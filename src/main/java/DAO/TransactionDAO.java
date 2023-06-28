@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import DTO.AccountDTO;
+import DTO.CreditScoringDTO;
 import DTO.TransactionDTO;
 import util.DatabaseUtil;
 import util.DepositUtil;
@@ -113,7 +113,8 @@ public class TransactionDAO {
 					TransactionDTO transaction = new TransactionDTO();
 					transaction.setAccountId(accountDTO.getAccountId());
 					transaction.setTransactionType(rs.getString("transaction_type"));
-					transaction.setStringTransactionDate(DepositUtil.convertTimestampToString(rs.getTimestamp("transaction_date")));
+					transaction.setStringTransactionDate(
+							DepositUtil.convertTimestampToString(rs.getTimestamp("transaction_date")));
 					transaction.setAccountNumber(accountDTO.getAccountNumber());
 					transaction.setCustomerName(accountDTO.getCustomerName());
 					transaction.setDepositor(rs.getString("depositor"));
@@ -123,9 +124,37 @@ public class TransactionDAO {
 				}
 			}
 			return transactions;
-        } catch (Exception e) {
-        	e.printStackTrace();
-        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	// Get transactions by customerId
+	public List<TransactionDTO> getThreeMonthsTransactionListByCustomerId(CreditScoringDTO creditScoringDTO) {
+		String query = "SELECT * FROM transactions WHERE a_id IN "
+				+ "(SELECT a_id FROM accounts WHERE c_id = ? and account_type = '예금') "
+				+ "AND transaction_date >= NOW() - INTERVAL 3 MONTH";
+		List<TransactionDTO> transactions = new ArrayList<>();
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+			pstmt.setInt(1, creditScoringDTO.getCustomerId());
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					TransactionDTO transaction = new TransactionDTO();
+					transaction.setAccountId(rs.getInt("a_id"));
+					transaction.setTransactionType(rs.getString("transaction_type"));
+					transaction.setStringTransactionDate(
+							DepositUtil.convertTimestampToString(rs.getTimestamp("transaction_date")));
+					transaction.setDepositor(rs.getString("depositor"));
+					transaction.setTransactionLocation(rs.getString("transaction_location"));
+					transaction.setTransactionAmount(rs.getLong("transaction_amount"));
+					transactions.add(transaction);
+				}
+			}
+			return transactions;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

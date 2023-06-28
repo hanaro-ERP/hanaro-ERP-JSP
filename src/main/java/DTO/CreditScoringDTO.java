@@ -1,8 +1,5 @@
 package DTO;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,15 +7,12 @@ import lombok.Setter;
 @Setter
 
 public class CreditScoringDTO {
-	private String customerName;
+	private int customerId;
 	private String Identification;
+	private int jobCode;
 	private String guaranteeId;
-	private int riskResult;
-	private String jobCode;
-	private int loanCount;
-	private Date recentTransaction;
 	private String country;
-	private int age;
-	private boolean disability;
-	private Timestamp modifiedAt;
+	private long loanAmount;
+	private int loanDuration;
+	private int riskResult;
 }
