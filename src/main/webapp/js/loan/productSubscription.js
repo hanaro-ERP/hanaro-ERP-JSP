@@ -95,11 +95,11 @@ function updateTable() {
 
 			// 값 넣기
 			monthCell.innerHTML = month;
-			repaymentAmountCell.innerHTML = repaymentAmount;
-			principalPaymentCell.innerHTML = principalPayment;
-			interestCell.innerHTML = interest;
-			cumulativePrincipalPaymentCell.innerHTML = cumulativePrincipalPayment;
-			balanceCell.innerHTML = balance;
+			repaymentAmountCell.innerHTML = repaymentAmount.toLocaleString();
+			principalPaymentCell.innerHTML = principalPayment.toLocaleString();
+			interestCell.innerHTML = interest.toLocaleString();
+			cumulativePrincipalPaymentCell.innerHTML = cumulativePrincipalPayment.toLocaleString();
+			balanceCell.innerHTML = balance.toLocaleString();
 		}
 		// 마지막 달
 		var row = repaymentMethodTable.insertRow();
@@ -117,11 +117,11 @@ function updateTable() {
 
 		// 값 넣기
 		monthCell.innerHTML = month;
-		repaymentAmountCell.innerHTML = parseInt(repaymentAmount);
-		principalPaymentCell.innerHTML = parseInt(principalPayment);
-		interestCell.innerHTML = parseInt(interest);
-		cumulativePrincipalPaymentCell.innerHTML = parseInt(cumulativePrincipalPayment);
-		balanceCell.innerHTML = parseInt(balance);
+		repaymentAmountCell.innerHTML = parseInt(repaymentAmount).toLocaleString();
+		principalPaymentCell.innerHTML = parseInt(principalPayment).toLocaleString();
+		interestCell.innerHTML = parseInt(interest).toLocaleString();
+		cumulativePrincipalPaymentCell.innerHTML = parseInt(cumulativePrincipalPayment).toLocaleString();
+		balanceCell.innerHTML = parseInt(balance).toLocaleString();
 	}
 
 	else if (repaymentMethodValue.includes("원금균등")) { // 원금균등상환
@@ -153,11 +153,11 @@ function updateTable() {
 				balance -= principalPayment;	// 남은 대출 원금
 			}
 
-			repaymentAmountCell.innerHTML = parseInt(repaymentAmount);
-			principalPaymentCell.innerHTML = parseInt(principalPayment);
-			interestCell.innerHTML = parseInt(interest);
-			cumulativePrincipalPaymentCell.innerHTML = parseInt(cumulativePrincipalPayment);
-			balanceCell.innerHTML = parseInt(balance);
+			repaymentAmountCell.innerHTML = parseInt(repaymentAmount).toLocaleString();
+			principalPaymentCell.innerHTML = parseInt(principalPayment).toLocaleString();
+			interestCell.innerHTML = parseInt(interest).toLocaleString();
+			cumulativePrincipalPaymentCell.innerHTML = parseInt(cumulativePrincipalPayment).toLocaleString();
+			balanceCell.innerHTML = parseInt(balance).toLocaleString();
 		}
 	}
 
@@ -194,11 +194,11 @@ function updateTable() {
 				balance -= principalPayment;
 			}
 
-			repaymentAmountCell.innerHTML = parseInt(repaymentAmount);
-			principalPaymentCell.innerHTML = parseInt(principalPayment);
-			interestCell.innerHTML = parseInt(interest);
-			cumulativePrincipalPaymentCell.innerHTML = parseInt(cumulativePrincipalPayment);
-			balanceCell.innerHTML = parseInt(balance);
+			repaymentAmountCell.innerHTML = parseInt(repaymentAmount).toLocaleString();
+			principalPaymentCell.innerHTML = parseInt(principalPayment).toLocaleString();
+			interestCell.innerHTML = parseInt(interest).toLocaleString();
+			cumulativePrincipalPaymentCell.innerHTML = parseInt(cumulativePrincipalPayment).toLocaleString();
+			balanceCell.innerHTML = parseInt(balance).toLocaleString();
 		}
 	}
 
