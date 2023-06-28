@@ -18,7 +18,6 @@ import util.LoanUtil;
 
 public class LoanContractDAO {
 
-	// insert a new loan contract
 	public int insertLoanContract(LoanContractDTO loanContract, int l_id, int c_id, int e_id) {
 	    String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, start_date, maturity_date, payment_method,  "
 	            + "grace_period, loan_amount, balance, payment_date, late_payment_date, "
@@ -28,14 +27,11 @@ public class LoanContractDAO {
 	    int numberOfYears = 0;
 	    if(loanContract.getGracePeriod() > 0)
 	    	numberOfYears = loanContract.getGracePeriod();
-	    	
-	    
+
 	    if(loanContract.getGuarantorId() == -1) {
 	    	//...
 	    }
-	    
-	    //l_id를 통한 해당 상품의 정보 가져오기
-	    
+
 	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 	        pstmt.setInt(1, l_id);
 	        pstmt.setInt(2, c_id);
@@ -51,8 +47,6 @@ public class LoanContractDAO {
 	        pstmt.setInt(12, loanContract.getGuarantorId());
 	        pstmt.setFloat(13, loanContract.getInterestRate());
 	        pstmt.setString(14, loanContract.getCollateralDetails());
-	        
-	        System.out.println(loanContract.getInterestRate() + " ㅋㅋㅋ");
 	        
 	        int rowsAffected = pstmt.executeUpdate();
 
@@ -117,7 +111,7 @@ public class LoanContractDAO {
 		loanContract.setCustomerId(rs.getInt("c_id"));
 		loanContract.setEmployeeId(rs.getInt("e_id"));
 		loanContract.setStartDate(rs.getTimestamp("start_date"));
-		loanContract.setMuturityDate(rs.getTimestamp("muturity_date"));
+		loanContract.setMuturityDate(rs.getTimestamp("maturity_date"));
 		loanContract.setPaymentMethod(rs.getString("payment_method"));
 		loanContract.setLoanAmount(rs.getLong("loan_amount"));
 		loanContract.setBalance(rs.getLong("balance"));
@@ -194,7 +188,7 @@ public class LoanContractDAO {
 			queryBuilder.append(" AND lc.start_date >= ? AND lc.start_date < ?");
 		}
 		if (loanContractDTO.getMuturityDate() != null ) {
-			queryBuilder.append(" AND lc.muturity_date >= ? AND lc.muturity_date < ?");
+			queryBuilder.append(" AND lc.maturity_date >= ? AND lc.maturity_date < ?");
 		}
 		if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0 ) {
 			if (loanContractDTO.getBalanceRange()[0] >= 10000) {

@@ -86,21 +86,6 @@ public class LoanSubscriptionController extends HttpServlet {
 				customerDTO.setGrade(customerRank);
 			if(creditRank != "")
 				customerDTO.setCredit(creditRank);
-			//보증인은 보류
-			
-			System.out.println("customerName: " + customerName);
-			System.out.println("phoneNumber: " + phoneNumber);
-			System.out.println("address : " + address );
-			System.out.println("identification : " + identification );
-			System.out.println("country : " + country );
-			System.out.println("jobCode : " + jobCode );			
-			
-			System.out.println("suretyName : " + suretyName );
-			System.out.println("employeeName : " + employeeName );
-			System.out.println("bankName  : " + bankName  );
-			System.out.println("customerRank  : " + customerRank  );
-			System.out.println("creditRank  : " + creditRank  );
-			
 						
 			//상품정보
 			LoanContractDTO loanContractDTO = new LoanContractDTO();
@@ -112,7 +97,7 @@ public class LoanSubscriptionController extends HttpServlet {
 			String interestRate = request.getParameter("interestRate");
 			String repaymentMethod = request.getParameter("repaymentMethod");
 			String gracePeriod = request.getParameter("gracePeriod");
-			
+
 			if(loanType != null)
 				loanContractDTO.setLoanType(loanType);
 			if(loanProductName != null)
@@ -131,6 +116,7 @@ public class LoanSubscriptionController extends HttpServlet {
 				loanContractDTO.setPaymentMethod(repaymentMethod);
 			if(gracePeriod != null)
 				loanContractDTO.setGracePeriod(Integer.parseInt(gracePeriod));
+			
 			/*
 			System.out.println("customerName: " + customerName);
 			System.out.println("phoneNumber: " + phoneNumber);

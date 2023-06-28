@@ -33,7 +33,7 @@ function changeLoan(add) {
 	if (add === 1) {
 		collateralField.disabled = true;
 		collateralField.value = "-";
-		
+
 		collateralField.style.backgroundColor = "#E5E8EB";
 	} else {
 		collateralField.disabled = false;

@@ -51,16 +51,19 @@ public class CustomerService {
 		return customer;
 	}
 	
+	public List<CustomerDTO> getCustomerList(CustomerSearchDTO customerSearchDTO, int page) {
+		List<CustomerDTO> customerList = customerDAO.getCustomersByDTO(customerSearchDTO, page);
+		
+		return customerList;
+	}
+	
 	public List<CustomerDTO> getCustomerListByName(String name) {
 		List<CustomerDTO> customerList = customerDAO.getCustomersByName(name);
 		
 		return customerList;
 	}
 	
-	public List<CustomerDTO> getCustomerList(CustomerSearchDTO customerSearchDTO) {
-		
-		List<CustomerDTO> customerList = customerDAO.getCustomersByDTO(customerSearchDTO);
-		
-		return customerList;
+	public int getCustomerCount(CustomerSearchDTO customerSearchDTO) {
+		return customerDAO.getCustomerCount(customerSearchDTO);
 	}
 }

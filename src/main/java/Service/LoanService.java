@@ -31,12 +31,18 @@ public class LoanService {
 		return loanContractDTOList;		
 	}
 	
-	public static List<LoanProductDTO> getLoanProductList(LoanSearchDTO loanSearchDTO) throws NoSuchAlgorithmException {
+	public List<LoanProductDTO> getLoanProductList(LoanSearchDTO loanSearchDTO, int page) throws NoSuchAlgorithmException {
 		LoanProductDAO loanDAO = new LoanProductDAO();
 
-		List<LoanProductDTO> loanProductList = loanDAO.getLoansByDTO(loanSearchDTO);
+		List<LoanProductDTO> loanProductList = loanDAO.getLoansByDTO(loanSearchDTO, page);
 		
 		return loanProductList;		
+	}
+	
+	public int getLoanCount(LoanSearchDTO loanSearchDTO) {
+		LoanProductDAO loanDAO = new LoanProductDAO();
+
+		return loanDAO.getLoanCount(loanSearchDTO);
 	}
 	
 	public int registerLoanProduct(LoanProductDTO loanProductDTO) throws NoSuchAlgorithmException {
@@ -67,14 +73,12 @@ public class LoanService {
 		
 		int e_id = employeeDAO.getEmployeeIdByEmployeeName(customerDTO.getEmployeeName());
 		int l_id = loanDAO.getLoanIdByLoanName(loanContractDTO.getLoanName());
-		
 		int c_id = customerDAO.getCustomerIdByCustomerName(customerDTO.getCustomerName());
-		
-		System.out.println(c_id + "유저 아이디");
+
 		
 		//가입한 날의 일(day)구하여서 넣기
 		loanUtil.setDate(loanContractDTO);
-		
+
 		//1. 이자율 이후 위험도로 변동생길 예정
 		//2. 연체 관련 값 계산
 		

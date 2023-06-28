@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import DTO.AccountDTO;
 import DTO.AccountSearchDTO;
 import DTO.CustomerDTO;
+import DTO.PaginationDTO;
 import DTO.TransactionDTO;
 import Service.AccountService;
 
@@ -55,8 +56,15 @@ public class DepositListController extends HttpServlet {
 				accountSearchDTO.setAccountOpenDate(depositOpenDate);
 				accountSearchDTO.setDepositBalance(depositBalance);
 				
-				List<AccountDTO> accountList = AccountService.getAccountList(accountSearchDTO);
-				AccountDTO accountDTO = new AccountDTO();
+				int pageNo = 1;
+				String page = request.getParameter("page");
+				if (page != null && !page.equals(""))
+					pageNo = Integer.parseInt(page);
+				int accountCount = AccountService.getAccountCount(accountSearchDTO);
+				accountSearchDTO.setCount(accountCount);
+				accountSearchDTO.setPage(pageNo);
+				
+				List<AccountDTO> accountList = AccountService.getAccountList(accountSearchDTO, pageNo);
 				
 				request.setAttribute("accountDTO", accountSearchDTO);
 				request.setAttribute("searchedAccountList", accountList);
@@ -75,15 +83,26 @@ public class DepositListController extends HttpServlet {
 				int accountId = Integer.parseInt(request.getParameter("id"));
 				String accountNumber = request.getParameter("number");
 				String customerName = request.getParameter("name");
+
+				int pageNo = 1;
+				String page = request.getParameter("page");
+				if (page != null && !page.equals(""))
+					pageNo = Integer.parseInt(page);
+				int accountCount = AccountService.getTransactionCount(accountId);
+				
+				PaginationDTO paginationDTO = new PaginationDTO();
+				
+				paginationDTO.setCount(accountCount);
+				paginationDTO.setPage(pageNo);
 				
 				AccountDTO accountDTO = new AccountDTO();
 				accountDTO.setAccountId(accountId);
 				accountDTO.setAccountNumber(accountNumber);
 				accountDTO.setCustomerName(customerName);
 				
-				List<TransactionDTO> transactionList = AccountService.getTransactionList(accountDTO);
+				List<TransactionDTO> transactionList = AccountService.getTransactionList(accountDTO, pageNo);
 				
-				request.setAttribute("showTransactions", "showTransactions");
+				request.setAttribute("paginationDTO", paginationDTO);
 				request.setAttribute("searchedTransactionList", transactionList);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/components/transactionPopup.jsp");
 				dispatcher.forward(request, response);

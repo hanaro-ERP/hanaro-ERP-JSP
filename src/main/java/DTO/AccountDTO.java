@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class AccountDTO {
+public class AccountDTO extends PaginationDTO{
 	private int accountId;
 	private int customerId;
 	private String accountType;
