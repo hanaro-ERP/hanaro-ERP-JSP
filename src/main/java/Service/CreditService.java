@@ -13,6 +13,7 @@ import Service.evaluators.LoanScaleEvaluator;
 import Service.evaluators.PropertyEvaluator;
 import Service.evaluators.RepaymentHistoryEvaluator;
 import util.EncryptUtil;
+import util.KeyUtil;
 
 public class CreditService {
 	private String creditScore;
@@ -71,5 +72,12 @@ public class CreditService {
 
 		System.out.println(encrypted);
 		System.out.println(decrypted);
+
+		System.out.println("Key: " + KeyUtil.loadKey(
+				"/Users/oxboxx/Documents/Projects/Goddess/hanaro-ERP-JSP/src/main/webapp/WEB-INF/key/key.pem"));
+		System.out.println("IV: " + KeyUtil
+				.loadKey("/Users/oxboxx/Documents/Projects/Goddess/hanaro-ERP-JSP/src/main/webapp/WEB-INF/key/iv.pem"));
+		System.out.println("Pepper: " + KeyUtil.loadKey(
+				"/Users/oxboxx/Documents/Projects/Goddess/hanaro-ERP-JSP/src/main/webapp/WEB-INF/key/pepper.pem"));
 	}
 }
