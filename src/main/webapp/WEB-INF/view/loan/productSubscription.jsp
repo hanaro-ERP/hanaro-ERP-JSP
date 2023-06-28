@@ -21,7 +21,6 @@ pageEncoding="UTF-8"%>
 				<div class="innerSubTitle"><h2>고객 정보</h2></div>
 				<table class="inputTable">
  					<% CustomerDTO customer = (CustomerDTO) request.getAttribute("customer"); %>
-					<input type="hidden" name="customerDTO" id="customerDTO" value="<%= customer != null ? customer : "" %>" />
 					<tr>
 						<th>이름</th>
 						<td><input id="customerName" name="customerName" class="middleInput" value="<%= customer != null ? customer.getCustomerName() : "" %>"/>
@@ -172,7 +171,7 @@ pageEncoding="UTF-8"%>
 	    function openSearchPopup() {
 	    	var firstTd = document.getElementById("customerName"); // customerName 필드를 가리키는 변수 firstTd
 	    	if(firstTd.value !== '')
-		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value, "_blank", "width=500,height=300");
+		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 2, "_blank", "width=1000,height=200");
 	    }
 	</script>
 </body>

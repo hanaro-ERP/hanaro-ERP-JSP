@@ -48,7 +48,7 @@ public class CustomerSearchController extends HttpServlet {
 	protected void getCustomerSearchProcess(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			String customerName = request.getParameter("name");
-			System.out.println(customerName);
+			String pageId = request.getParameter("pageId");
 			
 			List<CustomerDTO> customerList = customerService.getCustomerListByName(customerName);
 			
@@ -56,9 +56,9 @@ public class CustomerSearchController extends HttpServlet {
 				customerList = new ArrayList<>();
 			
 			request.setAttribute("customerList", customerList);
-				
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/customerSearch.jsp");
+			request.setAttribute("pageId", pageId);
 			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/customerSearch.jsp");
 			dispatcher.forward(request, response);
 			
 		} catch (Exception e) {
@@ -70,8 +70,12 @@ public class CustomerSearchController extends HttpServlet {
 		try {
 			LoanUtil loanUtil = new LoanUtil();
 			
-			String id = request.getParameter("id");
-			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(id));
+			String userId = request.getParameter("userId");
+			String pageId = request.getParameter("pageId");
+			
+			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(userId));
+			
+			System.out.println(customer.getSuretyName() + "보증인 나오나요???????????????????/");
 			
 			//customer.setSuretyName(customer.getSuretyName());
 			customer.setJobName(loanUtil.convertJobCode(customer.getJobCode()));
@@ -82,10 +86,13 @@ public class CustomerSearchController extends HttpServlet {
 			/*String referer = request.getHeader("referer");
 			response.sendRedirect(referer);
 			*/
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/loan/productSubscription.jsp");			
-			dispatcher.forward(request, response);
-			
+			if(pageId.equals("1")) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/customer/customerRegist.jsp");			
+				dispatcher.forward(request, response);
+			} else if(pageId.equals("2")) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/loan/productSubscription.jsp");			
+				dispatcher.forward(request, response);
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

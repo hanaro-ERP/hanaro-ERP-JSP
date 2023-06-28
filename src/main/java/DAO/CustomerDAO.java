@@ -129,8 +129,8 @@ public class CustomerDAO {
 	
 	// insert a new customer
 	public int insertCustomer(CustomerDTO customer, int e_id, int b_id) {
-		String SQL = "INSERT INTO customers (e_id, b_id, c_name, identification, grade, age, gender, phone_no, address, job_code, country, credit, risk) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO customers (e_id, b_id, c_name, identification, grade, age, gender, phone_no, address, job_code, country, credit, risk, guarantor) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			//pstmt.setInt(1, customer.getCustomerId());
@@ -147,6 +147,7 @@ public class CustomerDAO {
 			pstmt.setString(11, customer.getCountry());
 			pstmt.setString(12, customer.getCredit());
 			pstmt.setInt(13, 0);
+			pstmt.setString(14, customer.getSuretyName());
 			
 			return pstmt.executeUpdate();
 		

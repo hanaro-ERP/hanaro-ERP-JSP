@@ -27,6 +27,7 @@
 			</tr>
 			<!-- 받아온 유저 정보를 테이블로 나타내는 코드 -->
 			<%
+				String pageId = (String) request.getAttribute("pageId");
 				List<CustomerDTO> findCustomers = (List<CustomerDTO>) request.getAttribute("customerList");
 
 				if (findCustomers != null && !findCustomers.isEmpty()) {
@@ -49,15 +50,17 @@
 			}
 			%>
 		</table>
+		<input type="hidden" id="pageId" value="<%= pageId != null ? pageId : "" %>">
 	</main>
 	<script>
+		const pageId = document.getElementById("pageId");
 		const searchTableRows = document.querySelectorAll('#customerSearchTable tr');
 		searchTableRows.forEach((item, index) => {
 			if (index !== 0) {
 				var firstTd = item.querySelector(".customerId");
 				item.addEventListener('click', () => {
 					var value = firstTd.innerHTML;
-				    const url = "/hanaro-ERP-JSP/customerSearchReturn?id=" + value;
+				    const url = "/hanaro-ERP-JSP/customerSearchReturn?userId=" + value + "&pageId=" + pageId.value;
 				    window.opener.location.href = url;
 				    window.close();
 				});	

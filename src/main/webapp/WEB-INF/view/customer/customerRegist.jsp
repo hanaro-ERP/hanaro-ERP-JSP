@@ -134,7 +134,7 @@
 	    function openSearchPopup() {
 	    	var firstTd = document.getElementById("suretyName"); // customerName 필드를 가리키는 변수 firstTd
 	    	if(firstTd.value !== '')
-		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value, "_blank", "width=500,height=300");
+		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 1, "_blank", "width=1000,height=200");
 	    }
 	</script>
 </body>
