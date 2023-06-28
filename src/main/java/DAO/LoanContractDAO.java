@@ -18,6 +18,7 @@ import org.eclipse.jdt.internal.compiler.IDebugRequestor;
 import org.eclipse.jdt.internal.compiler.ast.AND_AND_Expression;
 
 import DTO.CreditScoringDTO;
+import DTO.CustomerDTO;
 import DTO.LoanContractDTO;
 import DTO.RepaymentMethodDTO;
 import util.DatabaseUtil;
@@ -122,7 +123,7 @@ public class LoanContractDAO {
 		loanContract.setLoanName(rs.getString("loan_name"));
 		loanContract.setEmployeeName(rs.getString("e_name"));
 		loanContract.setCustomerName(rs.getString("c_name"));
-		loanContract.setGuarantorName(rs.getString("guarantor_name"));
+		//loanContract.setGuarantorName(rs.getString("guarantor_name"));
 	}
 	
 	private void fillLoanContractDTOFromTable(LoanContractDTO loanContract, ResultSet rs) throws SQLException {
@@ -198,7 +199,7 @@ public class LoanContractDAO {
 
 	public List<LoanContractDTO> getLoanContractByDTO(LoanContractDTO loanContractDTO) {
 		StringBuilder queryBuilder = new StringBuilder(
-				"SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name, "
+				"SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name"
 				//+ "c2.c_name as guarantor_name"
 						+ " FROM loanContracts lc");
 		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
@@ -206,9 +207,6 @@ public class LoanContractDAO {
 		queryBuilder.append(" JOIN employees e ON c.e_id = e.e_id");
 		//queryBuilder.append(" JOIN customers c2 ON lc.guarantor_id = c2.c_id");
 		queryBuilder.append(" WHERE 1=1");
-
-		CustomerDAO customerDAO = new CustomerDAO();
-		
 		
 		if (loanContractDTO.getLoanName() != null) {
 			queryBuilder.append(" AND l.loan_name LIKE ?");
@@ -289,6 +287,9 @@ public class LoanContractDAO {
 
 			System.out.println(pstmt);
 			try (ResultSet rs = pstmt.executeQuery()) {
+
+				CustomerDAO customerDAO = new CustomerDAO();
+				
 				while (rs.next()) {
 					LoanContractDTO loanContracts = new LoanContractDTO();
 					fillLoanContractDTOFromResultSet(loanContracts, rs);
@@ -301,6 +302,9 @@ public class LoanContractDAO {
 					
 					String maturityDateString = loanContracts.getMaturityDate().toString().substring(0,10);
 					loanContracts.setMaturityDateString(maturityDateString);
+					
+					CustomerDTO customerDTO = customerDAO.getCustomerByCustomerId(loanContracts.getGuarantorId());
+					loanContracts.setGuarantorName(customerDTO.getCustomerName());
 					
 					loanContractDTOList.add(loanContracts);
 				}
