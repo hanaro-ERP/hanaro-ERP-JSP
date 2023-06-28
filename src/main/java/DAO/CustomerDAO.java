@@ -16,7 +16,7 @@ public class CustomerDAO {
 
 	CustomerUtil customerUtil = new CustomerUtil();
 	DatabaseUtil databaseUtil = new DatabaseUtil();
-	
+
 	public int getCustomerCount(CustomerSearchDTO customerSearchDTO) {
 		int cnt = 0;
 		StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt FROM customers c ");
@@ -131,9 +131,9 @@ public class CustomerDAO {
 	public int insertCustomer(CustomerDTO customer, int e_id, int b_id) {
 		String SQL = "INSERT INTO customers (e_id, b_id, c_name, identification, grade, age, gender, phone_no, address, job_code, country, credit, risk) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		
+
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			//pstmt.setInt(1, customer.getCustomerId());
+			// pstmt.setInt(1, customer.getCustomerId());
 			pstmt.setInt(1, e_id);
 			pstmt.setInt(2, b_id);
 			pstmt.setString(3, customer.getCustomerName());
@@ -147,31 +147,31 @@ public class CustomerDAO {
 			pstmt.setString(11, customer.getCountry());
 			pstmt.setString(12, customer.getCredit());
 			pstmt.setInt(13, 0);
-			
+
 			return pstmt.executeUpdate();
-		
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return -1; // Database operation failed
-	}	
-	
+	}
+
 	public int getCustomerIdByCustomerName(String customerName) {
 		int cId = -1;
-	    String SQL = "SELECT c_id FROM customers WHERE c_name = ?";
-	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-	        pstmt.setString(1, customerName);
-	        try (ResultSet rs = pstmt.executeQuery()) {
-	            if (rs.next()) {
-	            	cId = rs.getInt("c_id");
-	            }
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return cId;
+		String SQL = "SELECT c_id FROM customers WHERE c_name = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setString(1, customerName);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					cId = rs.getInt("c_id");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cId;
 	}
-	
+
 	// Read a customer by customerId
 	public CustomerDTO getCustomerByCustomerId(int customerId) {
 		CustomerDTO customer = new CustomerDTO();
@@ -268,7 +268,7 @@ public class CustomerDAO {
 		queryBuilder.append("JOIN employees e ON c.e_id = e.e_id ");
 		queryBuilder.append("JOIN banks b ON c.b_id = b.b_id ");
 		queryBuilder.append("WHERE 1=1");
-		
+
 		if (customerSearchDTO.getCustomerName() != null) {
 			queryBuilder.append(" AND c.c_name LIKE ?");
 		}
@@ -317,7 +317,7 @@ public class CustomerDAO {
 		queryBuilder.append(" LIMIT 20 OFFSET ?");
 		
 		try (Connection conn = DatabaseUtil.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
 
 			if (customerSearchDTO.getCustomerName() != null) {
@@ -331,7 +331,7 @@ public class CustomerDAO {
 			}
 			if (customerSearchDTO.getBankName() != null) {
 				pstmt.setString(parameterIndex++, customerSearchDTO.getBankName());
-			}		
+			}
 			if (customerSearchDTO.getIdentification1() != null) {
 				pstmt.setString(parameterIndex++, "%" + customerSearchDTO.getIdentification1() + "%-%");
 			}
@@ -355,7 +355,7 @@ public class CustomerDAO {
 			}
 			if (customerSearchDTO.getCity() != null) {
 				String temp = customerSearchDTO.getCity() + "%";
-				if (customerSearchDTO.getDistrict() != null) 
+				if (customerSearchDTO.getDistrict() != null)
 					temp = customerSearchDTO.getCity() + " " + customerSearchDTO.getDistrict();
 				pstmt.setString(parameterIndex++, temp);
 			}
@@ -379,9 +379,10 @@ public class CustomerDAO {
 				}
 			}
 			return findCustomers;
-			} catch (Exception e) {
-				e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	    return null;
+		return null;
+
 	}
 }

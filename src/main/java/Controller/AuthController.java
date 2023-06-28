@@ -22,7 +22,7 @@ public class AuthController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	BankService bankService = new BankService();
-	
+
 	public AuthController() {
 		super();
 	}
@@ -57,7 +57,8 @@ public class AuthController extends HttpServlet {
 		String requestURI = request.getRequestURI();
 		if (requestURI.endsWith("/AuthController/Login/")) {
 			if (request.getParameter("employeeId") == "" || request.getParameter("password") == "") {
-				redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 입력하지 않았습니다.", request.getParameter("employeeId"));
+				redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 입력하지 않았습니다.",
+						request.getParameter("employeeId"));
 				return;
 			}
 			int employeeId = Integer.parseInt(request.getParameter("employeeId"));
@@ -66,7 +67,7 @@ public class AuthController extends HttpServlet {
 			employeeDTO.setEmployeeId(employeeId);
 			employeeDTO.setPassword(password);
 			EmployeeDTO storedEmployeeDTO = new EmployeeDTO();
-			
+
 			try {
 				storedEmployeeDTO = (EmployeeDTO) AuthService.authenticateEmployee(employeeDTO);
 			} catch (NoSuchAlgorithmException e) {
