@@ -27,4 +27,5 @@ public class CustomerSearchDTO extends PaginationDTO {
 	private String city;
 	private String district;
 	private String isOpen;
+	private String suretyName;
 }

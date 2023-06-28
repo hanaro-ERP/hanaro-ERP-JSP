@@ -15,11 +15,8 @@ import DTO.CustomerDTO;
 import Service.CustomerService;
 import util.LoanUtil;
 
-@WebServlet(urlPatterns = {"/customerSearch", "/customerSearchReturn"})
+@WebServlet(urlPatterns = {"/customerSearch", "/customer/searchReturn"})
 public class CustomerSearchController extends HttpServlet {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	CustomerService customerService = new CustomerService();
 	
@@ -33,11 +30,10 @@ public class CustomerSearchController extends HttpServlet {
 		
 	    if ("/customerSearch".equals(urlPattern)) {
 	    	getCustomerSearchProcess(request, response);
-	    } else if ("/customerSearchReturn".equals(urlPattern)) {
+	    } else if ("/customer/searchReturn".equals(urlPattern)) {
 	        returnCustomerProcess(request, response);
 	    } else {
-	    	
-	        // 잘못된 URL 패턴에 대한 처리
+
 	    }
 	}
 	
@@ -48,7 +44,7 @@ public class CustomerSearchController extends HttpServlet {
 	protected void getCustomerSearchProcess(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			String customerName = request.getParameter("name");
-			System.out.println(customerName);
+			String pageId = request.getParameter("pageId");
 			
 			List<CustomerDTO> customerList = customerService.getCustomerListByName(customerName);
 			
@@ -56,9 +52,10 @@ public class CustomerSearchController extends HttpServlet {
 				customerList = new ArrayList<>();
 			
 			request.setAttribute("customerList", customerList);
-				
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/customerSearch.jsp");
+			request.setAttribute("pageId", pageId);
 			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/customerSearch.jsp");
+
 			dispatcher.forward(request, response);
 			
 		} catch (Exception e) {
@@ -70,22 +67,20 @@ public class CustomerSearchController extends HttpServlet {
 		try {
 			LoanUtil loanUtil = new LoanUtil();
 			
-			String id = request.getParameter("id");
-			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(id));
+			String userId = request.getParameter("userId");
+			String pageId = request.getParameter("pageId");
 			
-			//customer.setSuretyName(customer.getSuretyName());
+			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(userId));
 			customer.setJobName(loanUtil.convertJobCode(customer.getJobCode()));
-			
 			request.setAttribute("customer", customer);
 
-			
-			/*String referer = request.getHeader("referer");
-			response.sendRedirect(referer);
-			*/
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/loan/productSubscription.jsp");			
-			dispatcher.forward(request, response);
-			
+			if(pageId.equals("1")) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/customer/customerRegist.jsp");			
+				dispatcher.forward(request, response);
+			} else if(pageId.equals("2")) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");			
+				dispatcher.forward(request, response);
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
