@@ -143,13 +143,6 @@ public class AccountDAO {
 		} else {
 			queryBuilder.append(" AND a.account_balance between ? and ?");
 		}
-<<<<<<< HEAD
-
-		System.out.println(queryBuilder);
-
-=======
-		
->>>>>>> develop
 		try (Connection conn = DatabaseUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
@@ -192,9 +185,6 @@ public class AccountDAO {
 			}
 
 			System.out.println(pstmt.toString());
-<<<<<<< HEAD
-
-=======
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 		            cnt = rs.getInt("cnt");
@@ -285,7 +275,6 @@ public class AccountDAO {
 			
 			System.out.println(pstmt.toString());
 			
->>>>>>> develop
 			List<AccountDTO> findAccountList = new ArrayList<>();
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
