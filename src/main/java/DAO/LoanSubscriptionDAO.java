@@ -24,7 +24,6 @@ public class LoanSubscriptionDAO {
 			pstmt.setLong(9, loanProductDTO.getMaxAmount());
 			pstmt.setFloat(10, loanProductDTO.getMinRate());
 			pstmt.setFloat(11, loanProductDTO.getMaxRate());
-			System.out.println(pstmt.toString());
 			return pstmt.executeUpdate();
 		
 		} catch (Exception e) {

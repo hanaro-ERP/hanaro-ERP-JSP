@@ -58,7 +58,6 @@
 		int currentPage = pages; // 현재 페이지
 		int startPage = Math.max(1, currentPage - ((currentPage-1) % 10)) ; // 시작 페이지
 		int endPage = Math.min(startPage + 9, totalPages); // 끝 페이지
-		System.out.println(count);
 
 		// 이전 페이지와 다음 페이지 계산
 		int prevPage = startPage - 1;

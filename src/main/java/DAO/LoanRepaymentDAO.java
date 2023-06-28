@@ -126,8 +126,6 @@ public class LoanRepaymentDAO {
 
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
-
-			System.out.println("REPAYMENT DAO pstmt ="+ pstmt);
 			
 			LoanUtil loanUtil = new LoanUtil();
 			List<LoanRepaymentDTO> loanRepaymentDTOList = new ArrayList<>();	

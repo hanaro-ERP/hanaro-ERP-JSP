@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 가입</h1></div>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
-				<div class="innerSubTitle"><h2>고객 정보</h2></div>
+				<div class="innerSubTitle"><h2>고객 정보 찾기</h2></div>
 				<table class="inputTable">
  					<% CustomerDTO customer = (CustomerDTO) request.getAttribute("customer"); %>
 					<tr>
@@ -97,7 +97,7 @@ pageEncoding="UTF-8"%>
 					</tr>
 				</table>
 
-				<div class="innerSubTitle"><h2>상품 정보</h2></div>
+				<div class="innerSubTitle"><h2>상품 정보 및 가입</h2></div>
 				<table class="inputTable">
 					<tr>
 						<th>대출 구분</th>
@@ -118,11 +118,6 @@ pageEncoding="UTF-8"%>
 						<th>담보</th>
 						<td>
 							<input name="collateral" class="middleInput">
-							<!-- <select name="collateral" class="shortSelect">
-								<option value="예적금">예적금</option>
-								<option value="주택">주택</option>
-								<option value="전세자금">전세자금</option>
-							</select>-->
 						</td>
 						<th>대출 금액</th>
 						<td>
@@ -137,7 +132,7 @@ pageEncoding="UTF-8"%>
 							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
 							%
 							&nbsp; | &nbsp;&nbsp;
-							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
+							<input type="number" step="0.1" max="10" id="loanPeriod" name="loanPeriod" class="shortInput" />
 							년
 						</td>
 						<th> 거치 기간</th>

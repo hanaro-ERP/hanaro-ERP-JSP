@@ -113,8 +113,7 @@ public class CustomerDAO {
 					temp = customerSearchDTO.getCity() + " " + customerSearchDTO.getDistrict();
 				pstmt.setString(parameterIndex++, temp);
 			}
-			
-			System.out.println(pstmt.toString());
+
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					cnt = rs.getInt("cnt");
@@ -205,6 +204,7 @@ public class CustomerDAO {
 		customer.setJobCode(rs.getString("job_code"));
 		customer.setCountry(rs.getString("country"));
 		customer.setCredit(rs.getString("credit"));
+		customer.setSuretyName(rs.getString("guarantor"));
 	}
 
 	// Update a customer
@@ -384,7 +384,6 @@ public class CustomerDAO {
 			}
 			pstmt.setInt(parameterIndex++, (page-1)*20);
 			
-			System.out.println(pstmt.toString());
 			List<CustomerDTO> findCustomers = new ArrayList<>();
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {

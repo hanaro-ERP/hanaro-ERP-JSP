@@ -15,11 +15,8 @@ import DTO.CustomerDTO;
 import Service.CustomerService;
 import util.LoanUtil;
 
-@WebServlet(urlPatterns = {"/customerSearch", "/customerSearchReturn"})
+@WebServlet(urlPatterns = {"/customerSearch", "/customer/searchReturn"})
 public class CustomerSearchController extends HttpServlet {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	CustomerService customerService = new CustomerService();
 	
@@ -33,11 +30,10 @@ public class CustomerSearchController extends HttpServlet {
 		
 	    if ("/customerSearch".equals(urlPattern)) {
 	    	getCustomerSearchProcess(request, response);
-	    } else if ("/customerSearchReturn".equals(urlPattern)) {
+	    } else if ("/customer/searchReturn".equals(urlPattern)) {
 	        returnCustomerProcess(request, response);
 	    } else {
-	    	
-	        // 잘못된 URL 패턴에 대한 처리
+
 	    }
 	}
 	
@@ -75,19 +71,14 @@ public class CustomerSearchController extends HttpServlet {
 			String pageId = request.getParameter("pageId");
 			
 			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(userId));
-			
-			System.out.println(customer.getSuretyName() + "보증인 나오나요???????????????????/");
-			
-			//customer.setSuretyName(customer.getSuretyName());
 			customer.setJobName(loanUtil.convertJobCode(customer.getJobCode()));
-			
 			request.setAttribute("customer", customer);
 
 			if(pageId.equals("1")) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/customer/customerRegist.jsp");			
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/customer/customerRegist.jsp");			
 				dispatcher.forward(request, response);
 			} else if(pageId.equals("2")) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/loan/productSubscription.jsp");			
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");			
 				dispatcher.forward(request, response);
 			}			
 		} catch (Exception e) {

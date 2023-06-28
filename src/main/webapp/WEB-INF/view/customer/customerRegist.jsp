@@ -14,7 +14,18 @@
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<%@ page import="DTO.CustomerDTO" %>
-		<% CustomerDTO customer = (CustomerDTO) request.getAttribute("customer"); %>			
+		<%@ page import="DAO.EmployeeDAO" %>
+		<%@ page import="DAO.BankDAO" %>
+		<% 
+			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer"); 
+			String sessionName = (String)request.getSession().getAttribute("loginName");
+
+			EmployeeDAO employeeDAO = new EmployeeDAO();
+			BankDAO bankDAO = new BankDAO();
+			
+			int id = employeeDAO.getEmployeeIdByEmployeeName(sessionName);
+			String bankName = bankDAO.getBankNameByBankId(id);
+		%>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>고객 등록</h1></div>
 			<form action="${pageContext.request.contextPath}/customer/register" method="post" onsubmit="return validateForm()">
@@ -29,7 +40,7 @@
 					<tr>
 						<th>거주지</th>
 						<td>
-							<select name="citySelect" class="innerSelectBox customerCity" onchange="changeCounty(this.selectedIndex);">
+							<select name="citySelect" class="innerSelectBox customerCity" onchange="changeCounty(this.selectedIndex);" style="width: 150px";>
 								<option value="">전체</option>
 								<option value="서울특별시">서울특별시</option>
 								<option value="부산광역시">부산광역시</option>
@@ -48,7 +59,7 @@
 								<option value="경상남도">경상남도</option>
 								<option value="제주도">제주도</option>
 							</select>
-							<select name="district" class="select" id="districtSelect">
+							<select name="district" class="select" id="districtSelect" style="width: 150px">
 								<option value="">-</option>
 							</select>
 						</td>
@@ -107,9 +118,11 @@
 					</tr>
 					<tr>
 						<th>담당 직원</th>
-						<td><input type="text" id="employeeName" name="employeeName" class="middleInput"/></td>
+						<td><%= sessionName %>
+						<input type="hidden" id="employeeName" name="employeeName" value="<%= sessionName %>"/></td>
 						<th class="office">주거래지점</th>
-						<td><input type="text" id="bank" name="bank" class="middleInput"/></td>
+						<td><%= bankName %>
+						<input type="hidden" id="bank" name="bank" class="middleInput" value="<%= bankName %>"/></td>
 					</tr>
 					<tr>
 						<th>보증인</th>
@@ -134,7 +147,7 @@
 	    function openSearchPopup() {
 	    	var firstTd = document.getElementById("suretyName"); // customerName 필드를 가리키는 변수 firstTd
 	    	if(firstTd.value !== '')
-		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 1, "_blank", "width=1000,height=200");
+		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 1, "_blank", "width=1170,height=500");
 	    }
 	</script>
 </body>

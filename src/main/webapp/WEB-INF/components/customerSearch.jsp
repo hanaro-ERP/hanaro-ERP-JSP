@@ -60,7 +60,7 @@
 				var firstTd = item.querySelector(".customerId");
 				item.addEventListener('click', () => {
 					var value = firstTd.innerHTML;
-				    const url = "/hanaro-ERP-JSP/customerSearchReturn?userId=" + value + "&pageId=" + pageId.value;
+				    const url = "/hanaro-ERP-JSP/customer/searchReturn?userId=" + value + "&pageId=" + pageId.value;
 
 				    window.opener.location.href = url;
 				    window.close();

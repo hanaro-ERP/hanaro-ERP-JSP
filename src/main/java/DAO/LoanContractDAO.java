@@ -210,7 +210,6 @@ public class LoanContractDAO {
 		try (Connection conn = DatabaseUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 
-			System.out.println("pstmt =" + pstmt);
 			int parameterIndex = 1;
 
 			if (loanContractDTO.getLoanName() != null) {

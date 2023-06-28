@@ -61,6 +61,22 @@ public class BankDAO {
 		}
 		return bank;
 	}
+	
+	public String getBankNameByBankId(int bankId) {
+		String bankName = "";
+		String SQL = "SELECT b_name FROM banks WHERE b_id = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setInt(1, bankId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					bankName = rs.getString("b_name");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bankName;
+	}
 
 	// Fill a BankDTO from a ResultSet
 	private void fillBankDTOFromResultSet(BankDTO bank, ResultSet rs) throws SQLException {
@@ -142,7 +158,6 @@ public class BankDAO {
 				}
 			}
 			
-			System.out.println(pstmt.toString());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					cnt = rs.getInt("cnt");

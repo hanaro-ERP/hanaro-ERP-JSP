@@ -40,17 +40,13 @@ public class CustomerRegisterController extends HttpServlet {
 			//고객 정보
 			CustomerDTO customerDTO = new CustomerDTO();
 
-			String customerName = request.getParameter("customerName");//.getParameter("customerName");
+			String customerName = request.getParameter("customerName");
 			String phoneNumber = request.getParameter("phoneNumber");
 			String citySelect = request.getParameter("citySelect");
 			String district = request.getParameter("district");
 			String address = citySelect + " " + district;
-			String id[] = request.getParameterValues("residentRegistrationNumber");			
-/*
-			System.out.println("customerName: " + customerName);
-			System.out.println("phoneNumber: " + phoneNumber);
-			System.out.println("address : " + address );
-*/			
+			String id[] = request.getParameterValues("residentRegistrationNumber");
+			
 			phoneNumber = phoneNumber.substring(0,3) + "-" + phoneNumber.substring(3,7) + "-" + phoneNumber.substring(7,11);
 
 			String identification = id[0] + "-" + id[1];
@@ -64,7 +60,7 @@ public class CustomerRegisterController extends HttpServlet {
 			String bankName = request.getParameter("bank"); //주거래지점
 			String customerRank = request.getParameter("customerRank");
 			String creditRank = request.getParameter("creditRank");
-			
+
 			if(customerName != "")
 				customerDTO.setCustomerName(customerName);
 			if(phoneNumber != "")
@@ -92,6 +88,8 @@ public class CustomerRegisterController extends HttpServlet {
 				customerDTO.setCredit(creditRank);
 		
 			int isLoanRegistered = customerService.registerCustomer(customerDTO);
+			
+			request.setAttribute("customerDTO", customerDTO);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/customer/customerRegist.jsp");
 			dispatcher.forward(request, response);
