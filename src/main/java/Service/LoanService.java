@@ -110,10 +110,6 @@ public class LoanService {
 		//1. 이자율 이후 위험도로 변동생길 예정
 		//2. 연체 관련 값 계산
 		
-		//보증인 id 구하기
-		/*int guarantor_id = customerDAO.getCustomerIdByCustomerName(loanContractDTO.getGuarantorName());
-		loanContractDTO.setGuarantorId(guarantor_id);
-		*/
 		int isLoanContract = loanContractDAO.insertLoanContract(loanContractDTO, l_id, c_id, e_id);
 		
 		return isLoanContract;

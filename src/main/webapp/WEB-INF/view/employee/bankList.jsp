@@ -20,8 +20,8 @@
 			BankDTO bankDTO = (BankDTO)request.getAttribute("searchInputValue");%>
 		<div class="innerContainer" id="container2">
 			<div class="innerTitle"><h1>지점 목록</h1></div>
-			<form action="${pageContext.request.contextPath}/bank/list" method="post">
-				<div class="innerSubTitle"><h2>지점 정보</h2></div>
+			<div class="innerSubTitle"><h2>지점 정보</h2></div>
+				<form action="${pageContext.request.contextPath}/bank/list" method="post">
 				<div class="innerInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">이름(ID)</div>
@@ -55,9 +55,9 @@
 							<option value="">-</option>
 						</select>
 					</div>
-					<div class="innerButtonContainer">
-						<button type="submit">검색</button>
-					</div>
+				</div>
+				<div class="innerButtonContainer">
+					<button type="submit">검색</button>
 				</div>
 			<div class="searchTitle"><h1>검색 결과</h1><p><%= (bankDTO != null && bankDTO != null) ? "총 " + bankDTO.getCount() + "개의 검색 결과가 있습니다." : "" %></p></div>
 			<table class="searchTable" id="customerSearchTable">
@@ -93,7 +93,6 @@
 				int currentPage = pages; // 현재 페이지
 				int startPage = Math.max(1, currentPage - ((currentPage-1) % 10)) ; // 시작 페이지
 				int endPage = Math.min(startPage + 9, totalPages); // 끝 페이지
-				System.out.println(count);
 
 				// 이전 페이지와 다음 페이지 계산
 				int prevPage = startPage - 1;
