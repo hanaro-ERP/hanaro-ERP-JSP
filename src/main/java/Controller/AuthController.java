@@ -22,7 +22,7 @@ public class AuthController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	BankService bankService = new BankService();
-	
+
 	public AuthController() {
 		super();
 	}
@@ -69,9 +69,7 @@ public class AuthController extends HttpServlet {
 			EmployeeDTO storedEmployeeDTO = new EmployeeDTO();
 
 			try {
-				String name = (String) AuthService.authenticateEmployee(employeeDTO);
-				redirectWithErrorMessage(request, response, name, String.valueOf(employeeId));
-				return;
+				storedEmployeeDTO = (EmployeeDTO) AuthService.authenticateEmployee(employeeDTO);
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
