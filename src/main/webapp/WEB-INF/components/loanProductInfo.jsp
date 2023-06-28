@@ -63,17 +63,6 @@
 	</div>
 </div>
 <script>
-	const isAdmin = "<%= request.getSession().getAttribute("isAdmin") %>";
-	
-	var btnBox = document.querySelector(".modifyButtonBox");
-	btnBox.style.display = 'none';
-	
-	if (isAdmin === "true") {
-		btnBox.style.display = 'flex';
-	} else {
-		btnBox.style.display = 'none';
-	}
-	
 	function confirmDelete() {
 		if (confirm("상품을 삭제하시겠습니까?")) {
 			return true; 

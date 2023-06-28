@@ -80,7 +80,6 @@ public class AuthController extends HttpServlet {
 				request.getSession().setAttribute("loginId", storedEmployeeDTO.getEmployeeId());
 				request.getSession().setAttribute("loginName", storedEmployeeDTO.getEmployeeName());
 				request.getSession().setAttribute("loginPosition", storedEmployeeDTO.getPosition());
-				request.getSession().setAttribute("isAdmin", storedEmployeeDTO.isAdmin());
 				BankDTO bankDTO = bankService.getBankName(storedEmployeeDTO);
 				request.getSession().setAttribute("bankName", bankDTO.getBankName());
 
