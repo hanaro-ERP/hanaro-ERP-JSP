@@ -198,14 +198,18 @@ public class LoanContractDAO {
 
 	public List<LoanContractDTO> getLoanContractByDTO(LoanContractDTO loanContractDTO) {
 		StringBuilder queryBuilder = new StringBuilder(
-				"SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name, c2.c_name as guarantor_name"
+				"SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name, "
+				//+ "c2.c_name as guarantor_name"
 						+ " FROM loanContracts lc");
 		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
 		queryBuilder.append(" JOIN customers c ON lc.c_id = c.c_id");
 		queryBuilder.append(" JOIN employees e ON c.e_id = e.e_id");
-		queryBuilder.append(" JOIN customers c2 ON lc.guarantor_id = c2.c_id");
+		//queryBuilder.append(" JOIN customers c2 ON lc.guarantor_id = c2.c_id");
 		queryBuilder.append(" WHERE 1=1");
 
+		CustomerDAO customerDAO = new CustomerDAO();
+		
+		
 		if (loanContractDTO.getLoanName() != null) {
 			queryBuilder.append(" AND l.loan_name LIKE ?");
 		}
@@ -280,12 +284,10 @@ public class LoanContractDAO {
 				pstmt.setDate(parameterIndex++, latePaymentDate);
 			}
 
-
-			System.out.println(pstmt.toString());
-			
 			LoanUtil loanUtil = new LoanUtil();
 			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
 
+			System.out.println(pstmt);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					LoanContractDTO loanContracts = new LoanContractDTO();
@@ -332,11 +334,7 @@ public class LoanContractDAO {
 		return null;
 	}
 	
-	public List<RepaymentMethodDTO> getRepaymentMethod(String id) {
-
-		System.out.println("dao getRepaymentMethod ");
-		System.out.println("DAO id ="+ id);
-		
+	public List<RepaymentMethodDTO> getRepaymentMethod(String id) {		
 		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*, c.identification, c.c_id"
 				+ " FROM loanContracts lc");
 		queryBuilder.append(" JOIN customers c ON c.c_id = lc.c_id");
@@ -349,23 +347,18 @@ public class LoanContractDAO {
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			
-			System.out.println("DAO pstmt ="+pstmt);
-			
 			if (id != null){
-				System.out.println("id not null");
 	            pstmt.setString(1, "%"+id+"%");
 	        }
-
-			System.out.println(pstmt.toString());
 			
 			LoanContractDTO loanContractDTO = new LoanContractDTO();
 			
 			try (ResultSet rs = pstmt.executeQuery()) {
-				while (rs.next()) {
-
-					System.out.println("rs");
+				int first =0;
+				while (rs.next() && first < 1) {
 					
 					fillLoanContractDTOFromTable(loanContractDTO, rs);
+					first ++;
 				}
 				
 				String repaymentMethodString = loanContractDTO.getPaymentMethod();				
@@ -401,7 +394,7 @@ public class LoanContractDAO {
 				long interest = 0;	// 이자
 				long cumulativePrincipalPayment = 0;	// 납입원금누계
 				long balance = loanAmount;	// 남은 대출 원금
-				
+
 				// 상환 방법에 따라 다르게 계산
 				if (repaymentMethodString.contains("만기")){	// 원금만기일시상환
 					interest = (long) (loanAmount * interestRate * totalMonthsDifference);	// 이자
@@ -429,6 +422,14 @@ public class LoanContractDAO {
 					cumulativePrincipalPayment = loanAmount; 	// 납입원금누계
 					balance = 0; // 남은 대출 원금
 					repaymentAmount += principalPayment + interest;	
+					
+					repaymentMethodDTO.setTimes((int)totalMonthsDifference);					
+					repaymentMethodDTO.setMethod(repaymentMethodString);
+					repaymentMethodDTO.setRepaymentAmount(repaymentAmount);
+					repaymentMethodDTO.setPrincipalPayment(principalPayment);
+					repaymentMethodDTO.setInterest(interest);
+					repaymentMethodDTO.setCumulativePrincipalPayment(cumulativePrincipalPayment);
+					repaymentMethodDTO.setBalance(balance);
 
 					repaymentMethodDTOList.add(repaymentMethodDTO);
 				}

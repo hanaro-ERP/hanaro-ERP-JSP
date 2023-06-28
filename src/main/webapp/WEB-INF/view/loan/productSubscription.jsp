@@ -142,17 +142,17 @@ pageEncoding="UTF-8"%>
 							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
 							%
 							&nbsp; | &nbsp;&nbsp;
-							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
+							<input type="number" step="0.1" max="10" id="loanPeriod" name="interestRate" class="shortInput" />
 							년
 						</td>
 						<th> 거치 기간</th>
 						<td>
-						<input name="gracePeriod" class="shortInput"> 년
+						<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
 					</tr>
 					<tr>
 						<th>상환 방법</th>
 						<td colspan=3>
-							<select name="repaymentMethod" class="shortSelect">
+							<select name="repaymentMethod" class="shortSelect" id="repaymentMethod" onchange="updateTable()">
 								<option value="원리금균등분할상환">원리금균등분할상환</option>
 								<option value="원금균등분할상환">원금균등분할상환</option>
 								<option value="만기일시상환">만기일시상환</option>
@@ -171,8 +171,8 @@ pageEncoding="UTF-8"%>
 				
 						<%List<RepaymentMethodDTO> repaymentMethodDTOList = (List<RepaymentMethodDTO>) request.getAttribute("repaymentMethod");
 
-						if (repaymentMethodDTOList != null) {
-							System.out.println("jsp repaymentlist notnotnot null");							
+						if (repaymentMethodDTOList != null && repaymentMethodDTOList.size() > 0) {
+							System.out.println("jsp repaymentlist size ="+repaymentMethodDTOList.size());							
 							String method = repaymentMethodDTOList.get(0).getMethod();
 							if (method.equals("만기")) {
 								out.println("만기일시상환");
@@ -218,6 +218,61 @@ pageEncoding="UTF-8"%>
 						%>
 				</table>
 				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<div id="repaymentMethodTableDivTmp">
+					<h3 id="repaymentMethodTableTitleTmp">
+				
+						
+					h3
+					</h3>
+					<table class="searchTable" id="repaymentMethodTableTmp">
+						<tr>
+							<th>회차</th>
+							<th>상환금</th>
+							<th>납입 원금</th>
+							<th>이자</th>
+							<th>납입원금누계</th>
+							<th>잔금</th>
+						</tr>
+								
+						
+				</table>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 			</form>
 		</div>
