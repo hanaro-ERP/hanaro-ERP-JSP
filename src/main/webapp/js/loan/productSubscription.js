@@ -75,8 +75,6 @@ function updateTable() {
 
 	// 상환 방법에 따라 다르게 계산
 	if (repaymentMethodValue.includes("만기")) {	// 원금만기일시상환
-
-		console.log("원금만기일시상환");
 		interest = (loanAmountValue * interestRateValue * loanPeriodValue);	// 이자
 		principalPayment = 0;	// 납입 원금
 		cumulativePrincipalPayment = 0; 	// 납입원금누계
@@ -113,7 +111,7 @@ function updateTable() {
 		principalPayment = loanAmountValue;	// 납입 원금
 		cumulativePrincipalPayment = loanAmountValue; 	// 납입원금누계
 		balance = 0; // 남은 대출 원금
-		repaymentAmount += principalPayment + interest;
+		repaymentAmount += principalPayment + interest;	// 상환금
 
 		// 값 넣기
 		monthCell.innerHTML = month;
@@ -125,8 +123,6 @@ function updateTable() {
 	}
 
 	else if (repaymentMethodValue.includes("원금균등")) { // 원금균등상환
-
-		console.log("원금균등상환");
 		principalPayment = loanAmountValue / loanPeriodValue;	// 납입 원금
 
 		for (var month = 1; month <= loanPeriodValue; month++) {
@@ -151,6 +147,8 @@ function updateTable() {
 				repaymentAmount = interest + principalPayment;	// 상환금 = 이자 + 납입 원금
 				cumulativePrincipalPayment += principalPayment;	// 납입원금누계
 				balance -= principalPayment;	// 남은 대출 원금
+				
+				checkLastMonthBalance();
 			}
 
 			repaymentAmountCell.innerHTML = parseInt(repaymentAmount).toLocaleString();
@@ -162,8 +160,6 @@ function updateTable() {
 	}
 
 	else if (repaymentMethodValue.includes("원리금균등")) {	// 원리금균등상환
-
-		console.log("원리금균등상환");
 		for (var month = 1; month <= loanPeriodValue; month++) {
 			var row = repaymentMethodTable.insertRow();
 			var monthCell = row.insertCell();
@@ -192,6 +188,8 @@ function updateTable() {
 					principalPayment -= amountDifference;
 				}
 				balance -= principalPayment;
+				
+				checkLastMonthBalance();
 			}
 
 			repaymentAmountCell.innerHTML = parseInt(repaymentAmount).toLocaleString();
@@ -200,11 +198,19 @@ function updateTable() {
 			cumulativePrincipalPaymentCell.innerHTML = parseInt(cumulativePrincipalPayment).toLocaleString();
 			balanceCell.innerHTML = parseInt(balance).toLocaleString();
 		}
+	}	
+
+	// 마지막 달인데 잔액 남은 경우
+	function checkLastMonthBalance() {
+		if (month == loanPeriodValue && balance > 0) {
+			var amountDifference = loanAmountValue - cumulativePrincipalPayment;
+			cumulativePrincipalPayment = loanAmountValue;
+			principalPayment += amountDifference;	// 납입 원금
+			repaymentAmount += amountDifference;	// 상환금
+			balance = 0;
+		}
 	}
-
-
-	var rows = repaymentMethodTable.getElementsByTagName("tr");
-	console.log("END ROWS = ", rows);
+	
 }
 
 function removeTableRow(tableId) {
@@ -212,6 +218,5 @@ function removeTableRow(tableId) {
 		tableId.deleteRow(i);
 	}
 }
-
 
 changeLoan(0);
