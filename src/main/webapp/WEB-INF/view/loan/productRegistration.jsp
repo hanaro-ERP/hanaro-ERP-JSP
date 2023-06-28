@@ -85,6 +85,13 @@ pageEncoding="UTF-8"%>
         </div>
     </main>
     <script>
+		const isAdmin = "<%= request.getSession().getAttribute("isAdmin") %>";
+		
+		if (isAdmin === "false") {
+			alert("상품 등록은 관리자만 접근할 수 있습니다.");
+			history.back();
+		}
+	    
 		function toggleCollateralType() {
 			const loanTypeSelect = document.querySelector('select[name="loanType"]');
 			const collateralTypeSelect = document.querySelector('#loanTypeSelect');
