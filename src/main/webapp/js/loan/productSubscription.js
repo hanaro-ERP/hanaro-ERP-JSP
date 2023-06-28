@@ -135,12 +135,6 @@ function updateTable() {
 				interest = balance * interestRateValue;
 				principalPayment = repaymentAmount - interest;
 				cumulativePrincipalPayment += principalPayment;
-
-				if (cumulativePrincipalPayment > loanAmountValue) {
-					var amountDifference = cumulativePrincipalPayment - loanAmountValue;
-					cumulativePrincipalPayment = loanAmountValue;
-					principalPayment -= amountDifference;
-				}
 				balance -= principalPayment;
 
 				checkLastMonthBalance();
@@ -151,13 +145,21 @@ function updateTable() {
 		}
 	}
 
-	// 마지막 달인데 잔액 남은 경우
+	// 마지막 달인데 잔액 안 맞는 경우
 	function checkLastMonthBalance() {
 		if (month == loanPeriodValue && balance > 0) {
 			var amountDifference = loanAmountValue - cumulativePrincipalPayment;
 			cumulativePrincipalPayment = loanAmountValue;
 			principalPayment += amountDifference;	// 납입 원금
 			repaymentAmount += amountDifference;	// 상환금
+			balance = 0;
+		}
+		
+		else if (month == loanPeriodValue && balance < 0) {
+			var amountDifference = cumulativePrincipalPayment - loanAmountValue;
+			cumulativePrincipalPayment = loanAmountValue;
+			principalPayment -= amountDifference;	// 납입 원금
+			repaymentAmount -= amountDifference;	// 상환금
 			balance = 0;
 		}
 	}
