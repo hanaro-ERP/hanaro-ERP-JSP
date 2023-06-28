@@ -12,6 +12,7 @@ import Service.evaluators.LoanBalanceEvaluator;
 import Service.evaluators.LoanScaleEvaluator;
 import Service.evaluators.PropertyEvaluator;
 import Service.evaluators.RepaymentHistoryEvaluator;
+import util.EncryptUtil;
 
 public class CreditService {
 	private String creditScore;
@@ -53,7 +54,7 @@ public class CreditService {
 		this.creditScore = calculateSum(creditScoringDTO);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		CreditScoringDTO creditScoringDTO = new CreditScoringDTO();
 		creditScoringDTO.setCustomerId(300);
 		creditScoringDTO.setGuarantorId(3);
@@ -62,5 +63,13 @@ public class CreditService {
 		CreditService creditService = new CreditService();
 		creditService.setCreditScore(creditScoringDTO);
 		System.out.println(creditService.getCreditScore());
+
+		EncryptUtil encryptUtil = new EncryptUtil();
+		String string = "111111-1111111";
+		String encrypted = encryptUtil.encrypt(string);
+		String decrypted = encryptUtil.decrypt(encrypted);
+
+		System.out.println(encrypted);
+		System.out.println(decrypted);
 	}
 }

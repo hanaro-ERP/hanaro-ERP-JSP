@@ -14,16 +14,16 @@ public class EncryptUtil {
 	private static final int IV_SIZE = 16; // 128 bit IV
 
 	private static final String HARD_CODED_KEY = "01234567890123456789012345678901";
+	private static final String HARD_CODED_IV = "0123456789012345";
 
 	private SecretKeySpec keySpec;
 	private IvParameterSpec ivParamSpec;
 
 	public EncryptUtil() {
-		this.keySpec = generateKey();
-		this.ivParamSpec = generateIV();
+		this.keySpec = new SecretKeySpec(HARD_CODED_KEY.getBytes(), ALGORITHM);
+		this.ivParamSpec = new IvParameterSpec(HARD_CODED_IV.getBytes());
 	}
 
-	// 랜덤 key 생성
 	private SecretKeySpec generateKey() {
 		SecureRandom secureRandom = new SecureRandom();
 		byte[] key = new byte[KEY_SIZE];
@@ -31,7 +31,6 @@ public class EncryptUtil {
 		return new SecretKeySpec(key, ALGORITHM);
 	}
 
-	// 랜덤 IV 생성
 	private IvParameterSpec generateIV() {
 		SecureRandom secureRandom = new SecureRandom();
 		byte[] iv = new byte[IV_SIZE];
