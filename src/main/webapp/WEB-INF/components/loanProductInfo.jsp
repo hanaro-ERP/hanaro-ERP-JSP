@@ -57,8 +57,6 @@
 		<div class="innerInformationRowTitle">가입자 수</div>
 		<p>${loanProduct.subscriberCount}명</p>
 	</div>
-	
-	
 	<div class="modifyButtonBox">
 		<a class="deleteLoanButton" href="/hanaro-ERP-JSP/loan/deletion?id=${loanProduct.loanId}" onclick="return confirmDelete()">삭제하기</a>
 		<a class="modifyLoanButton" href="/hanaro-ERP-JSP/loan/modification?id=${loanProduct.loanId}" onclick="return confirmModify()">수정하기</a>
