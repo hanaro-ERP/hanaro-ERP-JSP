@@ -10,11 +10,8 @@ import java.util.List;
 
 import DTO.AccountDTO;
 import DTO.AccountSearchDTO;
-<<<<<<< HEAD
 import DTO.CreditScoringDTO;
-=======
 import DTO.BankDTO;
->>>>>>> develop
 import util.DatabaseUtil;
 import util.DepositUtil;
 
