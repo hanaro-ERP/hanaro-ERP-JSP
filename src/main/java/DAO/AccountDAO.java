@@ -143,7 +143,6 @@ public class AccountDAO {
 		} else {
 			queryBuilder.append(" AND a.account_balance between ? and ?");
 		}
-
 		try (Connection conn = DatabaseUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
