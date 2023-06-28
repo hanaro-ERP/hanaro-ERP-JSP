@@ -11,6 +11,7 @@ public class CreditScoringDTO {
 	private String Identification;
 	private int jobCode;
 	private String guaranteeId;
+	private int guarantorId;
 	private String country;
 	private long loanAmount;
 	private int loanDuration;

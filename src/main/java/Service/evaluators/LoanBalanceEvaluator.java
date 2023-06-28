@@ -1,23 +1,44 @@
 package Service.evaluators;
 
+import java.util.List;
+
 import DAO.LoanContractDAO;
 import DTO.CreditScoringDTO;
-import DTO.CustomerDTO;
+import DTO.LoanContractDTO;
 
-public class LoanBalanceEvaluator extends EvaluatorParent implements EvaluatorInterface<Integer> {
-	private final long MAX_PROPERTY_STANDARD = 1000000000L;
+public class LoanBalanceEvaluator extends EvaluatorParent implements EvaluatorInterface<List> {
+	private final int MAX_BALANCE_STANDARD = 200000000;
 
 	@Override
-	public Integer getTarget(CreditScoringDTO creditScoringDTO) {
+	public List<LoanContractDTO> getTarget(CreditScoringDTO creditScoringDTO) {
 		LoanContractDAO loanContractDAO = new LoanContractDAO();
-		CustomerDTO customerDTO = customerDAO.getCustomerByCustomerId(creditScoringDTO.getCustomerId());
 
-		return null;
+		return loanContractDAO.getLoanContractByCustomerId(creditScoringDTO);
 	}
 
 	@Override
 	public int calculateScore(CreditScoringDTO creditScoringDTO) {
 		int score = 0;
+		List<LoanContractDTO> loanContracts = getTarget(creditScoringDTO);
+
+		long totalBalance = 0;
+		for (LoanContractDTO loanContract : loanContracts) {
+			totalBalance = totalBalance + loanContract.getBalance();
+		}
+
+		if (totalBalance >= MAX_BALANCE_STANDARD) {
+			score = 0;
+		} else if (totalBalance >= MAX_BALANCE_STANDARD / 2) {
+			score = 20;
+		} else if (totalBalance >= MAX_BALANCE_STANDARD / 4) {
+			score = 40;
+		} else if (totalBalance >= MAX_BALANCE_STANDARD / 10) {
+			score = 60;
+		} else if (totalBalance >= MAX_BALANCE_STANDARD / 20) {
+			score = 80;
+		} else {
+			score = 100;
+		}
 
 		return (int) (score * getWeightForLoanBalance());
 	}
