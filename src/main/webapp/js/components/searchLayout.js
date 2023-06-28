@@ -547,7 +547,6 @@ function setYearSelect(ulId) {
 //월 설정
 function setMonthSelect() {
 	monthSelect = document.getElementsByClassName("monthSelect");
-	console.log("monthSelect=", monthSelect);
 
 	Array.from(monthSelect).forEach(monthSelect => {
 		const option = document.createElement("option");
@@ -570,22 +569,17 @@ function setMonthSelect() {
 function temp(year, month) {
 	yearSelect = year;
 	monthSelect = month;
-	console.log(yearSelect);
-	console.log(monthSelect);
 	endDay = new Date(yearSelect, monthSelect, 0).getDate();
 	return endDay;
 }
 // 일 설정
 function setDaySelect(isInitial, year, month) {	
-	daySelectList = document.getElementsByClassName("daySelect");
-	console.log("dayselectlist = ",daySelectList);
-	
+	daySelectList = document.getElementsByClassName("daySelect");	
 	daySelectRow = document.getElementsByClassName("daySelect")[rowIndex];
-	console.log("daySelectRow = ",daySelectRow);
 	let endDay;	// 선택한 월에 따라 endDay 다르게
 	endDay = new Date(year, month, 0).getDate();
+	
 	if (isInitial) {
-		console.log("isinitial");
 		yearSelectRow = document.getElementsByClassName("yearSelect")[rowIndex];
 		monthSelectRow = document.getElementsByClassName("monthSelect")[rowIndex];
 		yearSelectRow.value = 1990;

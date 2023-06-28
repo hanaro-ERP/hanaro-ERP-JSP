@@ -153,20 +153,20 @@ pageEncoding="UTF-8"%>
 						<th>상환 방법</th>
 						<td colspan=3>
 							<select name="repaymentMethod" class="shortSelect" id="repaymentMethod" onchange="updateTable()">
-								<option value="원리금균등분할상환">원리금균등분할상환</option>
-								<option value="원금균등분할상환">원금균등분할상환</option>
-								<option value="만기일시상환">만기일시상환</option>
+								<option value="-">-</option>
+								<option value="원금만기일시상환">만기일시상환</option>
+								<option value="원금균등상환">원금균등분할상환</option>
+								<option value="원리금균등상환">원리금균등분할상환</option>
 							</select>
 						</td>
 					</tr>
 				</table>
 				<div class="innerButtonContainer">					
-	<!-- 				<button id="repaymentDetailButton"> 상환 방법 <br>자세히 보기 </button> -->
 					<button type="submit" id="search">검색</button>
 				</div>
 				
 				
-				<div id="repaymentMethodTableDiv">
+			<%-- 	<div id="repaymentMethodTableDiv">
 					<h3 id="repaymentMethodTableTitle">
 				
 						<%List<RepaymentMethodDTO> repaymentMethodDTOList = (List<RepaymentMethodDTO>) request.getAttribute("repaymentMethod");
@@ -175,7 +175,7 @@ pageEncoding="UTF-8"%>
 							System.out.println("jsp repaymentlist size ="+repaymentMethodDTOList.size());							
 							String method = repaymentMethodDTOList.get(0).getMethod();
 							if (method.equals("만기")) {
-								out.println("만기일시상환");
+								out.println("원금만기일시상환");
 							} 
 							else if (method.contains("원금균등")) {
 								out.println("원금균등상환");
@@ -217,30 +217,15 @@ pageEncoding="UTF-8"%>
 						}
 						%>
 				</table>
-				</div>
+				</div> --%>
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				<div id="repaymentMethodTableDivTmp">
-					<h3 id="repaymentMethodTableTitleTmp">
+				<div id="repaymentMethodSelectTableDiv">
+					<h3 id="repaymentMethodSelectTableTitle">
 				
 						
 					h3
 					</h3>
-					<table class="searchTable" id="repaymentMethodTableTmp">
+					<table class="searchTable" id="repaymentMethodSelectTable">
 						<tr>
 							<th>회차</th>
 							<th>상환금</th>
@@ -249,31 +234,8 @@ pageEncoding="UTF-8"%>
 							<th>납입원금누계</th>
 							<th>잔금</th>
 						</tr>
-								
-						
 				</table>
 				</div>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 			</form>
 		</div>
 	</main>
