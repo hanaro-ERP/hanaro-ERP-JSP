@@ -29,7 +29,7 @@
 					<input class="headerSessionButton" value="연장" type="submit">
 				</div>
 				<div class="headerSessionName"></div>
-				<form id="logout" action="${pageContext.request.contextPath}/LogoutController" method="post">
+				<form id="logout" action="${pageContext.request.contextPath}/AuthController/Logout/" method="post">
 					<input class="headerSessionLogoutButton" value="로그아웃" type="submit">
 				</form>
 			</div>
