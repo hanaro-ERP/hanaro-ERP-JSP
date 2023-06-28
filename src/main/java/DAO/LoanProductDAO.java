@@ -43,6 +43,31 @@ public class LoanProductDAO {
 		return -1; // Database operation failed
 	}
 
+	public int updateLoanProduct(LoanProductDTO loanProductDTO, int l_id) {
+	    String SQL = "UPDATE loans SET loan_name = ?, loan_type = ?, loan_job = ?, collateral = ?, income = ?, "
+	                + "min_duration = ?, max_duration = ?, min_amount = ?, max_amount = ?, min_interest_rate = ?, max_interest_rate = ? "
+	                + "WHERE l_id = ?";
+	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	        pstmt.setString(1, loanProductDTO.getLoanName());
+	        pstmt.setString(2, loanProductDTO.getLoanType());
+	        pstmt.setString(3, loanProductDTO.getJob());
+	        pstmt.setString(4, loanProductDTO.getCollateral());
+	        pstmt.setLong(5, loanProductDTO.getIncome());
+	        pstmt.setInt(6, loanProductDTO.getMinDuration());
+	        pstmt.setInt(7, loanProductDTO.getMaxDuration());
+	        pstmt.setLong(8, loanProductDTO.getMinAmount());
+	        pstmt.setLong(9, loanProductDTO.getMaxAmount());
+	        pstmt.setFloat(10, loanProductDTO.getMinRate());
+	        pstmt.setFloat(11, loanProductDTO.getMaxRate());
+	        pstmt.setInt(12, l_id);
+	        System.out.println(pstmt.toString());
+	        return pstmt.executeUpdate();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return -1; // Database operation failed
+	}
+	
 	public int getLoanIdByLoanName(String loanName) {
 		int lId = -1;
 	    String SQL = "SELECT l_id FROM loans WHERE loan_name = ?";

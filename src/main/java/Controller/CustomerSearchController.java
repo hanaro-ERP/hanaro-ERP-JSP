@@ -59,6 +59,7 @@ public class CustomerSearchController extends HttpServlet {
 			request.setAttribute("pageId", pageId);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/customerSearch.jsp");
+
 			dispatcher.forward(request, response);
 			
 		} catch (Exception e) {
@@ -82,10 +83,6 @@ public class CustomerSearchController extends HttpServlet {
 			
 			request.setAttribute("customer", customer);
 
-			
-			/*String referer = request.getHeader("referer");
-			response.sendRedirect(referer);
-			*/
 			if(pageId.equals("1")) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/view/customer/customerRegist.jsp");			
 				dispatcher.forward(request, response);

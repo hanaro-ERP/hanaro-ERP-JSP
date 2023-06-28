@@ -11,37 +11,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DTO.CustomerDTO;
-import Service.CustomerService;
+import DTO.LoanProductDTO;
+import Service.LoanService;
 
-@WebServlet("/customerDetail")
-public class CustomerDetailController extends HttpServlet {
+@WebServlet("/loan/deletion")
+public class LoanDeletionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	CustomerService customerService = new CustomerService();
+	LoanService loanService = new LoanService();
 	
-	public CustomerDetailController() {
+	public LoanDeletionController() {
 		super();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		getCustomerDetailProcess(request, response);
+		getLoanDeletionProcess(request, response);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 	}
 	
-	private void getCustomerDetailProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void getLoanDeletionProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String id = request.getParameter("id");
-			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(id));
+			int id = Integer.parseInt(request.getParameter("id"));
+			int isDeleted = loanService.deleteLoanProduct(id);
 			
-			request.setAttribute("customer", customer);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/customerInfo.jsp");
-			dispatcher.forward(request, response);
+			request.setAttribute("isDeleted", isDeleted);
+			response.sendRedirect(request.getContextPath() + "/loanDetail?id=" + id + "&del=" + isDeleted);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

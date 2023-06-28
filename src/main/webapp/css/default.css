@@ -69,18 +69,18 @@ h2 {
 	background-color: #F9FAFB;
 }
 .innerTitle {
-	width: 1450px;
+	width: 100%;
 	height: 68px;
 	display: flex;
 	align-items: center;
 }
 .innerSubTitle { 
-	width: 1450px;
+	width: 100%;
 	height: 48px;
 	display: flex;
 	align-items: center;
 }
-
+.modifyButtonContainer,
 .innerButtonContainer {
 	display: flex;
 	justify-content: end;
@@ -96,6 +96,17 @@ h2 {
 	border-radius: 5px;
 	background-color: #2DB400;
 }
+.modifyButtonContainer > button {
+	width: 100px;
+	height: 40px;
+	color: #FFFFFF;
+	font-size: 18px;
+	font-weight: bold;
+	border: #2DB400 1px solid;
+	border-radius: 5px;
+	background-color: #2DB400;
+}
+.modifyButtonContainer > button:hover,
 .innerButtonContainer > button:hover {
 	cursor: pointer;
 	opacity: 80%;
