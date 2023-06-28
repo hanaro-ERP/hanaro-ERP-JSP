@@ -52,4 +52,15 @@ public class CreditService {
 	public void setCreditScore(CreditScoringDTO creditScoringDTO) {
 		this.creditScore = calculateSum(creditScoringDTO);
 	}
+
+	public static void main(String[] args) {
+		CreditScoringDTO creditScoringDTO = new CreditScoringDTO();
+		creditScoringDTO.setCustomerId(300);
+		creditScoringDTO.setGuarantorId(3);
+		creditScoringDTO.setLoanAmount(10000000);
+		creditScoringDTO.setLoanDuration(60);
+		CreditService creditService = new CreditService();
+		creditService.setCreditScore(creditScoringDTO);
+		System.out.println(creditService.getCreditScore());
+	}
 }
