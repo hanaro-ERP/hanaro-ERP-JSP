@@ -17,3 +17,15 @@ loanTypeSelect.addEventListener('change', function () {
 	
 	toggleLoanType(selectedLoanType);
 });
+
+const searchTableRows = document.querySelectorAll('#loanSearchTable tr');
+
+searchTableRows.forEach((item, index) => {
+	if (index !== 0) {
+		var firstTd = item.querySelector(".loanProductId");
+		item.addEventListener('click', () => {
+			var value = firstTd.innerHTML;
+			window.open("/hanaro-ERP-JSP/loanDetail?id=" + value + "&mod=0", "_blank", "width=1070,height=500");
+		});	
+	}
+});

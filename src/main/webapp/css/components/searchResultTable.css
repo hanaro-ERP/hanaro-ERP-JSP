@@ -52,13 +52,15 @@
 	display: flex;
 	justify-content: center;
 }
-.pagination > button, a {
+.pagination > button, 
+.pagination > a {
 	font-size: 23px;
 	background: none;
 	border: none;
 	padding: 1px 6px;
 }
-.pagination > button:hover, a:hover {
+.pagination > button:hover, 
+.pagination > button a:hover {
 	cursor: pointer;
 	color: #2DB400;
 }
