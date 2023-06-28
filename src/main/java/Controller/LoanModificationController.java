@@ -26,7 +26,7 @@ public class LoanModificationController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		getLoanDetailProcess(request, response);
+		getLoanModificationProcess(request, response);
 	}
 	
 	@Override
@@ -34,7 +34,7 @@ public class LoanModificationController extends HttpServlet {
 		postLoanModificationProcess(request, response);
 	}
 	
-	private void getLoanDetailProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void getLoanModificationProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			int id = Integer.parseInt(request.getParameter("id"));
 			LoanProductDTO loanProduct = loanService.getLoanProductDetail(id);
@@ -42,7 +42,7 @@ public class LoanModificationController extends HttpServlet {
 			loanProduct.setLoanId(id);
 			request.setAttribute("loanProduct", loanProduct);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/components/loanProductModification.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/components/loanModificationPopup.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

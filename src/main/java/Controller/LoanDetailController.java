@@ -39,15 +39,23 @@ public class LoanDetailController extends HttpServlet {
 			LoanProductDTO loanProduct = loanService.getLoanProductDetail(id);
 			
 			String mod = request.getParameter("mod");
+			String del = request.getParameter("del");
 			loanProduct.setMod(mod);
+			loanProduct.setDel(del);
 			
 			int subscriberCount = loanService.getLoanContractCountByLoanProductId(id);
 			loanProduct.setSubscriberCount(subscriberCount);
 			
 			request.setAttribute("loanProduct", loanProduct);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/loanProductInfo.jsp");
-			dispatcher.forward(request, response);
+			if (del != null) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/loanDeletionPopup.jsp");
+				dispatcher.forward(request, response);
+			}
+			else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/loanProductInfo.jsp");
+				dispatcher.forward(request, response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

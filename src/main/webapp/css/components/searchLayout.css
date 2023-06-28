@@ -162,14 +162,21 @@ input[type="checkbox"] {
 	justify-content: end;
 }
 .modifyButtonBox > a {
-	color: #2DB400;
 	font-weight: bold;
 	text-decoration: none;
 	outline: none;
-	border: 1px solid #2DB400;
 	border-radius: 3px;
 	padding: 5px 10px;
 	margin-top: 10px;
+}
+.deleteLoanButton {
+	color: #EE305A;
+	border: 1px solid #EE305A;
+}
+.modifyLoanButton {
+	color: #2DB400;
+	border: 1px solid #2DB400;
+	margin-left: 10px;
 }
 .modifyButtonBox > a:hover {
 	background-color: #F2F4F6;

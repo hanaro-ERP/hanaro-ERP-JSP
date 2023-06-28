@@ -65,6 +65,14 @@ public class LoanService {
 		return isLoanModified;
 	}
 	
+	public int deleteLoanProduct(int loanProductId) throws NoSuchAlgorithmException {
+		LoanProductDAO loanDAO = new LoanProductDAO();
+		
+		int isLoanModified = loanDAO.deleteLoan(loanProductId);
+		
+		return isLoanModified;
+	}
+	
 	public int registerLoanProduct(LoanProductDTO loanProductDTO) throws NoSuchAlgorithmException {
 		LoanProductDAO loanDAO = new LoanProductDAO();
 		

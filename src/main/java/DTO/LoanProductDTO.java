@@ -21,4 +21,5 @@ public class LoanProductDTO {
 	private long income;
 	private int subscriberCount;
 	private String mod;
+	private String del;
 }

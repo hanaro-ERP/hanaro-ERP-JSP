@@ -48,7 +48,7 @@ pageEncoding="UTF-8"%>
 						<th>연수입</th>
 						<td>
 							&nbsp;연
-							<input type="number" name="loanIncome" class="shortInput"/>
+							<input type="number" name="loanIncome"  type="number" min="0" max="99999"  class="shortInput"/>
 							천만원
 						</td>
 					</tr>
@@ -56,25 +56,25 @@ pageEncoding="UTF-8"%>
 						<th>대출 금액</th>
 						<td>
 							&nbsp;최소
-							<input id="loanMinLimitId" name="loanMinLimit" class="shortInput" type="number" min="1" max="999" step="1" />&nbsp;천만원
+							<input id="loanMinLimitId" name="loanMinLimit" class="shortInput" type="number" min="0" max="99999" step="1" />&nbsp;천만원
 							&nbsp;&nbsp;&nbsp;최대
-							<input id="loanMaxLimitId" name="loanMaxLimit" class="shortInput" type="number" min="1" max="999" step="1" />&nbsp;천만원
+							<input id="loanMaxLimitId" name="loanMaxLimit" class="shortInput" type="number" min="0" max="99999" step="1" />&nbsp;천만원
 						</td>
 						<th>대출 기간</th>
 						<td>
 							&nbsp;최소
-							<input id="loanMinPeriodId" name="loanMinPeriod" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;년
+							<input id="loanMinPeriodId" name="loanMinPeriod" class="shortInput" type="number" min="0" max="100" step="1"/>&nbsp;년
 							&nbsp;&nbsp;&nbsp;최대&nbsp;
-							<input id="loanMaxPeriodId" name="loanMaxPeriod" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;년
+							<input id="loanMaxPeriodId" name="loanMaxPeriod" class="shortInput" type="number" min="0" max="100" step="1"/>&nbsp;년
 						</td>
 					</tr>
 					<tr>
 						<th>대출 이율</th>
 						<td>
 							&nbsp;최소
-							<input id="loanMinRateId" name="loanMinRate" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;%
+							<input id="loanMinRateId" name="loanMinRate" class="shortInput" type="number" min="0" max="10" step="0.001"/>&nbsp;%
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;최대
-							<input id="loanMaxRateId" name="loanMaxRate" class="shortInput" type="number" min="0" max="10" step="0.1"/>&nbsp;%
+							<input id="loanMaxRateId" name="loanMaxRate" class="shortInput" type="number" min="0" max="10" step="0.001"/>&nbsp;%
 						</td>
 					</tr>
 				</table>

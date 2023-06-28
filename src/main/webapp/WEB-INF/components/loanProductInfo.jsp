@@ -14,8 +14,12 @@
 	<% LoanUtil loanUtil = new LoanUtil(); %>
 	<% 	
 	String mod = loanProduct.getMod();
+
+	long income = loanProduct.getIncome();
 	long minAmount = loanProduct.getMinAmount();
 	long maxAmount = loanProduct.getMaxAmount(); 
+	
+	String incomeUnit = income >= 100000000 ? (income/100000000) + "억원" : (income/10000) + "만원";
 	String minUnit = minAmount >= 100000000 ? (minAmount/100000000) + "억원" : (minAmount/10000) + "만원";
 	String maxUnit = maxAmount >= 100000000 ? (maxAmount/100000000) + "억원" : (maxAmount/10000) + "만원";
 	
@@ -39,28 +43,33 @@
 		<div class="innerInformationRowTitle">직업</div>
 		<p><%= job %></p>
 		<div class="innerInformationRowTitle">연소득</div>
-		<p>${loanProduct.income}</p>					
+		<p><%= incomeUnit %></p>					
 	</div>
 	<div class="innerInformationRow">
 		<div class="innerInformationRowTitle">대출 금액</div>
-		<p>최소 <%= minUnit %> 최대 <%= maxUnit %></p>
+		<p>최소 <%= minUnit %>&nbsp;&nbsp;&nbsp;최대 <%= maxUnit %></p>
 		<div class="innerInformationRowTitle">대출 기간</div>
-		<p>최소 ${loanProduct.minDuration}년 최대 ${loanProduct.maxDuration}년</p>
+		<p>최소 ${loanProduct.minDuration}년&nbsp;&nbsp;&nbsp;최대 ${loanProduct.maxDuration}년</p>
 	</div>
 	<div class="innerInformationRow">
 		<div class="innerInformationRowTitle">대출 이율</div>
-		<p>최소 ${loanProduct.minRate}% 최대 ${loanProduct.maxRate}%</p>
+		<p>최소 ${loanProduct.minRate}%&nbsp;&nbsp;&nbsp;최대 ${loanProduct.maxRate}%</p>
 		<div class="innerInformationRowTitle">가입자 수</div>
 		<p>${loanProduct.subscriberCount}명</p>
 	</div>
-	<div class="modifyButtonBox"><a href = "/hanaro-ERP-JSP/loan/modification?id=${loanProduct.loanId}">수정하기</a></div>
+	<div class="modifyButtonBox">
+		<a class="deleteLoanButton" href = "/hanaro-ERP-JSP/loan/deletion?id=${loanProduct.loanId}">삭제하기</a>
+		<a class="modifyLoanButton" href = "/hanaro-ERP-JSP/loan/modification?id=${loanProduct.loanId}">수정하기</a>
+	</div>
 </div>
 <script>
 	if ("<%= mod %>" !== null) {
 		if ("<%= mod %>" === "1") {
 			alert("여신 상품이 성공적으로 수정되었습니다.");
+			window.opener.location.href = "/hanaro-ERP-JSP/navigation/loanList";
 		} else if ("<%= mod %>" === "-1") {
 			alert("여신 상품이 수정에 실패하였습니다.");
+			window.opener.location.href = "/hanaro-ERP-JSP/navigation/loanList";
 		}
 	}
 	

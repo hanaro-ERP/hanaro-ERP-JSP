@@ -80,9 +80,9 @@
 				<th>대출 기간</th>
 				<td>
 					&nbsp;최소
-					<input id="loanMinPeriodId" name="loanMinPeriod" class="shortInput" type="number" min="0" max="10" step="0.1" value="<%= minDuration %>"/>&nbsp;년
+					<input id="loanMinPeriodId" name="loanMinPeriod" class="shortInput" type="number" min="0" max="100" step="1" value="<%= minDuration %>"/>&nbsp;년
 					&nbsp;&nbsp;&nbsp;최대&nbsp;
-					<input id="loanMaxPeriodId" name="loanMaxPeriod" class="shortInput" type="number" min="0" max="10" step="0.1" value="<%= maxDuration %>"/>&nbsp;년
+					<input id="loanMaxPeriodId" name="loanMaxPeriod" class="shortInput" type="number" min="0" max="100" step="1" value="<%= maxDuration %>"/>&nbsp;년
 				</td>
 			</tr>
 			<tr>
