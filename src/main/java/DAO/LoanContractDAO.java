@@ -17,41 +17,38 @@ import util.LoanUtil;
 
 public class LoanContractDAO {
 
-	// insert a new loan contract
-	public int insertLoanContract(LoanContractDTO loanContract, int l_id, int c_id, int e_id, int numberOfYears) {
-		String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, start_date, muturity_date, "
-				+ "payment_method, loan_amount, balance, payment_date, "
-				+ "late_payment_date, delinquent_amount, guarantor_id, interest_rate) "
-				+ "VALUES (?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? YEAR), ?, ?, ?, ?, ?, ?, ?, ?)";
+	public int insertLoanContract(LoanContractDTO loanContract, int l_id, int c_id, int e_id) {
+	    String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, start_date, maturity_date, payment_method,  "
+	            + "grace_period, loan_amount, balance, payment_date, late_payment_date, "
+	            + "delinquent_amount, guarantor_id, interest_rate, collateral_details) " 
+	            + "VALUES (?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? YEAR), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		if (loanContract.getGuarantorId() == -1) {
-			// ...
-		}
+	    int numberOfYears = 0;
+	    if(loanContract.getGracePeriod() > 0)
+	    	numberOfYears = loanContract.getGracePeriod();
 
-		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setInt(1, l_id);
-			pstmt.setInt(2, c_id);
-			pstmt.setInt(3, e_id);
-			pstmt.setInt(4, numberOfYears);
-			pstmt.setString(5, loanContract.getPaymentMethod());
-			pstmt.setLong(6, loanContract.getLoanAmount());
-			pstmt.setLong(7, loanContract.getBalance());
-			pstmt.setInt(8, loanContract.getPaymentDate());
-			pstmt.setDate(9, loanContract.getLatePaymentDate());
-			pstmt.setLong(10, loanContract.getDelinquentAmount());
-			pstmt.setInt(11, loanContract.getGuarantorId());
-			pstmt.setLong(12, loanContract.getInterestRate());
-			int rowsAffected = pstmt.executeUpdate();
+	    if(loanContract.getGuarantorId() == -1) {
+	    	//...
+	    }
 
-			// Set the muturity_date value in the loanContract object as Timestamp
-			/*
-			 * if (rowsAffected > 0) { try (ResultSet generatedKeys =
-			 * pstmt.getGeneratedKeys()) { if (generatedKeys.next()) { Timestamp
-			 * muturityDate = generatedKeys.getTimestamp(1);
-			 * loanContract.setMuturityDate(muturityDate); } } }
-			 */
-
-			return rowsAffected;
+	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	        pstmt.setInt(1, l_id);
+	        pstmt.setInt(2, c_id);
+	        pstmt.setInt(3, e_id);
+	        pstmt.setInt(4, numberOfYears);
+	        pstmt.setString(5, loanContract.getPaymentMethod());
+	        pstmt.setLong(6, loanContract.getGracePeriod());	        
+	        pstmt.setLong(7, loanContract.getLoanAmount());
+	        pstmt.setLong(8, loanContract.getBalance());
+	        pstmt.setInt(9, loanContract.getPaymentDate());
+	        pstmt.setDate(10, loanContract.getLatePaymentDate());
+	        pstmt.setLong(11, loanContract.getDelinquentAmount());
+	        pstmt.setInt(12, loanContract.getGuarantorId());
+	        pstmt.setFloat(13, loanContract.getInterestRate());
+	        pstmt.setString(14, loanContract.getCollateralDetails());
+	        
+	        int rowsAffected = pstmt.executeUpdate();
+          return rowsAffected;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,7 +71,7 @@ public class LoanContractDAO {
 			pstmt.setInt(8, loanContract.getPaymentDate());
 			pstmt.setLong(9, loanContract.getDelinquentAmount());
 			pstmt.setInt(10, loanContract.getGuarantorId());
-			pstmt.setLong(11, loanContract.getInterestRate());
+			pstmt.setFloat(11, loanContract.getInterestRate());
 			pstmt.setInt(12, loanContract.getLoanContractId());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -111,7 +108,7 @@ public class LoanContractDAO {
 		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));
 		loanContract.setDelinquentAmount(rs.getLong("delinquent_amount"));
 		loanContract.setGuarantorId(rs.getInt("guarantor_id"));
-		loanContract.setInterestRate(rs.getLong("interest_rate"));
+		loanContract.setInterestRate(rs.getFloat("interest_rate"));
 		loanContract.setLoanType(rs.getString("loan_type"));
 		loanContract.setLoanName(rs.getString("loan_name"));
 		loanContract.setEmployeeName(rs.getString("e_name"));

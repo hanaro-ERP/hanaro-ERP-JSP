@@ -100,27 +100,22 @@ public class LoanService {
 		LoanContractDAO loanContractDAO = new LoanContractDAO();
 		
 		int e_id = employeeDAO.getEmployeeIdByEmployeeName(customerDTO.getEmployeeName());
-		int b_id = bankDAO.getBankIdByBankName(customerDTO.getBankName());
 		int l_id = loanDAO.getLoanIdByLoanName(loanContractDTO.getLoanName());
-		
-		int isCustomerRegister = customerDAO.insertCustomer(customerDTO, e_id, b_id);
-		
 		int c_id = customerDAO.getCustomerIdByCustomerName(customerDTO.getCustomerName());
+
 		
 		//가입한 날의 일(day)구하여서 넣기
 		loanUtil.setDate(loanContractDTO);
-		
-		//이자율 1로 임의값 넣기 > 이후 위험도로 변동생길 예정
-		loanContractDTO.setInterestRate(1);
-		
-		//latepaymentdate임의의 값
+
+		//1. 이자율 이후 위험도로 변동생길 예정
+		//2. 연체 관련 값 계산
 		
 		//보증인 id 구하기
-		int guarantor_id = customerDAO.getCustomerIdByCustomerName(loanContractDTO.getGuarantorName());
+		/*int guarantor_id = customerDAO.getCustomerIdByCustomerName(loanContractDTO.getGuarantorName());
 		loanContractDTO.setGuarantorId(guarantor_id);
+		*/
+		int isLoanContract = loanContractDAO.insertLoanContract(loanContractDTO, l_id, c_id, e_id);
 		
-		int isLoanContract = loanContractDAO.insertLoanContract(loanContractDTO, l_id, c_id, e_id, 5);
-		
-		return isCustomerRegister;
+		return isLoanContract;
 	}
 }

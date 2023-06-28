@@ -23,9 +23,10 @@ public class LoanContractDTO {
 	private Date latePaymentDate;
 	private long delinquentAmount;
 	private int guarantorId;
-	private long interestRate;
+	private float interestRate;
 	private String loanType;
 	private String loanName;
+	private String collateralDetails;
 	private String employeeName;
 	private String customerName;
 	private String guarantorName;
@@ -34,4 +35,5 @@ public class LoanContractDTO {
 	private String balanceString;
 	private String delinquentAmountString;
 	private String muturityDateString;
+	private int gracePeriod;
 }

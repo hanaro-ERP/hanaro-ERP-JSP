@@ -261,6 +261,28 @@ public class CustomerDAO {
 		}
 		return customers;
 	}
+	
+	public List<CustomerDTO> getCustomersByName(String name) {
+		String SQL = "SELECT * FROM customers WHERE c_name LIKE ?";
+		List<CustomerDTO> customers = new ArrayList<>();
+		
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setString(1, name + "%");
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					CustomerDTO customer = new CustomerDTO();
+					fillCustomerDTOFromResultSet(customer, rs);
+					customer.setStrGender(customerUtil.convertBinaryToGender(rs.getBoolean("gender")));
+					
+					customers.add(customer);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return customers;
+	}
 
 //	Get some customers
 	public List<CustomerDTO> getCustomersByDTO(CustomerSearchDTO customerSearchDTO, int page) {
