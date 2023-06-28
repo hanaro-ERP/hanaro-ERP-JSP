@@ -64,6 +64,9 @@ function updateTable() {
 	console.log("interestRateValue = ", interestRateValue);
 	console.log("gracePeriodValue = ", gracePeriodValue);
 
+	var repaymentMethodSelectTableTitle = document.getElementById("repaymentMethodSelectTableTitle");
+	repaymentMethodSelectTableTitle.innerText = repaymentMethodValue;
+
 	var repaymentAmount = 0;	// 상환금 = 상환한 원금 + 이자
 	var principalPayment = 0;	// 납입 원금
 	var interest = 0;	// 월 납부 이자
