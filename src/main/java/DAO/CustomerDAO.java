@@ -113,8 +113,7 @@ public class CustomerDAO {
 					temp = customerSearchDTO.getCity() + " " + customerSearchDTO.getDistrict();
 				pstmt.setString(parameterIndex++, temp);
 			}
-			
-			System.out.println(pstmt.toString());
+
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					cnt = rs.getInt("cnt");
@@ -129,8 +128,8 @@ public class CustomerDAO {
 	
 	// insert a new customer
 	public int insertCustomer(CustomerDTO customer, int e_id, int b_id) {
-		String SQL = "INSERT INTO customers (e_id, b_id, c_name, identification, grade, age, gender, phone_no, address, job_code, country, credit, risk) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO customers (e_id, b_id, c_name, identification, grade, age, gender, phone_no, address, job_code, country, credit, risk, guarantor) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			// pstmt.setInt(1, customer.getCustomerId());
@@ -146,7 +145,8 @@ public class CustomerDAO {
 			pstmt.setString(10, customer.getJobCode());
 			pstmt.setString(11, customer.getCountry());
 			pstmt.setString(12, customer.getCredit());
-			pstmt.setInt(13, 0);
+			pstmt.setInt(13, customer.getRisk());
+			pstmt.setString(14, customer.getSuretyName());
 
 			return pstmt.executeUpdate();
 
@@ -204,6 +204,7 @@ public class CustomerDAO {
 		customer.setJobCode(rs.getString("job_code"));
 		customer.setCountry(rs.getString("country"));
 		customer.setCredit(rs.getString("credit"));
+		customer.setSuretyName(rs.getString("guarantor"));
 	}
 
 	// Update a customer
@@ -383,7 +384,6 @@ public class CustomerDAO {
 			}
 			pstmt.setInt(parameterIndex++, (page-1)*20);
 			
-			System.out.println(pstmt.toString());
 			List<CustomerDTO> findCustomers = new ArrayList<>();
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
