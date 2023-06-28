@@ -187,7 +187,7 @@ pageEncoding="UTF-8"%>
 				</div>
 				
 				
-				<div id="equalRepaymentOfPrincipal">
+				<div id="repaymentMethodTableDiv">
 					<h3 id="repaymentMethodTableTitle">
 				
 						<%List<RepaymentMethodDTO> repaymentMethodDTOList = (List<RepaymentMethodDTO>) request.getAttribute("repaymentMethod");
