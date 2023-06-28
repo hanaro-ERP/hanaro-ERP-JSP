@@ -41,6 +41,8 @@ public class NavigationController extends HttpServlet {
 				goTo = "/main/main.jsp";
 			} else if (uri.equals("/hanaro-ERP-JSP/navigation/customer")) {
 				goTo = "/customer/customerList.jsp";
+			} else if (uri.equals("/hanaro-ERP-JSP/navigation/customerRegist")) {
+				goTo = "/customer/customerRegist.jsp";				
 			} else if (uri.equals("/hanaro-ERP-JSP/navigation/employee")) {
 				goTo = "/employee/employeeList.jsp";
 			} else if (uri.equals("/hanaro-ERP-JSP/navigation/bank")) {

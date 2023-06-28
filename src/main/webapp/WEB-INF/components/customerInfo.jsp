@@ -50,8 +50,15 @@
 		<div class="innerInformationRowTitle">직업 코드</div>
 		<p>${customer.jobCode}</p>
 		<div class="innerInformationRowTitle">위험도</div>
-		<p>98</p>
+		<p>${customer.risk}</p>
 	</div>
 </div>
+<script>
+	document.addEventListener('keydown', function(event) {
+		if (event.key === 'Escape') {
+			window.close();
+		}
+	});
+</script>
 </body>
 </html>

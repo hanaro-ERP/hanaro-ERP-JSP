@@ -232,7 +232,7 @@
 	</main>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script>
-		generateMenu('customer', 'customerList');		
+		generateMenu('customer', 'customerList', 'customerRegist');		
 	</script>
 
 	<script src="${pageContext.request.contextPath}/js/customer/customerList.js"></script>

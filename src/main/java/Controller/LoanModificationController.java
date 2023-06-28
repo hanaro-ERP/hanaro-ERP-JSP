@@ -14,28 +14,44 @@ import javax.servlet.http.HttpSession;
 import DTO.LoanProductDTO;
 import Service.LoanService;
 
-@WebServlet("/loan/registration")
-public class LoanRegistrationController extends HttpServlet {
+@WebServlet("/loan/modification")
+public class LoanModificationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	LoanService loanService = new LoanService();
-
-	public LoanRegistrationController() {
+	
+	public LoanModificationController() {
 		super();
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		getLoanModificationProcess(request, response);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		postLoanRegistrationProcess(request, response);
+		postLoanModificationProcess(request, response);
 	}
 	
-	protected void postLoanRegistrationProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {		
+	private void getLoanModificationProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			int id = Integer.parseInt(request.getParameter("id"));
+			LoanProductDTO loanProduct = loanService.getLoanProductDetail(id);
+			
+			loanProduct.setLoanId(id);
+			request.setAttribute("loanProduct", loanProduct);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/components/loanModificationPopup.jsp");
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void postLoanModificationProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			int loanId = Integer.parseInt(request.getParameter("id"));
 			String productName = request.getParameter("productName");
 			String loanType = request.getParameter("loanType");
 			String collateralType = request.getParameter("collateralType");
@@ -77,11 +93,10 @@ public class LoanRegistrationController extends HttpServlet {
 			if (loanMaxRate != null)
 				loanProductDTO.setMaxRate(Float.parseFloat(loanMaxRate));
 			
-			int isLoanRegistered = loanService.registerLoanProduct(loanProductDTO);
+			int isLoanModified = loanService.modifyLoanProduct(loanProductDTO, loanId);
 			
-			request.setAttribute("isLoanRegistered", isLoanRegistered);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productRegistration.jsp");
-			dispatcher.forward(request, response);
+			request.setAttribute("isLoanModified", isLoanModified);
+			response.sendRedirect(request.getContextPath() + "/loanDetail?id=" + loanId + "&mod=" + isLoanModified);
 			} catch (Exception e) {
 			e.printStackTrace();
 		}

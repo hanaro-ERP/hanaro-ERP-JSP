@@ -17,6 +17,7 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 import org.eclipse.jdt.internal.compiler.IDebugRequestor;
 import org.eclipse.jdt.internal.compiler.ast.AND_AND_Expression;
 
+import DTO.CreditScoringDTO;
 import DTO.LoanContractDTO;
 import DTO.RepaymentMethodDTO;
 import util.DatabaseUtil;
@@ -24,47 +25,42 @@ import util.LoanUtil;
 
 public class LoanContractDAO {
 
-	// insert a new loan contract
-	public int insertLoanContract(LoanContractDTO loanContract, int l_id, int c_id, int e_id, int numberOfYears) {
-	    String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, start_date, maturity_date, "
-	            + "payment_method, loan_amount, balance, payment_date, "
-	            + "late_payment_date, delinquent_amount, guarantor_id, interest_rate) " 
-	            + "VALUES (?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? YEAR), ?, ?, ?, ?, ?, ?, ?, ?)";
+	public int insertLoanContract(LoanContractDTO loanContract, int l_id, int c_id, int e_id) {
+	    String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, start_date, maturity_date, payment_method,  "
+	            + "grace_period, loan_amount, balance, payment_date, late_payment_date, "
+	            + "delinquent_amount, guarantor_id, interest_rate, collateral_details) " 
+	            + "VALUES (?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? YEAR), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+	    int numberOfYears = 0;
+	    if(loanContract.getGracePeriod() > 0)
+	    	numberOfYears = loanContract.getGracePeriod();
 
 	    if(loanContract.getGuarantorId() == -1) {
 	    	//...
 	    }
-	    
+
 	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 	        pstmt.setInt(1, l_id);
 	        pstmt.setInt(2, c_id);
 	        pstmt.setInt(3, e_id);
 	        pstmt.setInt(4, numberOfYears);
 	        pstmt.setString(5, loanContract.getPaymentMethod());
-	        pstmt.setLong(6, loanContract.getLoanAmount());
-	        pstmt.setLong(7, loanContract.getBalance());
-	        pstmt.setInt(8, loanContract.getPaymentDate());
-	        pstmt.setDate(9, loanContract.getLatePaymentDate());
-	        pstmt.setLong(10, loanContract.getDelinquentAmount());
-	        pstmt.setInt(11, loanContract.getGuarantorId());
-	        pstmt.setDouble(12, loanContract.getInterestRate());
+	        pstmt.setLong(6, loanContract.getGracePeriod());	        
+	        pstmt.setLong(7, loanContract.getLoanAmount());
+	        pstmt.setLong(8, loanContract.getBalance());
+	        pstmt.setInt(9, loanContract.getPaymentDate());
+	        pstmt.setDate(10, loanContract.getLatePaymentDate());
+	        pstmt.setLong(11, loanContract.getDelinquentAmount());
+	        pstmt.setInt(12, loanContract.getGuarantorId());
+	        pstmt.setFloat(13, loanContract.getInterestRate());
+	        pstmt.setString(14, loanContract.getCollateralDetails());
+	      
 	        int rowsAffected = pstmt.executeUpdate();
-
-	        // Set the muturity_date value in the loanContract object as Timestamp
-	        /*if (rowsAffected > 0) {
-	            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-	                if (generatedKeys.next()) {
-	                    Timestamp muturityDate = generatedKeys.getTimestamp(1);
-	                    loanContract.setMuturityDate(muturityDate);
-	                }
-	            }
-	        }*/
-
-	        return rowsAffected;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return -1; // Database operation failed
+          return rowsAffected;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // Database operation failed
 	}
 
 	// Update a loan contract
@@ -83,7 +79,7 @@ public class LoanContractDAO {
 			pstmt.setInt(8, loanContract.getPaymentDate());
 			pstmt.setLong(9, loanContract.getDelinquentAmount());
 			pstmt.setInt(10, loanContract.getGuarantorId());
-			pstmt.setDouble(11, loanContract.getInterestRate());
+			pstmt.setFloat(11, loanContract.getInterestRate());
 			pstmt.setInt(12, loanContract.getLoanContractId());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -117,18 +113,17 @@ public class LoanContractDAO {
 		loanContract.setLoanAmount(rs.getLong("loan_amount"));
 		loanContract.setBalance(rs.getLong("balance"));
 		loanContract.setPaymentDate(rs.getInt("payment_date"));
-		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));	
+		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));
 		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));
 		loanContract.setDelinquentAmount(rs.getLong("delinquent_amount"));
 		loanContract.setGuarantorId(rs.getInt("guarantor_id"));
-		loanContract.setInterestRate(rs.getLong("interest_rate"));
+		loanContract.setInterestRate(rs.getFloat("interest_rate"));
 		loanContract.setLoanType(rs.getString("loan_type"));
 		loanContract.setLoanName(rs.getString("loan_name"));
 		loanContract.setEmployeeName(rs.getString("e_name"));
 		loanContract.setCustomerName(rs.getString("c_name"));
 		loanContract.setGuarantorName(rs.getString("guarantor_name"));
 	}
-	
 	
 	private void fillLoanContractDTOFromTable(LoanContractDTO loanContract, ResultSet rs) throws SQLException {
 		loanContract.setLoanContractId(rs.getInt("lc_id"));
@@ -149,6 +144,23 @@ public class LoanContractDAO {
 		loanContract.setInterestRate(rs.getLong("interest_rate"));
 	}
 
+	public int getLoanContractCountByLoanProductId(int loanProductId) {
+		int cnt = 0;
+
+		String query = "SELECT count(*) AS cnt FROM loanContracts where l_id = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+			pstmt.setInt(1, loanProductId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					cnt = rs.getInt("cnt");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
 	// 모든 데이터 가져오기
 	public List<LoanContractDTO> getLoanContracts() {
 		String SQL = "SELECT * FROM loanContracts";
@@ -171,7 +183,7 @@ public class LoanContractDAO {
 	public List<LoanContractDTO> getLoanContractByLoanContractId(int loanContractId) {
 		List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
 		String SQL = "SELECT * FROM loanContracts WHERE lc_id = ?";
-		
+
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanContractId);
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -183,16 +195,17 @@ public class LoanContractDAO {
 		}
 		return loanContractDTOList;
 	}
-	
-	public List<LoanContractDTO> getLoanContractByDTO(LoanContractDTO loanContractDTO) {		
-		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name, c2.c_name as guarantor_name"
-				+ " FROM loanContracts lc");
+
+	public List<LoanContractDTO> getLoanContractByDTO(LoanContractDTO loanContractDTO) {
+		StringBuilder queryBuilder = new StringBuilder(
+				"SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name, c2.c_name as guarantor_name"
+						+ " FROM loanContracts lc");
 		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
 		queryBuilder.append(" JOIN customers c ON lc.c_id = c.c_id");
 		queryBuilder.append(" JOIN employees e ON c.e_id = e.e_id");
 		queryBuilder.append(" JOIN customers c2 ON lc.guarantor_id = c2.c_id");
 		queryBuilder.append(" WHERE 1=1");
-		
+
 		if (loanContractDTO.getLoanName() != null) {
 			queryBuilder.append(" AND l.loan_name LIKE ?");
 		}
@@ -205,25 +218,24 @@ public class LoanContractDAO {
 		if (loanContractDTO.getEmployeeName() != null) {
 			queryBuilder.append(" AND e.e_name LIKE ?");
 		}
-		if (loanContractDTO.getStartDate() != null ) {
+		if (loanContractDTO.getStartDate() != null) {
 			queryBuilder.append(" AND lc.start_date >= ? AND lc.start_date < ?");
 		}
 		if (loanContractDTO.getMaturityDate() != null ) {
 			queryBuilder.append(" AND lc.maturity_date >= ? AND lc.maturity_date < ?");
 		}
-		if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0 ) {
+		if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0) {
 			if (loanContractDTO.getBalanceRange()[0] >= 10000) {
-				queryBuilder.append(" AND lc.balance >= ?");					
-			}
-			else {
-				queryBuilder.append(" AND lc.balance >= ? AND lc.balance < ?");				
+				queryBuilder.append(" AND lc.balance >= ?");
+			} else {
+				queryBuilder.append(" AND lc.balance >= ? AND lc.balance < ?");
 			}
 		}
 		if (loanContractDTO.getLatePaymentPeriod() > -1) {
 			queryBuilder.append(" AND lc.late_payment_date < ?");
 		}
-		
-		try (Connection conn = DatabaseUtil.getConnection(); 
+
+		try (Connection conn = DatabaseUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 
 			int parameterIndex = 1;
@@ -254,13 +266,12 @@ public class LoanContractDAO {
 	        }
 			if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0) {	
 				if (loanContractDTO.getBalanceRange()[0] >= 10000) {
-					pstmt.setInt(parameterIndex++, loanContractDTO.getBalanceRange()[0] * 10000);				
-				}
-				else {
 					pstmt.setInt(parameterIndex++, loanContractDTO.getBalanceRange()[0] * 10000);
-					pstmt.setInt(parameterIndex++, loanContractDTO.getBalanceRange()[1] * 10000);		
+				} else {
+					pstmt.setInt(parameterIndex++, loanContractDTO.getBalanceRange()[0] * 10000);
+					pstmt.setInt(parameterIndex++, loanContractDTO.getBalanceRange()[1] * 10000);
 				}
-			}	
+			}
 			if (loanContractDTO.getLatePaymentPeriod() > -1) {
 				LocalDate currentDate = LocalDate.now();
 
@@ -273,7 +284,7 @@ public class LoanContractDAO {
 			System.out.println(pstmt.toString());
 			
 			LoanUtil loanUtil = new LoanUtil();
-			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();			
+			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
@@ -292,33 +303,46 @@ public class LoanContractDAO {
 					loanContractDTOList.add(loanContracts);
 				}
 				return loanContractDTOList;
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-			} 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		catch (Exception e) {
+		return null;
+	}
+
+	public List<LoanContractDTO> getLoanContractByCustomerId(CreditScoringDTO creditScoringDTO) {
+		String SQL = "SELECT * FROM loanContracts WHERE c_id = ?";
+		List<LoanContractDTO> loanContracts = new ArrayList<>();
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setInt(1, creditScoringDTO.getCustomerId());
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					LoanContractDTO loanContract = new LoanContractDTO();
+					loanContract.setBalance(rs.getLong("balance"));
+					loanContract.setLoanAmount(rs.getLong("loan_amount"));
+					loanContracts.add(loanContract);
+				}
+			}
+			return loanContracts;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	public List<RepaymentMethodDTO> getRepaymentMethod(String[] id) {
+	public List<RepaymentMethodDTO> getRepaymentMethod(String id) {
 
 		System.out.println("dao getRepaymentMethod ");
-		System.out.println("DAO id ="+ id[0]);
+		System.out.println("DAO id ="+ id);
 		
 		StringBuilder queryBuilder = new StringBuilder("SELECT lc.*, c.identification, c.c_id"
 				+ " FROM loanContracts lc");
 		queryBuilder.append(" JOIN customers c ON c.c_id = lc.c_id");
 		queryBuilder.append(" WHERE 1=1");
-
-		String idString = "";
 		
 		if (id != null){
-			idString = id[0] + "-" + id[1];
-
-			System.out.println("idString ="+idString);
 			queryBuilder.append(" AND c.identification LIKE ?");
 		}
 		
@@ -329,7 +353,7 @@ public class LoanContractDAO {
 			
 			if (id != null){
 				System.out.println("id not null");
-	            pstmt.setString(1, "%"+idString+"%");
+	            pstmt.setString(1, "%"+id+"%");
 	        }
 
 			System.out.println(pstmt.toString());

@@ -4,15 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import DTO.AccountDTO;
 import DTO.AccountSearchDTO;
+import DTO.CreditScoringDTO;
 import DTO.BankDTO;
 import util.DatabaseUtil;
 import util.DepositUtil;
-import java.text.DecimalFormat;
 
 public class AccountDAO {
 
@@ -112,7 +113,7 @@ public class AccountDAO {
 		queryBuilder.append("JOIN customers c ON c.c_id = a.c_id ");
 		queryBuilder.append("JOIN employees e ON c.e_id = e.e_id ");
 		queryBuilder.append("WHERE 1=1");
-		
+
 		if (!accountSearchDTO.getAccountNumber().equals("")) {
 			queryBuilder.append(" AND a.account_number LIKE ?");
 		}
@@ -128,33 +129,33 @@ public class AccountDAO {
 		if (!accountSearchDTO.getAccountOpenDate()[0].equals("전체")) {
 			queryBuilder.append(" AND a.account_open_date LIKE ?");
 		}
-		if (accountSearchDTO.getDepositBalance()[0].equals("전체")) {				
+		if (accountSearchDTO.getDepositBalance()[0].equals("전체")) {
 		} else if (accountSearchDTO.getDepositBalance()[0].equals("~2천만원")) {
-			queryBuilder.append(" AND a.account_balance <= 20000000");					
+			queryBuilder.append(" AND a.account_balance <= 20000000");
 		} else if (accountSearchDTO.getDepositBalance()[0].equals("~3천만원")) {
-			queryBuilder.append(" AND a.account_balance <= 30000000");					
+			queryBuilder.append(" AND a.account_balance <= 30000000");
 		} else if (accountSearchDTO.getDepositBalance()[0].equals("~5천만원")) {
-			queryBuilder.append(" AND a.account_balance <= 50000000");					
+			queryBuilder.append(" AND a.account_balance <= 50000000");
 		} else if (accountSearchDTO.getDepositBalance()[0].equals("~1억원")) {
-			queryBuilder.append(" AND a.account_balance <= 100000000");					
+			queryBuilder.append(" AND a.account_balance <= 100000000");
 		} else if (accountSearchDTO.getDepositBalance()[0].equals("1억원 이상")) {
-			queryBuilder.append(" AND a.account_balance >= 100000000");					
+			queryBuilder.append(" AND a.account_balance >= 100000000");
 		} else {
 			queryBuilder.append(" AND a.account_balance between ? and ?");
 		}
-		
 		try (Connection conn = DatabaseUtil.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
 			if (!accountSearchDTO.getAccountNumber().equals("")) {
 				pstmt.setString(parameterIndex++, "%" + accountSearchDTO.getAccountNumber() + "%");
-			} 
+			}
 			if (!accountSearchDTO.getCustomerName().equals("")) {
 				pstmt.setString(parameterIndex++, "%" + accountSearchDTO.getCustomerName() + "%");
 			}
 			if (!accountSearchDTO.getIdentification1().equals("")) {
 				if (!accountSearchDTO.getIdentification2().equals(""))
-					pstmt.setString(parameterIndex++, accountSearchDTO.getIdentification1() + "-" + accountSearchDTO.getIdentification1());
+					pstmt.setString(parameterIndex++,
+							accountSearchDTO.getIdentification1() + "-" + accountSearchDTO.getIdentification1());
 				else
 					pstmt.setString(parameterIndex++, accountSearchDTO.getIdentification1() + "-%");
 			}
@@ -165,21 +166,24 @@ public class AccountDAO {
 				if (accountSearchDTO.getAccountOpenDate()[1].equals(""))
 					pstmt.setString(parameterIndex++, accountSearchDTO.getAccountOpenDate()[0] + "-%");
 				else if (accountSearchDTO.getAccountOpenDate()[2].equals(""))
-					pstmt.setString(parameterIndex++, accountSearchDTO.getAccountOpenDate()[0] + "-" + accountSearchDTO.getAccountOpenDate()[1] + "-%");
+					pstmt.setString(parameterIndex++, accountSearchDTO.getAccountOpenDate()[0] + "-"
+							+ accountSearchDTO.getAccountOpenDate()[1] + "-%");
 				else
-					pstmt.setString(parameterIndex++, accountSearchDTO.getAccountOpenDate()[0] + "-" + accountSearchDTO.getAccountOpenDate()[1] + "-" + accountSearchDTO.getAccountOpenDate()[2] + "%");
+					pstmt.setString(parameterIndex++,
+							accountSearchDTO.getAccountOpenDate()[0] + "-" + accountSearchDTO.getAccountOpenDate()[1]
+									+ "-" + accountSearchDTO.getAccountOpenDate()[2] + "%");
 			}
 			if (accountSearchDTO.getDepositBalance().length == 2) {
 				if (accountSearchDTO.getDepositBalance()[0].equals(""))
 					pstmt.setString(parameterIndex++, "0");
-				else 
-					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[0]+"0000");
+				else
+					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[0] + "0000");
 				if (accountSearchDTO.getDepositBalance()[1].equals(""))
 					pstmt.setString(parameterIndex++, "99999999999999");
 				else
-					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[1]+"0000");
+					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[1] + "0000");
 			}
-			
+
 			System.out.println(pstmt.toString());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
@@ -272,13 +276,14 @@ public class AccountDAO {
 			System.out.println(pstmt.toString());
 			
 			List<AccountDTO> findAccountList = new ArrayList<>();
-			try (ResultSet rs = pstmt.executeQuery()) {				
+			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					AccountDTO accountDTO = new AccountDTO();
 					accountDTO.setAccountId(rs.getInt("a_id"));
 					accountDTO.setAccountType(rs.getString("account_type"));
 					accountDTO.setAccountNumber(rs.getString("account_number"));
-					accountDTO.setStringAccountOpenDate(DepositUtil.convertTimestampToString(rs.getTimestamp("account_open_date")));
+					accountDTO.setStringAccountOpenDate(
+							DepositUtil.convertTimestampToString(rs.getTimestamp("account_open_date")));
 					accountDTO.setCustomerName(rs.getString("c_name"));
 					accountDTO.setEmployeeName(rs.getString("e_name"));
 					DecimalFormat wonFormat = new DecimalFormat("#,###원");
@@ -286,9 +291,24 @@ public class AccountDAO {
 					findAccountList.add(accountDTO);
 				}
 			}
-			return findAccountList;	
-	        } catch (Exception e) {
-	        	e.printStackTrace();
+			return findAccountList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Long getTotalBalance(CreditScoringDTO creditScoringDTO) {
+		String SQL = "SELECT SUM(account_balance) FROM accounts WHERE c_id = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setInt(1, creditScoringDTO.getCustomerId());
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					return rs.getLong(1);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

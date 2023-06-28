@@ -3,7 +3,8 @@ const menuData = {
 		menuTitle: '고객 관리',
 		menuIcon: 'customerBtnIcon',
 		menuItems: [
-			{ id: 'customerList', label: '고객 목록', link: '/hanaro-ERP-JSP/navigation/customer' }
+			{ id: 'customerList', label: '고객 목록', link: '/hanaro-ERP-JSP/navigation/customer' },
+			{ id: 'customerRegist', label: '고객 등록', link: '/hanaro-ERP-JSP/navigation/customerRegist'}
 		]
 	},
 	employee: {

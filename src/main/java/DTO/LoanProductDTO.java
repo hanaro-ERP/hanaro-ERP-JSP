@@ -19,4 +19,7 @@ public class LoanProductDTO {
 	private String job;
 	private String collateral;
 	private long income;
+	private int subscriberCount;
+	private String mod;
+	private String del;
 }
