@@ -21,7 +21,7 @@ public class CustomerDTO {
 	private String address;
 	private String jobCode;
 	private String country;
-	private float risk;
+	private int risk;
 	private String credit;
 	private String employeeName;
 	private String bankName;

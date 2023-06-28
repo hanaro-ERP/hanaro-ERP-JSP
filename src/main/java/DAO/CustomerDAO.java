@@ -17,6 +17,116 @@ public class CustomerDAO {
 	CustomerUtil customerUtil = new CustomerUtil();
 	DatabaseUtil databaseUtil = new DatabaseUtil();
 
+	public int getCustomerCount(CustomerSearchDTO customerSearchDTO) {
+		int cnt = 0;
+		StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt FROM customers c ");
+		queryBuilder.append("JOIN employees e ON c.e_id = e.e_id ");
+		queryBuilder.append("JOIN banks b ON c.b_id = b.b_id ");
+		queryBuilder.append("WHERE 1=1");
+
+		if (customerSearchDTO.getCustomerName() != null) {
+			queryBuilder.append(" AND c.c_name LIKE ?");
+		}
+		if (customerSearchDTO.getJobCode() != null) {
+			queryBuilder.append(" AND c.job_code = ?");
+		}
+		if (customerSearchDTO.getEmployeeName() != null) {
+			queryBuilder.append(" AND e.e_name LIKE ?");
+		}
+		if (customerSearchDTO.getBankName() != null) {
+			queryBuilder.append(" AND b.b_name = ?");
+		}
+		if (customerSearchDTO.getIdentification1() != null) {
+			queryBuilder.append(" AND c.identification LIKE ?");
+		}
+		if (customerSearchDTO.getIdentification2() != null) {
+			queryBuilder.append(" AND c.identification LIKE ?");
+		}
+		if (customerSearchDTO.getPhoneNumber1() != null) {
+			queryBuilder.append(" AND c.phone_no LIKE ?");
+		}
+		if (customerSearchDTO.getPhoneNumber2() != null) {
+			queryBuilder.append(" AND c.phone_no LIKE ?");
+		}
+		if (customerSearchDTO.getPhoneNumber3() != null) {
+			queryBuilder.append(" AND c.phone_no LIKE ?");
+		}
+		if (customerSearchDTO.getGender() != null) {
+			queryBuilder.append(" AND c.gender = ?");
+		}
+		if (customerSearchDTO.getCustomerGrades() != null) {
+			queryBuilder.append(databaseUtil.getListQuery("c.grade", customerSearchDTO.getCustomerGrades()));
+		}
+		if (customerSearchDTO.getCustomerCredits() != null) {
+			queryBuilder.append(databaseUtil.getListQuery("c.credit", customerSearchDTO.getCustomerCredits()));
+		}
+		if (customerSearchDTO.getCustomerAges() != null) {
+			queryBuilder.append(databaseUtil.getAgeQuery(customerSearchDTO.getCustomerAges()));
+		}
+		if (customerSearchDTO.getCountry() != null) {
+			queryBuilder.append(" AND c.country = ?");
+		}
+		if (customerSearchDTO.getCity() != null) {
+			queryBuilder.append(" AND c.address LIKE ?");
+		}
+		
+		try (Connection conn = DatabaseUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+			int parameterIndex = 1;
+
+			if (customerSearchDTO.getCustomerName() != null) {
+				pstmt.setString(parameterIndex++, "%" + customerSearchDTO.getCustomerName() + "%");
+			}
+			if (customerSearchDTO.getJobCode() != null) {
+				pstmt.setString(parameterIndex++, customerSearchDTO.getJobCode());
+			}
+			if (customerSearchDTO.getEmployeeName() != null) {
+				pstmt.setString(parameterIndex++, "%" + customerSearchDTO.getEmployeeName() + "%");
+			}
+			if (customerSearchDTO.getBankName() != null) {
+				pstmt.setString(parameterIndex++, customerSearchDTO.getBankName());
+			}		
+			if (customerSearchDTO.getIdentification1() != null) {
+				pstmt.setString(parameterIndex++, "%" + customerSearchDTO.getIdentification1() + "%-%");
+			}
+			if (customerSearchDTO.getIdentification2() != null) {
+				pstmt.setString(parameterIndex++, "%-%" + customerSearchDTO.getIdentification2() + "%");
+			}
+			if (customerSearchDTO.getPhoneNumber1() != null) {
+				pstmt.setString(parameterIndex++, "%" + customerSearchDTO.getPhoneNumber1() + "%-%");
+			}
+			if (customerSearchDTO.getPhoneNumber2() != null) {
+				pstmt.setString(parameterIndex++, "%-%" + customerSearchDTO.getPhoneNumber2() + "%-%");
+			}
+			if (customerSearchDTO.getPhoneNumber3() != null) {
+				pstmt.setString(parameterIndex++, "%-%" + customerSearchDTO.getPhoneNumber3() + "%");
+			}
+			if (customerSearchDTO.getGender() != null) {
+				pstmt.setBoolean(parameterIndex++, customerSearchDTO.getGender());
+			}
+			if (customerSearchDTO.getCountry() != null) {
+				pstmt.setString(parameterIndex++, customerSearchDTO.getCountry());
+			}
+			if (customerSearchDTO.getCity() != null) {
+				String temp = customerSearchDTO.getCity() + "%";
+				if (customerSearchDTO.getDistrict() != null) 
+					temp = customerSearchDTO.getCity() + " " + customerSearchDTO.getDistrict();
+				pstmt.setString(parameterIndex++, temp);
+			}
+			
+			System.out.println(pstmt.toString());
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					cnt = rs.getInt("cnt");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+
+	
 	// insert a new customer
 	public int insertCustomer(CustomerDTO customer, int e_id, int b_id) {
 		String SQL = "INSERT INTO customers (e_id, b_id, c_name, identification, grade, age, gender, phone_no, address, job_code, country, credit, risk) "
@@ -153,7 +263,7 @@ public class CustomerDAO {
 	}
 
 //	Get some customers
-	public List<CustomerDTO> getCustomersByDTO(CustomerSearchDTO customerSearchDTO) {
+	public List<CustomerDTO> getCustomersByDTO(CustomerSearchDTO customerSearchDTO, int page) {
 		StringBuilder queryBuilder = new StringBuilder("SELECT c.*, e.e_name, b.b_name FROM customers c ");
 		queryBuilder.append("JOIN employees e ON c.e_id = e.e_id ");
 		queryBuilder.append("JOIN banks b ON c.b_id = b.b_id ");
@@ -204,7 +314,8 @@ public class CustomerDAO {
 		if (customerSearchDTO.getCity() != null) {
 			queryBuilder.append(" AND c.address LIKE ?");
 		}
-
+		queryBuilder.append(" LIMIT 20 OFFSET ?");
+		
 		try (Connection conn = DatabaseUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
@@ -248,6 +359,8 @@ public class CustomerDAO {
 					temp = customerSearchDTO.getCity() + " " + customerSearchDTO.getDistrict();
 				pstmt.setString(parameterIndex++, temp);
 			}
+			pstmt.setInt(parameterIndex++, (page-1)*20);
+			
 			System.out.println(pstmt.toString());
 			List<CustomerDTO> findCustomers = new ArrayList<>();
 			try (ResultSet rs = pstmt.executeQuery()) {
@@ -260,7 +373,8 @@ public class CustomerDAO {
 					customer.setCredit(rs.getString("credit"));
 					customer.setJobCode(rs.getString("job_code"));
 					customer.setGrade(rs.getString("grade"));
-
+					customer.setRisk(rs.getInt("risk"));
+					
 					findCustomers.add(customer);
 				}
 			}

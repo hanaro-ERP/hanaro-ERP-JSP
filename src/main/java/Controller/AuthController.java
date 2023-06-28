@@ -21,6 +21,8 @@ import Service.BankService;
 public class AuthController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	BankService bankService = new BankService();
+	
 	public AuthController() {
 		super();
 	}
@@ -80,7 +82,7 @@ public class AuthController extends HttpServlet {
 				request.getSession().setAttribute("loginId", storedEmployeeDTO.getEmployeeId());
 				request.getSession().setAttribute("loginName", storedEmployeeDTO.getEmployeeName());
 				request.getSession().setAttribute("loginPosition", storedEmployeeDTO.getPosition());
-				BankDTO bankDTO = BankService.getBankName(storedEmployeeDTO);
+				BankDTO bankDTO = bankService.getBankName(storedEmployeeDTO);
 				request.getSession().setAttribute("bankName", bankDTO.getBankName());
 
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/main/main.jsp");
