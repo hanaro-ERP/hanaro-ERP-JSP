@@ -6,10 +6,10 @@ import Service.evaluators.CBScoreEvaluator;
 import Service.evaluators.DepositHistoryEvaluator;
 import Service.evaluators.EvaluatorParent;
 import Service.evaluators.GuarantorEvaluator;
-import Service.evaluators.LoanScaleEvaluator;
 import Service.evaluators.IncomeEvaluator;
-import Service.evaluators.LoanBalanceEvaluator;
 import Service.evaluators.JobEvaluator;
+import Service.evaluators.LoanBalanceEvaluator;
+import Service.evaluators.LoanScaleEvaluator;
 import Service.evaluators.PropertyEvaluator;
 import Service.evaluators.RepaymentHistoryEvaluator;
 
@@ -18,13 +18,13 @@ public class CreditService {
 
 	public CreditService() {
 		EvaluatorParent evaluatorParent = new EvaluatorParent();
-		if (!evaluatorParent.isValid() == false) {
+		if (evaluatorParent.isValid() == false) {
 			throw new IllegalStateException("신용평가 시스템이 정상적으로 동작하지 않습니다. 관리자에게 문의하세요.");
 		}
 	}
 
 	private String convertToGrade(int score) {
-		int grade = Math.min(999, (1000 - score) / 100 + 1);
+		int grade = Math.min(99, (100 - score) / 10 + 1);
 
 		return String.valueOf(grade) + "등급";
 	}
@@ -52,5 +52,4 @@ public class CreditService {
 	public void setCreditScore(CreditScoringDTO creditScoringDTO) {
 		this.creditScore = calculateSum(creditScoringDTO);
 	}
-
 }

@@ -6,7 +6,7 @@ import DAO.TransactionDAO;
 import DTO.CreditScoringDTO;
 import DTO.TransactionDTO;
 
-public class IncomeEvaluator extends EvaluatorParent implements EvaluatorInterface<List> {
+public class IncomeEvaluator extends EvaluatorParent implements EvaluatorInterface<List<TransactionDTO>> {
 	private final int MAX_INCOME_STANDARD = 30000000;
 
 	@Override

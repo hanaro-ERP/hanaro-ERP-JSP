@@ -213,6 +213,7 @@ public class AccountDAO {
 	public Long getTotalBalance(CreditScoringDTO creditScoringDTO) {
 		String SQL = "SELECT SUM(account_balance) FROM accounts WHERE c_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setInt(1, creditScoringDTO.getCustomerId());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					return rs.getLong(1);
