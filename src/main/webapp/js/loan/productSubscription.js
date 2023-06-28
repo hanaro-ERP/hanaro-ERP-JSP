@@ -81,60 +81,23 @@ function updateTable() {
 		balance = loanAmountValue; // 남은 대출 원금
 
 		for (var month = 1; month < loanPeriodValue; month++) {
-			var row = repaymentMethodTable.insertRow();
-			var monthCell = row.insertCell();
-			var repaymentAmountCell = row.insertCell();
-			var principalPaymentCell = row.insertCell();
-			var interestCell = row.insertCell();
-			var cumulativePrincipalPaymentCell = row.insertCell();
-			var balanceCell = row.insertCell();
-
 			repaymentAmount += interest;	// 상환금
+			makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
 
-			// 값 넣기
-			monthCell.innerHTML = month;
-			repaymentAmountCell.innerHTML = repaymentAmount.toLocaleString();
-			principalPaymentCell.innerHTML = principalPayment.toLocaleString();
-			interestCell.innerHTML = interest.toLocaleString();
-			cumulativePrincipalPaymentCell.innerHTML = cumulativePrincipalPayment.toLocaleString();
-			balanceCell.innerHTML = balance.toLocaleString();
-		}
-		// 마지막 달
-		var row = repaymentMethodTable.insertRow();
-		var monthCell = row.insertCell();
-		var repaymentAmountCell = row.insertCell();
-		var principalPaymentCell = row.insertCell();
-		var interestCell = row.insertCell();
-		var cumulativePrincipalPaymentCell = row.insertCell();
-		var balanceCell = row.insertCell();
-
+		}		// 마지막 달
 		principalPayment = loanAmountValue;	// 납입 원금
 		cumulativePrincipalPayment = loanAmountValue; 	// 납입원금누계
 		balance = 0; // 남은 대출 원금
 		repaymentAmount += principalPayment + interest;	// 상환금
+		makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
 
-		// 값 넣기
-		monthCell.innerHTML = month;
-		repaymentAmountCell.innerHTML = parseInt(repaymentAmount).toLocaleString();
-		principalPaymentCell.innerHTML = parseInt(principalPayment).toLocaleString();
-		interestCell.innerHTML = parseInt(interest).toLocaleString();
-		cumulativePrincipalPaymentCell.innerHTML = parseInt(cumulativePrincipalPayment).toLocaleString();
-		balanceCell.innerHTML = parseInt(balance).toLocaleString();
 	}
 
 	else if (repaymentMethodValue.includes("원금균등")) { // 원금균등상환
 		principalPayment = loanAmountValue / loanPeriodValue;	// 납입 원금
 
 		for (var month = 1; month <= loanPeriodValue; month++) {
-			var row = repaymentMethodTable.insertRow();
-			var monthCell = row.insertCell();
-			var repaymentAmountCell = row.insertCell();
-			var principalPaymentCell = row.insertCell();
-			var interestCell = row.insertCell();
-			var cumulativePrincipalPaymentCell = row.insertCell();
-			var balanceCell = row.insertCell();
 
-			monthCell.innerHTML = month;
 
 			// 거치 기간 있는 경우
 			if (gracePeriodValue > 0) {
@@ -147,29 +110,17 @@ function updateTable() {
 				repaymentAmount = interest + principalPayment;	// 상환금 = 이자 + 납입 원금
 				cumulativePrincipalPayment += principalPayment;	// 납입원금누계
 				balance -= principalPayment;	// 남은 대출 원금
-				
+
 				checkLastMonthBalance();
 			}
 
-			repaymentAmountCell.innerHTML = parseInt(repaymentAmount).toLocaleString();
-			principalPaymentCell.innerHTML = parseInt(principalPayment).toLocaleString();
-			interestCell.innerHTML = parseInt(interest).toLocaleString();
-			cumulativePrincipalPaymentCell.innerHTML = parseInt(cumulativePrincipalPayment).toLocaleString();
-			balanceCell.innerHTML = parseInt(balance).toLocaleString();
+			makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
+
 		}
 	}
 
 	else if (repaymentMethodValue.includes("원리금균등")) {	// 원리금균등상환
 		for (var month = 1; month <= loanPeriodValue; month++) {
-			var row = repaymentMethodTable.insertRow();
-			var monthCell = row.insertCell();
-			var repaymentAmountCell = row.insertCell();
-			var principalPaymentCell = row.insertCell();
-			var interestCell = row.insertCell();
-			var cumulativePrincipalPaymentCell = row.insertCell();
-			var balanceCell = row.insertCell();
-
-			monthCell.innerHTML = month;
 
 			// 거치 기간 있는 경우
 			if (gracePeriodValue > 0) {
@@ -188,17 +139,14 @@ function updateTable() {
 					principalPayment -= amountDifference;
 				}
 				balance -= principalPayment;
-				
+
 				checkLastMonthBalance();
 			}
 
-			repaymentAmountCell.innerHTML = parseInt(repaymentAmount).toLocaleString();
-			principalPaymentCell.innerHTML = parseInt(principalPayment).toLocaleString();
-			interestCell.innerHTML = parseInt(interest).toLocaleString();
-			cumulativePrincipalPaymentCell.innerHTML = parseInt(cumulativePrincipalPayment).toLocaleString();
-			balanceCell.innerHTML = parseInt(balance).toLocaleString();
+			makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
+
 		}
-	}	
+	}
 
 	// 마지막 달인데 잔액 남은 경우
 	function checkLastMonthBalance() {
@@ -210,7 +158,23 @@ function updateTable() {
 			balance = 0;
 		}
 	}
-	
+
+	function makeRowCell(repaymentMethodTable, month, repaymentAmount, principalPayment, interest, cumulativePrincipalPayment, balance) {
+		var row = repaymentMethodTable.insertRow();
+		var monthCell = row.insertCell();
+		var repaymentAmountCell = row.insertCell();
+		var principalPaymentCell = row.insertCell();
+		var interestCell = row.insertCell();
+		var cumulativePrincipalPaymentCell = row.insertCell();
+		var balanceCell = row.insertCell();
+
+		monthCell.innerHTML = month;
+		repaymentAmountCell.innerHTML = repaymentAmount.toLocaleString();
+		principalPaymentCell.innerHTML = principalPayment.toLocaleString();
+		interestCell.innerHTML = interest.toLocaleString();
+		cumulativePrincipalPaymentCell.innerHTML = cumulativePrincipalPayment.toLocaleString();
+		balanceCell.innerHTML = balance.toLocaleString();
+	}
 }
 
 function removeTableRow(tableId) {

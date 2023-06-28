@@ -220,9 +220,7 @@ pageEncoding="UTF-8"%>
 				</div> --%>
 				
 				<div id="repaymentMethodSelectTableDiv">
-					<h3 id="repaymentMethodSelectTableTitle">
-				
-						
+					<h3 id="repaymentMethodSelectTableTitle">						
 					h3
 					</h3>
 					<table class="searchTable" id="repaymentMethodSelectTable">
