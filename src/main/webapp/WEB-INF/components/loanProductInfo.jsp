@@ -58,11 +58,27 @@
 		<p>${loanProduct.subscriberCount}명</p>
 	</div>
 	<div class="modifyButtonBox">
-		<a class="deleteLoanButton" href = "/hanaro-ERP-JSP/loan/deletion?id=${loanProduct.loanId}">삭제하기</a>
-		<a class="modifyLoanButton" href = "/hanaro-ERP-JSP/loan/modification?id=${loanProduct.loanId}">수정하기</a>
+		<a class="deleteLoanButton" href="/hanaro-ERP-JSP/loan/deletion?id=${loanProduct.loanId}" onclick="return confirmDelete()">삭제하기</a>
+		<a class="modifyLoanButton" href="/hanaro-ERP-JSP/loan/modification?id=${loanProduct.loanId}" onclick="return confirmModify()">수정하기</a>
 	</div>
 </div>
 <script>
+	function confirmDelete() {
+		if (confirm("상품을 삭제하시겠습니까?")) {
+			return true; 
+		} else {
+			return false; 
+		}
+	}
+
+	function confirmModify() {
+		if (confirm("상품을 수정하시겠습니까?")) {
+			return true; 
+		} else {
+			return false; 
+		}
+	}
+	
 	if ("<%= mod %>" !== null) {
 		if ("<%= mod %>" === "1") {
 			alert("여신 상품이 성공적으로 수정되었습니다.");
