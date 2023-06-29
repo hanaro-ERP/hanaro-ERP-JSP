@@ -15,8 +15,11 @@ pageEncoding="UTF-8"%>
 	<%@ include file="../../components/header.jsp" %>	
 	<%@ page import="java.util.List"%>
 	<%@ page import="DTO.LoanContractDTO"%>	
-	<%@ page import="util.LoanUtil"%>	\
-	<%@ page import="DTO.CustomerDTO" %>\
+	<%@ page import="util.LoanUtil"%>	
+	<%@ page import="DTO.CustomerDTO" %>
+	<%@ page import="DAO.CustomerDAO" %>
+	<%@ page import="DTO.CreditScoringDTO" %>
+	<%@ page import="Service.CreditService" %>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
@@ -97,7 +100,7 @@ pageEncoding="UTF-8"%>
 						<%= customer != null ? customer.getSuretyName() : "" %>
 						</td>
 						<th>내부 위험도</th>
-						<td> - <button type="button">계산하기</button></td>
+						<td id="innerRisk"><button type="button" onclick="riskCalcFunc()"> 계산하기 </button></td>
 					</tr>
 				</table>
 
@@ -238,11 +241,39 @@ pageEncoding="UTF-8"%>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
 	<script>
-	    function openSearchPopup() {
+		function openSearchPopup() {
 	    	var firstTd = document.getElementById("customerName"); // customerName 필드를 가리키는 변수 firstTd
 	    	if(firstTd.value !== '')
 		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 2, "_blank", "width=1000,height=200");
-	    }
+	    	
+		}
+		function riskCalcFunc() {
+	    	<%	CustomerDAO customerDAO = new CustomerDAO();
+			CreditScoringDTO creditScoringDTO = new CreditScoringDTO();
+			CreditService creditService = new CreditService();
+	    	
+			int cId = 0; int eId = 0;
+			if(customer != null) {
+				cId = customerDAO.getCustomerIdByCustomerName(customer.getCustomerName());
+				eId = customerDAO.getCustomerIdByCustomerName(customer.getSuretyName());
+				
+				if(eId != -1) {
+					creditScoringDTO.setCustomerId(cId); //고객정보
+			    	creditScoringDTO.setGuarantorId(eId); //보증인정보
+			    	creditScoringDTO.setLoanAmount(10000000); // 대출금액
+			    	creditScoringDTO.setLoanDuration(60); // 대출	
+					
+			    	creditService.setCreditScore(creditScoringDTO);
+				}
+			}
+		%>
+		var innerRisk = document.getElementById("innerRisk");
+		<% if(eId == -1) { %>
+			innerRisk.innerHTML = "데이터 부족"
+		<% } else { %>
+			innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";
+		<% } %>
+		}
 	</script>
 </body>
 </html>
