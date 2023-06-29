@@ -8,19 +8,24 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 </head>
-<body>
+<body style="padding: 10px 20px">
 	<%@ page import="java.util.List" %>
 	<%@ page import="DTO.TransactionDTO" %>
 	<%@ page import="DTO.PaginationDTO" %>
-	<%List<TransactionDTO> searchedTransactionList = (List<TransactionDTO>) request.getAttribute("searchedTransactionList"); %>
-	<% PaginationDTO paginationDTO = (PaginationDTO) request.getAttribute("paginationDTO"); %>
+	<%@page import="java.text.DecimalFormat"%>
+	<%
+	List<TransactionDTO> searchedTransactionList = (List<TransactionDTO>) request.getAttribute("searchedTransactionList");
+	PaginationDTO paginationDTO = (PaginationDTO) request.getAttribute("paginationDTO");
+	
+	DecimalFormat wonFormat = new DecimalFormat("#,###원");
+	%>
 	<div class="popupTitleBox">
 		<h1>입출금 내역</h1>
 		<h2><%= searchedTransactionList.get(0).getCustomerName() %></h2>
 		<h2><%= searchedTransactionList.get(0).getAccountNumber() %></h2>
-		</div>
+	</div>
 	<div id="historyTableBox">
-		<table class="searchTable popUpTable" id="historyTable">
+		<table class="searchTable popUpTable transactionTable" id="historyTable">
 			<tr>
 				<th>계좌일자</th>
 				<th>거래유형</th>
@@ -39,13 +44,19 @@
 						<td><%= transaction.getTransactionType() %></td>
 						<td><%= transaction.getDepositor() %></td>
 						<td><%= transaction.getTransactionLocation() %></td>
-						<td><%= transaction.getTransactionAmount() %></td>
+						<td><%= wonFormat.format(transaction.getTransactionAmount()) %></td>
 						<td>procedure 필요</td>
 					</tr>
 					<%
 				}
+			} else {
+				%>
+				<tr class="searchResultRow">
+					<td colspan="6"> 거래 이력이 없습니다. </td>
+				</tr>
+				<%
 			}
-			%>
+			%>		
 		</table>
 		<%
 		// customerSearchDTO에서 page 값과 count 변수 추출
@@ -69,21 +80,21 @@
 		%>
 		<div class="pagination">
 			<% if (currentPage > 1) { %>
-				<a href=""><<</a>
-				<a type="submit" name="page" value="<%= prevPage %>"><</a>
+				<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= 1 %>"><<</a>
+				<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= prevPage %>"><</a>
 			<% } %>
 			
 			<% for (int i = startPage; i <= endPage; i++) { %>
 				<% if (i == currentPage) { %>
-					<a href="?name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= i %>" class="activePage"><%= i %></a>
+					<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= i %>" class="activePage"><%= i %></a>
 				<% } else { %>
 					<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= i %>"><%= i %></a>
 				<% } %>
 			<% } %>
 			
 			<% if (currentPage < totalPages) { %>
-				<a type="submit" name="page" value="<%= nextPage %>">></a>
-				<a type="submit" name="page" value="<%= totalPages %>">>></a>
+				<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= nextPage %>">></a>
+				<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= totalPages %>">>></a>
 			<% } %>
 		</div>
 	</div>

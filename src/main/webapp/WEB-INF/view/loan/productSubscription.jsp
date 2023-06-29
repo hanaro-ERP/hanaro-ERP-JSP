@@ -11,12 +11,12 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js"></script>
 </head>
-<body>\
+<body>
 	<%@ include file="../../components/header.jsp" %>	
 	<%@ page import="java.util.List"%>
 	<%@ page import="DTO.LoanContractDTO"%>	
-	<%@ page import="util.LoanUtil"%>	\
-	<%@ page import="DTO.CustomerDTO" %>\
+	<%@ page import="util.LoanUtil"%>
+	<%@ page import="DTO.CustomerDTO" %>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
@@ -74,16 +74,6 @@ pageEncoding="UTF-8"%>
 							<%=customer != null ? customer.getJobName() : ""%></td>
 					</tr>
 					<tr>
-						<th>고객 등급</th>
-						<td><input type="hidden" id="grade" name="grade"
-							value="<%=customer != null ? customer.getGrade() : ""%>">
-							<%=customer != null ? customer.getGrade() : ""%></td>
-						<th>신용 등급</th>
-						<td><input type="hidden" id="credit" name="credit"
-							value="<%=customer != null ? customer.getCredit() : ""%>">
-							<%=customer != null ? customer.getCredit() : ""%></td>
-					</tr>
-					<tr>
 						<th>담당 직원</th>
 						<td><input type="hidden" id="employeeName"
 							name="employeeName"
@@ -94,15 +84,26 @@ pageEncoding="UTF-8"%>
 							value="<%=customer != null ? customer.getBankName() : ""%>">
 							<%=customer != null ? customer.getBankName() : ""%></td>
 					</tr>
+					<tr>												
+						<th>고객 등급</th>
+						<td>
+						<input type="hidden" id="grade" name="grade" value="<%= customer != null ? customer.getGrade() : "" %>">
+						<%= customer != null ? customer.getGrade() : "" %>
+						</td>
+						<th>외부 신용 등급</th>
+						<td>
+						<input type="hidden" id="credit" name="credit" value="<%= customer != null ? customer.getCredit() : "" %>">
+						<%= customer != null ? customer.getCredit() : "" %>
+						</td>
+					</tr>
 					<tr>
 						<th>보증인</th>
-						<td><input type="hidden" id="suretyName" name="suretyName"
-							value="<%=customer != null ? customer.getSuretyName() : ""%>">
-							<%=customer != null ? customer.getSuretyName() : ""%></td>
-						<th>내부 위험도</th>
-						<td>-
-							<button type="button">계산하기</button>
+						<td>
+						<input type="hidden" id="suretyName" name="suretyName" value="<%= customer != null ? customer.getSuretyName() : "" %>">
+						<%= customer != null ? customer.getSuretyName() : "" %>
 						</td>
+						<th>내부 신용 등급</th>
+						<td> - <button type="button">계산하기</button></td>
 					</tr>
 				</table>
 
@@ -146,11 +147,17 @@ pageEncoding="UTF-8"%>
 						<th>상환 방법</th>
 						<td colspan=3><select name="repaymentMethod"
 							class="shortSelect" id="repaymentMethod" onchange="updateTable()">
+
 								<option value="-">-</option>
 								<option value="원금만기일시상환">만기일시상환</option>
 								<option value="원금균등상환">원금균등분할상환</option>
 								<option value="원리금균등상환">원리금균등분할상환</option>
-						</select></td>
+							</select>
+						</td>
+						<th>거치 기간</th>
+						<td>
+							<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
+						</td>
 					</tr>
 				</table>
 				<div class="innerButtonContainer">
@@ -161,9 +168,7 @@ pageEncoding="UTF-8"%>
 			<form action="${pageContext.request.contextPath}/loan/repayment" method="post">
 				<input type="hidden" name="repaymentAmountList" id="repaymentAmountList"> 
 				<input type="hidden" name="identificationId" id="identificationId" value="<%= id1 + "-" + id2%>"> 
-				
 				<input type="hidden" name="loanProductNameSelect" id="loanProductNameSelect"> 
-				
 				<input type="submit" value="상환 방법 확정하기">
 				
 				<div id="repaymentMethodSelectTableDiv" style="display: none;">

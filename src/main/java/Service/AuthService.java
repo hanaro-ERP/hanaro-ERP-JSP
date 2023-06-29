@@ -4,7 +4,7 @@ import java.security.NoSuchAlgorithmException;
 
 import DAO.EmployeeDAO;
 import DTO.EmployeeDTO;
-import util.PasswordUtil;
+import util.HashingUtil;
 
 public class AuthService {
 
@@ -19,7 +19,7 @@ public class AuthService {
 		storedEmployeeDTO = employeeDAO.getEmployeeByEmployeeId(employeeId);
 		String storedPassword = storedEmployeeDTO.getPassword();
 		String storedSalt = storedEmployeeDTO.getSalt();
-		String hashedPassword = PasswordUtil.hashPassword(password, storedSalt);
+		String hashedPassword = HashingUtil.hashPassword(password, storedSalt);
 
 		return hashedPassword.equals(storedPassword) ? storedEmployeeDTO : null;
 	}

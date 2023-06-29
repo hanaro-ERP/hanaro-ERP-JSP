@@ -18,6 +18,8 @@ public class GuarantorEvaluator extends EvaluatorParent implements EvaluatorInte
 		int score = 0;
 		CustomerDTO guarantor = getTarget(creditScoringDTO);
 		String grade = guarantor.getCredit();
+		if (grade == null)
+			return 0;
 
 		if (grade.equals("1등급")) {
 			score = 100;

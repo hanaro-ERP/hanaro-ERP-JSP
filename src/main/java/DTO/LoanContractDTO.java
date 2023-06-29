@@ -9,15 +9,15 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class LoanContractDTO {
+public class LoanContractDTO extends PaginationDTO {
 	private int loanContractId;
 	private int loanId;
 	private int customerId;
 	private int employeeId;
 	private Timestamp startDate;
+	private String[] StartDateString;
 	private Timestamp maturityDate;
 	private String paymentMethod;
-	private int gracePeriod;
 	private long loanAmount;
 	private long balance;
 	private int paymentDate;
@@ -32,8 +32,11 @@ public class LoanContractDTO {
 	private String customerName;
 	private String guarantorName;
 	private int[] balanceRange;
+	private String[] balanceList;
 	private int latePaymentPeriod;
 	private String balanceString;
 	private String delinquentAmountString;
+	private String[] muturityDateList;
 	private String maturityDateString;
+	private int gracePeriod;
 }

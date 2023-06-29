@@ -86,6 +86,9 @@ header {
 .headerSessionName {
 	font-weight: bold;
 }
+.adminName {
+	color: #2272eb;
+}
 .headerSessionLogoutButton {
 	background: transparent;
 	cursor: pointer;

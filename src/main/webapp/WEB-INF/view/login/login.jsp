@@ -26,6 +26,7 @@
 	<script src="${pageContext.request.contextPath}/js/login/login.js"></script>
 	<script>
 		const sessionId = "<%= request.getSession().getAttribute("sessionId") %>";
+		console.log(sessionId);
 		if (sessionId !== "null") {
 			window.location.href = "${pageContext.request.contextPath}/navigation/main";			
 		}

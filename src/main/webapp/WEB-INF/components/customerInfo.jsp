@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 </head>
-<body>
+<body style="padding: 0 20px">
 <div class="innerSubTitle"><h2>고객 정보</h2></div>
 <div class="innerInformation">
 	<div class="innerInformationRow">

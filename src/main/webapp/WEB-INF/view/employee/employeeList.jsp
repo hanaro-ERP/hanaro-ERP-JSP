@@ -104,8 +104,14 @@
 						</tr>
 					<%
 				}
+			} else {
+				%>
+				<tr class="searchResultRow noResultRow">
+					<td colspan="8"> 검색 결과가 없습니다. </td>
+				</tr>
+				<%
 			}
-			%>
+			%>	
 			</table>
 				<%
 				// customerSearchDTO에서 page 값과 count 변수 추출
