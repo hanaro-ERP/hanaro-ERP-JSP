@@ -66,18 +66,6 @@ pageEncoding="UTF-8"%>
 							<%= customer != null ? customer.getJobName() : "" %>
 						</td>
 					</tr>
-					<tr>												
-						<th>고객 등급</th>
-						<td>
-						<input type="hidden" id="grade" name="grade" value="<%= customer != null ? customer.getGrade() : "" %>">
-						<%= customer != null ? customer.getGrade() : "" %>
-						</td>
-						<th>신용 등급</th>
-						<td>
-						<input type="hidden" id="credit" name="credit" value="<%= customer != null ? customer.getCredit() : "" %>">
-						<%= customer != null ? customer.getCredit() : "" %>
-						</td>
-					</tr>
 					<tr>
 						<th>담당 직원</th>
 						<td>
@@ -90,13 +78,25 @@ pageEncoding="UTF-8"%>
 						<%= customer != null ? customer.getBankName() : "" %>
 						</td>
 					</tr>
+					<tr>												
+						<th>고객 등급</th>
+						<td>
+						<input type="hidden" id="grade" name="grade" value="<%= customer != null ? customer.getGrade() : "" %>">
+						<%= customer != null ? customer.getGrade() : "" %>
+						</td>
+						<th>외부 신용 등급</th>
+						<td>
+						<input type="hidden" id="credit" name="credit" value="<%= customer != null ? customer.getCredit() : "" %>">
+						<%= customer != null ? customer.getCredit() : "" %>
+						</td>
+					</tr>
 					<tr>
 						<th>보증인</th>
 						<td>
 						<input type="hidden" id="suretyName" name="suretyName" value="<%= customer != null ? customer.getSuretyName() : "" %>">
 						<%= customer != null ? customer.getSuretyName() : "" %>
 						</td>
-						<th>내부 위험도</th>
+						<th>내부 신용 등급</th>
 						<td> - <button type="button">계산하기</button></td>
 					</tr>
 				</table>
@@ -130,28 +130,31 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 					<tr>
-						<th>이자 / 대출기간</th>
+						<th>이자</th>
 						<td>
 							&nbsp;연
 							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
 							%
-							&nbsp; | &nbsp;&nbsp;
+						</td>
+						<th>대출 기간</th>
+						<td>
 							<input type="number" step="0.1" max="10" id="loanPeriod" name="loanPeriod" class="shortInput" />
 							년
 						</td>
-						<th> 거치 기간</th>
-						<td>
-						<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
 					</tr>
 					<tr>
 						<th>상환 방법</th>
-						<td colspan=3>
+						<td>
 							<select name="repaymentMethod" class="shortSelect" id="repaymentMethod" onchange="updateTable()">
 								<option value="-">-</option>
 								<option value="원금만기일시상환">만기일시상환</option>
 								<option value="원금균등상환">원금균등분할상환</option>
 								<option value="원리금균등상환">원리금균등분할상환</option>
 							</select>
+						</td>
+						<th>거치 기간</th>
+						<td>
+							<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
 						</td>
 					</tr>
 				</table>

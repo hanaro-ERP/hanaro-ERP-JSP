@@ -14,18 +14,13 @@
 	height: 30px;
 	text-align: center;
 }
-.searchTable tr th:first-child {
-	width: 100px;
-}
-.searchTable tr th:nth-child(n + 3):nth-child(-n + 5), 
-.searchTable tr th:nth-child(n + 9):nth-child(-n + 11){
-	width: 100px;
-}
+.searchTable tr th:nth-child(1),
 .searchTable tr th:nth-child(2),
-.searchTable tr th:nth-child(6),
-.searchTable tr th:nth-child(8) {
-	width: 130px;
+.searchTable tr th:nth-child(3),
+.searchTable tr th:nth-child(4) {
+	width: 12%;
 }
-.searchTable tr th:nth-child(7){
-	width: 180px;
+.searchTable tr th:nth-child(6),
+.searchTable tr th:nth-child(5) {
+	width: 17%;
 }

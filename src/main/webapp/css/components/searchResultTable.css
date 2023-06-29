@@ -26,6 +26,7 @@
 .searchTable tr {
 	text-align: center;
 	color: #191F29;
+	background-color: #FFFFFF;
 }
 .searchTable tr:hover {
 	cursor: pointer;
@@ -78,13 +79,17 @@
 	margin: 0px;
 	margin-left: 20px;
 }
-.repaymentTable tr th:nth-child(2),
-.repaymentTable tr th:nth-child(3) {
+.transactionTable tr th:nth-child(2),
+.transactionTable tr th:nth-child(3) {
 	width: 10%;
 }
-.repaymentTable tr th:nth-child(4) {
+.transactionTable tr th:nth-child(4) {
 	width: 40%;
 }
-.repaymentTable tr th:nth-child(5) {
+.transactionTable tr th:nth-child(5) {
 	width: 13%;
+}
+.searchTable .noResultRow:hover {
+	cursor: auto;
+	background-color: #FFFFFF;
 }

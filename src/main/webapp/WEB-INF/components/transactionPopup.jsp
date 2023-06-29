@@ -25,7 +25,7 @@
 		<h2><%= searchedTransactionList.get(0).getAccountNumber() %></h2>
 	</div>
 	<div id="historyTableBox">
-		<table class="searchTable popUpTable repaymentTable" id="historyTable">
+		<table class="searchTable popUpTable transactionTable" id="historyTable">
 			<tr>
 				<th>계좌일자</th>
 				<th>거래유형</th>

@@ -16,6 +16,22 @@
 .inputTable > tbody > tr > td {
 	width: 500px;
 	color: #191F29; 
+	margin: 0;
+}
+.inputTable > tbody > tr > td > button {
+	width: 80px;
+	height: 30px;
+	border: 1px solid #2EB400;
+	border-radius: 5px;
+	color: #2EB400;
+	align-items: center;
+	justify-content: center;	
+	cursor: pointer;
+	background: transparent;
+}
+.inputTable > tbody > tr > td > button:hover {
+	opacity: 0.8;
+	background: buttonface;
 }
 .inputTable > tbody > tr > td, th {
 	padding: 0 4px;
