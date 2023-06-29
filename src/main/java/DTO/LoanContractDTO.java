@@ -15,8 +15,9 @@ public class LoanContractDTO {
 	private int customerId;
 	private int employeeId;
 	private Timestamp startDate;
-	private Timestamp muturityDate;
+	private Timestamp maturityDate;
 	private String paymentMethod;
+	private int gracePeriod;
 	private long loanAmount;
 	private long balance;
 	private int paymentDate;
@@ -34,6 +35,5 @@ public class LoanContractDTO {
 	private int latePaymentPeriod;
 	private String balanceString;
 	private String delinquentAmountString;
-	private String muturityDateString;
-	private int gracePeriod;
+	private String maturityDateString;
 }

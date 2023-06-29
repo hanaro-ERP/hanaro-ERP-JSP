@@ -5,9 +5,9 @@ selectOneItemWithDirectInput("latePayment");
 
 setYearSelect("loanContractStartDate");
 setYearSelect("loanContractEndDate");
-setMonthSelect();
+setMonthSelect(true);
 setDaySelect(true);
-changeDate();
+//changeDate();
 
 // 팝업 창
 const searchTableRows = document.querySelectorAll('#loanSearchTable tr :not(th)');
