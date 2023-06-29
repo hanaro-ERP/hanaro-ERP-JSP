@@ -35,7 +35,6 @@ public class LoanProductDAO {
 			pstmt.setLong(9, loanProductDTO.getMaxAmount());
 			pstmt.setFloat(10, loanProductDTO.getMinRate());
 			pstmt.setFloat(11, loanProductDTO.getMaxRate());
-			System.out.println(pstmt.toString());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,7 +59,7 @@ public class LoanProductDAO {
 	        pstmt.setFloat(10, loanProductDTO.getMinRate());
 	        pstmt.setFloat(11, loanProductDTO.getMaxRate());
 	        pstmt.setInt(12, l_id);
-	        System.out.println(pstmt.toString());
+
 	        return pstmt.executeUpdate();
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -183,8 +182,7 @@ public class LoanProductDAO {
 			if (loanSearchDTO.getName() != null) {
 				pstmt.setString(parameterIndex++, "%" + loanSearchDTO.getName() + "%");
 			}
-			
-			System.out.println(pstmt.toString());
+
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					cnt = rs.getInt("cnt");
@@ -234,8 +232,6 @@ public class LoanProductDAO {
 				pstmt.setString(parameterIndex++, "%" + loanSearchDTO.getName() + "%");
 			}
 			pstmt.setInt(parameterIndex++, (page-1)*20);
-
-			System.out.println(pstmt.toString());
 			
 			List<LoanProductDTO> findLoanProducts = new ArrayList<>();
 			try (ResultSet rs = pstmt.executeQuery()) {

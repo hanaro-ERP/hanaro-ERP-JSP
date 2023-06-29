@@ -248,7 +248,6 @@ public class EmployeeDAO {
 				pstmt.setString(parameterIndex++, employeeDTO.getBankLocation());
 			}
 			
-			System.out.println(pstmt.toString());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					cnt = rs.getInt("cnt");

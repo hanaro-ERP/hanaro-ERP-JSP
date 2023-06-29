@@ -61,6 +61,5 @@ public class CreditService {
 		creditScoringDTO.setLoanDuration(60);
 		CreditService creditService = new CreditService();
 		creditService.setCreditScore(creditScoringDTO);
-		System.out.println(creditService.getCreditScore());
 	}
 }

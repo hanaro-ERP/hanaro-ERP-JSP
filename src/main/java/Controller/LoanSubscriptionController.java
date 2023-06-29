@@ -48,7 +48,7 @@ public class LoanSubscriptionController extends HttpServlet {
 			
 			String customerName = request.getParameter("customerName");
 			String phoneNumber = request.getParameter("phoneNumber");
-			String address = request.getParameter("address");//.getParameter("citySelect");
+			String address = request.getParameter("address");
 			String id1 = request.getParameter("identification").substring(0, 6);
 			String id2 = request.getParameter("identification").substring(7, 14);
 			String identification = id1 + "-" + id2; 
@@ -79,7 +79,6 @@ public class LoanSubscriptionController extends HttpServlet {
 				customerDTO.setJobCode(jobCode);
 			if(country != "")
 				customerDTO.setCountry(country);
-			//보증인은 보류
 			if(employeeName != "")
 				customerDTO.setEmployeeName(employeeName);
 			if(bankName != "")
@@ -117,7 +116,6 @@ public class LoanSubscriptionController extends HttpServlet {
 				loanContractDTO.setPaymentMethod(repaymentMethod);
 			if(gracePeriod != null)
 				loanContractDTO.setGracePeriod(Integer.parseInt(gracePeriod));
-			
 			int isLoanRegistered = loanService.subscriptionLoan(customerDTO, loanContractDTO);
 						
 			List<RepaymentMethodDTO> repaymentMethodDTOList = loanService.getRepaymentMethod(identification);

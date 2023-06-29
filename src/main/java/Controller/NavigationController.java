@@ -32,7 +32,6 @@ public class NavigationController extends HttpServlet {
 		try {
 			String uri = request.getRequestURI();
 			String goTo = "";
-			System.out.println(uri);
 			if (uri.equals("/hanaro-ERP-JSP/")) {
 				goTo = "/login/login.jsp";
 			} else if (uri == null || uri.equals("/hanaro-ERP-JSP/navigation/login")) {

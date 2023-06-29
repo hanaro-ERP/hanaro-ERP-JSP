@@ -13,7 +13,6 @@
 	LoanProductDTO loanProduct =(LoanProductDTO) request.getAttribute("loanProduct"); 
 	String del = loanProduct.getDel();
 %>
-
 <script>
 if ("<%= del %>" !== null) {
 	if ("<%= del %>" === "1") {
