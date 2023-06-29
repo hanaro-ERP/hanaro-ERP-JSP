@@ -7,7 +7,7 @@ setYearSelect("loanContractStartDate");
 setYearSelect("loanContractEndDate");
 setMonthSelect();
 setDaySelect(true);
-changeDate();
+//changeDate();
 
 // 팝업 창
 const searchTableRows = document.querySelectorAll('#loanSearchTable tr :not(th)');
