@@ -10,6 +10,10 @@ import Service.evaluators.IncomeEvaluator;
 import Service.evaluators.JobEvaluator;
 import Service.evaluators.LoanBalanceEvaluator;
 import Service.evaluators.PropertyEvaluator;
+import Service.evaluators.RepaymentHistoryEvaluator;
+
+import util.EncryptUtil;
+import util.KeyUtil;
 
 public class CreditService {
 	private String creditScore;
@@ -49,7 +53,7 @@ public class CreditService {
 		this.creditScore = calculateSum(creditScoringDTO);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		CreditScoringDTO creditScoringDTO = new CreditScoringDTO();
 		creditScoringDTO.setCustomerId(300);
 		creditScoringDTO.setLoanAmount(10000000);
@@ -57,5 +61,20 @@ public class CreditService {
 		CreditService creditService = new CreditService();
 		creditService.setCreditScore(creditScoringDTO);
 		System.out.println(creditService.getCreditScore());
+
+    EncryptUtil encryptUtil = new EncryptUtil();
+		String string = "111111-1111111";
+		String encrypted = encryptUtil.encrypt(string);
+		String decrypted = encryptUtil.decrypt(encrypted);
+
+		System.out.println(encrypted);
+		System.out.println(decrypted);
+
+		System.out.println("Key: " + KeyUtil.loadKey(
+				"/Users/oxboxx/Documents/Projects/Goddess/hanaro-ERP-JSP/src/main/webapp/WEB-INF/key/key.pem"));
+		System.out.println("IV: " + KeyUtil
+				.loadKey("/Users/oxboxx/Documents/Projects/Goddess/hanaro-ERP-JSP/src/main/webapp/WEB-INF/key/iv.pem"));
+		System.out.println("Pepper: " + KeyUtil.loadKey(
+				"/Users/oxboxx/Documents/Projects/Goddess/hanaro-ERP-JSP/src/main/webapp/WEB-INF/key/pepper.pem"));
 	}
 }
