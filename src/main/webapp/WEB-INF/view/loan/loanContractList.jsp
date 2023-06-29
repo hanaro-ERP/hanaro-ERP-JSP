@@ -159,13 +159,6 @@
 						for (LoanContractDTO dto : loanContracts) {
 						%>
 						<tr class="searchResultRow" id="<%=dto.getLoanContractId()%>">
-							<td style="display: none">
-								<form id="<%= dto.getLoanContractId()%>" action="${pageContext.request.contextPath}/loanContracts/repaymentList" method="post">
-									<input name="selectedLoanContractId" value="<%=dto.getLoanContractId()%>"> 
-									<input name="selectedCustomerName" value="<%=dto.getCustomerName()%>">
-									<input name="selectedEmployeeName" value="<%=dto.getEmployeeName()%>">
-								</form>
-							</td>
 							<td class="loanContractId"><%=dto.getLoanContractId()%></td>
 							<td><%=dto.getLoanType()%></td>
 							<td><%=dto.getLoanName()%></td>
@@ -294,38 +287,36 @@
 		selectItem(balanceListLis[0], "balanceList");
 		
 		<%
-		if (balanceList != null) {
-			if (!balanceList[0].isEmpty()) { %>
-				unselectItem(balanceListLis[0]);
-				if ("<%= balanceList[0] %>" === "전체") {
-					selectItem(balanceListLis[0], "balanceList");
-				} else if ("<%= balanceList[0] %>" === "~2천만원") {
-					selectItem(balanceListLis[2], "balanceList");
-				} else if ("<%= balanceList[0] %>" === "~3천만원") {
-					selectItem(balanceListLis[3], "balanceList");
-				} else if ("<%= balanceList[0] %>" === "~5천만원") {
-					selectItem(balanceListLis[4], "balanceList");
-				} else if ("<%= balanceList[0] %>" === "~1억원") {
-					selectItem(balanceListLis[5], "balanceList");
-				} else if ("<%= balanceList[0] %>" === "~5억원") {
-					selectItem(balanceListLis[6], "balanceList");
-				} else if ("<%= balanceList[0] %>" === "~10억원") {
-					selectItem(balanceListLis[7], "balanceList");
-				} else if ("<%= balanceList[0] %>" === "10억원 이상") {
-					selectItem(balanceListLis[8], "balanceList");
-				} else {
-					const inputs = balanceListLis[1].querySelectorAll('input');
-					console.log(inputs);
-					inputs[0].value = "<%= balanceList[0] %>"; 
-					<% if (balanceList.length >= 2) { %>
-					inputs[1].value = "<%= balanceList[1] %>";
-					<% } %>
-					
-					selectItem(balanceListLis[1], "balanceList");
-					toggleDirectInput(balanceListLis[1], true);
-				}
-			<%
+		if (balanceList != null) { %>
+			console.log("<%= balanceList[0] %>");
+			unselectItem(balanceListLis[0]);
+			if ("<%= balanceList[0] %>" === "전체") {
+				selectItem(balanceListLis[0], "balanceList");
+			} else if ("<%= balanceList[0] %>" === "~2천만원") {
+				selectItem(balanceListLis[2], "balanceList");
+			} else if ("<%= balanceList[0] %>" === "~3천만원") {
+				selectItem(balanceListLis[3], "balanceList");
+			} else if ("<%= balanceList[0] %>" === "~5천만원") {
+				selectItem(balanceListLis[4], "balanceList");
+			} else if ("<%= balanceList[0] %>" === "~1억원") {
+				selectItem(balanceListLis[5], "balanceList");
+			} else if ("<%= balanceList[0] %>" === "~5억원") {
+				selectItem(balanceListLis[6], "balanceList");
+			} else if ("<%= balanceList[0] %>" === "~10억원") {
+				selectItem(balanceListLis[7], "balanceList");
+			} else if ("<%= balanceList[0] %>" === "10억원 이상") {
+				selectItem(balanceListLis[8], "balanceList");
+			} else {
+				const inputs = balanceListLis[1].querySelectorAll('input');
+				inputs[0].value = "<%= balanceList[0] %>"; 
+				<% if (balanceList.length >= 2) { %>
+				inputs[1].value = "<%= balanceList[1] %>";
+				<% } %>
+				
+				selectItem(balanceListLis[1], "balanceList");
+				toggleDirectInput(balanceListLis[1], true);
 			}
+			<%
 		}
 		%>
 		

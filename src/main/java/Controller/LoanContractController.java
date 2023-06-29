@@ -87,7 +87,7 @@ public class LoanContractController extends HttpServlet {
 						balanceRange[0] = Integer.parseInt(balanceList[0]);
 					
 					if (balanceList[1].equals(""))
-						balanceRange[1] = 99999;
+						balanceRange[1] = 999999999;
 					else
 						balanceRange[1] = Integer.parseInt(balanceList[1]);
 				}
