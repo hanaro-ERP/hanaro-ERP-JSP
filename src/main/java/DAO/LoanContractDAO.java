@@ -213,11 +213,11 @@ public class LoanContractDAO {
 		if (loanContractDTO.getEmployeeName() != null) {
 			queryBuilder.append(" AND e.e_name LIKE ?");
 		}
-		if (loanContractDTO.getStartDate() != null) {
-			queryBuilder.append(" AND lc.start_date >= ? AND lc.start_date < ?");
+		if (loanContractDTO.getStartDateString() != null && !loanContractDTO.getStartDateString()[0].equals("전체")) {
+			queryBuilder.append(" AND lc.start_date LIKE ?");
 		}
-		if (loanContractDTO.getMaturityDate() != null ) {
-			queryBuilder.append(" AND lc.maturity_date >= ? AND lc.maturity_date < ?");
+		if (loanContractDTO.getMuturityDateList() != null && !loanContractDTO.getMuturityDateList()[0].equals("전체")) {
+			queryBuilder.append(" AND lc.maturity_date LIKE ?");
 		}
 		if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0) {
 			if (loanContractDTO.getBalanceRange()[0] >= 10000) {
@@ -247,18 +247,22 @@ public class LoanContractDAO {
 	        if (loanContractDTO.getEmployeeName() != null) {
 	            pstmt.setString(parameterIndex++,  loanContractDTO.getEmployeeName() );
 	        } 
-	        if (loanContractDTO.getStartDate() != null) {
-	            pstmt.setTimestamp(parameterIndex++, loanContractDTO.getStartDate());
-	            
-	            Timestamp nextDay = new Timestamp(loanContractDTO.getStartDate().getTime() + 24 * 60 * 60 * 1000);
-	            pstmt.setTimestamp(parameterIndex++, nextDay);
-	        }
-	        if (loanContractDTO.getMaturityDate() != null) {
-	            pstmt.setTimestamp(parameterIndex++, loanContractDTO.getMaturityDate());
-	            
-	            Timestamp nextDay = new Timestamp(loanContractDTO.getMaturityDate().getTime() + 24 * 60 * 60 * 1000);
-	            pstmt.setTimestamp(parameterIndex++, nextDay);
-	        }
+			if (loanContractDTO.getStartDateString() != null && !loanContractDTO.getStartDateString()[0].equals("전체")) {
+				if (loanContractDTO.getStartDateString()[1].equals(""))
+					pstmt.setString(parameterIndex++, loanContractDTO.getStartDateString()[0] + "-%");
+				else if (loanContractDTO.getStartDateString()[2].equals(""))
+					pstmt.setString(parameterIndex++, loanContractDTO.getStartDateString()[0] + "-" + loanContractDTO.getStartDateString()[1] + "-%");
+				else
+					pstmt.setString(parameterIndex++, loanContractDTO.getStartDateString()[0] + "-" + loanContractDTO.getStartDateString()[1] + "-" + loanContractDTO.getStartDateString()[2] + "%");
+			}
+			if (loanContractDTO.getMuturityDateList() != null && !loanContractDTO.getMuturityDateList()[0].equals("전체")) {
+				if (loanContractDTO.getMuturityDateList()[1].equals(""))
+					pstmt.setString(parameterIndex++, loanContractDTO.getMuturityDateList()[0] + "-%");
+				else if (loanContractDTO.getMuturityDateList()[2].equals(""))
+					pstmt.setString(parameterIndex++, loanContractDTO.getMuturityDateList()[0] + "-" + loanContractDTO.getMuturityDateList()[1] + "-%");
+				else
+					pstmt.setString(parameterIndex++, loanContractDTO.getMuturityDateList()[0] + "-" + loanContractDTO.getMuturityDateList()[1] + "-" + loanContractDTO.getMuturityDateList()[2] + "%");
+			}
 			if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0) {	
 				if (loanContractDTO.getBalanceRange()[0] >= 10000) {
 					pstmt.setInt(parameterIndex++, loanContractDTO.getBalanceRange()[0] * 10000);
@@ -287,12 +291,11 @@ public class LoanContractDAO {
 	
 	public List<LoanContractDTO> getLoanContractByDTO(LoanContractDTO loanContractDTO, int page) {
 		StringBuilder queryBuilder = new StringBuilder(
-				"SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name, c2.c_name as guarantor_name"
+				"SELECT lc.*, l.loan_type, l.loan_name, e.e_name, c.c_name"
 						+ " FROM loanContracts lc");
 		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
 		queryBuilder.append(" JOIN customers c ON lc.c_id = c.c_id");
 		queryBuilder.append(" JOIN employees e ON c.e_id = e.e_id");
-		queryBuilder.append(" JOIN customers c2 ON lc.guarantor_id = c2.c_id");
 		queryBuilder.append(" WHERE 1=1");
 
 		if (loanContractDTO.getLoanName() != null) {
@@ -307,10 +310,10 @@ public class LoanContractDAO {
 		if (loanContractDTO.getEmployeeName() != null) {
 			queryBuilder.append(" AND e.e_name LIKE ?");
 		}
-		if (!loanContractDTO.getStartDateString()[0].equals("전체")) {
+		if (loanContractDTO.getStartDateString() != null && !loanContractDTO.getStartDateString()[0].equals("전체")) {
 			queryBuilder.append(" AND lc.start_date LIKE ?");
 		}
-		if (!loanContractDTO.getMuturityDateList()[0].equals("전체")) {
+		if (loanContractDTO.getMuturityDateList() != null && !loanContractDTO.getMuturityDateList()[0].equals("전체")) {
 			queryBuilder.append(" AND lc.maturity_date LIKE ?");
 		}
 		if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0) {
@@ -344,7 +347,7 @@ public class LoanContractDAO {
 			if (loanContractDTO.getEmployeeName() != null) {
 				pstmt.setString(parameterIndex++, loanContractDTO.getEmployeeName());
 			}
-			if (!loanContractDTO.getStartDateString()[0].equals("전체")) {
+			if (loanContractDTO.getStartDateString() != null && !loanContractDTO.getStartDateString()[0].equals("전체")) {
 				if (loanContractDTO.getStartDateString()[1].equals(""))
 					pstmt.setString(parameterIndex++, loanContractDTO.getStartDateString()[0] + "-%");
 				else if (loanContractDTO.getStartDateString()[2].equals(""))
@@ -352,7 +355,7 @@ public class LoanContractDAO {
 				else
 					pstmt.setString(parameterIndex++, loanContractDTO.getStartDateString()[0] + "-" + loanContractDTO.getStartDateString()[1] + "-" + loanContractDTO.getStartDateString()[2] + "%");
 			}
-			if (!loanContractDTO.getMuturityDateList()[0].equals("전체")) {
+			if (loanContractDTO.getMuturityDateList() != null && !loanContractDTO.getMuturityDateList()[0].equals("전체")) {
 				if (loanContractDTO.getMuturityDateList()[1].equals(""))
 					pstmt.setString(parameterIndex++, loanContractDTO.getMuturityDateList()[0] + "-%");
 				else if (loanContractDTO.getMuturityDateList()[2].equals(""))

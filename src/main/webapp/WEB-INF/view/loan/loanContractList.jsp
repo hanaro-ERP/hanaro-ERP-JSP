@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="DTO.LoanContractDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -30,6 +31,8 @@
 		String employeeName = null;
 		String[] balanceList = null;
 		int latePaymentPeriod = -2;
+		String[] startDates = null;
+		String[] endDates = null;
 		
 		if (loanContractDTO != null) {
 			loanName = loanContractDTO.getLoanName();
@@ -38,6 +41,8 @@
 			employeeName = loanContractDTO.getEmployeeName();
 			balanceList = loanContractDTO.getBalanceList();
 			latePaymentPeriod = loanContractDTO.getLatePaymentPeriod();
+			startDates = loanContractDTO.getStartDateString();
+			endDates = loanContractDTO.getMuturityDateList();
 		}
 		%>
 		<div class="innerContainer">
@@ -71,8 +76,10 @@
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">대출일</div>
 						<ul class="loanIssueDate" id="loanContractStartDate">
-							<li><input type="checkbox" value="전체" id="issueDateAll" name="loanContractStartDate">전체</li>
-							<li class="directInput">
+							<li id="startDateAllLi">
+								<input type="checkbox" value="전체" id="issueDateAll" name="loanContractStartDate">전체
+							</li>
+							<li id="startDateInputLi" class="directInput">
 								<p>직접 입력</p>
 								<select name="loanContractStartDate" class="yearSelect" disabled="true"></select> 
 								<select name="loanContractStartDate" class="monthSelect" disabled="true"></select>
@@ -83,8 +90,8 @@
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">만기일</div>
 						<ul class="loanMaturityDate" id="loanContractEndDate">
-							<li><input type="checkbox" value="전체" id="maturityDateAll" name="loanContractEndDate">전체</li>
-							<li class="directInput">
+							<li id="endDateAllLi"><input type="checkbox" value="전체" id="maturityDateAll" name="loanContractEndDate">전체</li>
+							<li id="endDateInputLi" class="directInput">
 								<p>직접 입력</p> 
 								<select name="loanContractEndDate" class="yearSelect" disabled="true"></select> 
 								<select name="loanContractEndDate" class="monthSelect" disabled="true"></select>
@@ -136,9 +143,7 @@
 				<div class="innerButtonContainer">
 					<button id="loanContractSearchButton" type="submit">검색</button>
 				</div>
-				<div class="searchTitle">
-					<h1>검색 결과</h1>
-				</div>
+			<div class="searchTitle"><h1>검색 결과</h1><p><%= (loanContractDTO != null && loanContractDTO.getCount() != 0) ? "총 " + loanContractDTO.getCount() + "개의 검색결과가 있습니다." : "" %></p></div>
 				<table class="searchTable" id="loanSearchTable">
 					<tr>
 						<th>이력 ID</th>
@@ -157,21 +162,24 @@
 					<%
 					if (loanContracts != null && !loanContracts.isEmpty()) {
 						for (LoanContractDTO dto : loanContracts) {
+							Date date = new Date(dto.getStartDate().getTime());
+							SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+							String dateString = dateFormat.format(date);
 						%>
-						<tr class="searchResultRow" id="<%=dto.getLoanContractId()%>">
-							<td class="loanContractId"><%=dto.getLoanContractId()%></td>
-							<td><%=dto.getLoanType()%></td>
-							<td><%=dto.getLoanName()%></td>
-							<td><%=dto.getEmployeeName()%></td>
-							<td><%=dto.getCustomerName()%></td>
-							<td><%=dto.getGuarantorName()%></td>
-							<td><%=dto.getStartDate()%></td>
-							<td><%=dto.getMaturityDateString()%></td>
-							<td><%=dto.getBalanceString()%></td>
-							<td><%=dto.getPaymentMethod()%></td>
-							<td><%=dto.getDelinquentAmountString()%></td>
-							<td><%=dto.getInterestRate()%></td>
-						</tr>
+							<tr class="searchResultRow" id="<%=dto.getLoanContractId()%>">
+								<td class="loanContractId"><%=dto.getLoanContractId()%></td>
+								<td><%=dto.getLoanType()%></td>
+								<td class="loanName"><%=dto.getLoanName()%></td>
+								<td class="customerName"><%=dto.getEmployeeName()%></td>
+								<td><%=dto.getCustomerName()%></td>
+								<td><%=dto.getGuarantorName()%></td>
+								<td><%= dateString %></td>
+								<td><%=dto.getMaturityDateString()%></td>
+								<td><%=dto.getBalanceString()%></td>
+								<td><%=dto.getPaymentMethod()%></td>
+								<td><%=dto.getDelinquentAmountString()%></td>
+								<td><%=dto.getInterestRate()%>%</td>
+							</tr>
 						<%
 						}
 					}
@@ -218,57 +226,6 @@
 						<button type="submit" name="page" value="<%= totalPages %>">>></button>
 					<% } %>
 				</div>
-				<div class="popupBox display">
-					<svg class="popupExitButton" width="14" height="15"
-						viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path
-							d="M14 1.91L12.59 0.5L7 6.09L1.41 0.5L0 1.91L5.59 7.5L0 13.09L1.41 14.5L7 8.91L12.59 14.5L14 13.09L8.41 7.5L14 1.91Z"
-							fill="#323232" />
-						</svg>
-					<div class="popupTitleBox">
-						<h1>상환 이력</h1>
-					</div>
-					<div id="historyTableBox">
-						<table class="searchTable" id="historyTable">
-							<tr>						
-								<th>여신 ID</th>
-								<th>거래일자</th>
-								<th>계좌번호</th>
-								<th>고객 이름</th>
-								<th>담당자</th>
-								<th>상환 금액</th>
-								<th>대출 잔액</th>
-								<th>대리인</th>
-							</tr>				
-								<%
-								List<LoanRepaymentDTO> searchedRepaymentList = (List<LoanRepaymentDTO>) request.getAttribute("searchedRepaymentList");
-				
-								if (searchedRepaymentList != null && !searchedRepaymentList.isEmpty()) {
-									for (LoanRepaymentDTO dto : searchedRepaymentList) {
-										%>
-										<tr class="searchResultRow" id="<%= dto.getAccountId() %>">
-											<td><%= dto.getLoanContractId() %></td>
-											<td><%= dto.getTradeDatetime() %></td>
-											<td><%= dto.getAccountNumber() %></td>
-											<td><%= dto.getCustomerName() %></td>
-											<td><%= dto.getEmployeeName() %></td>
-											<td><%= dto.getTradeAmountString()%></td>
-											<td><%= dto.getBalanceString()%></td>
-											<td>
-											<% if (dto.isAgent()) { %>
-												<%= "O" %>
-											<% } else { %>
-												<%= "X" %>
-											<% } %>
-											</td>
-										</tr>
-										<%
-									}
-								}
-								%>				
-						</table>
-					</div>
-				</div>
 			</form>
 		</div>
 	</main>
@@ -281,6 +238,58 @@
 			const popupBox = document.querySelector(".popupBox");
 			popupBox.classList.remove("display");
 		}
+		
+		<%
+		if (startDates != null) {
+			if (!startDates[0].equals("전체")) {
+				%>
+				const startDateAllLi = document.getElementById('startDateAllLi')
+		    	const startDateInputLi = document.getElementById('startDateInputLi');
+				const inputs = startDateInputLi.querySelectorAll('select');
+				
+				inputs[0].value = "<%= startDates[0] %>"; 
+				inputs[1].value = "<%= startDates.length > 1 && startDates[1] != null ? startDates[1] : "" %>" ;
+				setDaySelect(false, inputs[0].value, inputs[1].value)
+				inputs[2].value = "<%= startDates.length > 2 && startDates[2] != null ? startDates[2] : "" %>" ;
+				
+				unselectItem(startDateAllLi);
+				selectItem(startDateInputLi, "loanIssueDate");
+				toggleDirectInput(startDateInputLi, true);
+		
+				<%
+			} else {
+				%>
+				selectItem(startDateAllLi, "loanIssueDate");
+				<%
+			}
+		}
+		%>
+
+		<%
+		if (endDates != null) {
+			if (!endDates[0].equals("전체")) {
+				%>
+				const endDateAllLi = document.getElementById('endDateAllLi')
+		    	const endDateInputLi = document.getElementById('endDateInputLi');
+				const inputs = endDateInputLi.querySelectorAll('select');
+				
+				inputs[0].value = "<%= endDates[0] %>"; 
+				inputs[1].value = "<%= endDates.length > 1 && endDates[1] != null ? endDates[1] : "" %>" ;
+				setDaySelect(false, inputs[0].value, inputs[1].value)
+				inputs[2].value = "<%= endDates.length > 2 && endDates[2] != null ? endDates[2] : "" %>" ;
+				
+				unselectItem(endDateAllLi);
+				selectItem(endDateInputLi, "loanMaturityDate");
+				toggleDirectInput(endDateInputLi, true);
+		
+				<%
+			} else {
+				%>
+				selectItem(endDateAllLi, "loanMaturityDate");
+				<%
+			}
+		}
+		%>
 		
 		const balanceList = document.getElementById('balanceList');
 		const balanceListLis = balanceList.querySelectorAll('li');

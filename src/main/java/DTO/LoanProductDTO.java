@@ -20,4 +20,6 @@ public class LoanProductDTO extends PaginationDTO {
 	private String collateral;
 	private long income;
 	private int subscriberCount;
+	private String mod;
+	private String del;
 }

@@ -18,6 +18,7 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 import DAO.LoanContractDAO;
 import DTO.LoanContractDTO;
 import DTO.LoanRepaymentDTO;
+import DTO.PaginationDTO;
 import DTO.TransactionDTO;
 import Service.AccountService;
 import Service.LoanService;
@@ -33,6 +34,7 @@ public class LoanContractController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		getLoanRepaymentProcess(request, response);
 	}
 
 	@Override
@@ -41,6 +43,41 @@ public class LoanContractController extends HttpServlet {
 		postLoanContractProcess(request, response);
 	}
 
+	protected void getLoanRepaymentProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		String requestURI = request.getRequestURI();
+
+		if (requestURI.endsWith("repaymentList")) {			
+			int loanContractId = Integer.parseInt(request.getParameter("id"));
+			String loanName = request.getParameter("loan");
+			String customerName = request.getParameter("customer");
+	
+			int pageNo = 1;
+			String page = request.getParameter("page");
+			if (page != null && !page.equals(""))
+				pageNo = Integer.parseInt(page);
+			int contractCount = LoanService.getRepaymentCountByContractId(loanContractId);
+			
+			PaginationDTO paginationDTO = new PaginationDTO();
+			
+			paginationDTO.setCount(contractCount);
+			paginationDTO.setPage(pageNo);
+			
+			LoanContractDTO loanContractDTO = new LoanContractDTO();
+			loanContractDTO.setLoanContractId(loanContractId);
+			loanContractDTO.setLoanName(loanName);
+			loanContractDTO.setCustomerName(customerName);
+			
+			List<LoanRepaymentDTO> loanRepaymentDTOList = LoanService.getLoanRepaymentList(loanContractDTO);
+			
+			request.setAttribute("paginationDTO", paginationDTO);
+			request.setAttribute("loanContractDTO", loanContractDTO);
+			request.setAttribute("searchedRepaymentList", loanRepaymentDTOList);	
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/components/repaymentPopup.jsp");
+			dispatcher.forward(request, response);
+		}
+	}
+	
 	protected void postLoanContractProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		String requestURI = request.getRequestURI();
 
@@ -72,12 +109,6 @@ public class LoanContractController extends HttpServlet {
 				
 				loanContractDTO.setStartDateString(loanContractStartDate);
 				loanContractDTO.setMuturityDateList(loanContractEndDate);
-				
-				if (loanContractEndDate.length > 1) {
-					String inputMuturityDate = loanContractEndDate[0] + "-" + loanContractEndDate[1] + "-" + loanContractEndDate[2] + " 00:00:00.0";
-					Timestamp inputMuturityDateTimestamp = Timestamp.valueOf(inputMuturityDate);
-					loanContractDTO.setMaturityDate(inputMuturityDateTimestamp);
-				}				
 				
 				int[] balanceRange = {0,0};
 				if (balanceList.length > 1) {
@@ -166,21 +197,6 @@ public class LoanContractController extends HttpServlet {
 			}
 		}
 
-		else if (requestURI.endsWith("repaymentList")) {			
-			int loanContractId = Integer.parseInt(request.getParameter("selectedLoanContractId"));
-			String customerName = request.getParameter("selectedCustomerName");
-			String employeeName = request.getParameter("selectedEmployeeName");
-
-			LoanContractDTO loanContractDTO = new LoanContractDTO();
-			loanContractDTO.setLoanContractId(loanContractId);
-			loanContractDTO.setCustomerName(customerName);
-			loanContractDTO.setEmployeeName(employeeName);
-			
-			List<LoanRepaymentDTO> loanRepaymentDTOList = LoanService.getLoanRepaymentList(loanContractDTO);
-			request.setAttribute("showRepaymentList", "showRepaymentList");
-			request.setAttribute("searchedRepaymentList", loanRepaymentDTOList);	
-			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/loanContractList.jsp");
-			dispatcher.forward(request, response);
-		}
+		
 	}
 }

@@ -88,6 +88,12 @@ public class LoanService {
 		return isLoanRegistered;
 	}
 	
+	public static int getRepaymentCountByContractId(int contractId) {
+		LoanRepaymentDAO loanRepaymentDAO = new LoanRepaymentDAO();
+
+		return loanRepaymentDAO.getRepaymentCountByContractId(contractId);
+	}
+	
 	public static List<LoanRepaymentDTO> getLoanRepaymentList(LoanContractDTO loanContractDTO) {
 		LoanRepaymentDAO loanRepaymentDAO = new LoanRepaymentDAO();
 

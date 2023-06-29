@@ -11,12 +11,12 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js"></script>
 </head>
-<body>\
+<body>
 	<%@ include file="../../components/header.jsp" %>	
 	<%@ page import="java.util.List"%>
 	<%@ page import="DTO.LoanContractDTO"%>	
-	<%@ page import="util.LoanUtil"%>	\
-	<%@ page import="DTO.CustomerDTO" %>\
+	<%@ page import="util.LoanUtil"%>
+	<%@ page import="DTO.CustomerDTO" %>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
