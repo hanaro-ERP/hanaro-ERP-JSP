@@ -89,6 +89,22 @@ public class LoanContractDAO {
 		return -1; // Database operation failed
 	}
 
+	public int updateRepaymentAmount(int customerId, int loanProductId, String repaymentAmountList) {
+		
+		String SQL = "UPDATE loanContracts SET repayment_amount = ? WHERE c_id = ? AND l_id = ?;";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setString(1, repaymentAmountList);
+			pstmt.setInt(2, customerId);
+			pstmt.setInt(3, loanProductId);
+			
+			return pstmt.executeUpdate();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 	// Delete a loan contract
 	public int deleteLoanContract(int loanContractId) {
 		String SQL = "DELETE FROM loanContracts WHERE lc_id = ?";
@@ -282,7 +298,6 @@ public class LoanContractDAO {
 			LoanUtil loanUtil = new LoanUtil();
 			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
 			
-			System.out.println(pstmt);
 			try (ResultSet rs = pstmt.executeQuery()) {
 
 				CustomerDAO customerDAO = new CustomerDAO();

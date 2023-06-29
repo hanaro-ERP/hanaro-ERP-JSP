@@ -20,7 +20,7 @@ import DTO.RepaymentMethodDTO;
 import Service.LoanService;
 import util.CustomerUtil;
 
-@WebServlet("/loan/subscription")
+@WebServlet("/loan/*")
 public class LoanSubscriptionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	LoanService loanService = new LoanService();
@@ -45,8 +45,8 @@ public class LoanSubscriptionController extends HttpServlet {
 
 		CustomerUtil customerUtil = new CustomerUtil();
 		String requestURI = request.getRequestURI();
-
-		if (requestURI.endsWith("contractList")) {
+		System.out.println("requestURI: "+requestURI );
+		if (requestURI.endsWith("subscription")) {
 			try {			
 				String[] infos = {"customerName", "phoneNumber", "suretyName", "residentRegistrationNumber", "age", "gender", "country", "city", "district", "employeeName", "bank", "customerRank", "creditRank", "disalbitilityRank", "job", "loanType", "loanProductName", "collateral", "collateralValue", "loanAmount", "interest", "interestRate", "loanPerpose", "repaymentMethod"};
 				
@@ -137,21 +137,13 @@ public class LoanSubscriptionController extends HttpServlet {
 		}
 
 		else if (requestURI.endsWith("repayment")) {
-
-			System.out.println("repayment: " );
-			String myListJson = request.getParameter("myList");
-
-			System.out.println("myListJson: " + myListJson);
-			// myListJson을 원하는 형식으로 변환하여 처리
-
+			String repaymentAmountList = request.getParameter("repaymentAmountList");
+			String identificationId = request.getParameter("identificationId");			
+			String loanProductNameSelect = request.getParameter("loanProductNameSelect");
+			int isUpdated = loanService.updateRepaymentAmount(identificationId, loanProductNameSelect, repaymentAmountList);
 			
-			  // 응답 데이터 작성 
-			String responseMessage = "Data received successfully";
-			  
-			  response.setContentType("text/plain");
-			  response.setCharacterEncoding("UTF-8");
-			  response.getWriter().write(responseMessage);
-			 
+			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productSubscription.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 }

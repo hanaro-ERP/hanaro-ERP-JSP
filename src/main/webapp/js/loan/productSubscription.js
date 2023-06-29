@@ -47,8 +47,6 @@ var repaymentAmountTotal = 0;
 var repaymentAmountArray = [];
 
 function updateTable() {
-	console.log("===== update table======");
-
 	var repaymentMethod = document.getElementById("repaymentMethod");	// 상환 방법
 	var loanPeriod = document.getElementById("loanPeriod");	// 기간
 	var loanAmount = document.getElementById("loanAmount");	// 원금
@@ -60,12 +58,6 @@ function updateTable() {
 	var loanAmountValue = loanAmount.value * 10000;
 	var interestRateValue = interestRate.value / 12 * 0.01;	// 월 이자율로 변경
 	var gracePeriodValue = gracePeriod.value * 12;	// 거치 기간 개월 수
-
-	console.log("repaymentMethodValue = ", repaymentMethodValue);
-	console.log("loanPeriodValue = ", loanPeriodValue);
-	console.log("loanAmountValue = ", loanAmountValue);
-	console.log("interestRateValue = ", interestRateValue);
-	console.log("gracePeriodValue = ", gracePeriodValue);
 
 	var repaymentMethodSelectTableTitle = document.getElementById("repaymentMethodSelectTableTitle");
 	repaymentMethodSelectTableTitle.innerText = repaymentMethodValue;
@@ -184,6 +176,11 @@ function updateTable() {
 		balanceCell.innerHTML = balance.toLocaleString();
 		
 		repaymentAmountArray.push(repaymentAmount);
+		
+		if(month == loanPeriodValue) {
+			var jsonData = JSON.stringify(repaymentAmountArray);
+			document.getElementById("myListInput").value = jsonData;
+		}
 	}
 }
 
@@ -208,7 +205,7 @@ selectrepaymentMethod.addEventListener("change", function() {
 	repaymentAmountTotalTag.style.display = "block";
 	repaymentAmountTotalTag.textContent = repaymentAmountTotal.toLocaleString() + "원";
 	
-	if (repaymentMethodValue.includes("만기")) {	// 원금만기일시상환
+	/*if (repaymentMethodValue.includes("만기")) {	// 원금만기일시상환
 	
 		console.log("만기");
 		inputGracePeriod.disabled = true;	
@@ -219,22 +216,20 @@ selectrepaymentMethod.addEventListener("change", function() {
 		console.log("else");
 		inputGracePeriod.disabled = false;
 		inputGracePeriod.style.backgroundColor = "#fff";
-	}
+	}*/
 });
 
-selectrepaymentMethod.addEventListener("click", function() {
+/*selectrepaymentMethod.addEventListener("click", function() {
 	console.log("click");
 	inputGracePeriod.disabled = false;
 	inputGracePeriod.style.backgroundColor = "#fff";
 });
+*/
 
-
-var myList = [1, 2, 3, 4, 5];
-console.log("repaymentAmountArray = ", repaymentAmountArray);
-var jsonData = JSON.stringify(repaymentAmountArray);
-document.getElementById("myListInput").value = jsonData;
-
-
-
+function changeLoanProductName(selectedIndex) {
+	var selectLoanProductNameElement = document.getElementsByName("loanProductName")[0];
+	var selectedLoanProductNameValue = selectLoanProductNameElement.options[selectedIndex].value;
+	document.getElementById("loanProductNameSelect").value = selectedLoanProductNameValue;
+}
 
 changeLoan(0);

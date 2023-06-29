@@ -20,10 +20,11 @@ pageEncoding="UTF-8"%>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
-			<div class="innerTitle"><h1>상품 가입</h1></div>
+			<div class="innerTitle">
+				<h1>상품 가입</h1>
+			</div>
 			<form action="${pageContext.request.contextPath}/loan/subscription"
-				method="post" >
-	<!-- 			onsubmit="return validateForm()" -->
+				method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle">
 					<h2>고객 정보 찾기</h2>
 				</div>
@@ -60,42 +61,44 @@ pageEncoding="UTF-8"%>
 							if(customer != null) {
 								id1 = customer.getIdentification().substring(0, 6);
 								id2 = customer.getIdentification().substring(7,14);
-						%> <%= id1 + "-" + id2%> <input type="hidden" id="identification"
+						%> 
+						<%= id1 + "-" + id2%> 
+						<input type="hidden" id="identification"
 							name="identification"
 							value="<%= customer != null ? customer.getIdentification() : "" %>">
 							<% } %>
 						</td>
 						<th>직업</th>
 						<td><input type="hidden" id="jobCode" name="jobCode"
-							value="<%= customer != null ? customer.getJobName() : "" %>">
-							<%= customer != null ? customer.getJobName() : "" %></td>
+							value="<%=customer != null ? customer.getJobName() : ""%>">
+							<%=customer != null ? customer.getJobName() : ""%></td>
 					</tr>
 					<tr>
 						<th>고객 등급</th>
 						<td><input type="hidden" id="grade" name="grade"
-							value="<%= customer != null ? customer.getGrade() : "" %>">
-							<%= customer != null ? customer.getGrade() : "" %></td>
+							value="<%=customer != null ? customer.getGrade() : ""%>">
+							<%=customer != null ? customer.getGrade() : ""%></td>
 						<th>신용 등급</th>
 						<td><input type="hidden" id="credit" name="credit"
-							value="<%= customer != null ? customer.getCredit() : "" %>">
-							<%= customer != null ? customer.getCredit() : "" %></td>
+							value="<%=customer != null ? customer.getCredit() : ""%>">
+							<%=customer != null ? customer.getCredit() : ""%></td>
 					</tr>
 					<tr>
 						<th>담당 직원</th>
 						<td><input type="hidden" id="employeeName"
 							name="employeeName"
-							value="<%= customer != null ? customer.getEmployeeName() : "" %>">
-							<%= customer != null ? customer.getEmployeeName() : "" %></td>
+							value="<%=customer != null ? customer.getEmployeeName() : ""%>">
+							<%=customer != null ? customer.getEmployeeName() : ""%></td>
 						<th class="office">주거래지점</th>
 						<td><input type="hidden" id="bankName" name="bankName"
-							value="<%= customer != null ? customer.getBankName() : "" %>">
-							<%= customer != null ? customer.getBankName() : "" %></td>
+							value="<%=customer != null ? customer.getBankName() : ""%>">
+							<%=customer != null ? customer.getBankName() : ""%></td>
 					</tr>
 					<tr>
 						<th>보증인</th>
 						<td><input type="hidden" id="suretyName" name="suretyName"
-							value="<%= customer != null ? customer.getSuretyName() : "" %>">
-							<%= customer != null ? customer.getSuretyName() : "" %></td>
+							value="<%=customer != null ? customer.getSuretyName() : ""%>">
+							<%=customer != null ? customer.getSuretyName() : ""%></td>
 						<th>내부 위험도</th>
 						<td>-
 							<button type="button">계산하기</button>
@@ -115,7 +118,8 @@ pageEncoding="UTF-8"%>
 								<option value="신용대출">신용대출</option>
 						</select></td>
 						<th>상품명</th>
-						<td><select name="loanProductName" class="longSelect">
+						<td><select name="loanProductName" class="longSelect" 
+							onchange="changeLoanProductName(this.selectedIndex);">
 								<option value="">-</option>
 						</select></td>
 					</tr>
@@ -152,71 +156,20 @@ pageEncoding="UTF-8"%>
 				<div class="innerButtonContainer">
 					<button type="submit" id="search">검색</button>
 				</div>
+			</form>
 
-
-				<%-- 	<div id="repaymentMethodTableDiv">
-					<h3 id="repaymentMethodTableTitle">
+			<form action="${pageContext.request.contextPath}/loan/repayment" method="post">
+				<input type="hidden" name="repaymentAmountList" id="repaymentAmountList"> 
+				<input type="hidden" name="identificationId" id="identificationId" value="<%= id1 + "-" + id2%>"> 
 				
-						<%List<RepaymentMethodDTO> repaymentMethodDTOList = (List<RepaymentMethodDTO>) request.getAttribute("repaymentMethod");
-
-						if (repaymentMethodDTOList != null && repaymentMethodDTOList.size() > 0) {
-							System.out.println("jsp repaymentlist size ="+repaymentMethodDTOList.size());							
-							String method = repaymentMethodDTOList.get(0).getMethod();
-							if (method.equals("만기")) {
-								out.println("원금만기일시상환");
-							} 
-							else if (method.contains("원금균등")) {
-								out.println("원금균등상환");
-							} 
-							else {
-								out.println("원리금균등상환");
-							}
-						%>
-					</h3>
-					<table class="searchTable" id="repaymentMethodTable">
-						<tr>
-							<th>회차</th>
-							<th>상환금</th>
-							<th>납입 원금</th>
-							<th>이자</th>
-							<th>납입원금누계</th>
-							<th>잔금</th>
-						</tr>
-								
-						<%
-							LoanUtil loanUtil = new LoanUtil();
-							if (repaymentMethodDTOList != null && !repaymentMethodDTOList.isEmpty()) {
-								for (RepaymentMethodDTO dto : repaymentMethodDTOList) {
-									%>
-									<tr class="searchResultRow" >
-										<td><%= dto.getTimes()%></td>
-										<td><%= loanUtil.formatCurrency(dto.getRepaymentAmount())%></td>									
-										<td><%= loanUtil.formatCurrency(dto.getPrincipalPayment())%></td>
-										<td><%= loanUtil.formatCurrency(dto.getInterest())%></td>
-										<td><%= loanUtil.formatCurrency(dto.getCumulativePrincipalPayment())%></td>
-										<td><%= loanUtil.formatCurrency(dto.getBalance())%></td>
-									</tr>
-									<%
-								}
-							}
-						}
-						else{
-							System.out.println("jsp repaymentlist null");
-						}
-						%>
-				</table>
-				</div> --%>
+				<input type="hidden" name="loanProductNameSelect" id="loanProductNameSelect"> 
 				
-				<form action="${pageContext.request.contextPath}/loan/repayment"
-					method="post">
-					<input type="hidden" name="myList" id="myListInput"> 
-					<input type="submit" value="Submit">
-				</form>
-
+				<input type="submit" value="상환 방법 확정하기">
+				
 				<div id="repaymentMethodSelectTableDiv" style="display: none;">
 					<h2 id="repaymentMethodSelectTableTitle">상환 방법</h2>
 					<div id="repaymentAmountTotalDiv">
-						<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금	<p>
+						<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금 <p>
 						<p id="repaymentAmountTotal" style="display: none;"><p>
 					</div>
 					<table class="searchTable" id="repaymentMethodSelectTable">

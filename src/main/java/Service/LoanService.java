@@ -122,4 +122,16 @@ public class LoanService {
 		
 		return repaymentMethodDTOList;
 	}
+	
+	public int updateRepaymentAmount(String identificationId, String loanProductNameSelect, String repaymentAmountList) {
+		CustomerDAO customerDAO = new CustomerDAO();
+		LoanProductDAO loanDAO = new LoanProductDAO();
+		LoanContractDAO loanContractDAO = new LoanContractDAO();
+		
+		int customerId = customerDAO.getCustomerIdByCustomerIdentificationId(identificationId);
+		int loanProductId = loanDAO.getLoanIdByLoanName(loanProductNameSelect);
+		int isUpdated = loanContractDAO.updateRepaymentAmount(customerId, loanProductId, repaymentAmountList);
+	
+		return isUpdated;
+	}
 }
