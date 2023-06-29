@@ -72,15 +72,21 @@ public class CustomerSearchController extends HttpServlet {
 			
 			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(userId));
 			customer.setJobName(loanUtil.convertJobCode(customer.getJobCode()));
+			
 			request.setAttribute("customer", customer);
-
+			//request.getSession().setAttribute("customer", customer);
+			
 			if(pageId.equals("1")) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/customer/customerRegist.jsp");			
 				dispatcher.forward(request, response);
-			} else if(pageId.equals("2")) {
+				/*String newURL = "/hanaro-ERP-JSP/navigation/customerRegist";
+			    response.sendRedirect(newURL);*/
+			} else if(pageId.equals("2")) {			
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");			
 				dispatcher.forward(request, response);
-			}			
+			    /*String newURL = "/hanaro-ERP-JSP/navigation/loanSubscription";
+			    response.sendRedirect(newURL);*/
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

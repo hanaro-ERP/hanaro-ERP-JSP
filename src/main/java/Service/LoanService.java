@@ -20,6 +20,13 @@ import DTO.RepaymentMethodDTO;
 import util.LoanUtil;
 
 public class LoanService {
+	EmployeeDAO employeeDAO = new EmployeeDAO();
+	BankDAO bankDAO = new BankDAO();
+	LoanProductDAO loanDAO = new LoanProductDAO();
+	
+	CustomerDAO customerDAO = new CustomerDAO();
+	LoanContractDAO loanContractDAO = new LoanContractDAO();
+
 	public LoanService() {
 		
 	}
@@ -104,13 +111,6 @@ public class LoanService {
 	
 	public int subscriptionLoan(CustomerDTO customerDTO, LoanContractDTO loanContractDTO) {
 		LoanUtil loanUtil = new LoanUtil();
-		
-		EmployeeDAO employeeDAO = new EmployeeDAO();
-		BankDAO bankDAO = new BankDAO();
-		LoanProductDAO loanDAO = new LoanProductDAO();
-		
-		CustomerDAO customerDAO = new CustomerDAO();
-		LoanContractDAO loanContractDAO = new LoanContractDAO();
 		
 		int e_id = employeeDAO.getEmployeeIdByEmployeeName(customerDTO.getEmployeeName());
 		int l_id = loanDAO.getLoanIdByLoanName(loanContractDTO.getLoanName());

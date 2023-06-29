@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DTO.CreditScoringDTO;
 import DTO.CustomerDTO;
 import DTO.LoanContractDTO;
 import DTO.RepaymentMethodDTO;
@@ -42,7 +43,7 @@ public class LoanSubscriptionController extends HttpServlet {
 		CustomerUtil customerUtil = new CustomerUtil();
 		try {
 			String[] infos = {"customerName", "phoneNumber", "suretyName", "residentRegistrationNumber", "age", "gender", "country", "city", "district", "employeeName", "bank", "customerRank", "creditRank", "disalbitilityRank", "job", "loanType", "loanProductName", "collateral", "collateralValue", "loanAmount", "interest", "interestRate", "loanPerpose", "repaymentMethod"};
-			
+
 			//고객 정보
 			CustomerDTO customerDTO = new CustomerDTO();
 			
@@ -117,7 +118,7 @@ public class LoanSubscriptionController extends HttpServlet {
 			if(gracePeriod != null)
 				loanContractDTO.setGracePeriod(Integer.parseInt(gracePeriod));
 			int isLoanRegistered = loanService.subscriptionLoan(customerDTO, loanContractDTO);
-						
+			
 			List<RepaymentMethodDTO> repaymentMethodDTOList = loanService.getRepaymentMethod(identification);
 			request.setAttribute("repaymentMethod", repaymentMethodDTOList);
 

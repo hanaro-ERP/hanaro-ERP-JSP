@@ -6,10 +6,10 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8" />
 <title>상품 가입</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productSubscription.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js"></script>
 </head>
 <body>
@@ -28,7 +28,11 @@ pageEncoding="UTF-8"%>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle"><h2>고객 정보 찾기</h2></div>
 				<table class="inputTable">
- 					<% CustomerDTO customer = (CustomerDTO) request.getAttribute("customer"); %>
+ 					<% 
+ 					CustomerDTO customer = (CustomerDTO) request.getAttribute("customer"); 
+ 					//CustomerDTO customer = (CustomerDTO) request.getSession().getAttribute("customer");
+ 					%>
+ 					
 					<tr>
 						<th>이름</th>
 						<td><input id="customerName" name="customerName" class="middleInput" value="<%= customer != null ? customer.getCustomerName() : "" %>"/>
@@ -101,55 +105,10 @@ pageEncoding="UTF-8"%>
 						<%= customer != null ? customer.getSuretyName() : "" %>
 						</td>
 						<th>내부 위험도</th>
-						<td id="innerRisk"><button id="customerDetailButton" name="close" type="button" onclick="riskCalcFunc()">계산하기</button></td>
+						<td id="riskRslt"></td>
 					</tr>
 				</table>
-				<div class="innerSubTitle" id="riskResult">
-					<h2>내부 위험도 결과</h2>
-					<input id="checkOpen" name="isOpen" value="close"></input>
-				</div>
-				<div class="innerInformation" id="customerDetailInformation">
-					<div class="innerInformationRow">
-						<div class="innerInformationRowTitle">소속 국가</div>
-						<select id="countrySelect" name="country" class="innerSelectBox">
-							<option value="">-</option>
-							<option value="대한민국">대한민국</option>
-							<option value="미국">미국</option>
-							<option value="중국">중국</option>
-							<option value="일본">일본</option>
-						</select>
-					</div>
-					<div class="innerInformationRow">
-						<div class="innerInformationRowTitle">거주지</div>
-						<div class="innerInformationRowSubtitle">시·도</div>
-						<select id="citySelect" name="city" class="innerSelectBox2 customerCity" onchange="changeCounty(this.selectedIndex);">
-							<option value="">-</option>
-						    <option value="서울특별시">서울특별시</option>
-						    <option value="부산광역시">부산광역시</option>
-						    <option value="대구광역시">대구광역시</option>
-						    <option value="인천광역시">인천광역시</option>
-						    <option value="광주광역시">광주광역시</option>
-						    <option value="대전광역시">대전광역시</option>
-						    <option value="울산광역시">울산광역시</option>
-						    <option value="경기도">경기도</option>
-						    <option value="강원도">강원도</option>
-						    <option value="충청북도">충청북도</option>
-						    <option value="충청남도">충청남도</option>
-						    <option value="전라북도">전라북도</option>
-						    <option value="전라남도">전라남도</option>
-						    <option value="경상북도">경상북도</option>
-						    <option value="경상남도">경상남도</option>
-						    <option value="제주도">제주도</option>
-						</select>
-						<div class="innerInformationRowSubtitle">시·군·구</div>
-						<select id="districtSelect" name="district" class="select">
-							<option value="">-</option>
-						</select>
-					</div>
-				</div>
-				
-				
-				
+											
 				<div class="innerSubTitle"><h2>상품 정보 및 가입</h2></div>
 				<table class="inputTable">
 					<tr>
@@ -179,7 +138,7 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 					<tr>
-						<th>이자 / 대출기간</th>
+						<!-- <th>이자 / 대출기간</th>
 						<td>
 							&nbsp;연
 							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
@@ -187,12 +146,10 @@ pageEncoding="UTF-8"%>
 							&nbsp; | &nbsp;&nbsp;
 							<input type="number" step="0.1" max="10" id="loanPeriod" name="loanPeriod" class="shortInput" />
 							년
-						</td>
+						</td> -->
 						<th> 거치 기간</th>
 						<td>
 						<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
-					</tr>
-					<tr>
 						<th>상환 방법</th>
 						<td colspan=3>
 							<select name="repaymentMethod" class="shortSelect" id="repaymentMethod" onchange="updateTable()">
@@ -204,8 +161,24 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 				</table>
+				<div class="innerSubTitle" id="riskResult">
+					<h2>내부 위험도 결과</h2><button id="customerDetailButton" name="close" type="button" onclick="riskCalcFunc()">계산하기</button>
+					<input id="checkOpen" name="isOpen" value="close"></input>
+				</div>
+				<div class="innerInformation" id="customerDetailInformation">
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">내부 위험도</div>
+						<div id="innerRisk"></div>
+					</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">이자율 적용</div>
+						<div id="interestRate2"></div>
+					<div class="innerInformationRowTitle">대출기간 적용</div>
+						<div id="loanPeriod2"></div>
+					</div>				
+				</div>
 				<div class="innerButtonContainer">					
-					<button type="submit" id="search">검색</button>
+					<button type="submit" id="search">등록</button>
 				</div>
 				
 				
@@ -287,14 +260,31 @@ pageEncoding="UTF-8"%>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
 	<script>
-		function openSearchPopup() {
-	    	var firstTd = document.getElementById("customerName"); // customerName 필드를 가리키는 변수 firstTd
-	    	if(firstTd.value !== '')
-		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 2, "_blank", "width=1000,height=200");
-	    	
+		//고객정보
+		const customerDetailSelect = document.getElementById('customerDetailButton');
+		const customerDetailInformation = document.getElementById('customerDetailInformation');
+		const checkOpen = document.getElementById('checkOpen');
+		checkOpen.style.display = 'none'
+		customerDetailInformation.style.display = 'none'; // 초기에 숨김 상태로 설정
+		
+		function revealDetail() {
+			alert("hello");
+			checkOpen.setAttribute('value', 'open');
+			customerDetailInformation.style.display = 'block';
 		}
+		function concealDetail() {
+			checkOpen.setAttribute('value', 'close');
+			customerDetailInformation.style.display = 'none';
+		}
+		
 		function riskCalcFunc() {
-	    	<%	CustomerDAO customerDAO = new CustomerDAO();
+			//고객정보
+			const customerDetailInformation = document.getElementById('customerDetailInformation');
+
+			console.log(selectedValue + " 111111111111 " + selectedText);
+			
+			<%	
+	    	CustomerDAO customerDAO = new CustomerDAO();
 			CreditScoringDTO creditScoringDTO = new CreditScoringDTO();
 			CreditService creditService = new CreditService();
 	    	
@@ -311,14 +301,65 @@ pageEncoding="UTF-8"%>
 					
 			    	creditService.setCreditScore(creditScoringDTO);
 				}
+				
+				//결과에 따른 이자율이랑 대출기간 다르게 하기
+				String score = (creditService.getCreditScore()).substring(0, 1);
+				float addRate = 0;
+				int addPeriod = 0;
+				switch(score) {
+					case "1" :
+						addRate = 0.2f;
+						addPeriod = 1; //1년
+						break;
+					case "2" :
+						addRate = 0.1f;
+						addPeriod = 1;
+						break;
+					case "4" :
+						addRate = -0.1f;
+						break;
+					case "5" :
+						addRate = -0.2f;
+						break;
+					case "6" :
+						addRate = -0.4f;
+						addPeriod = -1;
+						break;
+				}
 			}
 			%>
-			var innerRisk = document.getElementById("innerRisk");
+			//위험도 결과
+			var innerRiskTable = document.getElementById("riskRslt");
+			var rateChange = document.getElementById("interestRate2");
+			var periodChange = document.getElementById("loanPeriod2");
+			
+			//상품정보
+			var selectElement = document.querySelector('select[name="loanProductName"]');
+			var selectedOption = selectElement.options[selectElement.selectedIndex];
+			var selectedValue = selectedOption.value; // 선택된 옵션의 값
+			var selectedText = selectedOption.text; // 선택된 옵션의 텍스트
+
+			// 상품정보로 해당 상품의 이자와 대출기간을 가져와야해..
+			// 그러려면 
+			
 			<% if(eId > 0) { %>
+				revealDetail();
 				innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";
+				rateChagne.innerHTML = 
+				
+				
 			<% } else { %>
 				alert("데이터가 부족합니다.");
 			<% } %>
+		}
+		function openSearchPopup() {
+			
+			innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";
+			
+	    	var firstTd = document.getElementById("customerName"); // customerName 필드를 가리키는 변수 firstTd
+	    	if(firstTd.value !== '')
+		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 2, "_blank", "width=1000,height=200");
+	    	
 		}
 	</script>
 </body>

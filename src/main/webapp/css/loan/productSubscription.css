@@ -3,19 +3,14 @@
 	float: left;
 }
 tr td select {
-	width: 150px;
+	width: 150px !important; 
 }
 .select {
-	width: 150px;
+	width: 150px !important;;
 }
 .shortSelect,
 .middleInput {
-	width: 200px;
-}
-#innerContainer .riskResult {
-	margin-bottom: 100px;
-	border-bottom: #B0B8C1 solid 1px;
-	padding: 20px 0;
+	width: 200px !important;;
 }
 #customerDetailButton {
 	border: transparent;
@@ -25,6 +20,9 @@ tr td select {
 }
 #customerDetailButton:hover {
 	color: #2DB400;
+}
+.innerInformation {
+	margin-bottom: 5px;	
 }
 #repaymentMethodSelectTableTitle {
 	margin-top: 100px !important;

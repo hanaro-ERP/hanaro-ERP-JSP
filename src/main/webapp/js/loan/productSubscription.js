@@ -43,31 +43,6 @@ function changeLoan(add) {
 	}
 }
 
-const customerDetailSelect = document.getElementById('customerDetailButton');
-const customerDetailInformation = document.getElementById('customerDetailInformation');
-const checkOpen = document.getElementById('checkOpen');
-
-checkOpen.style.display = 'none'
-customerDetailInformation.style.display = 'none'; // 초기에 숨김 상태로 설정
-
-function revealDetail() {
-	checkOpen.setAttribute('value', 'open');
-	customerDetailInformation.style.display = 'block';
-}
-
-function concealDetail() {
-	checkOpen.setAttribute('value', 'close');
-	customerDetailInformation.style.display = 'none';
-}
-
-customerDetailSelect.addEventListener('click', function() {
-	if (customerDetailInformation.style.display === 'none') {
-		revealDetail();
-	} else {
-		concealDetail();
-	}
-});
-
 function updateTable() {
 	console.log("===== update table======");
 
