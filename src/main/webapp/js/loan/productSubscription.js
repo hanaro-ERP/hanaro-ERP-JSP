@@ -93,42 +93,38 @@ function updateTable() {
 		balance = 0; // 남은 대출 원금
 		repaymentAmount += principalPayment + interest;	// 상환금
 		makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
-
 	}
 
 	else if (repaymentMethodValue.includes("원금균등")) { // 원금균등상환
-		principalPayment = loanAmountValue / loanPeriodValue;	// 납입 원금
-		interest = balance * interestRateValue;	// 이자
-
 		for (var month = 1; month <= loanPeriodValue; month++) {
 			// 거치 기간 있는 경우
-			if (gracePeriodValue > 0 && month <= gracePeriod) {
-				// interest = loanAmountValue * interestRateValue * (((12 * loanPeriodValue) - gradpgracePeriodValue) + 1) / 24;
-				
-				repaymentAmount = interest;	
+			if (gracePeriodValue > 0 && month <= gracePeriodValue) {
+				interest = loanAmountValue * interestRateValue;
+				repaymentAmount = interest;		
 			}
 			// 거치 기간 없는 경우
 			else {
+				principalPayment = loanAmountValue / (loanPeriodValue-gracePeriodValue);	// 납입 원금
+				interest = balance * interestRateValue;	// 이자
 				repaymentAmount = interest + principalPayment;	// 상환금 = 이자 + 납입 원금
 				cumulativePrincipalPayment += principalPayment;	// 납입원금누계
 				balance -= principalPayment;	// 남은 대출 원금
 
 				checkLastMonthBalance();
 			}
-
 			makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
 		}
 	}
 
 	else if (repaymentMethodValue.includes("원리금균등")) {	// 원리금균등상환
 		for (var month = 1; month <= loanPeriodValue; month++) {
-
 			// 거치 기간 있는 경우
-			if (gracePeriodValue > 0) {
-				// 계산 해야 함
+			if (gracePeriodValue > 0 && month <= gracePeriodValue) {
+				interest = loanAmountValue * interestRateValue;
+				repaymentAmount = interest;
 			}
 			else {
-				var rate = Math.pow((1 + interestRateValue), loanPeriodValue);
+				var rate = Math.pow((1 + interestRateValue), (loanPeriodValue-gracePeriodValue));
 				repaymentAmount = (loanAmountValue * interestRateValue * (rate)) / (rate - 1);
 				interest = balance * interestRateValue;
 				principalPayment = repaymentAmount - interest;
