@@ -221,7 +221,7 @@ pageEncoding="UTF-8"%>
 				
 				<div id="repaymentMethodSelectTableDiv">
 					<h3 id="repaymentMethodSelectTableTitle">						
-					h3
+					상환 방법
 					</h3>
 					<table class="searchTable" id="repaymentMethodSelectTable">
 						<tr>
