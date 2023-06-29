@@ -16,7 +16,7 @@ public class LoanContractDTO extends PaginationDTO {
 	private int employeeId;
 	private Timestamp startDate;
 	private String[] StartDateString;
-	private Timestamp muturityDate;
+	private Timestamp maturityDate;
 	private String paymentMethod;
 	private long loanAmount;
 	private long balance;
@@ -37,6 +37,6 @@ public class LoanContractDTO extends PaginationDTO {
 	private String balanceString;
 	private String delinquentAmountString;
 	private String[] muturityDateList;
-	private String muturityDateString;
+	private String maturityDateString;
 	private int gracePeriod;
 }

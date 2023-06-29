@@ -82,8 +82,8 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">만기일</div>
-						<ul class="loanMuturityDate" id="loanContractEndDate">
-							<li><input type="checkbox" value="전체" id="muturityDateAll" name="loanContractEndDate">전체</li>
+						<ul class="loanMaturityDate" id="loanContractEndDate">
+							<li><input type="checkbox" value="전체" id="maturityDateAll" name="loanContractEndDate">전체</li>
 							<li class="directInput">
 								<p>직접 입력</p> 
 								<select name="loanContractEndDate" class="yearSelect" disabled="true"></select> 
@@ -173,7 +173,7 @@
 							<td><%=dto.getCustomerName()%></td>
 							<td><%=dto.getGuarantorName()%></td>
 							<td><%=dto.getStartDate()%></td>
-							<td><%=dto.getMuturityDateString()%></td>
+							<td><%=dto.getMaturityDateString()%></td>
 							<td><%=dto.getBalanceString()%></td>
 							<td><%=dto.getPaymentMethod()%></td>
 							<td><%=dto.getDelinquentAmountString()%></td>

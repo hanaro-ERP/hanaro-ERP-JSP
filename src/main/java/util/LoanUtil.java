@@ -1,7 +1,9 @@
 package util;
 
 import java.security.Timestamp;
+import java.text.NumberFormat;
 import java.time.*;
+import java.util.Locale;
 
 import DTO.LoanContractDTO;
 
@@ -49,5 +51,11 @@ public class LoanUtil {
 		int dayOfMonth = currentDate.getDayOfMonth();
 		
 		loanContractDTO.setPaymentDate(dayOfMonth);
+	}
+	
+	public String formatCurrency(long amount) {
+		NumberFormat formatter = NumberFormat.getNumberInstance(Locale.KOREA);
+		String formattedAmount  = formatter.format(amount);
+		return formattedAmount;
 	}
 }

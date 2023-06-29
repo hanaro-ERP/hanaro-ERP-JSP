@@ -569,17 +569,16 @@ function setMonthSelect() {
 function temp(year, month) {
 	yearSelect = year;
 	monthSelect = month;
-	console.log(yearSelect);
-	console.log(monthSelect);
 	endDay = new Date(yearSelect, monthSelect, 0).getDate();
 	return endDay;
 }
 // 일 설정
 function setDaySelect(isInitial, year, month) {	
-	daySelectList = document.getElementsByClassName("daySelect");
+	daySelectList = document.getElementsByClassName("daySelect");	
 	daySelectRow = document.getElementsByClassName("daySelect")[rowIndex];
 	let endDay;	// 선택한 월에 따라 endDay 다르게
 	endDay = new Date(year, month, 0).getDate();
+	
 	if (isInitial) {
 		yearSelectRow = document.getElementsByClassName("yearSelect")[rowIndex];
 		monthSelectRow = document.getElementsByClassName("monthSelect")[rowIndex];
@@ -610,21 +609,24 @@ function setDaySelect(isInitial, year, month) {
 			}
 		});
 	}
+	
 	else {
 		daySelectRow.innerHTML = "";
 		const option = document.createElement("option");
 		option.value = "";
 		option.textContent = "";
 		daySelectRow.appendChild(option);
-		for (let day = 1; day <= endDay; day++) {
-			const option = document.createElement("option");
-			if (day < 10) {
-				day = "0"+day;
+		Array.from(daySelectList).forEach(daySelectRow => {
+			for (let day = 1; day <= endDay; day++) {
+				const option = document.createElement("option");
+				if (day < 10) {
+					day = "0" + day;
+				}
+				option.value = day;
+				option.textContent = day;
+				daySelectRow.appendChild(option);
 			}
-			option.value = day;
-			option.textContent = day;
-			daySelectRow.appendChild(option);
-		}
+		});
 	}
 }
 
