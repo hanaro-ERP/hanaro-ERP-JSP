@@ -9,9 +9,7 @@ import Service.evaluators.GuarantorEvaluator;
 import Service.evaluators.IncomeEvaluator;
 import Service.evaluators.JobEvaluator;
 import Service.evaluators.LoanBalanceEvaluator;
-import Service.evaluators.LoanScaleEvaluator;
 import Service.evaluators.PropertyEvaluator;
-import Service.evaluators.RepaymentHistoryEvaluator;
 
 public class CreditService {
 	private String creditScore;
@@ -35,12 +33,10 @@ public class CreditService {
 		score += new CBScoreEvaluator().calculateScore(creditScoringDTO);
 		score += new DepositHistoryEvaluator().calculateScore(creditScoringDTO);
 		score += new GuarantorEvaluator().calculateScore(creditScoringDTO);
-		score += new LoanScaleEvaluator().calculateScore(creditScoringDTO);
 		score += new IncomeEvaluator().calculateScore(creditScoringDTO);
 		score += new LoanBalanceEvaluator().calculateScore(creditScoringDTO);
 		score += new JobEvaluator().calculateScore(creditScoringDTO);
 		score += new PropertyEvaluator().calculateScore(creditScoringDTO);
-		score += new RepaymentHistoryEvaluator().calculateScore(creditScoringDTO);
 
 		return convertToGrade(score);
 	}
@@ -56,10 +52,10 @@ public class CreditService {
 	public static void main(String[] args) {
 		CreditScoringDTO creditScoringDTO = new CreditScoringDTO();
 		creditScoringDTO.setCustomerId(300);
-		creditScoringDTO.setGuarantorId(3);
 		creditScoringDTO.setLoanAmount(10000000);
 		creditScoringDTO.setLoanDuration(60);
 		CreditService creditService = new CreditService();
 		creditService.setCreditScore(creditScoringDTO);
+		System.out.println(creditService.getCreditScore());
 	}
 }
