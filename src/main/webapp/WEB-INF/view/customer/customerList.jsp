@@ -92,7 +92,7 @@
 						</ul>
 					</div>
 					<div class="innerInformationRow">
-						<div class="innerInformationRowTitle">신용 등급</div>
+						<div class="innerInformationRowTitle">외부 신용 등급</div>
 						<ul id="customerCredit">
 							<li id="creditAllLi"><input type="checkbox" value="">전체</li>
 							<li id="credit1Li"><input type="checkbox" value="1등급">1등급</li>
@@ -158,10 +158,9 @@
 					<th>이름</th>
 					<th>나이</th>
 					<th>성별</th>
-					<th>신용 등급</th>
+					<th>외부 신용 등급</th>
 					<th>작업 코드</th>
 					<th>고객 등급</th>
-					<th>위험도</th>
 				</tr>
 				<!-- 받아온 유저 정보를 테이블로 나타내는 코드 -->
 				<%
@@ -178,7 +177,6 @@
 						<td><%= customer.getCredit() %></td>
 						<td><%= customer.getJobCode() %></td>
 						<td><%= customer.getGrade() %></td>
-						<td><%= customer.getRisk() %></td>
 					</tr>
 					<%
 					}
