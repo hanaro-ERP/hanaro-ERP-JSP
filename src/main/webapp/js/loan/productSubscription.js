@@ -78,7 +78,7 @@ function updateTable() {
 
 	// 상환 방법에 따라 다르게 계산
 	if (repaymentMethodValue.includes("만기")) {	// 원금만기일시상환
-		interest = (loanAmountValue * interestRateValue * loanPeriodValue);	// 이자
+		interest = loanAmountValue * interestRateValue ;	// 이자
 		principalPayment = 0;	// 납입 원금
 		cumulativePrincipalPayment = 0; 	// 납입원금누계
 		balance = loanAmountValue; // 남은 대출 원금
@@ -86,8 +86,8 @@ function updateTable() {
 		for (var month = 1; month < loanPeriodValue; month++) {
 			repaymentAmount += interest;	// 상환금
 			makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
-
-		}		// 마지막 달
+		}		
+		// 마지막 달
 		principalPayment = loanAmountValue;	// 납입 원금
 		cumulativePrincipalPayment = loanAmountValue; 	// 납입원금누계
 		balance = 0; // 남은 대출 원금
@@ -98,18 +98,17 @@ function updateTable() {
 
 	else if (repaymentMethodValue.includes("원금균등")) { // 원금균등상환
 		principalPayment = loanAmountValue / loanPeriodValue;	// 납입 원금
+		interest = balance * interestRateValue;	// 이자
 
 		for (var month = 1; month <= loanPeriodValue; month++) {
-
-
 			// 거치 기간 있는 경우
-			if (gracePeriodValue > 0) {
-				interest = loanAmountValue * interestRateValue * (((12 * loanPeriodValue) - gradpgracePeriodValue) + 1) / 24;
-				// 계산 해야 함
+			if (gracePeriodValue > 0 && month <= gracePeriod) {
+				// interest = loanAmountValue * interestRateValue * (((12 * loanPeriodValue) - gradpgracePeriodValue) + 1) / 24;
+				
+				repaymentAmount = interest;	
 			}
 			// 거치 기간 없는 경우
 			else {
-				interest = balance * interestRateValue;	// 이자
 				repaymentAmount = interest + principalPayment;	// 상환금 = 이자 + 납입 원금
 				cumulativePrincipalPayment += principalPayment;	// 납입원금누계
 				balance -= principalPayment;	// 남은 대출 원금
@@ -118,7 +117,6 @@ function updateTable() {
 			}
 
 			makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
-
 		}
 	}
 
