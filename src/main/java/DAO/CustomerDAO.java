@@ -132,7 +132,6 @@ public class CustomerDAO {
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			// pstmt.setInt(1, customer.getCustomerId());
 			pstmt.setInt(1, e_id);
 			pstmt.setInt(2, b_id);
 			pstmt.setString(3, customer.getCustomerName());

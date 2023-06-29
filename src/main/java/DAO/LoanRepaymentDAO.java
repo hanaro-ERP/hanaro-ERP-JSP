@@ -111,6 +111,25 @@ public class LoanRepaymentDAO {
 		return loanRepayments;
 	}
 	
+	public int getRepaymentCountByContractId(int contractId) {
+		int cnt = 0;
+
+		String query = "SELECT count(*) AS cnt FROM loanRepayments where lr_id = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+			pstmt.setInt(1, contractId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					cnt = rs.getInt("cnt");
+				}
+			}
+			System.out.println(pstmt);
+			System.out.println(cnt);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
 	public List<LoanRepaymentDTO> getLoanRepaymentByDTO(LoanContractDTO loanContractDTO) {	
 		StringBuilder queryBuilder = new StringBuilder("SELECT lr.*, a.account_number, lc.balance"
 				+ " FROM loanRepayments lr");

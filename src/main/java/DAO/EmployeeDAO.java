@@ -161,7 +161,7 @@ public class EmployeeDAO {
 					loanContract.setCustomerId(rs.getInt("c_id"));
 					loanContract.setEmployeeId(rs.getInt("e_id"));
 					loanContract.setStartDate(rs.getTimestamp("start_date"));
-					loanContract.setMuturityDate(rs.getTimestamp("muturiy_date"));
+					loanContract.setMaturityDate(rs.getTimestamp("muturiy_date"));
 					loanContract.setPaymentMethod(rs.getString("payment_method"));
 					loanContract.setBalance(rs.getLong("balance"));
 					loanContract.setPaymentDate(rs.getInt("payment_date"));

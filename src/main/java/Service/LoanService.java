@@ -16,6 +16,7 @@ import DTO.LoanContractDTO;
 import DTO.LoanProductDTO;
 import DTO.LoanRepaymentDTO;
 import DTO.LoanSearchDTO;
+import DTO.RepaymentMethodDTO;
 import util.LoanUtil;
 
 public class LoanService {
@@ -23,10 +24,16 @@ public class LoanService {
 		
 	}
 	
-	public static List<LoanContractDTO> getLoanContractList(LoanContractDTO loanContractDTO) throws NoSuchAlgorithmException {
+	public static int getLoanContractCount(LoanContractDTO loanContractDTO) {
+		LoanContractDAO loanContractDAO = new LoanContractDAO();
+		
+		return loanContractDAO.getLoanContractCount(loanContractDTO);
+	}
+	
+	public static List<LoanContractDTO> getLoanContractList(LoanContractDTO loanContractDTO, int page) throws NoSuchAlgorithmException {
 		LoanContractDAO loanContractDAO = new LoanContractDAO();
 
-		List<LoanContractDTO> loanContractDTOList = loanContractDAO.getLoanContractByDTO(loanContractDTO);
+		List<LoanContractDTO> loanContractDTOList = loanContractDAO.getLoanContractByDTO(loanContractDTO, page);
 
 		return loanContractDTOList;		
 	}
@@ -81,6 +88,12 @@ public class LoanService {
 		return isLoanRegistered;
 	}
 	
+	public static int getRepaymentCountByContractId(int contractId) {
+		LoanRepaymentDAO loanRepaymentDAO = new LoanRepaymentDAO();
+
+		return loanRepaymentDAO.getRepaymentCountByContractId(contractId);
+	}
+	
 	public static List<LoanRepaymentDTO> getLoanRepaymentList(LoanContractDTO loanContractDTO) {
 		LoanRepaymentDAO loanRepaymentDAO = new LoanRepaymentDAO();
 
@@ -113,5 +126,12 @@ public class LoanService {
 		int isLoanContract = loanContractDAO.insertLoanContract(loanContractDTO, l_id, c_id, e_id);
 		
 		return isLoanContract;
+	}
+	
+	public List<RepaymentMethodDTO> getRepaymentMethod(String id) {		
+		LoanContractDAO loanContractDAO = new LoanContractDAO();
+		List<RepaymentMethodDTO> repaymentMethodDTOList = loanContractDAO.getRepaymentMethod(id);
+		
+		return repaymentMethodDTOList;
 	}
 }

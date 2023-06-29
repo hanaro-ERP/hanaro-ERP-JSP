@@ -9,21 +9,19 @@ setMonthSelect();
 setDaySelect(true);
 changeDate();
 
-// 팝업 창
-const searchTableRows = document.querySelectorAll('#loanSearchTable tr :not(th)');
-const popupBox = document.querySelector('.popupBox');
-const popupExitButton = document.querySelector('.popupExitButton');
+const searchTableRows = document.querySelectorAll('#loanSearchTable tr');
 
-searchTableRows.forEach((item) => {
-	item.addEventListener('click', () => {
-		popupBox.classList.toggle('display');
-		let parent = item.parentNode;
-		console.log(parent);
-		console.log(parent.querySelector('form'));
-		parent.querySelector('form').submit();
-	});	
-});
+searchTableRows.forEach((item, index) => {
+	if (index !== 0) {
+		var idTd = item.querySelector(".loanContractId");
+		var loanName = item.querySelector(".loanName");
+		var customerName = item.querySelector(".customerName");
+		item.addEventListener('click', () => {
+			var idValue = idTd.innerHTML;
+			var loanNameValue = loanName.innerHTML;
+			var customerNameValue = customerName.innerHTML;
 
-popupExitButton.addEventListener('click', () => {
-	popupBox.classList.toggle('display');
+			window.open("/hanaro-ERP-JSP/loanContracts/repaymentList?id=" + idValue + "&loan=" + loanNameValue + "&customer=" + customerNameValue + "&page=1", "_blank", "width=1000,height=600");
+		});
+	}
 });
