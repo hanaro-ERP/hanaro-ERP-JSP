@@ -77,7 +77,7 @@ public class LoanContractController extends HttpServlet {
 				if (loanContractEndDate.length > 1) {
 					String inputMuturityDate = loanContractEndDate[0] + "-" + loanContractEndDate[1] + "-" + loanContractEndDate[2] + " 00:00:00.0";
 					Timestamp inputMuturityDateTimestamp = Timestamp.valueOf(inputMuturityDate);
-					loanContractDTO.setMuturityDate(inputMuturityDateTimestamp);
+					loanContractDTO.setMaturityDate(inputMuturityDateTimestamp);
 				}				
 				int[] balanceRange = {0,0};
 				if (balanceList.length > 1) {
