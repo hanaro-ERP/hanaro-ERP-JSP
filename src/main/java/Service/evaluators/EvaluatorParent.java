@@ -12,11 +12,9 @@ public class EvaluatorParent {
 		WEIGHTS.put("DEPOSIT_HISTORY", 0.05);
 		WEIGHTS.put("GUARANTOR", 0.05);
 		WEIGHTS.put("INCOME", 0.05);
-		WEIGHTS.put("JOB", 0.3);
+		WEIGHTS.put("JOB", 0.4);
 		WEIGHTS.put("LOAN_BALANCE", 0.05);
-		WEIGHTS.put("LOAN_SCALE", 0.05);
 		WEIGHTS.put("PROPERTY", 0.3);
-		WEIGHTS.put("REPAYMENT_HISTORY", 0.05);
 	}
 
 	public boolean isValid() {
