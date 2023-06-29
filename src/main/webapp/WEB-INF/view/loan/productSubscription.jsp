@@ -9,13 +9,14 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productSubscription.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js"></script>
 </head>
-<body>\
+<body>
 	<%@ include file="../../components/header.jsp" %>	
 	<%@ page import="java.util.List"%>
-	<%@ page import="DTO.LoanContractDTO"%>	
-	<%@ page import="util.LoanUtil"%>	
+	<%@ page import="DTO.LoanContractDTO"%>
+	<%@ page import="util.LoanUtil"%>
 	<%@ page import="DTO.CustomerDTO" %>
 	<%@ page import="DAO.CustomerDAO" %>
 	<%@ page import="DTO.CreditScoringDTO" %>
@@ -100,10 +101,55 @@ pageEncoding="UTF-8"%>
 						<%= customer != null ? customer.getSuretyName() : "" %>
 						</td>
 						<th>내부 위험도</th>
-						<td id="innerRisk"><button type="button" onclick="riskCalcFunc()"> 계산하기 </button></td>
+						<td id="innerRisk"><button id="customerDetailButton" name="close" type="button" onclick="riskCalcFunc()">계산하기</button></td>
 					</tr>
 				</table>
-
+				<div class="innerSubTitle" id="riskResult">
+					<h2>내부 위험도 결과</h2>
+					<input id="checkOpen" name="isOpen" value="close"></input>
+				</div>
+				<div class="innerInformation" id="customerDetailInformation">
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">소속 국가</div>
+						<select id="countrySelect" name="country" class="innerSelectBox">
+							<option value="">-</option>
+							<option value="대한민국">대한민국</option>
+							<option value="미국">미국</option>
+							<option value="중국">중국</option>
+							<option value="일본">일본</option>
+						</select>
+					</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">거주지</div>
+						<div class="innerInformationRowSubtitle">시·도</div>
+						<select id="citySelect" name="city" class="innerSelectBox2 customerCity" onchange="changeCounty(this.selectedIndex);">
+							<option value="">-</option>
+						    <option value="서울특별시">서울특별시</option>
+						    <option value="부산광역시">부산광역시</option>
+						    <option value="대구광역시">대구광역시</option>
+						    <option value="인천광역시">인천광역시</option>
+						    <option value="광주광역시">광주광역시</option>
+						    <option value="대전광역시">대전광역시</option>
+						    <option value="울산광역시">울산광역시</option>
+						    <option value="경기도">경기도</option>
+						    <option value="강원도">강원도</option>
+						    <option value="충청북도">충청북도</option>
+						    <option value="충청남도">충청남도</option>
+						    <option value="전라북도">전라북도</option>
+						    <option value="전라남도">전라남도</option>
+						    <option value="경상북도">경상북도</option>
+						    <option value="경상남도">경상남도</option>
+						    <option value="제주도">제주도</option>
+						</select>
+						<div class="innerInformationRowSubtitle">시·군·구</div>
+						<select id="districtSelect" name="district" class="select">
+							<option value="">-</option>
+						</select>
+					</div>
+				</div>
+				
+				
+				
 				<div class="innerSubTitle"><h2>상품 정보 및 가입</h2></div>
 				<table class="inputTable">
 					<tr>
@@ -266,13 +312,13 @@ pageEncoding="UTF-8"%>
 			    	creditService.setCreditScore(creditScoringDTO);
 				}
 			}
-		%>
-		var innerRisk = document.getElementById("innerRisk");
-		<% if(eId == -1) { %>
-			innerRisk.innerHTML = "데이터 부족"
-		<% } else { %>
-			innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";
-		<% } %>
+			%>
+			var innerRisk = document.getElementById("innerRisk");
+			<% if(eId > 0) { %>
+				innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";
+			<% } else { %>
+				alert("데이터가 부족합니다.");
+			<% } %>
 		}
 	</script>
 </body>
