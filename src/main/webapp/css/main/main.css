@@ -99,7 +99,6 @@
 }
 .mainIconText{
 	font-size: 44pt;
-	line-height: 1.5;
 	font-weight: bold;	
 }
 .bodyCard:hover{
@@ -147,8 +146,15 @@
 .headerSessionName {
 	font-weight: bold;
 }
-.headerSessionLogoutButton{
+.adminName {
+	color: #2272eb;
+}
+.headerSessionLogoutButton {
 	background: transparent;
 	cursor: pointer;
 	border: none;
+	color: #6B7684;
+}
+.headerSessionLogoutButton:hover {
+	color: #2DB400;
 }

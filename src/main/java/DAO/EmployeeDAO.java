@@ -9,6 +9,7 @@ import java.util.List;
 
 import DTO.BankDTO;
 import DTO.CustomerDTO;
+import DTO.CustomerSearchDTO;
 import DTO.EmployeeDTO;
 import DTO.LoanContractDTO;
 import util.DatabaseUtil;
@@ -33,6 +34,22 @@ public class EmployeeDAO {
 			e.printStackTrace();
 		}
 		return -1; // Database operation failed
+	}
+
+	public int getEmployeeIdByEmployeeName(String employeeName) {
+		int eId = -1;
+		String SQL = "SELECT e_id FROM employees WHERE e_name = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setString(1, employeeName);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					eId = rs.getInt("e_id");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return eId;
 	}
 
 	// Read an employee by EmployeeId
@@ -144,10 +161,10 @@ public class EmployeeDAO {
 					loanContract.setCustomerId(rs.getInt("c_id"));
 					loanContract.setEmployeeId(rs.getInt("e_id"));
 					loanContract.setStartDate(rs.getTimestamp("start_date"));
-					loanContract.setMuturityDate(rs.getTimestamp("muturiy_date"));
+					loanContract.setMaturityDate(rs.getTimestamp("muturiy_date"));
 					loanContract.setPaymentMethod(rs.getString("payment_method"));
 					loanContract.setBalance(rs.getLong("balance"));
-					loanContract.setPaymentDate(rs.getDate("payment_date"));
+					loanContract.setPaymentDate(rs.getInt("payment_date"));
 					loanContract.setDelinquentAmount(rs.getLong("delinquent_amount"));
 					loanContract.setGuarantorId(rs.getInt("guarantor"));
 					loanContract.setInterestRate(rs.getLong("interest_rate"));
@@ -195,9 +212,9 @@ public class EmployeeDAO {
 		}
 		return bank;
 	}
-	
-	public List<EmployeeDTO> getEmployeesByDTO(EmployeeDTO employeeDTO) {
-		StringBuilder queryBuilder = new StringBuilder("SELECT e.*, b.b_name FROM employees e ");
+	public int getEmployeeCount(EmployeeDTO employeeDTO) {
+		int cnt = 0;
+		StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt, b.b_name FROM employees e ");
 		queryBuilder.append("JOIN banks b ON e.b_id = b.b_id ");
 		queryBuilder.append("WHERE 1=1 ");
 
@@ -210,10 +227,10 @@ public class EmployeeDAO {
 		if (employeeDTO.getPosition() != null) {
 			queryBuilder.append("AND e.position = ?");
 		}
-		if(employeeDTO.getBankLocation() != null) {
+		if (employeeDTO.getBankLocation() != null) {
 			queryBuilder.append("AND b.b_name = ?");
 		}
-
+		
 		try (Connection conn = DatabaseUtil.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
@@ -230,12 +247,61 @@ public class EmployeeDAO {
 			if(employeeDTO.getBankLocation() != null) {
 				pstmt.setString(parameterIndex++, employeeDTO.getBankLocation());
 			}
-	    
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					cnt = rs.getInt("cnt");
+		        }
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	public List<EmployeeDTO> getEmployeesByDTO(EmployeeDTO employeeDTO, int page) {
+		StringBuilder queryBuilder = new StringBuilder("SELECT e.*, b.b_name FROM employees e ");
+		queryBuilder.append("JOIN banks b ON e.b_id = b.b_id ");
+		queryBuilder.append("WHERE 1=1 ");
+
+		if (employeeDTO.getEmployeeName() != null) {
+			queryBuilder.append("AND e.e_name = ?");
+		}
+		if (employeeDTO.getDepartment() != null) {
+			queryBuilder.append("AND e.department = ?");
+		}
+		if (employeeDTO.getPosition() != null) {
+			queryBuilder.append("AND e.position = ?");
+		}
+		if(employeeDTO.getBankLocation() != null) {
+			queryBuilder.append("AND b.b_name = ?");
+		}
+		queryBuilder.append(" ORDER BY e.e_id ASC"); // 정렬 조건
+		queryBuilder.append(" LIMIT 20 OFFSET ?");
+
+		try (Connection conn = DatabaseUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+			int parameterIndex = 1;
+
+			if (employeeDTO.getEmployeeName() != null) {
+				pstmt.setString(parameterIndex++, employeeDTO.getEmployeeName());
+			}
+			if (employeeDTO.getDepartment() != null) {
+				pstmt.setString(parameterIndex++, employeeDTO.getDepartment());
+			}
+			if (employeeDTO.getPosition() != null) {
+				pstmt.setString(parameterIndex++, employeeDTO.getPosition());
+			}
+			if (employeeDTO.getBankLocation() != null) {
+				pstmt.setString(parameterIndex++, employeeDTO.getBankLocation());
+			}
+			pstmt.setInt(parameterIndex++, (page-1)*20);
+
 			List<EmployeeDTO> findEmployees = new ArrayList<>();
-			try (ResultSet rs = pstmt.executeQuery()) {				
+			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					EmployeeDTO employee = new EmployeeDTO();
-					
+
 					employee.setEmployeeId(rs.getInt("e_id"));
 					employee.setEmployeeName(rs.getString("e_name"));
 					employee.setPhoneNumber(rs.getString("e_phone_no"));
@@ -247,14 +313,14 @@ public class EmployeeDAO {
 					String bankName = rs.getString("b_name");
 					employee.setBankLocation(bankName);
 
-	                findEmployees.add(employee);
-	            }
-	        }
-	        return findEmployees;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return null;
+					findEmployees.add(employee);
+				}
+			}
+			return findEmployees;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

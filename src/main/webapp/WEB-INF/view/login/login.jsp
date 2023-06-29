@@ -13,7 +13,7 @@
 		<div class="loginOuterbox">
 			<div class="loginInnerbox">
 				<div class="loginTitleBox">로그인</div>
-				<form class="loginBodyBox" action="${pageContext.request.contextPath}/LoginController" method="post">
+				<form class="loginBodyBox" action="${pageContext.request.contextPath}/AuthController/Login/" method="post">
 					<input class="loginBodyIDPW" name="employeeId" id="employeeId" placeholder="회원번호" type="text" maxlength="8"></input>
 					<input class="loginBodyIDPW" name="password" id="password" placeholder="비밀번호" type="password" maxlength="20"></input>
 					<input class="loginBodyButton" id="loginSubmit" value="로그인" type="submit"></input>
@@ -25,8 +25,9 @@
 	</div>
 	<script src="${pageContext.request.contextPath}/js/login/login.js"></script>
 	<script>
-		const loginId = "<%= request.getSession().getAttribute("loginId") %>";
-		if (loginId !== "null") {
+		const sessionId = "<%= request.getSession().getAttribute("sessionId") %>";
+		console.log(sessionId);
+		if (sessionId !== "null") {
 			window.location.href = "${pageContext.request.contextPath}/navigation/main";			
 		}
  		let previousEmployeeId = "<%= request.getSession().getAttribute("employeeId") %>";

@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class BankDTO {
+public class BankDTO extends PaginationDTO{
 	private int bankId;
 	private String bankName;
 	private String location;

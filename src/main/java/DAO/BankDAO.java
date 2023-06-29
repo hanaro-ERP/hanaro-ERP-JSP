@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DTO.BankDTO;
+import DTO.CustomerSearchDTO;
 import DTO.EmployeeDTO;
 import util.DatabaseUtil;
 
@@ -28,6 +29,22 @@ public class BankDAO {
 		return -1; // Database operation failed
 	}
 
+	public int getBankIdByBankName(String bankName) {
+		int bId = -1;
+	    String SQL = "SELECT b_id FROM banks WHERE b_name = ?";
+	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	        pstmt.setString(1, bankName);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	            	bId = rs.getInt("b_id");
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return bId;
+	}
+	
 	// Read a bank by bankId
 	public BankDTO getBankByBankId(int bankId) {
 		BankDTO bank = new BankDTO();
@@ -43,6 +60,22 @@ public class BankDAO {
 			e.printStackTrace();
 		}
 		return bank;
+	}
+	
+	public String getBankNameByBankId(int bankId) {
+		String bankName = "";
+		String SQL = "SELECT b_name FROM banks WHERE b_id = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setInt(1, bankId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					bankName = rs.getString("b_name");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bankName;
 	}
 
 	// Fill a BankDTO from a ResultSet
@@ -98,7 +131,45 @@ public class BankDAO {
 		return banks;
 	}
 	
-	public List<BankDTO> getBankListByDTO(BankDTO bankDTO) {
+	public int getBankCount(BankDTO bankDTO) {
+		int cnt = 0;
+		StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt FROM banks ");
+		queryBuilder.append("WHERE 1=1 ");
+
+		if (bankDTO.getBankName() != null) {
+			queryBuilder.append("AND b_name LIKE ?");
+		}
+		if (bankDTO.getCity() != null) 
+			queryBuilder.append("AND location LIKE ?");
+
+		try (Connection conn = DatabaseUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
+			int parameterIndex = 1;
+
+			if (bankDTO.getBankName() != null) {
+				pstmt.setString(parameterIndex++, bankDTO.getBankName() + "%");
+			}
+			if (bankDTO.getCity() != null) {
+				if(bankDTO.getDistrict() != null) {
+					pstmt.setString(parameterIndex++, bankDTO.getLocation());
+				}
+				else {
+					pstmt.setString(parameterIndex++, bankDTO.getCity() + "%");
+				}
+			}
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					cnt = rs.getInt("cnt");
+		        }
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
+	public List<BankDTO> getBankListByDTO(BankDTO bankDTO, int page) {
 		StringBuilder queryBuilder = new StringBuilder("SELECT * FROM banks ");
 		queryBuilder.append("WHERE 1=1 ");
 
@@ -108,6 +179,7 @@ public class BankDAO {
 		if (bankDTO.getCity() != null) {
 			queryBuilder.append("AND location LIKE ?");
 		}
+		queryBuilder.append(" LIMIT 20 OFFSET ?");
 		
 		try (Connection conn = DatabaseUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
@@ -124,6 +196,7 @@ public class BankDAO {
 						pstmt.setString(parameterIndex++, bankDTO.getCity() + "%");
 					}
 				}
+				pstmt.setInt(parameterIndex++, (page-1)*20);
 		    
 				List<BankDTO> findBankList = new ArrayList<>();
 				try (ResultSet rs = pstmt.executeQuery()) {				
@@ -141,6 +214,24 @@ public class BankDAO {
 		        } catch (Exception e) {
 					e.printStackTrace();
 				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	public BankDTO getBankNameByBankID(EmployeeDTO employeeDTO) {
+		String SQL = "SELECT b_name FROM banks WHERE b_id = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setInt(1, employeeDTO.getBankId());
+			BankDTO bank = new BankDTO();
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					bank.setBankName(rs.getString("b_name"));
+				}
+				return bank;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

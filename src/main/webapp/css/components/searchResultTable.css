@@ -1,5 +1,5 @@
 .searchTable {
-	width: 1444px;
+	width: 100%;
 	margin-top: 15px;
 	margin-bottom: 20px;
 	box-sizing: border-box;
@@ -7,6 +7,9 @@
 	border-top-right-radius: 5px;
 	border-collapse: separate;
 	border-spacing: 1;
+}
+.popUpTable {
+	width: 100%;
 }
 .searchTable tr th {
 	background: #2DB400;
@@ -23,12 +26,70 @@
 .searchTable tr {
 	text-align: center;
 	color: #191F29;
+	background-color: #FFFFFF;
 }
 .searchTable tr:hover {
 	cursor: pointer;
 	background-color: #F2F4F6;
 }
+.popUpTable tr:hover {
+	cursor: auto;
+	background-color: #FFFFFF;
+}
 .searchTable tr td {
 	height: 40px;
 	border: 0.5px solid #8B95A1;
+}
+.popupTitleBox {
+	width: fit-content;
+	display: flex;
+	justify-content: start;
+	align-items: end;
+}
+.popupTitleBox > h1, h2 {
+	margin: 0;
+	margin-left: 20px;
+}
+.pagination {
+	display: flex;
+	justify-content: center;
+}
+.pagination > button, 
+.pagination > a {
+	font-size: 23px;
+	background: none;
+	border: none;
+	padding: 1px 6px;
+}
+.pagination > button:hover, 
+.pagination > button a:hover {
+	cursor: pointer;
+	color: #2DB400;
+}
+.activePage {
+	color: #2DB400;
+	font-weight: bold;
+}
+.searchTitle {
+	display: flex;
+	align-items: end;
+}
+.searchTitle > p {
+	font-size: 21px;
+	margin: 0px;
+	margin-left: 20px;
+}
+.transactionTable tr th:nth-child(2),
+.transactionTable tr th:nth-child(3) {
+	width: 10%;
+}
+.transactionTable tr th:nth-child(4) {
+	width: 40%;
+}
+.transactionTable tr th:nth-child(5) {
+	width: 13%;
+}
+.searchTable .noResultRow:hover {
+	cursor: auto;
+	background-color: #FFFFFF;
 }

@@ -1,11 +1,21 @@
 package util;
 
-public class LoanUtil {
-	public String convertMoneyUnit(long money) {
+import java.security.Timestamp;
+import java.text.NumberFormat;
+import java.time.*;
+import java.util.Locale;
 
-		if (money >= 100000000) {
+import DTO.LoanContractDTO;
+
+public class LoanUtil {
+	public String convertMoneyUnit(long money) {		
+		if (money == 0) {
+			return "-";
+		}
+		else if (money >= 100000000) {
 			return money/100000000 + "억원";
-		} else {
+		} 
+		else {
 			return money/10000 + "만원";
 		}
 	}	
@@ -31,5 +41,21 @@ public class LoanUtil {
 			return "무직";
 		else
 			return "-";
+	}
+	
+	public void setDate(LoanContractDTO loanContractDTO) {
+		// 현재 날짜 가져오기
+		LocalDate currentDate = LocalDate.now();
+
+		// 현재 날짜의 일(day) 값 가져오기
+		int dayOfMonth = currentDate.getDayOfMonth();
+		
+		loanContractDTO.setPaymentDate(dayOfMonth);
+	}
+	
+	public String formatCurrency(long amount) {
+		NumberFormat formatter = NumberFormat.getNumberInstance(Locale.KOREA);
+		String formattedAmount  = formatter.format(amount);
+		return formattedAmount;
 	}
 }

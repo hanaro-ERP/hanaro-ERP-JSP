@@ -4,7 +4,7 @@ import java.security.NoSuchAlgorithmException;
 
 import DAO.EmployeeDAO;
 import DTO.EmployeeDTO;
-import util.PasswordUtil;
+import util.HashingUtil;
 
 public class RegisterService {
 
@@ -12,9 +12,9 @@ public class RegisterService {
 	}
 
 	public static int registerEmployee(EmployeeDTO employeeDTO) throws NoSuchAlgorithmException {
-		String salt = PasswordUtil.generateSalt();
+		String salt = HashingUtil.generateSalt();
 		String password = employeeDTO.getPassword();
-		password = PasswordUtil.hashPassword(password, salt);
+		password = HashingUtil.hashPassword(password, salt);
 		employeeDTO.setPassword(password);
 		employeeDTO.setSalt(salt);
 		employeeDTO.setBankId(1);

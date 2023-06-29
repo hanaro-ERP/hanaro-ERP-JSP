@@ -1,0 +1,35 @@
+@charset "UTF-8";
+#search {
+	float: left;
+}
+tr td select {
+	width: 150px;
+}
+.select {
+	width: 150px;
+}
+.shortSelect,
+.middleInput {
+	width: 200px;
+}
+#repaymentMethodSelectTableTitle {
+	margin-top: 100px !important;
+}
+#repaymentMethodSelectTable tr th:nth-child(1){
+	width: 15%;	
+}
+#repaymentMethodSelectTable tr th:nth-child(2){
+	width: 17%;	
+}
+#repaymentMethodSelectTable tr th:nth-child(3){
+	width: 17%;	
+}
+#repaymentMethodSelectTable tr th:nth-child(4){
+	width: 17%;	
+}
+#repaymentMethodSelectTable tr th:nth-child(5){
+	width: 17%;	
+}
+#repaymentMethodSelectTable tr th:nth-child(6){
+	width: 17%;	
+}

@@ -129,13 +129,13 @@ li > div > input {
 	font-weight: bold;
 }
 input[type="checkbox"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  outline: none;
-  background: none;
-  margin: 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+	margin: 0;
 }
 .directInput {
 	width: 750px !important;
@@ -155,4 +155,29 @@ input[type="checkbox"] {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+}
+.modifyButtonBox {
+	width: 100%;
+	display: none;
+	justify-content: end;
+}
+.modifyButtonBox > a {
+	font-weight: bold;
+	text-decoration: none;
+	outline: none;
+	border-radius: 3px;
+	padding: 5px 10px;
+	margin-top: 10px;
+}
+.deleteLoanButton {
+	color: #EE305A;
+	border: 1px solid #EE305A;
+}
+.modifyLoanButton {
+	color: #2DB400;
+	border: 1px solid #2DB400;
+	margin-left: 10px;
+}
+.modifyButtonBox > a:hover {
+	background-color: #F2F4F6;
 }

@@ -4,11 +4,11 @@ import java.security.NoSuchAlgorithmException;
 
 import DAO.EmployeeDAO;
 import DTO.EmployeeDTO;
-import util.PasswordUtil;
+import util.HashingUtil;
 
-public class LoginService {
+public class AuthService {
 
-	public LoginService() {
+	public AuthService() {
 	}
 
 	public static Object authenticateEmployee(EmployeeDTO employeeDTO) throws NoSuchAlgorithmException {
@@ -19,7 +19,7 @@ public class LoginService {
 		storedEmployeeDTO = employeeDAO.getEmployeeByEmployeeId(employeeId);
 		String storedPassword = storedEmployeeDTO.getPassword();
 		String storedSalt = storedEmployeeDTO.getSalt();
-		String hashedPassword = PasswordUtil.hashPassword(password, storedSalt);
+		String hashedPassword = HashingUtil.hashPassword(password, storedSalt);
 
 		return hashedPassword.equals(storedPassword) ? storedEmployeeDTO : null;
 	}

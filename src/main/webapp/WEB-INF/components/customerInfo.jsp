@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 </head>
-<body>
+<body style="padding: 0 20px">
 <div class="innerSubTitle"><h2>고객 정보</h2></div>
 <div class="innerInformation">
 	<div class="innerInformationRow">
@@ -50,8 +50,15 @@
 		<div class="innerInformationRowTitle">직업 코드</div>
 		<p>${customer.jobCode}</p>
 		<div class="innerInformationRowTitle">위험도</div>
-		<p>98</p>
+		<p>${customer.risk}</p>
 	</div>
 </div>
+<script>
+	document.addEventListener('keydown', function(event) {
+		if (event.key === 'Escape') {
+			window.close();
+		}
+	});
+</script>
 </body>
 </html>

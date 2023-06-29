@@ -32,7 +32,6 @@ public class NavigationController extends HttpServlet {
 		try {
 			String uri = request.getRequestURI();
 			String goTo = "";
-			System.out.println(uri);
 			if (uri.equals("/hanaro-ERP-JSP/")) {
 				goTo = "/login/login.jsp";
 			} else if (uri == null || uri.equals("/hanaro-ERP-JSP/navigation/login")) {
@@ -41,6 +40,8 @@ public class NavigationController extends HttpServlet {
 				goTo = "/main/main.jsp";
 			} else if (uri.equals("/hanaro-ERP-JSP/navigation/customer")) {
 				goTo = "/customer/customerList.jsp";
+			} else if (uri.equals("/hanaro-ERP-JSP/navigation/customerRegist")) {
+				goTo = "/customer/customerRegist.jsp";				
 			} else if (uri.equals("/hanaro-ERP-JSP/navigation/employee")) {
 				goTo = "/employee/employeeList.jsp";
 			} else if (uri.equals("/hanaro-ERP-JSP/navigation/bank")) {
