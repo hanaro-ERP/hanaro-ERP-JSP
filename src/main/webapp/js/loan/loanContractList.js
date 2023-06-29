@@ -5,7 +5,7 @@ selectOneItemWithDirectInput("latePayment");
 
 setYearSelect("loanContractStartDate");
 setYearSelect("loanContractEndDate");
-setMonthSelect();
+setMonthSelect(true);
 setDaySelect(true);
 //changeDate();
 
