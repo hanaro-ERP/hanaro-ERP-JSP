@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 </head>
-<body>
+<body style="padding: 0 20px">
 <%@page import="DTO.LoanProductDTO"%>
 <% 
 	LoanProductDTO loanProduct =(LoanProductDTO) request.getAttribute("loanProduct"); 

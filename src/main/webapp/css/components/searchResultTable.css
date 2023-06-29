@@ -1,5 +1,5 @@
 .searchTable {
-	width: 1444px;
+	width: 100%;
 	margin-top: 15px;
 	margin-bottom: 20px;
 	box-sizing: border-box;
@@ -40,13 +40,14 @@
 	border: 0.5px solid #8B95A1;
 }
 .popupTitleBox {
-	width: 500px;
+	width: fit-content;
 	display: flex;
-	justify-content: space-between;
+	justify-content: start;
 	align-items: end;
 }
 .popupTitleBox > h1, h2 {
 	margin: 0;
+	margin-left: 20px;
 }
 .pagination {
 	display: flex;
@@ -76,4 +77,14 @@
 	font-size: 21px;
 	margin: 0px;
 	margin-left: 20px;
+}
+.repaymentTable tr th:nth-child(2),
+.repaymentTable tr th:nth-child(3) {
+	width: 10%;
+}
+.repaymentTable tr th:nth-child(4) {
+	width: 40%;
+}
+.repaymentTable tr th:nth-child(5) {
+	width: 13%;
 }

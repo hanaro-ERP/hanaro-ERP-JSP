@@ -138,7 +138,7 @@
 		</div>	
 	</main>
 	<script>
-		generateMenu('customer', 'customerList', 'customerRegist');		
+		generateMenu('customer', 'customerRegist');		
 	</script>
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>

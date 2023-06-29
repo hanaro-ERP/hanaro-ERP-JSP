@@ -40,25 +40,25 @@
 	line-height: 1.6;
 }
 #loanSearchTable tr th:nth-child(1){
-	width: 3%;	
+	width: 5%;	
 }
 #loanSearchTable tr th:nth-child(2){
-	width: 7%;	
+	width: 8%;	
 }
 #loanSearchTable tr th:nth-child(3){
 	width: 12%;	
 }
 #loanSearchTable tr th:nth-child(4){
-	width: 6%;	
+	width: 7%;	
 }
 #loanSearchTable tr th:nth-child(5){
-	width: 6%;	
+	width: 7%;	
 }
 #loanSearchTable tr th:nth-child(6){
-	width: 6%;	
+	width: 7%;	
 }
 #loanSearchTable tr th:nth-child(7){
-	width: 18%;	
+	width: 12%;	
 }
 #loanSearchTable tr th:nth-child(8){
 	width: 12%;	
