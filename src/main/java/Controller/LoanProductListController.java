@@ -73,7 +73,6 @@ public class LoanProductListController extends HttpServlet {
 			int loanCount = loanService.getLoanCount(loanSearchDTO);
 			loanSearchDTO.setCount(loanCount);
 			loanSearchDTO.setPage(pageNo);
-			System.out.println(loanCount);
 			
 			List<LoanProductDTO> loanList = loanService.getLoanProductList(loanSearchDTO, pageNo);
 			

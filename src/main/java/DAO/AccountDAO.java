@@ -184,7 +184,6 @@ public class AccountDAO {
 					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[1] + "0000");
 			}
 
-			System.out.println(pstmt.toString());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 		            cnt = rs.getInt("cnt");
@@ -233,8 +232,6 @@ public class AccountDAO {
 		}
 		queryBuilder.append(" LIMIT 20 OFFSET ?");
 
-		System.out.println(queryBuilder);
-
 		try (Connection conn = DatabaseUtil.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
@@ -272,9 +269,7 @@ public class AccountDAO {
 					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[1]+"0000");
 			}
 			pstmt.setInt(parameterIndex++, (page-1)*20);
-			
-			System.out.println(pstmt.toString());
-			
+				
 			List<AccountDTO> findAccountList = new ArrayList<>();
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {

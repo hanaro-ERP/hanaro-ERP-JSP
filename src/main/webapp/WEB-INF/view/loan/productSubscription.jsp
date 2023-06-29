@@ -1,3 +1,4 @@
+<%@page import="DTO.RepaymentMethodDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,23 +6,25 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8" />
 <title>상품 가입</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productsubscription.css?ver=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productSubscription.css?ver=1">
-<script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
+<script src="${pageContext.request.contextPath}/js/components/aside.js"></script>
 </head>
-<body>
-	<%@ include file="../../components/header.jsp" %>
-	<%@ page import="DTO.CustomerDTO" %>
+<body>\
+	<%@ include file="../../components/header.jsp" %>	
+	<%@ page import="java.util.List"%>
+	<%@ page import="DTO.LoanContractDTO"%>	
+	<%@ page import="util.LoanUtil"%>	\
+	<%@ page import="DTO.CustomerDTO" %>\
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 가입</h1></div>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
-				<div class="innerSubTitle"><h2>고객 정보</h2></div>
+				<div class="innerSubTitle"><h2>고객 정보 찾기</h2></div>
 				<table class="inputTable">
  					<% CustomerDTO customer = (CustomerDTO) request.getAttribute("customer"); %>
-					<input type="hidden" name="customerDTO" id="customerDTO" value="<%= customer != null ? customer : "" %>" />
 					<tr>
 						<th>이름</th>
 						<td><input id="customerName" name="customerName" class="middleInput" value="<%= customer != null ? customer.getCustomerName() : "" %>"/>
@@ -98,7 +101,7 @@ pageEncoding="UTF-8"%>
 					</tr>
 				</table>
 
-				<div class="innerSubTitle"><h2>상품 정보</h2></div>
+				<div class="innerSubTitle"><h2>상품 정보 및 가입</h2></div>
 				<table class="inputTable">
 					<tr>
 						<th>대출 구분</th>
@@ -119,11 +122,6 @@ pageEncoding="UTF-8"%>
 						<th>담보</th>
 						<td>
 							<input name="collateral" class="middleInput">
-							<!-- <select name="collateral" class="shortSelect">
-								<option value="예적금">예적금</option>
-								<option value="주택">주택</option>
-								<option value="전세자금">전세자금</option>
-							</select>-->
 						</td>
 						<th>대출 금액</th>
 						<td>
@@ -138,26 +136,97 @@ pageEncoding="UTF-8"%>
 							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
 							%
 							&nbsp; | &nbsp;&nbsp;
-							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
+							<input type="number" step="0.1" max="10" id="loanPeriod" name="loanPeriod" class="shortInput" />
 							년
 						</td>
 						<th> 거치 기간</th>
 						<td>
-						<input name="gracePeriod" class="shortInput"> 년
+						<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
 					</tr>
 					<tr>
 						<th>상환 방법</th>
 						<td colspan=3>
-							<select name="repaymentMethod" class="shortSelect">
-								<option value="원리금균등분할상환">원리금균등분할상환</option>
-								<option value="원금균등분할상환">원금균등분할상환</option>
-								<option value="만기일시상환">만기일시상환</option>
+							<select name="repaymentMethod" class="shortSelect" id="repaymentMethod" onchange="updateTable()">
+								<option value="-">-</option>
+								<option value="원금만기일시상환">만기일시상환</option>
+								<option value="원금균등상환">원금균등분할상환</option>
+								<option value="원리금균등상환">원리금균등분할상환</option>
 							</select>
 						</td>
 					</tr>
 				</table>
-				<div class="innerButtonContainer">
-					<button type="submit">등록</button>
+				<div class="innerButtonContainer">					
+					<button type="submit" id="search">검색</button>
+				</div>
+				
+				
+			<%-- 	<div id="repaymentMethodTableDiv">
+					<h3 id="repaymentMethodTableTitle">
+				
+						<%List<RepaymentMethodDTO> repaymentMethodDTOList = (List<RepaymentMethodDTO>) request.getAttribute("repaymentMethod");
+
+						if (repaymentMethodDTOList != null && repaymentMethodDTOList.size() > 0) {
+							System.out.println("jsp repaymentlist size ="+repaymentMethodDTOList.size());							
+							String method = repaymentMethodDTOList.get(0).getMethod();
+							if (method.equals("만기")) {
+								out.println("원금만기일시상환");
+							} 
+							else if (method.contains("원금균등")) {
+								out.println("원금균등상환");
+							} 
+							else {
+								out.println("원리금균등상환");
+							}
+						%>
+					</h3>
+					<table class="searchTable" id="repaymentMethodTable">
+						<tr>
+							<th>회차</th>
+							<th>상환금</th>
+							<th>납입 원금</th>
+							<th>이자</th>
+							<th>납입원금누계</th>
+							<th>잔금</th>
+						</tr>
+								
+						<%
+							LoanUtil loanUtil = new LoanUtil();
+							if (repaymentMethodDTOList != null && !repaymentMethodDTOList.isEmpty()) {
+								for (RepaymentMethodDTO dto : repaymentMethodDTOList) {
+									%>
+									<tr class="searchResultRow" >
+										<td><%= dto.getTimes()%></td>
+										<td><%= loanUtil.formatCurrency(dto.getRepaymentAmount())%></td>									
+										<td><%= loanUtil.formatCurrency(dto.getPrincipalPayment())%></td>
+										<td><%= loanUtil.formatCurrency(dto.getInterest())%></td>
+										<td><%= loanUtil.formatCurrency(dto.getCumulativePrincipalPayment())%></td>
+										<td><%= loanUtil.formatCurrency(dto.getBalance())%></td>
+									</tr>
+									<%
+								}
+							}
+						}
+						else{
+							System.out.println("jsp repaymentlist null");
+						}
+						%>
+				</table>
+				</div> --%>
+				
+				<div id="repaymentMethodSelectTableDiv">
+					<h3 id="repaymentMethodSelectTableTitle">						
+					상환 방법
+					</h3>
+					<table class="searchTable" id="repaymentMethodSelectTable">
+						<tr>
+							<th>회차</th>
+							<th>상환금</th>
+							<th>납입 원금</th>
+							<th>이자</th>
+							<th>납입원금누계</th>
+							<th>잔금</th>
+						</tr>
+				</table>
 				</div>
 			</form>
 		</div>
@@ -172,7 +241,7 @@ pageEncoding="UTF-8"%>
 	    function openSearchPopup() {
 	    	var firstTd = document.getElementById("customerName"); // customerName 필드를 가리키는 변수 firstTd
 	    	if(firstTd.value !== '')
-		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value, "_blank", "width=500,height=300");
+		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 2, "_blank", "width=1000,height=200");
 	    }
 	</script>
 </body>

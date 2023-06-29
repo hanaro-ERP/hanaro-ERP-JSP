@@ -39,19 +39,16 @@ public class CustomerRegisterController extends HttpServlet {
 			
 			//고객 정보
 			CustomerDTO customerDTO = new CustomerDTO();
-			
-			String customerName = customerDTO.getCustomerName();//.getParameter("customerName");
+
+			String customerName = request.getParameter("customerName");
 			String phoneNumber = request.getParameter("phoneNumber");
 			String citySelect = request.getParameter("citySelect");
 			String district = request.getParameter("district");
 			String address = citySelect + " " + district;
-			String id[] = request.getParameterValues("residentRegistrationNumber");			
-
-			System.out.println("customerName: " + customerName);
-			System.out.println("phoneNumber: " + phoneNumber);
-			System.out.println("address : " + address );
+			String id[] = request.getParameterValues("residentRegistrationNumber");
 			
-			phoneNumber = phoneNumber.substring(0,2) + "-" + phoneNumber.substring(3,6) + "-" + phoneNumber.substring(7,10);
+			phoneNumber = phoneNumber.substring(0,3) + "-" + phoneNumber.substring(3,7) + "-" + phoneNumber.substring(7,11);
+
 			String identification = id[0] + "-" + id[1];
 			int age = customerUtil.getAgeFromIdentification(id[0]);
 			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(id[1].substring(0,1)));
@@ -63,7 +60,7 @@ public class CustomerRegisterController extends HttpServlet {
 			String bankName = request.getParameter("bank"); //주거래지점
 			String customerRank = request.getParameter("customerRank");
 			String creditRank = request.getParameter("creditRank");
-			
+
 			if(customerName != "")
 				customerDTO.setCustomerName(customerName);
 			if(phoneNumber != "")
@@ -75,13 +72,12 @@ public class CustomerRegisterController extends HttpServlet {
 				customerDTO.setAge(age);
 				customerDTO.setGender(gender);
 			}
-			if(customerName != "")
-				customerDTO.setBankName(customerName);
+			if(suretyName != "")
+				customerDTO.setSuretyName(suretyName);
 			if(jobCode != "")
 				customerDTO.setJobCode(jobCode);
 			if(country != "")
 				customerDTO.setCountry(country);
-			//보증인은 보류
 			if(employeeName != "")
 				customerDTO.setEmployeeName(employeeName);
 			if(bankName != "")
@@ -92,6 +88,8 @@ public class CustomerRegisterController extends HttpServlet {
 				customerDTO.setCredit(creditRank);
 		
 			int isLoanRegistered = customerService.registerCustomer(customerDTO);
+			
+			request.setAttribute("customerDTO", customerDTO);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/customer/customerRegist.jsp");
 			dispatcher.forward(request, response);

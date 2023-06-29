@@ -3,6 +3,7 @@ package Controller;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import DTO.CustomerDTO;
 import DTO.LoanContractDTO;
+import DTO.RepaymentMethodDTO;
 import Service.LoanService;
 import util.CustomerUtil;
 
@@ -46,7 +48,7 @@ public class LoanSubscriptionController extends HttpServlet {
 			
 			String customerName = request.getParameter("customerName");
 			String phoneNumber = request.getParameter("phoneNumber");
-			String address = request.getParameter("address");//.getParameter("citySelect");
+			String address = request.getParameter("address");
 			String id1 = request.getParameter("identification").substring(0, 6);
 			String id2 = request.getParameter("identification").substring(7, 14);
 			String identification = id1 + "-" + id2; 
@@ -77,7 +79,6 @@ public class LoanSubscriptionController extends HttpServlet {
 				customerDTO.setJobCode(jobCode);
 			if(country != "")
 				customerDTO.setCountry(country);
-			//보증인은 보류
 			if(employeeName != "")
 				customerDTO.setEmployeeName(employeeName);
 			if(bankName != "")
@@ -110,37 +111,16 @@ public class LoanSubscriptionController extends HttpServlet {
 			}
 			if(interestRate != null) {
 				loanContractDTO.setInterestRate(Float.parseFloat(interestRate));
-				System.out.println("이자율111111: " +loanContractDTO.getInterestRate());
-			}
+				}
 			if(repaymentMethod != null)
 				loanContractDTO.setPaymentMethod(repaymentMethod);
 			if(gracePeriod != null)
 				loanContractDTO.setGracePeriod(Integer.parseInt(gracePeriod));
-			
-			/*
-			System.out.println("customerName: " + customerName);
-			System.out.println("phoneNumber: " + phoneNumber);
-			System.out.println("address : " + address );
-			System.out.println("identification : " + identification );
-			System.out.println("country : " + country );
-			System.out.println("jobCode : " + jobCode );			
-			
-			System.out.println("suretyName : " + suretyName );
-			System.out.println("employeeName : " + employeeName );
-			System.out.println("bankName  : " + bankName  );
-			System.out.println("customerRank  : " + customerRank  );
-			System.out.println("creditRank  : " + creditRank  );
-			
-			System.out.println("loanType: " + loanType);
-			System.out.println("loanProductName: " + loanProductName);
-			System.out.println("collateral: " + collateral);
-			System.out.println("loanAmount: " + loanAmount);
-			System.out.println("interestRate: " + interestRate);
-			System.out.println("repaymentMethod: " + repaymentMethod);
-			*/
-			
 			int isLoanRegistered = loanService.subscriptionLoan(customerDTO, loanContractDTO);
-			
+						
+			List<RepaymentMethodDTO> repaymentMethodDTOList = loanService.getRepaymentMethod(identification);
+			request.setAttribute("repaymentMethod", repaymentMethodDTOList);
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productSubscription.jsp");
 			dispatcher.forward(request, response);
 			
