@@ -37,7 +37,7 @@
 		<h2><%= customerName %></h2>
 	</div>
 	<div id="historyTableBox">
-		<table class="searchTable" id="historyTable">
+		<table class="searchTable popUpTable repaymentTable" id="historyTable">
 			<tr>
 				<th>상환 ID</th>			
 				<th>이력 ID</th>

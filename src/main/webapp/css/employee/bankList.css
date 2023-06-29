@@ -6,13 +6,15 @@
 	text-align: center;
 }
 
-.searchTable tr th:nth-child(1),
+.searchTable tr th:nth-child(1) {
+	width: 134px;
+}
 .searchTable tr th:nth-child(3) {
-	width: 150px;
+	width: 300px;
 }
 .searchTable tr th:nth-child(2) {
-	width: 200px;
+	width: 400px;
 }
 .searchTable tr th:nth-child(4) {
-	width: 250px;
+	width: 500px;
 }
