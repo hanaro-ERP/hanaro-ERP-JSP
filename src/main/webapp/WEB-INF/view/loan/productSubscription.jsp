@@ -213,10 +213,14 @@ pageEncoding="UTF-8"%>
 				</table>
 				</div> --%>
 				
-				<div id="repaymentMethodSelectTableDiv">
-					<h3 id="repaymentMethodSelectTableTitle">						
+				<div id="repaymentAmountTotalDiv">
+					<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금<p>
+					<p id="repaymentAmountTotal" style="display: none;"><p>
+				</div>					
+				<div id="repaymentMethodSelectTableDiv" style="display: none;">
+					<h2 id="repaymentMethodSelectTableTitle">						
 					상환 방법
-					</h3>
+					</h2>
 					<table class="searchTable" id="repaymentMethodSelectTable">
 						<tr>
 							<th>회차</th>
@@ -227,7 +231,7 @@ pageEncoding="UTF-8"%>
 							<th>잔금</th>
 						</tr>
 				</table>
-				</div>
+				</div>		
 			</form>
 		</div>
 	</main>
