@@ -10,7 +10,6 @@ import Service.evaluators.IncomeEvaluator;
 import Service.evaluators.JobEvaluator;
 import Service.evaluators.LoanBalanceEvaluator;
 import Service.evaluators.PropertyEvaluator;
-import Service.evaluators.RepaymentHistoryEvaluator;
 
 import util.EncryptUtil;
 import util.KeyUtil;

@@ -1,34 +1,34 @@
 package Controller;
 
-import java.io.*;
-import java.io.OutputStream;
+import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class NavigationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	public NavigationController() {
 		super();
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		getNavigationProcess(request, response);
 	}
-	
+
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
 	}
-	
-	protected void getNavigationProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void getNavigationProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			String uri = request.getRequestURI();
 			String goTo = "";
@@ -41,7 +41,7 @@ public class NavigationController extends HttpServlet {
 			} else if (uri.equals("/hanaro-ERP-JSP/navigation/customer")) {
 				goTo = "/customer/customerList.jsp";
 			} else if (uri.equals("/hanaro-ERP-JSP/navigation/customerRegist")) {
-				goTo = "/customer/customerRegist.jsp";				
+				goTo = "/customer/customerRegist.jsp";
 			} else if (uri.equals("/hanaro-ERP-JSP/navigation/employee")) {
 				goTo = "/employee/employeeList.jsp";
 			} else if (uri.equals("/hanaro-ERP-JSP/navigation/bank")) {
@@ -61,7 +61,7 @@ public class NavigationController extends HttpServlet {
 			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view" + goTo);
 			dispatcher.forward(request, response);
-			} catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

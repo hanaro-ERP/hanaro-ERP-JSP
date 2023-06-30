@@ -13,14 +13,20 @@ ul > li > select {
 	text-align: center;
 	margin-right: 10px;
 }
-.searchTable tr th:nth-child(1),
-.searchTable tr th:nth-child(2),
-.searchTable tr th:nth-child(3),
-.searchTable tr th:nth-child(4) {
+.searchTable tr th:nth-child(3) {
 	width: 250px;
 }
-.searchTable tr th:nth-child(7),
-.searchTable tr th:nth-child(6),
-.searchTable tr th:nth-child(5) {
+.searchTable tr th:nth-child(4) {
+	width: 200px;
+}
+.searchTable tr th:nth-child(1),
+.searchTable tr th:nth-child(5),
+.searchTable tr th:nth-child(6) {
+	width: 150px;
+}
+.searchTable tr th:nth-child(2) {
 	width: 100px;
+}
+.searchTable tr th:nth-child(7) {
+	width: 300px;
 }
