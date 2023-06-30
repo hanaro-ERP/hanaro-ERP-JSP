@@ -33,44 +33,35 @@ pageEncoding="UTF-8"%>
 			%>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle"><h2>고객 정보 찾기</h2></div>
-				<div class="innerSubTitleRow">이름 
-				<input id="customerName" name="customerName" class="middleInput" value="<%= customer != null ? customer.getCustomerName() : "" %>"/>
+				<div class="innerSubTitleRow">주민번호
+				<input id="identification1" name="identification1" class="middleInput" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
+				-
+				<input id="identification2" name="identification2" class="middleInput" maxlength="7" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>"/>
 				<button id="customerDetailButton" type="button" onclick="openSearchPopup()"> 검색 </button>
 				</div>
 				<div id="searchResultMessage"></div>
 				<table class="inputTable">
-					<tr>										
+					<tr>
+						<th>이름</th>
+						<td>
+						<%= customer != null ? customer.getCustomerName() : "" %>
+						<input type="hidden" id="customerName" name="customerName" value="<%= customer != null ? customer.getCustomerName() : "" %>"/>
+						</td>									
 						<th>전화번호</th>
 						<td>
 						<%= customer != null ? customer.getPhoneNumber() : "" %>
 						<input type="hidden" id="phoneNumber" name="phoneNumber" value="<%= customer != null ? customer.getPhoneNumber() : "" %>"/>
-						</td>
-						<th>거주지</th>
-						<td>
-						<input type="hidden" id="address" name="address" value="<%= customer != null ? customer.getAddress() : "" %>">
-						<%= customer != null ? customer.getAddress() : "" %>
-						</td>
+						</td>					
 					</tr>
 					<tr>
 						<th>국가</th>
 						<td>
 						<input type="hidden" id="country" name="country" value="<%= customer != null ? customer.getCountry() : "" %>">
 						<%= customer != null ? customer.getCountry() : "" %>
-						</td>
-						<th>주민번호</th>
+						<th>거주지</th>
 						<td>
-							<% 	
-							String id1 = "";
-							String id2 = "";
-							if(customer != null) {
-								id1 = customer.getIdentification().substring(0, 6);
-								id2 = customer.getIdentification().substring(7,14);
-						%> 
-						<%= id1 + "-" + id2%> 
-						<input type="hidden" id="identification"
-							name="identification"
-							value="<%= customer != null ? customer.getIdentification() : "" %>">
-							<% } %>
+						<input type="hidden" id="address" name="address" value="<%= customer != null ? customer.getAddress() : "" %>">
+						<%= customer != null ? customer.getAddress() : "" %>
 						</td>
 					</tr>
 					<tr>
@@ -183,6 +174,15 @@ pageEncoding="UTF-8"%>
 			</form>
 
 			<form action="${pageContext.request.contextPath}/loan/repayment" method="post">
+				<%    
+                     String id1 = "";
+                     String id2 = "";
+                     if(customer != null) {
+                        id1 = customer.getIdentification().substring(0, 6);
+                        id2 = customer.getIdentification().substring(7,14);
+                     }
+                %> 
+				
 				<input type="hidden" name="repaymentAmountList" id="repaymentAmountList"> 
 				<input type="hidden" name="identificationId" id="identificationId" value="<%= id1 + "-" + id2%>"> 
 				<input type="hidden" name="loanProductNameSelect" id="loanProductNameSelect"> 
@@ -252,8 +252,7 @@ pageEncoding="UTF-8"%>
 				if(eId != -1) {
 					creditScoringDTO.setCustomerId(cId); //고객정보
 			    	creditScoringDTO.setGuarantorId(eId); //보증인정보
-			    	creditScoringDTO.setLoanAmount(10000000); // 대출금액
-			    	creditScoringDTO.setLoanDuration(60); // 대출	
+
 					
 			    	creditService.setCreditScore(creditScoringDTO);
 				
@@ -285,20 +284,22 @@ pageEncoding="UTF-8"%>
 			%>
 			
 			<% if(eId > 0) { %>
-				revealDetail();
-				innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";				
-				interestRate2.innerHTML = "<%= addRate %>";
-				loanPeriod2.innerHTML = "<%= addPeriod %>";
+					revealDetail();
+					innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";				
+					interestRate2.innerHTML = "<%= addRate %>";
+					loanPeriod2.innerHTML = "<%= addPeriod %>";
 			<% } else { %>
-				concealDetail();
-				alert("데이터가 부족합니다.");
+					concealDetail();
+					alert("데이터가 부족합니다.");
 			<% } %>
 		}
 		
 		function openSearchPopup() {
-	    	var firstTd = document.getElementById("customerName"); // customerName 필드를 가리키는 변수 firstTd
+	    	var firstTd = document.getElementById("identification1"); // customerName 필드를 가리키는 변수 firstTd
+	    	var secondTd = document.getElementById("identification2");
 	    	if(firstTd.value !== '') {
-		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 2, "_blank", "width=1000,height=200");
+	    		var identification = 
+		    	window.open("/hanaro-ERP-JSP/customerSearch?id1=" + firstTd.value + "&id2=" + secondTd.value + "&pageId=" + 2, "_blank", "width=1000,height=200");
 			}
 		}		
 	</script>

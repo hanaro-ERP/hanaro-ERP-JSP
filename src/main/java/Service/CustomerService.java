@@ -57,6 +57,12 @@ public class CustomerService {
 		return customerList;
 	}
 	
+	public List<CustomerDTO> getCustomerListByIdentification(String identification) {
+		List<CustomerDTO> customerList = customerDAO.getCustomersByIdentification(identification);
+		
+		return customerList;
+	}
+	
 	public List<CustomerDTO> getCustomerListByName(String name) {
 		List<CustomerDTO> customerList = customerDAO.getCustomersByName(name);
 		

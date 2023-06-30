@@ -61,8 +61,8 @@ public class LoanSubscriptionController extends HttpServlet {
 				String customerName = request.getParameter("customerName");
 				String phoneNumber = request.getParameter("phoneNumber");
 				String address = request.getParameter("address");
-				String id1 = request.getParameter("identification").substring(0, 6);
-				String id2 = request.getParameter("identification").substring(7, 14);
+				String id1 = request.getParameter("identification1");
+				String id2 = request.getParameter("identification2");
 				String identification = id1 + "-" + id2; 
 
 				int age = customerUtil.getAgeFromIdentification(id1);

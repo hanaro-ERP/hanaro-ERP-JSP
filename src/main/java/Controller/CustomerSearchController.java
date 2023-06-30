@@ -43,10 +43,11 @@ public class CustomerSearchController extends HttpServlet {
 	
 	protected void getCustomerSearchProcess(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			String customerName = request.getParameter("name");
+			String id1 = request.getParameter("id1");
+			String id2 = request.getParameter("id2");
 			String pageId = request.getParameter("pageId");
 			
-			List<CustomerDTO> customerList = customerService.getCustomerListByName(customerName);
+			List<CustomerDTO> customerList = customerService.getCustomerListByIdentification(id1+"-"+id2);
 			
 			if(customerList == null)
 				customerList = new ArrayList<>();
