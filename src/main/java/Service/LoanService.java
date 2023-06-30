@@ -142,8 +142,11 @@ public class LoanService {
 		
 		int customerId = customerDAO.getCustomerIdByCustomerIdentificationId(identificationId);
 		int loanProductId = loanDAO.getLoanIdByLoanName(loanProductNameSelect);
+
+		System.out.println("SERVIECE  " +customerId + "   "+ loanProductId);
 		int isUpdated = loanContractDAO.updateRepaymentAmount(customerId, loanProductId, repaymentAmountList);
 	
+		
 		return isUpdated;
 	}
 }
