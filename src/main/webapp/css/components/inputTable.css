@@ -24,10 +24,10 @@
 	border: 1px solid #2EB400;
 	border-radius: 5px;
 	color: #2EB400;
+	background-color: #FFFFFF;
 	align-items: center;
 	justify-content: center;	
 	cursor: pointer;
-	background: transparent;
 }
 .inputTable > tbody > tr > td > button:hover {
 	opacity: 0.8;

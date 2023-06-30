@@ -74,6 +74,7 @@
 			
 			if (remainingTime == 600) {
 				alert("10분 후에 세션이 만료됩니다.");
+				headerSessionTime.classList.add("warning");
 			}
 			if (remainingTime <= 0) {
 				clearInterval(timer);

@@ -5,7 +5,8 @@
 	margin-right: 200px;
 }
 .searchTable tr th:nth-child(1),
-.searchTable tr th:nth-child(3) {
+.searchTable tr th:nth-child(3),
+.searchTable tr th:nth-child(6) {
 	width: 150px;
 }
 .searchTable tr th:nth-child(2) {
@@ -14,7 +15,6 @@
 .searchTable tr th:nth-child(4) {
 	width: 250px;
 }
-.searchTable tr th:nth-child(5),
-.searchTable tr th:nth-child(6) {
+.searchTable tr th:nth-child(5) {
 	width: 200px;
 }
