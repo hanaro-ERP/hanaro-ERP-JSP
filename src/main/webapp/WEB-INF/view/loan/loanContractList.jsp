@@ -235,6 +235,11 @@
 				</div>
 			</form>
 		</div>
+		<button class="upToButton" onclick="scrollToTop()">
+			<svg width="30" height="20" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M6 0L0 6L1.41 7.41L6 2.83L10.59 7.41L12 6L6 0Z" fill="#323232"/>
+			</svg>
+		</button>
 	</main>
 	<script src="${pageContext.request.contextPath}/js/components/searchResultTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
