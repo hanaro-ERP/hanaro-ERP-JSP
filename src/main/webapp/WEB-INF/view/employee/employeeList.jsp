@@ -32,7 +32,10 @@
 			  "대리", "사원", "과장", "차장", "부장", "이사"
 			};
 		%>
-		<% EmployeeDTO employeeDTO = (EmployeeDTO)request.getAttribute("searchInputValue"); %>
+		<%
+			EmployeeDTO employeeDTO = (EmployeeDTO)request.getSession().getAttribute("searchInputValue");
+			request.getSession().removeAttribute("searchInputValue");
+		%>
 		<div class="innerContainer" id="container1">
 			<div class="innerTitle"><h1>직원 목록</h1></div>
 			<form action="${pageContext.request.contextPath}/employee/list" method="post">
@@ -82,7 +85,8 @@
 					<th>권한</th>
 				</tr>
 				<%
-				List<EmployeeDTO> findEmployee = (List<EmployeeDTO>)request.getAttribute("findEmployee");
+				List<EmployeeDTO> findEmployee = (List<EmployeeDTO>)request.getSession().getAttribute("findEmployee");
+				request.getSession().removeAttribute("findEmployee");
 
 				if (findEmployee != null && !findEmployee.isEmpty()) {
 					for (EmployeeDTO employee : findEmployee) {
