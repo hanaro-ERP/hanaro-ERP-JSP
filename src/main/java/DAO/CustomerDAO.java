@@ -181,6 +181,7 @@ public class CustomerDAO {
 					cId = rs.getInt("c_id");
 				}
 			}
+			System.out.println("customer DAO ="+ pstmt);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

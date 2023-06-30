@@ -147,7 +147,6 @@ pageEncoding="UTF-8"%>
 						<th>상환 방법</th>
 						<td colspan=3><select name="repaymentMethod"
 							class="shortSelect" id="repaymentMethod" onchange="updateTable()">
-
 								<option value="-">-</option>
 								<option value="원금만기일시상환">만기일시상환</option>
 								<option value="원금균등상환">원금균등분할상환</option>

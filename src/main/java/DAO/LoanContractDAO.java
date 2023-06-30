@@ -84,13 +84,12 @@ public class LoanContractDAO {
 	}
 
 	public int updateRepaymentAmount(int customerId, int loanProductId, String repaymentAmountList) {
-		
 		String SQL = "UPDATE loanContracts SET repayment_amount = ? WHERE c_id = ? AND l_id = ?;";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setString(1, repaymentAmountList);
 			pstmt.setInt(2, customerId);
 			pstmt.setInt(3, loanProductId);
-			
+			System.out.println("update = "+pstmt);
 			return pstmt.executeUpdate();
 		}
 		catch (Exception e) {

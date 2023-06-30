@@ -7,7 +7,7 @@ loanProduct[0] = new Array(
 );
 loanProduct[1] = new Array(
 	"-",
-	"닥터클럽대출-골드",
+	"닥터클럽대출 - 골드",
 	"로이어클럽대출",
 	"하나 수의사클럽대출",
 	"공무원클럽대출",
@@ -194,23 +194,26 @@ function removeTableRow(tableId) {
 	}
 }
 
-const selectrepaymentMethod = document.getElementById("repaymentMethod");
+var selectrepaymentMethodElement = document.getElementById("repaymentMethod");
+ 
 const repaymentMethodSelectTableDiv = document.getElementById("repaymentMethodSelectTableDiv");
 const repaymentAmountTotalTitleTag = document.getElementById("repaymentAmountTotalTitle");
 const repaymentAmountTotalTag = document.getElementById("repaymentAmountTotal");
-const inputGracePeriod = document.getElementById("gracePeriod");
 
-var repaymentMethod = document.getElementById("repaymentMethod");	// 상환 방법
-var repaymentMethodValue = repaymentMethod.value;
-
-selectrepaymentMethod.addEventListener("change", function() {
+var inputGracePeriod = document.getElementsByName("gracePeriod")[0];
+	
+selectrepaymentMethodElement.addEventListener("change", function() {
 	repaymentMethodSelectTableDiv.style.display = "block";
 	repaymentAmountTotalTitleTag.style.display = "block";
 	repaymentAmountTotalTag.style.display = "block";
 	repaymentAmountTotalTag.textContent = repaymentAmountTotal.toLocaleString() + "원";
-	
-	if (repaymentMethodValue.includes("만기")) {	// 원금만기일시상환
-	
+
+	var selectrepaymentMethodValue = selectrepaymentMethodElement.options[selectrepaymentMethodElement.selectedIndex].value;
+
+	var inputGracePeriod = document.getElementsByName("gracePeriod")[0];
+
+	console.log("selectrepaymentMethodValue ", selectrepaymentMethodValue);
+	if (selectrepaymentMethodValue.includes("만기")) {	// 원금만기일시상환
 		console.log("만기");
 		inputGracePeriod.disabled = true;	
 		inputGracePeriod.style.backgroundColor = "#E5E8EB";
@@ -222,12 +225,20 @@ selectrepaymentMethod.addEventListener("change", function() {
 	}
 });
 
-selectrepaymentMethod.addEventListener("click", function() {
+selectrepaymentMethodElement.addEventListener("click", function() {
 	console.log("상환방법 click");
+	var inputGracePeriod = document.getElementsByName("gracePeriod")[0];
+
 	inputGracePeriod.disabled = false;
 	inputGracePeriod.style.backgroundColor = "#fff";
 });
 
+var loanProductNameElement = document.getElementsByName("loanProductName")[0];
+
+loanProductNameElement.addEventListener("change", function() {
+	var loanProductNameValue = loanProductNameElement.options[loanProductNameElement.selectedIndex].value;
+	document.getElementById("loanProductNameSelect").value = loanProductNameValue;
+});
 
 function changeLoanProductName(selectedIndex) {
 	var selectLoanProductNameElement = document.getElementsByName("loanProductName")[0];
