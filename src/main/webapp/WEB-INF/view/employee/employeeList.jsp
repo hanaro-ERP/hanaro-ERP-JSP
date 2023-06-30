@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
+<script src="${pageContext.request.contextPath}/js/components/searchResultTable.js"></script>
 </head>
 <body>
 
@@ -70,6 +71,7 @@
 					</select>
 				</div>
 				</div>
+				<div class="scrollTo"></div>
 				<div class="innerButtonContainer">
 					<button type="submit">검색</button>
 				</div>
@@ -163,6 +165,14 @@
 	</main>
 	<script>
 		generateMenu('employee', 'employeeList');
+		
+		<%
+		if (findEmployee != null) {
+			%>
+			scrollToBottom();
+			<%
+		}
+		%>
 	</script>
 	<script src="${pageContext.request.contextPath}/js/employee/employeeList.js "></script>
 </body>

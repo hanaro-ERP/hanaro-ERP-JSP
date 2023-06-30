@@ -81,6 +81,7 @@
 						</ul>
 					</div>
 				</div>				
+				<div class="scrollTo"></div>
 				<div class="innerButtonContainer">
 					<button class="searchButton" type="submit">검색</button>
 				</div>
@@ -166,10 +167,19 @@
 			</form>
 		</div>
 	</main>
+	<script src="${pageContext.request.contextPath}/js/components/searchResultTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/deposit/depositProductList.js"></script>
 	<script>
 		generateMenu('deposit', 'depositProductList');
+		
+		<%
+		if (accountSearchDTO != null) {
+			%>
+			scrollToBottom();
+			<%
+		}
+		%>
 	</script>
 	<%
 	String type = null;
