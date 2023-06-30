@@ -19,7 +19,7 @@
 					<input class="loginBodyButton" id="loginSubmit" value="로그인" type="submit"></input>
 				</form>
 				<p id="errorMessageBox"style="color: red"></p>
-				<div class="loginSignupButton">하나은행</div>
+				<div class="loginSignupButton">하나로여신관리시스템</div>
 			</div>
 		</div>
 	</div>

@@ -116,6 +116,7 @@
 						<input id="loanProductSearchInput" name="loanName" class="innerSearchInput" value="<%= loanSearchDTO == null || loanSearchDTO.getName() == null ? "" : loanSearchDTO.getName() %>"></input>
 					</div>
 				</div>
+				<div class="scrollTo"></div>
 				<div class="innerButtonContainer">
 					<button type="submit">검색</button>
 				</div>
@@ -207,7 +208,13 @@
 				</div>
 			</form>
 		</div>
+		<button class="upToButton" onclick="scrollToTop()">
+			<svg width="30" height="20" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M6 0L0 6L1.41 7.41L6 2.83L10.59 7.41L12 6L6 0Z" fill="#323232"/>
+			</svg>
+		</button>
 	</main>
+	<script src="${pageContext.request.contextPath}/js/components/searchResultTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js "></script>
 	<script src="${pageContext.request.contextPath}/js/loan/loanProductList.js"></script>
 	<%
@@ -231,6 +238,14 @@
 	%>
 	<script>
 		generateMenu('loan', 'loanProductList');
+		
+		<%
+		if (loanSearchDTO != null) {
+			%>
+			scrollToBottom();
+			<%
+		}
+		%>
 		
 		selectMultiItems("loanProductJob");
 		selectMultiItems("loanProductCollateral");
