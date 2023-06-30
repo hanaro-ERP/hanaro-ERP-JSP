@@ -84,8 +84,7 @@ public class AuthController extends HttpServlet {
 				BankDTO bankDTO = bankService.getBankName(storedEmployeeDTO);
 				request.getSession().setAttribute("bankName", bankDTO.getBankName());
 
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/main/main.jsp");
-				dispatcher.forward(request, response);
+				response.sendRedirect("../../navigation/main");
 			} else {
 				redirectWithErrorMessage(request, response, "아이디 또는 비밀번호를 잘못 입력했습니다.", String.valueOf(employeeId));
 			}
