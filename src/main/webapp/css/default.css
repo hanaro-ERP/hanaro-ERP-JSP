@@ -42,6 +42,7 @@ main {
 	min-height: 900px;
 	display: flex;
 	margin-top: 80px;
+	margin-left: 260px;
 	background-color: #F9FAFB;
 }
 li {
