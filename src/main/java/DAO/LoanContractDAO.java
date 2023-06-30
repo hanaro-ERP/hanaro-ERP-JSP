@@ -83,6 +83,22 @@ public class LoanContractDAO {
 		return -1; // Database operation failed
 	}
 
+	public int updateRepaymentAmount(int customerId, int loanProductId, String repaymentAmountList) {
+		
+		String SQL = "UPDATE loanContracts SET repayment_amount = ? WHERE c_id = ? AND l_id = ?;";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setString(1, repaymentAmountList);
+			pstmt.setInt(2, customerId);
+			pstmt.setInt(3, loanProductId);
+			
+			return pstmt.executeUpdate();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 	// Delete a loan contract
 	public int deleteLoanContract(int loanContractId) {
 		String SQL = "DELETE FROM loanContracts WHERE lc_id = ?";
@@ -117,7 +133,6 @@ public class LoanContractDAO {
 		loanContract.setLoanName(rs.getString("loan_name"));
 		loanContract.setEmployeeName(rs.getString("e_name"));
 		loanContract.setCustomerName(rs.getString("c_name"));
-		//loanContract.setGuarantorName(rs.getString("guarantor_name"));
 	}
 	
 	private void fillLoanContractDTOFromTable(LoanContractDTO loanContract, ResultSet rs) throws SQLException {
@@ -194,11 +209,9 @@ public class LoanContractDAO {
 	public int getLoanContractCount(LoanContractDTO loanContractDTO) {
 		int cnt = 0;
 		StringBuilder queryBuilder = new StringBuilder("SELECT count(*) AS cnt FROM loanContracts lc");
-
 		queryBuilder.append(" JOIN loans l ON lc.l_id = l.l_id");
 		queryBuilder.append(" JOIN customers c ON lc.c_id = c.c_id");
 		queryBuilder.append(" JOIN employees e ON c.e_id = e.e_id");
-		//queryBuilder.append(" JOIN customers c2 ON lc.guarantor_id = c2.c_id");
 		queryBuilder.append(" WHERE 1=1");
 		
 		if (loanContractDTO.getLoanName() != null) {
@@ -382,8 +395,7 @@ public class LoanContractDAO {
 			System.out.println("pstmt =" + pstmt);
 			LoanUtil loanUtil = new LoanUtil();
 			List<LoanContractDTO> loanContractDTOList = new ArrayList<>();
-
-			System.out.println(pstmt);
+			
 			try (ResultSet rs = pstmt.executeQuery()) {
 
 				CustomerDAO customerDAO = new CustomerDAO();

@@ -33,3 +33,25 @@ tr td select {
 #repaymentMethodSelectTable tr th:nth-child(6){
 	width: 17%;	
 }
+#repaymentAmountTotalDiv {
+	margin-top: 10px;
+	display: flex;
+	flex-direction: row;
+  	align-items: center;
+}
+#repaymentAmountTotalDiv > p {
+  display: flex;
+  align-items: center;
+}
+#repaymentAmountTotalTitle {
+	font-size: 20px;
+	font-weight: bold;
+	float: left;
+	margin-right: 5px;
+}
+#repaymentAmountTotal {
+	float: left;
+}
+#updateRepaymentDB {
+	font-size: 18px;
+}
