@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 #search {
 	float: left;
 }
@@ -13,13 +14,19 @@ tr td select {
 	width: 200px !important;;
 }
 #customerDetailButton {
-	border: transparent;
-	background: transparent;
 	font-size: 15px;
 	cursor: pointer;
-}
-#customerDetailButton:hover {
 	color: #2DB400;
+	border: 1px solid #2DB400;
+	margin-left: 10px;
+}
+#customerName, 
+.innerSubTitleRow {
+	margin: 7px 0px 7px 7px;
+}
+#searchResultMessage {
+	margin: 7px;
+	font-size: 20px;
 }
 .innerInformation {
 	margin-bottom: 5px;	

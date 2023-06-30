@@ -99,6 +99,22 @@ public class LoanProductDAO {
 		}
 		return loan;
 	}
+	
+	public LoanProductDTO getLoanByLoanName(String loanName) {
+		LoanProductDTO loan = new LoanProductDTO();
+		String SQL = "SELECT * FROM loans WHERE loan_name = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setString(1, loanName);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					fillLoanDTOFromResultSet(loan, rs);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return loan;
+	}
 
 	// Fill a LoanDTO from a ResultSet
 	private void fillLoanDTOFromResultSet(LoanProductDTO loanProduct, ResultSet rs) throws SQLException {

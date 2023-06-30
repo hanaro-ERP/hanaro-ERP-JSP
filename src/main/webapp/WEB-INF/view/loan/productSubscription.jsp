@@ -20,41 +20,43 @@ pageEncoding="UTF-8"%>
 	<%@ page import="DTO.CustomerDTO" %>
 	<%@ page import="DAO.CustomerDAO" %>
 	<%@ page import="DTO.CreditScoringDTO" %>
+	<%@ page import="DTO.LoanProductDTO" %>
 	<%@ page import="Service.CreditService" %>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
+		
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 가입</h1></div>
+			<% 
+ 			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer");
+			LoanProductDTO loanProduct = (LoanProductDTO) request.getAttribute("loanProductDTO");
+			%>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle"><h2>고객 정보 찾기</h2></div>
+				<div class="innerSubTitleRow">이름 
+				<input id="customerName" name="customerName" class="middleInput" value="<%= customer != null ? customer.getCustomerName() : "" %>"/>
+				<button id="customerDetailButton" type="button" onclick="openSearchPopup()"> 검색 </button>
+				</div>
+				<div id="searchResultMessage"></div>
 				<table class="inputTable">
- 					<% 
- 					CustomerDTO customer = (CustomerDTO) request.getAttribute("customer"); 
- 					//CustomerDTO customer = (CustomerDTO) request.getSession().getAttribute("customer");
- 					%>
- 					
-					<tr>
-						<th>이름</th>
-						<td><input id="customerName" name="customerName" class="middleInput" value="<%= customer != null ? customer.getCustomerName() : "" %>"/>
-						<button type="button" onclick="openSearchPopup()">검색</button></td>						
+					<tr>										
 						<th>전화번호</th>
-						<td><%= customer != null ? customer.getPhoneNumber() : "" %>
+						<td>
+						<%= customer != null ? customer.getPhoneNumber() : "" %>
 						<input type="hidden" id="phoneNumber" name="phoneNumber" value="<%= customer != null ? customer.getPhoneNumber() : "" %>"/>
 						</td>
-					</tr>
-					<tr>
 						<th>거주지</th>
 						<td>
 						<input type="hidden" id="address" name="address" value="<%= customer != null ? customer.getAddress() : "" %>">
 						<%= customer != null ? customer.getAddress() : "" %>
 						</td>
+					</tr>
+					<tr>
 						<th>국가</th>
 						<td>
 						<input type="hidden" id="country" name="country" value="<%= customer != null ? customer.getCountry() : "" %>">
 						<%= customer != null ? customer.getCountry() : "" %>
 						</td>
-					</tr>
-					<tr>
 						<th>주민번호</th>
 						<td>
 						<% 	
@@ -68,22 +70,29 @@ pageEncoding="UTF-8"%>
 						<input type="hidden" id="identification" name="identification" value="<%= customer != null ? customer.getIdentification() : "" %>">
 						<% } %>
 						</td>
+					</tr>
+					<tr>
 						<th>직업</th>
 						<td>
 							<input type="hidden" id="jobCode" name="jobCode" value="<%= customer != null ? customer.getJobName() : "" %>">
 							<%= customer != null ? customer.getJobName() : "" %>
 						</td>
-					</tr>
-					<tr>												
 						<th>고객 등급</th>
 						<td>
 						<input type="hidden" id="grade" name="grade" value="<%= customer != null ? customer.getGrade() : "" %>">
 						<%= customer != null ? customer.getGrade() : "" %>
 						</td>
+					</tr>
+					<tr>												
 						<th>신용 등급</th>
 						<td>
 						<input type="hidden" id="credit" name="credit" value="<%= customer != null ? customer.getCredit() : "" %>">
 						<%= customer != null ? customer.getCredit() : "" %>
+						</td>
+						<th>보증인</th>
+						<td>
+						<input type="hidden" id="suretyName" name="suretyName" value="<%= customer != null ? customer.getSuretyName() : "" %>">
+						<%= customer != null ? customer.getSuretyName() : "" %>
 						</td>
 					</tr>
 					<tr>
@@ -98,17 +107,23 @@ pageEncoding="UTF-8"%>
 						<%= customer != null ? customer.getBankName() : "" %>
 						</td>
 					</tr>
-					<tr>
-						<th>보증인</th>
-						<td>
-						<input type="hidden" id="suretyName" name="suretyName" value="<%= customer != null ? customer.getSuretyName() : "" %>">
-						<%= customer != null ? customer.getSuretyName() : "" %>
-						</td>
-						<th>내부 위험도</th>
-						<td id="riskRslt"></td>
-					</tr>
 				</table>
-											
+				<div class="innerSubTitle" id="riskResult">
+					<h2>내부 위험도 결과</h2><button id="customerDetailButton" name="close" type="button" onclick="return riskCalcFunc(this.form);">계산하기</button>
+					<input id="checkOpen" name="isOpen" value="close"></input>
+				</div>
+				<div class="innerInformation" id="customerDetailInformation">
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">내부 위험도</div>
+						<div id="innerRisk"></div>
+					</div>
+					<div class="innerInformationRow">
+						<div class="innerInformationRowTitle">이자율 적용</div>
+						<div id="interestRate2"></div>
+					<div class="innerInformationRowTitle">대출기간 적용</div>
+						<div id="loanPeriod2"></div>
+					</div>				
+				</div>						
 				<div class="innerSubTitle"><h2>상품 정보 및 가입</h2></div>
 				<table class="inputTable">
 					<tr>
@@ -138,16 +153,20 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 					<tr>
-						<!-- <th>이자 / 대출기간</th>
+						<th>이자</th>
 						<td>
 							&nbsp;연
 							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
 							%
-							&nbsp; | &nbsp;&nbsp;
-							<input type="number" step="0.1" max="10" id="loanPeriod" name="loanPeriod" class="shortInput" />
-							년
-						</td> -->
-						<th> 거치 기간</th>
+						</td>
+						<th>대출기간</th>
+						<td>
+						<input type="number" step="0.1" max="10" id="loanPeriod" name="loanPeriod" class="shortInput" />
+						년
+						</td>
+					</tr>
+					<tr>
+					 	<th> 거치 기간</th>
 						<td>
 						<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
 						<th>상환 방법</th>
@@ -161,22 +180,6 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 				</table>
-				<div class="innerSubTitle" id="riskResult">
-					<h2>내부 위험도 결과</h2><button id="customerDetailButton" name="close" type="button" onclick="riskCalcFunc()">계산하기</button>
-					<input id="checkOpen" name="isOpen" value="close"></input>
-				</div>
-				<div class="innerInformation" id="customerDetailInformation">
-					<div class="innerInformationRow">
-						<div class="innerInformationRowTitle">내부 위험도</div>
-						<div id="innerRisk"></div>
-					</div>
-					<div class="innerInformationRow">
-						<div class="innerInformationRowTitle">이자율 적용</div>
-						<div id="interestRate2"></div>
-					<div class="innerInformationRowTitle">대출기간 적용</div>
-						<div id="loanPeriod2"></div>
-					</div>				
-				</div>
 				<div class="innerButtonContainer">					
 					<button type="submit" id="search">등록</button>
 				</div>
@@ -260,6 +263,7 @@ pageEncoding="UTF-8"%>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
 	<script>
+		
 		//고객정보
 		const customerDetailSelect = document.getElementById('customerDetailButton');
 		const customerDetailInformation = document.getElementById('customerDetailInformation');
@@ -267,8 +271,9 @@ pageEncoding="UTF-8"%>
 		checkOpen.style.display = 'none'
 		customerDetailInformation.style.display = 'none'; // 초기에 숨김 상태로 설정
 		
+		const customerNameInformation = document.getElementById('innerSubTitleRow');
+		
 		function revealDetail() {
-			alert("hello");
 			checkOpen.setAttribute('value', 'open');
 			customerDetailInformation.style.display = 'block';
 		}
@@ -280,14 +285,13 @@ pageEncoding="UTF-8"%>
 		function riskCalcFunc() {
 			//고객정보
 			const customerDetailInformation = document.getElementById('customerDetailInformation');
-
-			console.log(selectedValue + " 111111111111 " + selectedText);
-			
 			<%	
 	    	CustomerDAO customerDAO = new CustomerDAO();
 			CreditScoringDTO creditScoringDTO = new CreditScoringDTO();
 			CreditService creditService = new CreditService();
-	    	
+			String addRate = "";
+			String addPeriod = "최대 N";
+			
 			int cId = 0; int eId = 0;
 			if(customer != null) {
 				cId = customerDAO.getCustomerIdByCustomerName(customer.getCustomerName());
@@ -300,67 +304,51 @@ pageEncoding="UTF-8"%>
 			    	creditScoringDTO.setLoanDuration(60); // 대출	
 					
 			    	creditService.setCreditScore(creditScoringDTO);
-				}
 				
-				//결과에 따른 이자율이랑 대출기간 다르게 하기
-				String score = (creditService.getCreditScore()).substring(0, 1);
-				float addRate = 0;
-				int addPeriod = 0;
-				switch(score) {
-					case "1" :
-						addRate = 0.2f;
-						addPeriod = 1; //1년
-						break;
-					case "2" :
-						addRate = 0.1f;
-						addPeriod = 1;
-						break;
-					case "4" :
-						addRate = -0.1f;
-						break;
-					case "5" :
-						addRate = -0.2f;
-						break;
-					case "6" :
-						addRate = -0.4f;
-						addPeriod = -1;
-						break;
+					//결과에 따른 이자율이랑 대출기간 다르게 하기
+					String score = (creditService.getCreditScore()).substring(0, 1);
+				
+					switch(score) {
+						case "1" :
+							addRate = "+0.2%";
+							addPeriod += "+1년"; //1년
+							break;
+						case "2" :
+							addRate = "0.1%";
+							addPeriod += "+1년";
+							break;
+						case "4" :
+							addRate = "-0.1%";
+							break;
+						case "5" :
+							addRate = "-0.2%";
+							break;
+						case "6" :
+							addRate = "-0.3%";
+							addPeriod += "-1년";
+							break;
+					}
 				}
 			}
 			%>
-			//위험도 결과
-			var innerRiskTable = document.getElementById("riskRslt");
-			var rateChange = document.getElementById("interestRate2");
-			var periodChange = document.getElementById("loanPeriod2");
-			
-			//상품정보
-			var selectElement = document.querySelector('select[name="loanProductName"]');
-			var selectedOption = selectElement.options[selectElement.selectedIndex];
-			var selectedValue = selectedOption.value; // 선택된 옵션의 값
-			var selectedText = selectedOption.text; // 선택된 옵션의 텍스트
-
-			// 상품정보로 해당 상품의 이자와 대출기간을 가져와야해..
-			// 그러려면 
 			
 			<% if(eId > 0) { %>
 				revealDetail();
-				innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";
-				rateChagne.innerHTML = 
-				
-				
+				innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";				
+				interestRate2.innerHTML = "<%= addRate %>";
+				loanPeriod2.innerHTML = "<%= addPeriod %>";
 			<% } else { %>
+				concealDetail();
 				alert("데이터가 부족합니다.");
 			<% } %>
 		}
+		
 		function openSearchPopup() {
-			
-			innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";
-			
 	    	var firstTd = document.getElementById("customerName"); // customerName 필드를 가리키는 변수 firstTd
-	    	if(firstTd.value !== '')
+	    	if(firstTd.value !== '') {
 		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 2, "_blank", "width=1000,height=200");
-	    	
-		}
+			}
+		}		
 	</script>
 </body>
 </html>

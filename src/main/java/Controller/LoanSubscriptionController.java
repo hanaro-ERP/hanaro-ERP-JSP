@@ -13,14 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DAO.LoanProductDAO;
 import DTO.CreditScoringDTO;
 import DTO.CustomerDTO;
 import DTO.LoanContractDTO;
+import DTO.LoanProductDTO;
 import DTO.RepaymentMethodDTO;
 import Service.LoanService;
 import util.CustomerUtil;
 
-@WebServlet("/loan/subscription")
+@WebServlet(urlPatterns = {"/loan/subscription", "/loan/riskCalc"})
 public class LoanSubscriptionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	LoanService loanService = new LoanService();
@@ -30,13 +32,16 @@ public class LoanSubscriptionController extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {		
-		postLoanSubscriptionProcess(request, response);
+		String urlPattern = request.getServletPath();
+		if ("/loan/subscription".equals(urlPattern)) {
+			postLoanSubscriptionProcess(request, response);
+	    }
 	}
 	
 	protected void postLoanSubscriptionProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
