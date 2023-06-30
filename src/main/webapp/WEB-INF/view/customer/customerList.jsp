@@ -108,7 +108,6 @@
 					<button id="customerDetailButton" name="close" type="button">▲</button>
 					<input id="checkOpen" name="isOpen" value="close"></input>
 				</div>
-					
 				<div class="innerInformation" id="customerDetailInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">소속 국가</div>
@@ -148,6 +147,7 @@
 						</select>
 					</div>
 				</div>
+				<div class="scrollTo"></div>
 				<div class="innerButtonContainer">
 					<button id="customerSearchButton" type="submit">검색</button>
 				</div>
@@ -234,6 +234,7 @@
 		</div>
 	</main>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
+	<script src="${pageContext.request.contextPath}/js/components/searchResultTable.js"></script>
 	<script>
 		generateMenu('customer', 'customerList', 'customerRegist');		
 	</script>
@@ -255,6 +256,14 @@
 	}
 	%>
 	<script>
+		<%
+		if (customerSearchDTO != null) {
+			%>
+			scrollToBottom();
+			<%
+		}
+		%>
+		
 		const jobCode = document.getElementById('jobCode');
 		jobCode.value = "${customerInput.jobCode}";
 		

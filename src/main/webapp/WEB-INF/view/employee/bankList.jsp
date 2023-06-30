@@ -56,6 +56,7 @@
 						</select>
 					</div>
 				</div>
+				<div class="scrollTo"></div>
 				<div class="innerButtonContainer">
 					<button type="submit">검색</button>
 				</div>
@@ -133,7 +134,16 @@
 		</div>
 	</main>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
+	<script src="${pageContext.request.contextPath}/js/components/searchResultTable.js"></script>
 	<script>
+		<%
+		if (getBankList != null) {
+			%>
+			scrollToBottom();
+			<%
+		}
+		%>
+		
 		generateMenu('employee', 'bankList');	
 		
 		const citySelect = document.getElementById('citySelect');
