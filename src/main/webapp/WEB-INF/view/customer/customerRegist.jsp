@@ -95,7 +95,7 @@
 						</td>
 					</tr>
 					<tr>						
-						<th>신용 등급</th>
+						<th>외부 신용 등급</th>
 						<td>
 							<select name="creditRank" class="shortSelect">
 								<option value="1등급">1</option>

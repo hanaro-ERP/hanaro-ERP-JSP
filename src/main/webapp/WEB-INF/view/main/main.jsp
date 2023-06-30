@@ -116,5 +116,10 @@
 	}
 
 	updateSessionTimer();
+	
+	const isAdmin = "<%= request.getSession().getAttribute("isAdmin") %>";
+	if (isAdmin === "true") {
+		headerSessionName.classList.add("adminName");
+	}
 </script>
 </html>

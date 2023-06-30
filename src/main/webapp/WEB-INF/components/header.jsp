@@ -38,10 +38,19 @@
 	<script src="${pageContext.request.contextPath}/js/components/header.js "></script>
 <script>
 	const headerSessionName = document.querySelector(".headerSessionName");
+	
 	const loginName = "<%= request.getSession().getAttribute("loginName") %>";
 	headerSessionName.innerHTML = loginName + " <%= request.getSession().getAttribute("loginPosition") %>님";
+	
+	const isAdmin = "<%= request.getSession().getAttribute("isAdmin") %>";
+	if (isAdmin === "true") {
+		headerSessionName.classList.add("adminName");
+	}
+	
+	
 	const headerSessionTime = document.querySelector(".headerSessionTime");
 	const sessionTimeout = <%= request.getSession().getMaxInactiveInterval() %>;
+	
 	let sessionStartTime = new Date();
 	headerSessionTime.textContent = parseInt(sessionTimeout/60) + "분 " + sessionTimeout%60 + "초 뒤 자동 로그아웃";
 	const timerReset = document.querySelector(".headerSessionButton");
@@ -62,7 +71,10 @@
 			const nowTime = new Date();
 			const elapsedTime = parseInt((nowTime - sessionStartTime)/1000);
 			const remainingTime = sessionTimeout - elapsedTime;
-	
+			
+			if (remainingTime == 600) {
+				alert("10분 후에 세션이 만료됩니다.");
+			}
 			if (remainingTime <= 0) {
 				clearInterval(timer);
 				headerSessionTime.textContent = "세션 만료";

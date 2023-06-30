@@ -59,16 +59,18 @@ pageEncoding="UTF-8"%>
 						</td>
 						<th>주민번호</th>
 						<td>
-						<% 	
+							<% 	
 							String id1 = "";
 							String id2 = "";
 							if(customer != null) {
 								id1 = customer.getIdentification().substring(0, 6);
 								id2 = customer.getIdentification().substring(7,14);
-						%>
-						<%= id1 + "-" + id2%>
-						<input type="hidden" id="identification" name="identification" value="<%= customer != null ? customer.getIdentification() : "" %>">
-						<% } %>
+						%> 
+						<%= id1 + "-" + id2%> 
+						<input type="hidden" id="identification"
+							name="identification"
+							value="<%= customer != null ? customer.getIdentification() : "" %>">
+							<% } %>
 						</td>
 					</tr>
 					<tr>
@@ -84,7 +86,7 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 					<tr>												
-						<th>신용 등급</th>
+						<th>외부 신용 등급</th>
 						<td>
 						<input type="hidden" id="credit" name="credit" value="<%= customer != null ? customer.getCredit() : "" %>">
 						<%= customer != null ? customer.getCredit() : "" %>
@@ -128,29 +130,24 @@ pageEncoding="UTF-8"%>
 				<table class="inputTable">
 					<tr>
 						<th>대출 구분</th>
-						<td>
-							<select name="loanType" class="shortSelect" onchange="changeLoan(this.selectedIndex);">
+						<td><select name="loanType" class="shortSelect"
+							onchange="changeLoan(this.selectedIndex);">
 								<option value="담보대출">담보대출</option>
 								<option value="신용대출">신용대출</option>
-							</select>
-						</td>
+						</select></td>
 						<th>상품명</th>
-						<td>
-							<select name="loanProductName" class="longSelect">
+						<td><select name="loanProductName" class="longSelect" 
+							onchange="changeLoanProductName(this.selectedIndex);">
 								<option value="">-</option>
-							</select>
-						</td>
+						</select></td>
 					</tr>
 					<tr>
 						<th>담보</th>
-						<td>
-							<input name="collateral" class="middleInput">
-						</td>
+						<td><input name="collateral" class="middleInput"></td>
 						<th>대출 금액</th>
-						<td>
-							<input type="number" id="loanAmount" name="loanAmount" class="shortInput" type="number" min="0" max="5000" step="1"/>
-							만원
-						</td>
+						<td><input type="number" id="loanAmount" name="loanAmount"
+							class="shortInput" type="number" min="0" max="5000" step="1" />
+							만원</td>
 					</tr>
 					<tr>
 						<th>이자</th>
@@ -170,78 +167,38 @@ pageEncoding="UTF-8"%>
 						<td>
 						<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
 						<th>상환 방법</th>
-						<td colspan=3>
-							<select name="repaymentMethod" class="shortSelect" id="repaymentMethod" onchange="updateTable()">
+						<td colspan=3><select name="repaymentMethod"
+							class="shortSelect" id="repaymentMethod" onchange="updateTable()">
+
 								<option value="-">-</option>
 								<option value="원금만기일시상환">만기일시상환</option>
 								<option value="원금균등상환">원금균등분할상환</option>
 								<option value="원리금균등상환">원리금균등분할상환</option>
 							</select>
 						</td>
+						<th>거치 기간</th>
+						<td>
+							<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
+						</td>
 					</tr>
 				</table>
 				<div class="innerButtonContainer">					
 					<button type="submit" id="search">등록</button>
 				</div>
-				
-				
-			<%-- 	<div id="repaymentMethodTableDiv">
-					<h3 id="repaymentMethodTableTitle">
-				
-						<%List<RepaymentMethodDTO> repaymentMethodDTOList = (List<RepaymentMethodDTO>) request.getAttribute("repaymentMethod");
+			</form>
 
-						if (repaymentMethodDTOList != null && repaymentMethodDTOList.size() > 0) {
-							System.out.println("jsp repaymentlist size ="+repaymentMethodDTOList.size());							
-							String method = repaymentMethodDTOList.get(0).getMethod();
-							if (method.equals("만기")) {
-								out.println("원금만기일시상환");
-							} 
-							else if (method.contains("원금균등")) {
-								out.println("원금균등상환");
-							} 
-							else {
-								out.println("원리금균등상환");
-							}
-						%>
-					</h3>
-					<table class="searchTable" id="repaymentMethodTable">
-						<tr>
-							<th>회차</th>
-							<th>상환금</th>
-							<th>납입 원금</th>
-							<th>이자</th>
-							<th>납입원금누계</th>
-							<th>잔금</th>
-						</tr>
-								
-						<%
-							LoanUtil loanUtil = new LoanUtil();
-							if (repaymentMethodDTOList != null && !repaymentMethodDTOList.isEmpty()) {
-								for (RepaymentMethodDTO dto : repaymentMethodDTOList) {
-									%>
-									<tr class="searchResultRow" >
-										<td><%= dto.getTimes()%></td>
-										<td><%= loanUtil.formatCurrency(dto.getRepaymentAmount())%></td>									
-										<td><%= loanUtil.formatCurrency(dto.getPrincipalPayment())%></td>
-										<td><%= loanUtil.formatCurrency(dto.getInterest())%></td>
-										<td><%= loanUtil.formatCurrency(dto.getCumulativePrincipalPayment())%></td>
-										<td><%= loanUtil.formatCurrency(dto.getBalance())%></td>
-									</tr>
-									<%
-								}
-							}
-						}
-						else{
-							System.out.println("jsp repaymentlist null");
-						}
-						%>
-				</table>
-				</div> --%>
+			<form action="${pageContext.request.contextPath}/loan/repayment" method="post">
+				<input type="hidden" name="repaymentAmountList" id="repaymentAmountList"> 
+				<input type="hidden" name="identificationId" id="identificationId" value="<%= id1 + "-" + id2%>"> 
+				<input type="hidden" name="loanProductNameSelect" id="loanProductNameSelect"> 
+				<input type="submit" value="상환 방법 확정하기">
 				
-				<div id="repaymentMethodSelectTableDiv">
-					<h3 id="repaymentMethodSelectTableTitle">						
-					상환 방법
-					</h3>
+				<div id="repaymentMethodSelectTableDiv" style="display: none;">
+					<h2 id="repaymentMethodSelectTableTitle">상환 방법</h2>
+					<div id="repaymentAmountTotalDiv">
+						<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금 <p>
+						<p id="repaymentAmountTotal" style="display: none;"><p>
+					</div>
 					<table class="searchTable" id="repaymentMethodSelectTable">
 						<tr>
 							<th>회차</th>
@@ -251,13 +208,13 @@ pageEncoding="UTF-8"%>
 							<th>납입원금누계</th>
 							<th>잔금</th>
 						</tr>
-				</table>
+					</table>
 				</div>
 			</form>
 		</div>
 	</main>
 	<script>
-		generateMenu('loan', 'productSubscription');	
+		generateMenu('loan', 'productSubscription');
 	</script>
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>

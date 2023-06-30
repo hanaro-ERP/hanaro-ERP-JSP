@@ -84,9 +84,7 @@ pageEncoding="UTF-8"%>
   			</form>
         </div>
     </main>
-    <script>
-		const isAdmin = "<%= request.getSession().getAttribute("isAdmin") %>";
-		
+    <script>		
 		if (isAdmin === "false") {
 			alert("상품 등록은 관리자만 접근할 수 있습니다.");
 			history.back();
