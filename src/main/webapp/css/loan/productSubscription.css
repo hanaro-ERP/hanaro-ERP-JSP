@@ -40,7 +40,7 @@ tr td select {
   	align-items: center;
 }
 #repaymentAmountTotalDiv > p {
-  display: flex;
+  display: flex !important;
   align-items: center;
 }
 #repaymentAmountTotalTitle {
@@ -53,5 +53,15 @@ tr td select {
 	float: left;
 }
 #updateRepaymentDB {
-	font-size: 18px;
+	font-size: 13px;
+	width: 60px;
+    height: 30px;
+    border: 1px solid #2EB400;
+    border-radius: 5px;
+    color: #2EB400;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: transparent;
+    margin-left: 30px;
 }

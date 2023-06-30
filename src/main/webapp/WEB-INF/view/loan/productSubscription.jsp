@@ -164,8 +164,11 @@ pageEncoding="UTF-8"%>
 				<div id="repaymentMethodSelectTableDiv" style="display: none;">
 					<h2 id="repaymentMethodSelectTableTitle">상환 방법</h2>
 					<div id="repaymentAmountTotalDiv">
-						<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금 <p>
+
+						<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금	<p>
 						<p id="repaymentAmountTotal" style="display: none;"><p>
+						<button type="submit" id="updateRepaymentDB"
+							style="display: none;">확정</button>
 					</div>
 					<table class="searchTable" id="repaymentMethodSelectTable">
 						<tr>
@@ -181,9 +184,7 @@ pageEncoding="UTF-8"%>
 				<input type="hidden" name="repaymentAmountList" id="repaymentAmountList"> 
 				<input type="hidden" name="identificationId" id="identificationId" value="<%= id1 + "-" + id2%>"> 
 				<input type="hidden" name="loanProductNameSelect" id="loanProductNameSelect"> 
-				<div class="innerButtonContainer">
-					<button type="submit" id ="updateRepaymentDB" style="display: none;">상환 방법<br>확정하기</button>
-				</div>
+				
 			</form>
 		</div>
 	</main>

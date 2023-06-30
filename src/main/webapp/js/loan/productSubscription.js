@@ -67,7 +67,8 @@ function updateTable() {
 	var interest = 0;	// 월 납부 이자
 	var cumulativePrincipalPayment = 0;	// 납입원금누계
 	var balance = loanAmountValue;	// 남은 대출 원금
-
+	
+	repaymentAmountTotal = 0;
 	var repaymentMethodTable = document.getElementById("repaymentMethodSelectTable");
 	removeTableRow(repaymentMethodTable);
 
@@ -206,7 +207,7 @@ selectrepaymentMethodElement.addEventListener("change", function() {
 	repaymentMethodSelectTableDiv.style.display = "block";
 	repaymentAmountTotalTitleTag.style.display = "block";
 	repaymentAmountTotalTag.style.display = "block";
-	repaymentAmountTotalTag.textContent = repaymentAmountTotal.toLocaleString() + "원";
+	repaymentAmountTotalTag.textContent = Math.floor(repaymentAmountTotal).toLocaleString() + "원";
 
 	var selectrepaymentMethodValue = selectrepaymentMethodElement.options[selectrepaymentMethodElement.selectedIndex].value;
 
