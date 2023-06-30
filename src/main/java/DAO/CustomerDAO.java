@@ -170,6 +170,22 @@ public class CustomerDAO {
 		}
 		return cId;
 	}
+	
+	public int getCustomerIdByCustomerIdentificationId(String identificationId) {
+		int cId = -1;
+		String SQL = "SELECT c_id FROM customers WHERE identification = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setString(1, identificationId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					cId = rs.getInt("c_id");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cId;
+	}
 
 	// Read a customer by customerId
 	public CustomerDTO getCustomerByCustomerId(int customerId) {

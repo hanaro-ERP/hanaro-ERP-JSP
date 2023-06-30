@@ -235,6 +235,7 @@
 			</form>
 		</div>
 	</main>
+
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/loanContractList.js"></script>
 	<script>
@@ -363,6 +364,5 @@
 		%>
 		
 	</script>
-
 </body>
 </html>

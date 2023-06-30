@@ -196,7 +196,5 @@ public class LoanContractController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
-		
 	}
 }
