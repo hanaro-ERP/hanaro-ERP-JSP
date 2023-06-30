@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class DatabaseUtil {
 	private static final String USERNAME = "admin";
 	private static final String PASSWORD = "rkddkwl123!";
-	private static final String URL = "jdbc:mysql://hanaroerpprojectinstance.cueixcjf2n4d.ap-northeast-2.rds.amazonaws.com:3306/hanaroErpDatabase";
+	private static final String URL = "jdbc:mysql://hanaroerpprojectinstance.cueixcjf2n4d.ap-northeast-2.rds.amazonaws.com:3306/hanaro";
 
 	public static Connection getConnection() {
 		try {

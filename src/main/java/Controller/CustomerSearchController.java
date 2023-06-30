@@ -27,11 +27,8 @@ public class CustomerSearchController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String urlPattern = request.getServletPath();
-		
 	    if ("/customerSearch".equals(urlPattern)) {
 	    	getCustomerSearchProcess(request, response);
-	    } else if ("/customer/searchReturn".equals(urlPattern)) {
-	        returnCustomerProcess(request, response);
 	    } else {
 
 	    }
@@ -39,15 +36,15 @@ public class CustomerSearchController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		returnCustomerProcess(request, response);
 	}
 	
 	protected void getCustomerSearchProcess(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			String id1 = request.getParameter("id1");
-			String id2 = request.getParameter("id2");
+			String customerName = request.getParameter("name");
 			String pageId = request.getParameter("pageId");
 			
-			List<CustomerDTO> customerList = customerService.getCustomerListByIdentification(id1+"-"+id2);
+			List<CustomerDTO> customerList = customerService.getCustomerListByName(customerName);
 			
 			if(customerList == null)
 				customerList = new ArrayList<>();
@@ -68,26 +65,37 @@ public class CustomerSearchController extends HttpServlet {
 		try {
 			LoanUtil loanUtil = new LoanUtil();
 			
-			String userId = request.getParameter("userId");
-			String pageId = request.getParameter("pageId");
+			String id1 = request.getParameter("identification1");
+			String id2 = request.getParameter("identification2");
 			
-			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(userId));
-			customer.setJobName(loanUtil.convertJobCode(customer.getJobCode()));
+			CustomerDTO customerDTO = customerService.getCustomerListByIdentification(id1+"-"+id2);
 			
-			request.setAttribute("customer", customer);
-			//request.getSession().setAttribute("customer", customer);
-			
-			if(pageId.equals("1")) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/customer/customerRegist.jsp");			
-				dispatcher.forward(request, response);
-				/*String newURL = "/hanaro-ERP-JSP/navigation/customerRegist";
-			    response.sendRedirect(newURL);*/
-			} else if(pageId.equals("2")) {			
+			if(customerDTO.getCustomerName() != null) {
+				CustomerDTO customer = customerService.getCustomerDetail(customerDTO.getCustomerId());
+				
+				customer.setJobName(loanUtil.convertJobCode(customer.getJobCode()));
+				
+				request.setAttribute("customer", customer);
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");			
 				dispatcher.forward(request, response);
-			    /*String newURL = "/hanaro-ERP-JSP/navigation/loanSubscription";
-			    response.sendRedirect(newURL);*/
+				
+				/*request.getSession().setAttribute("customer", customer);
+				
+				if(pageId.equals("1")) {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/customer/customerRegist.jsp");			
+					dispatcher.forward(request, response);
+					String newURL = "/hanaro-ERP-JSP/navigation/customerRegist";
+				    response.sendRedirect(newURL);
+				} else if(pageId.equals("2")) {		*/	
+			} else {
+				System.out.println("aa");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");			
+				dispatcher.forward(request, response);
 			}
+			/*String newURL = "/hanaro-ERP-JSP/navigation/loanSubscription";
+			response.sendRedirect(newURL);*/
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

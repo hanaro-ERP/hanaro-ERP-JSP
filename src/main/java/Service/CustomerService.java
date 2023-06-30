@@ -57,10 +57,10 @@ public class CustomerService {
 		return customerList;
 	}
 	
-	public List<CustomerDTO> getCustomerListByIdentification(String identification) {
-		List<CustomerDTO> customerList = customerDAO.getCustomersByIdentification(identification);
+	public CustomerDTO getCustomerListByIdentification(String identification) {
+		CustomerDTO customer = customerDAO.getCustomersByIdentification(identification);
 		
-		return customerList;
+		return customer;
 	}
 	
 	public List<CustomerDTO> getCustomerListByName(String name) {

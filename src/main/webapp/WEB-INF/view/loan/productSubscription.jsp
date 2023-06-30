@@ -34,10 +34,11 @@ pageEncoding="UTF-8"%>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle"><h2>고객 정보 찾기</h2></div>
 				<div class="innerSubTitleRow">주민번호
-				<input id="identification1" name="identification1" class="middleInput" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
+				<input id="identification1" name="identification1" class="middleInput" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>" maxlength="6"/>
 				-
-				<input id="identification2" name="identification2" class="middleInput" maxlength="7" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>"/>
-				<button id="customerDetailButton" type="button" onclick="openSearchPopup()"> 검색 </button>
+				<input type="password" id="identification2" name="identification2" class="middleInput" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>" maxlength="7"/>
+				<button type="button" onclick="showIdentification()">보이기</button>
+				<button id="customerDetailButton" type="button" onclick="return openSearchPopup(this.form)"> 검색 </button>
 				</div>
 				<div id="searchResultMessage"></div>
 				<table class="inputTable">
@@ -182,7 +183,6 @@ pageEncoding="UTF-8"%>
                         id2 = customer.getIdentification().substring(7,14);
                      }
                 %> 
-				
 				<input type="hidden" name="repaymentAmountList" id="repaymentAmountList"> 
 				<input type="hidden" name="identificationId" id="identificationId" value="<%= id1 + "-" + id2%>"> 
 				<input type="hidden" name="loanProductNameSelect" id="loanProductNameSelect"> 
@@ -224,6 +224,9 @@ pageEncoding="UTF-8"%>
 		customerDetailInformation.style.display = 'none'; // 초기에 숨김 상태로 설정
 		
 		const customerNameInformation = document.getElementById('innerSubTitleRow');
+		
+		const identificationInput1 = document.getElementById("identification1");
+		const identificationInput2 = document.getElementById("identification2");
 		
 		function revealDetail() {
 			checkOpen.setAttribute('value', 'open');
@@ -293,15 +296,61 @@ pageEncoding="UTF-8"%>
 					alert("데이터가 부족합니다.");
 			<% } %>
 		}
-		
-		function openSearchPopup() {
-	    	var firstTd = document.getElementById("identification1"); // customerName 필드를 가리키는 변수 firstTd
+
+		function openSearchPopup(frm) {
+			// 입력 필드 값의 길이 유효성 검사
+			if (identificationInput1.value !== '' && identificationInput2.value !== '') {
+				frm.action="/hanaro-ERP-JSP/customer/searchReturn"; 
+			    frm.submit();
+			    return true;
+			}
+			else
+				alert("주민번호를 입력해주세요.");
+		}
+		function showIdentification() {
+		    if(identificationInput.type == "text")
+		    	identificationInput.type = "password";
+		    else
+		    	identificationInput.type = "text";
+		}
+		/*function openSearchPopup() {
+			  /*var firstTd = document.getElementById("identification1");
+			  var secondTd = document.getElementById("identification2");
+
+			  if (firstTd.value !== '') {
+			    var url = "/hanaro-ERP-JSP/customerSearch";
+			    
+			    var form = document.createElement('form');
+			    form.method = 'POST';
+			    form.action = url;
+
+			    var id1Input = document.createElement('input');
+			    id1Input.type = 'hidden';
+			    id1Input.name = 'id1';
+			    id1Input.value = firstTd.value;
+			    form.appendChild(id1Input);
+
+			    var id2Input = document.createElement('input');
+			    id2Input.type = 'hidden';
+			    id2Input.name = 'id2';
+			    id2Input.value = secondTd.value;
+			    form.appendChild(id2Input);
+
+			    var pageIdInput = document.createElement('input');
+			    pageIdInput.type = 'hidden';
+			    pageIdInput.name = 'pageId';
+			    pageIdInput.value = 2;
+			    form.appendChild(pageIdInput);
+
+			    document.body.appendChild(form);
+			    form.submit();
+			  }
+			var firstTd = document.getElementById("identification1"); // customerName 필드를 가리키는 변수 firstTd
 	    	var secondTd = document.getElementById("identification2");
 	    	if(firstTd.value !== '') {
 	    		var identification = 
 		    	window.open("/hanaro-ERP-JSP/customerSearch?id1=" + firstTd.value + "&id2=" + secondTd.value + "&pageId=" + 2, "_blank", "width=1000,height=200");
-			}
-		}		
+			}*/
 	</script>
 </body>
 </html>

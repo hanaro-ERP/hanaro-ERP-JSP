@@ -187,23 +187,20 @@ public class CustomerDAO {
 		return cId;
 	}
 
-	public List<CustomerDTO> getCustomersByIdentification(String identificaiton) {
-		List<CustomerDTO> customers = new ArrayList<>();
+	public CustomerDTO getCustomersByIdentification(String identificaiton) {
+		CustomerDTO customer = new CustomerDTO();
 		String SQL = "SELECT * FROM customers WHERE identification = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setString(1, identificaiton);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-					CustomerDTO customer = new CustomerDTO();
 					fillCustomerDTOFromResultSet(customer, rs);
-					
-					customers.add(customer);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return customers;
+		return customer;
 	}
 	
 	// Read a customer by customerId
