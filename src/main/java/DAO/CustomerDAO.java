@@ -128,8 +128,8 @@ public class CustomerDAO {
 	
 	// insert a new customer
 	public int insertCustomer(CustomerDTO customer, int e_id, int b_id) {
-		String SQL = "INSERT INTO customers (e_id, b_id, c_name, identification, grade, age, gender, phone_no, address, job_code, country, credit, risk, guarantor) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO customers (e_id, b_id, c_name, identification, grade, age, gender, phone_no, address, job_code, country, credit, guarantor) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, e_id);
@@ -144,8 +144,7 @@ public class CustomerDAO {
 			pstmt.setString(10, customer.getJobCode());
 			pstmt.setString(11, customer.getCountry());
 			pstmt.setString(12, customer.getCredit());
-			pstmt.setInt(13, customer.getRisk());
-			pstmt.setString(14, customer.getSuretyName());
+			pstmt.setString(13, customer.getSuretyName());
 
 			return pstmt.executeUpdate();
 
@@ -225,7 +224,7 @@ public class CustomerDAO {
 	// Update a customer
 	public int updateCustomer(CustomerDTO customer) {
 		String SQL = "UPDATE customers SET e_id = ?, b_id = ?, customer_name = ?, grade = ?, age = ?, gender = ?, "
-				+ "phone_number = ?, address = ?, job_code = ?, country = ?, disability = ?, risk = ?, credit = ? "
+				+ "phone_number = ?, address = ?, job_code = ?, country = ?, disability = ?, credit = ? "
 				+ "WHERE c_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, customer.getCustomerId());
@@ -410,7 +409,6 @@ public class CustomerDAO {
 					customer.setCredit(rs.getString("credit"));
 					customer.setJobCode(rs.getString("job_code"));
 					customer.setGrade(rs.getString("grade"));
-					customer.setRisk(rs.getInt("risk"));
 					
 					findCustomers.add(customer);
 				}
