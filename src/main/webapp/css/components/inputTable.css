@@ -63,3 +63,21 @@ td  select {
 .longInput {
 	width: 100%;
 }
+.identificationInput {
+	width: 100px
+}
+.innerSubTitleRow {
+	width: 450px;
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	font-size: 23px;
+	margin-left: 20px;
+}
+.innerSubTitleRow > div {
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
