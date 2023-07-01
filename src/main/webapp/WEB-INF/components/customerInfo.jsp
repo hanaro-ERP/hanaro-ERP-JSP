@@ -49,8 +49,8 @@
 	<div class="innerInformationRow">
 		<div class="innerInformationRowTitle">직업 코드</div>
 		<p>${customer.jobCode}</p>
-		<div class="innerInformationRowTitle">위험도</div>
-		<p>${customer.risk}</p>
+		<div class="innerInformationRowTitle">보증인</div>
+		<p>${customer.guarantor}</p>
 	</div>
 </div>
 <script>
