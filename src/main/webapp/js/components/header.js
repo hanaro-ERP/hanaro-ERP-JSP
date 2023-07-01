@@ -8,11 +8,11 @@ window.addEventListener('DOMContentLoaded', function() {
 		if (index === 1) {
 			if (currentAnchor.includes(menus[index]) || currentAnchor.includes("bank")) {
 				menuItems[index].classList.add('active');
-			} 
+			}
 		} else {
 			if (currentAnchor.includes(menus[index])) {
 				menuItems[index].classList.add('active');
-			} 	
+			}
 		}
 	})
 });

@@ -37,6 +37,22 @@ public class AccountDAO {
 		return -1; // Database operation failed
 	}
 
+	public int getAccountIdByCustomerId(int cId) {
+		int aId = -1;
+		String SQL = "SELECT a_id FROM accounts WHERE c_id = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setInt(1, cId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					aId = rs.getInt("a_id");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return aId;
+	}
+	
 	// Read an account by accountId
 	public AccountDTO getAccountByAccountId(int accountId) {
 		AccountDTO account = new AccountDTO();

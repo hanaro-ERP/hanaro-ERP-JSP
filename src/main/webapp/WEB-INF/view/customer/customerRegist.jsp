@@ -33,14 +33,16 @@
 				<table class="inputTable">
  					<tr>
 						<th>이름</th>
-						<td><input id="customerName" name="customerName" class="middleInput"/></td>
+						<td><input id="customerName" name="customerName" class="middleInput"
+						value="<%= session.getAttribute("customerName") != null ? session.getAttribute("customerName") : "" %>"
+						/></td>
 						<th>전화번호</th>
 						<td><input id="phoneNumber" name="phoneNumber" class="middleInput"/></td>
 					</tr>
 					<tr>
 						<th>거주지</th>
 						<td>
-							<select name="citySelect" class="innerSelectBox customerCity" onchange="changeCounty(this.selectedIndex);" style="width: 150px";>
+							<select id="citySelect" name="citySelect" class="innerSelectBox customerCity" onchange="changeCounty(this.selectedIndex);" style="width: 150px";>
 								<option value="">전체</option>
 								<option value="서울특별시">서울특별시</option>
 								<option value="부산광역시">부산광역시</option>
@@ -97,7 +99,7 @@
 					<tr>						
 						<th>외부 신용 등급</th>
 						<td>
-							<select name="creditRank" class="shortSelect">
+							<select id="creditRank" name="creditRank" class="shortSelect">
 								<option value="1등급">1</option>
 								<option value="2등급">2</option>
 								<option value="3등급">3</option>
@@ -108,7 +110,7 @@
 						</td>
 						<th>고객 등급</th>
 						<td>
-							<select name="customerRank" class="shortSelect">
+							<select id="customerRank" name="customerRank" class="shortSelect">
 								<option value="SILVER">SILVER</option>
 								<option value="GOLD">GOLD</option>
 								<option value="VIP">VIP</option>
@@ -127,8 +129,18 @@
 					<tr>
 						<th>보증인</th>
 						<td colspan=4>
-						<input id="suretyName" name="suretyName" class="shortInput" value="<%= customer != null ? customer.getCustomerName() : "" %>"/>
-						<button type="button" onclick="openSearchPopup()">검색</button></td>						
+						<div id="findById">
+							<input id="identification1" name="identification1" class="shortInput" maxlength="6" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
+							-
+							<input type="password" id="identification2" id="key" name="identification2" class="shortInput" maxlength="7" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>"/>	
+							<button type="button" id="show" onclick="showIdentification()">SHOW</button>
+							<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="return openSearchPopup(this.form)"> 검색 </button>
+						</div>
+						<div id="findResult">
+							<%= customer != null ? customer.getCustomerName() : "" %>
+							<input name="guarantor" id="searchResultMessage" type="hidden" value="<%= customer != null ? customer.getCustomerName() : "" %>">
+							<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="reSearch()"> 재검색 </button>						
+						</div>
 					</tr>
 				</table>
 				<div class="innerButtonContainer">
@@ -144,11 +156,79 @@
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/customer/customerList.js"></script>
 	<script>
+		const identificationInput1 = document.getElementById("identification1");
+		const identificationInput2 = document.getElementById("identification2");		
+	    var show = document.getElementById("show");
+
 	    function openSearchPopup() {
 	    	var firstTd = document.getElementById("suretyName"); // customerName 필드를 가리키는 변수 firstTd
 	    	if(firstTd.value !== '')
 		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 1, "_blank", "width=1170,height=500");
 	    }
+	    function openSearchPopup(frm) {
+			if (identificationInput1.value !== '' && identificationInput2.value !== '') {
+				frm.id = "guarantorFind";
+				frm.action="/hanaro-ERP-JSP/customer/searchReturn?formId=" + frm.id;
+			    frm.submit();
+			    return true;
+			}
+			else {
+				alert("주민번호를 입력해주세요.");
+			}
+			
+			if (document.getElementById("findById").style.display === "none") {
+			    document.getElementById("findById").style.display = "inline"; // findById 요소를 보여줍니다.
+			    document.getElementById("searchResultMessage").style.display = "none"; // searchResultMessage 요소를 숨깁니다.
+			}
+		}
+		function showIdentification() {
+		    if(identificationInput2.type == "text") {
+		    	identificationInput2.type = "password";
+		    	show.innerText = "SHOW";
+		    }
+		    else {
+		    	identificationInput2.type = "text";
+		    	show.innerText = "HIDE";	
+		    }
+		}
+
+		const findById = document.getElementById("findById");
+		const findResult = document.getElementById("findResult");
+		const gurantorName = document.getElementById("searchResultMessage");
+		findResult.style.display = 'none';
+		
+	    if (gurantorName.value !== "") {
+	    	findById.style.display = 'none';
+	    	findResult.style.display = 'block';
+	    }
+	    function reSearch() {
+	    	findById.style.display='block';
+	    	findResult.style.display = 'none';
+	    }
+		
+	    // 값 가져와서 sessionStorage에 저장
+	    var cName = document.getElementById("customerName").value;
+	    var pNum = document.getElementById("phoneNumber").value;
+	    var city = document.getElementsByName("citySelect")[0].value;
+	    var district = document.getElementById("districtSelect").value;
+	    var country = document.getElementsByName("country")[0].value;
+	    var id1 = document.getElementById("residentRegistrationNumber1").value;
+	    var id2 = document.getElementById("residentRegistrationNumber2").value;
+	    var loan = document.getElementById("loanTypeSelect").value;
+	    var credit = document.getElementsByName("creditRank")[0].value;
+	    var rank = document.getElementsByName("customerRank")[0].value;
+
+	    
+	    request.setItem("customerName", cName);
+	    sessionStorage.setItem("phoneNumber", pNum);
+	    sessionStorage.setItem("citySelect", city);
+	    sessionStorage.setItem("districtSelect", district);
+	    sessionStorage.setItem("country", country);
+	    sessionStorage.setItem("id1", id1);
+	    sessionStorage.setItem("id2", id2);
+	    sessionStorage.setItem("loanType", loan);
+	    sessionStorage.setItem("credit", credit);
+	    sessionStorage.setItem("rank", rank);
 	</script>
 </body>
 </html>

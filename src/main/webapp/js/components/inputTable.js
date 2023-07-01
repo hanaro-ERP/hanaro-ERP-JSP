@@ -5,6 +5,11 @@ function validateForm() {
             alert('모든 항목을 입력해주세요.');
             return false;
         }
+        
+        if(inputs[i].id === 'searchResultMessage' && inputs[i].value === '') {
+        	alert('검색을 완료해주세요');
+        	return false;
+        }
     }
     return true;
 }
