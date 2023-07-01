@@ -23,7 +23,8 @@ import DTO.RepaymentMethodDTO;
 import Service.LoanService;
 import util.CustomerUtil;
 
-@WebServlet("/loan/*")
+//@WebServlet("/loan/*")
+@WebServlet(urlPatterns = {"/loan/repayment", "/loan/subscription"})
 public class LoanSubscriptionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	LoanService loanService = new LoanService();
@@ -39,10 +40,7 @@ public class LoanSubscriptionController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {		
-		String urlPattern = request.getServletPath();
-		if ("/loan/subscription".equals(urlPattern)) {
-			postLoanSubscriptionProcess(request, response);
-	    }
+		postLoanSubscriptionProcess(request, response);
 	}
 	
 	protected void postLoanSubscriptionProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,6 +49,7 @@ public class LoanSubscriptionController extends HttpServlet {
 		CustomerUtil customerUtil = new CustomerUtil();
 		String requestURI = request.getRequestURI();
 		System.out.println("requestURI: "+requestURI );
+		
 		if (requestURI.endsWith("subscription")) {
 			try {			
 				String[] infos = {"customerName", "phoneNumber", "suretyName", "residentRegistrationNumber", "age", "gender", "country", "city", "district", "employeeName", "bank", "customerRank", "creditRank", "disalbitilityRank", "job", "loanType", "loanProductName", "collateral", "collateralValue", "loanAmount", "interest", "interestRate", "loanPerpose", "repaymentMethod"};
@@ -129,12 +128,17 @@ public class LoanSubscriptionController extends HttpServlet {
 					loanContractDTO.setPaymentMethod(repaymentMethod);
 				if(gracePeriod != null)
 					loanContractDTO.setGracePeriod(Integer.parseInt(gracePeriod));
-				int isLoanRegistered = loanService.subscriptionLoan(customerDTO, loanContractDTO);
-							
+
+				String repaymentAmountList = request.getParameter("repaymentAmountList");
+				String identificationId = request.getParameter("identificationId");			
+				String loanProductNameSelect = request.getParameter("loanProductNameSelect");
+				
+				int isLoanRegistered = loanService.subscriptionLoan(customerDTO, loanContractDTO, loanProductNameSelect);
+				
 				List<RepaymentMethodDTO> repaymentMethodDTOList = loanService.getRepaymentMethod(identification);
 				request.setAttribute("repaymentMethod", repaymentMethodDTOList);
 
-				RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productSubscription.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");
 				dispatcher.forward(request, response);
 				
 			} catch (Exception e) {
@@ -143,13 +147,14 @@ public class LoanSubscriptionController extends HttpServlet {
 		}
 
 		else if (requestURI.endsWith("repayment")) {
+			System.out.println("머요");
 			String repaymentAmountList = request.getParameter("repaymentAmountList");
 			String identificationId = request.getParameter("identificationId");			
 			String loanProductNameSelect = request.getParameter("loanProductNameSelect");
 			
 			int isUpdated = loanService.updateRepaymentAmount(identificationId, loanProductNameSelect, repaymentAmountList);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productSubscription.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

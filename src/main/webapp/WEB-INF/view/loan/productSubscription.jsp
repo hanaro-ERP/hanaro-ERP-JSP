@@ -35,14 +35,20 @@ pageEncoding="UTF-8"%>
 			%>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle"><h2>고객 정보 찾기</h2></div>
-				<div class="innerSubTitleRow">주민번호
+				<div id="findById" class="innerSubTitleRow">주민번호
 				<input id="identification1" name="identification1" class="shortInput" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>" maxlength="6"/>
 				-
 				<input type="password" id="identification2" id="key" name="identification2" class="shortInput" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>" maxlength="7"/>	
 				<button type="button" id="show" onclick="showIdentification()">SHOW</button>
 				<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="return openSearchPopup(this.form)"> 검색 </button>
 				</div>
-				<div id="searchResultMessage"></div>
+				<div id="findResult">
+				<% if (customer != null) { %>
+			       <%= customer.getCustomerName() %> 님의 검색결과입니다
+			   <% } %>
+				<input name="guarantor" id="searchResultMessage" type="hidden" value="<%= customer != null ? customer.getCustomerName() : "" %>">
+				<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="reSearch()"> 재검색 </button>						
+				</div>
 				<%    
                      String id1 = "";
                      String id2 = "";
@@ -181,9 +187,9 @@ pageEncoding="UTF-8"%>
 				<div class="innerButtonContainer">					
 					<button type="submit" id="search">등록</button>
 				</div>
-			</form>
+			<!-- </form>
 
-			<form action="${pageContext.request.contextPath}/loan/repayment" method="post">
+			<form action="${pageContext.request.contextPath}/loan/repayment" method="post"> -->
 				<div id="repaymentMethodSelectTableDiv" style="display: none;">
 					<h2 id="repaymentMethodSelectTableTitle">상환 방법</h2>
 					<div id="repaymentAmountTotalDiv">
@@ -323,6 +329,19 @@ pageEncoding="UTF-8"%>
 		    	show.innerText = "HIDE";	
 		    }
 		}
+		const findById = document.getElementById("findById");
+		const findResult = document.getElementById("findResult");
+		const gurantorName = document.getElementById("searchResultMessage");
+		findResult.style.display = 'none';
+		
+	    if (gurantorName.value !== "") {
+	    	findById.style.display = 'none';
+	    	findResult.style.display = 'block';
+	    }
+	    function reSearch() {
+	    	findById.style.display='block';
+	    	findResult.style.display = 'none';
+	    }
 	</script>
 </body>
 </html>

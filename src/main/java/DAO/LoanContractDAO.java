@@ -16,15 +16,17 @@ import DTO.CustomerDTO;
 import DTO.LoanContractDTO;
 import DTO.RepaymentMethodDTO;
 import util.DatabaseUtil;
+import util.EncryptUtil;
 import util.LoanUtil;
 
 public class LoanContractDAO {
-
-	public int insertLoanContract(LoanContractDTO loanContract, int l_id, int c_id, int e_id) {
-	    String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, start_date, maturity_date, payment_method,  "
-	            + "grace_period, loan_amount, balance, payment_date, late_payment_date, "
-	            + "delinquent_amount, guarantor_id, interest_rate, collateral_details) " 
-	            + "VALUES (?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? YEAR), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	EncryptUtil encryptUtil = new EncryptUtil();
+	
+	public int insertLoanContract(LoanContractDTO loanContract, int l_id, int c_id, int e_id, int a_id, String repaymentAmountList) {
+	    String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, a_id, start_date, muturity_date, payment_method,  "
+	            + "grace_period, loan_amount, balance, payment_date, "
+	            + "delinquent_amount, guarantor_id, interest_rate, collateral_details, repayment_amount) " 
+	            + "VALUES (?, ?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? YEAR), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	    int numberOfYears = 0;
 	    if(loanContract.getGracePeriod() > 0)
@@ -38,17 +40,18 @@ public class LoanContractDAO {
 	        pstmt.setInt(1, l_id);
 	        pstmt.setInt(2, c_id);
 	        pstmt.setInt(3, e_id);
-	        pstmt.setInt(4, numberOfYears);
-	        pstmt.setString(5, loanContract.getPaymentMethod());
-	        pstmt.setLong(6, loanContract.getGracePeriod());	        
-	        pstmt.setLong(7, loanContract.getLoanAmount());
-	        pstmt.setLong(8, loanContract.getBalance());
-	        pstmt.setInt(9, loanContract.getPaymentDate());
-	        pstmt.setDate(10, loanContract.getLatePaymentDate());
+	        pstmt.setInt(4, a_id);
+	        pstmt.setInt(5, numberOfYears);
+	        pstmt.setString(6, loanContract.getPaymentMethod());
+	        pstmt.setLong(7, loanContract.getGracePeriod());	        
+	        pstmt.setLong(8, loanContract.getLoanAmount());
+	        pstmt.setLong(9, loanContract.getBalance());
+	        pstmt.setInt(10, loanContract.getPaymentDate());
 	        pstmt.setLong(11, loanContract.getDelinquentAmount());
 	        pstmt.setInt(12, loanContract.getGuarantorId());
 	        pstmt.setFloat(13, loanContract.getInterestRate());
 	        pstmt.setString(14, loanContract.getCollateralDetails());
+	        pstmt.setString(15, repaymentAmountList);
 	      
 	        int rowsAffected = pstmt.executeUpdate();
           return rowsAffected;
@@ -61,7 +64,7 @@ public class LoanContractDAO {
 	// Update a loan contract
 	public int updateLoanContract(LoanContractDTO loanContract) {
 		String SQL = "UPDATE loanContracts SET l_id = ?, c_id = ?, e_id = ?, start_date = ?,"
-				+ " maturity_date = ?, payment_method = ?, balance = ?, payment_date = ?,"
+				+ " muturity_date = ?, payment_method = ?, balance = ?, payment_date = ?,"
 				+ " delinquent_amount = ?, guarantor_id = ?, interest_rate = ? WHERE lc_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanContract.getLoanId());
@@ -117,14 +120,12 @@ public class LoanContractDAO {
 		loanContract.setCustomerId(rs.getInt("c_id"));
 		loanContract.setEmployeeId(rs.getInt("e_id"));
 		loanContract.setStartDate(rs.getTimestamp("start_date"));
-		loanContract.setMaturityDate(rs.getTimestamp("maturity_date"));
+		loanContract.setMaturityDate(rs.getTimestamp("muturity_date"));
 		loanContract.setPaymentMethod(rs.getString("payment_method"));
 		loanContract.setGracePeriod(rs.getInt("grace_period"));
 		loanContract.setLoanAmount(rs.getLong("loan_amount"));
 		loanContract.setBalance(rs.getLong("balance"));
 		loanContract.setPaymentDate(rs.getInt("payment_date"));
-		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));
-		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));
 		loanContract.setDelinquentAmount(rs.getLong("delinquent_amount"));
 		loanContract.setGuarantorId(rs.getInt("guarantor_id"));
 		loanContract.setInterestRate(rs.getFloat("interest_rate"));
@@ -140,14 +141,12 @@ public class LoanContractDAO {
 		loanContract.setCustomerId(rs.getInt("c_id"));
 		loanContract.setEmployeeId(rs.getInt("e_id"));
 		loanContract.setStartDate(rs.getTimestamp("start_date"));
-		loanContract.setMaturityDate(rs.getTimestamp("maturity_date"));
+		loanContract.setMaturityDate(rs.getTimestamp("muturity_date"));
 		loanContract.setPaymentMethod(rs.getString("payment_method"));
 		loanContract.setGracePeriod(rs.getInt("grace_period"));
 		loanContract.setLoanAmount(rs.getLong("loan_amount"));
 		loanContract.setBalance(rs.getLong("balance"));
 		loanContract.setPaymentDate(rs.getInt("payment_date"));
-		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));	
-		loanContract.setLatePaymentDate(rs.getDate("late_payment_date"));
 		loanContract.setDelinquentAmount(rs.getLong("delinquent_amount"));
 		loanContract.setGuarantorId(rs.getInt("guarantor_id"));
 		loanContract.setInterestRate(rs.getLong("interest_rate"));
@@ -229,7 +228,7 @@ public class LoanContractDAO {
 			queryBuilder.append(" AND lc.start_date LIKE ?");
 		}
 		if (loanContractDTO.getMuturityDateList() != null && !loanContractDTO.getMuturityDateList()[0].equals("전체")) {
-			queryBuilder.append(" AND lc.maturity_date LIKE ?");
+			queryBuilder.append(" AND lc.muturity_date LIKE ?");
 		}
 		if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0) {
 			if (loanContractDTO.getBalanceRange()[0] >= 10000) {
@@ -237,9 +236,6 @@ public class LoanContractDAO {
 			} else {
 				queryBuilder.append(" AND lc.balance >= ? AND lc.balance < ?");
 			}
-		}
-		if (loanContractDTO.getLatePaymentPeriod() > -1) {
-			queryBuilder.append(" AND lc.late_payment_date < ?");
 		}
 		
 		try (Connection conn = DatabaseUtil.getConnection();
@@ -326,7 +322,7 @@ public class LoanContractDAO {
 			queryBuilder.append(" AND lc.start_date LIKE ?");
 		}
 		if (loanContractDTO.getMuturityDateList() != null && !loanContractDTO.getMuturityDateList()[0].equals("전체")) {
-			queryBuilder.append(" AND lc.maturity_date LIKE ?");
+			queryBuilder.append(" AND lc.muturity_date LIKE ?");
 		}
 		if (loanContractDTO.getBalanceRange()[0] != 0 || loanContractDTO.getBalanceRange()[1] != 0) {
 			if (loanContractDTO.getBalanceRange()[0] >= 10000) {
@@ -334,11 +330,6 @@ public class LoanContractDAO {
 			} else {
 				queryBuilder.append(" AND lc.balance >= ? AND lc.balance < ?");
 			}
-		}
-		if (loanContractDTO.getLatePaymentPeriod() == 0) {
-			queryBuilder.append(" AND lc.late_payment_date is NULL");
-		} else if (loanContractDTO.getLatePaymentPeriod() > -1) {
-			queryBuilder.append(" AND lc.late_payment_date < ?");
 		}
 		queryBuilder.append(" LIMIT 20 OFFSET ?");
 
@@ -461,7 +452,7 @@ public class LoanContractDAO {
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			
 			if (id != null){
-	            pstmt.setString(1, "%"+id+"%");
+	            pstmt.setString(1, encryptUtil.encrypt(id));
 	        }
 			
 			LoanContractDTO loanContractDTO = new LoanContractDTO();

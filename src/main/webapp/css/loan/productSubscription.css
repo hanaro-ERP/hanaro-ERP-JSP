@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+#findResult {
+	height: 30px;
+	margin: 7px;
+	font-size: 17px;
+}
 #search {
 	float: left;
 }

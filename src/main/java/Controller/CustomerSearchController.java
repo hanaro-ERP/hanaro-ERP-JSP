@@ -72,7 +72,7 @@ public class CustomerSearchController extends HttpServlet {
 			
 			request.setAttribute("customer", customer);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view//customer/customerRegist.jsp");			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/customer/customerRegist.jsp");			
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,7 +103,7 @@ public class CustomerSearchController extends HttpServlet {
 			}
 
 			if(request.getParameter("formId").equals("guarantorFind")) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view//customer/customerRegist.jsp");			
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/customer/customerRegist.jsp");			
 				dispatcher.forward(request, response);
 			}
 			else {
