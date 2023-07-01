@@ -9,15 +9,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			if (currentAnchor.includes(menus[index]) || currentAnchor.includes("bank")) {
 				menuItems[index].classList.add('active');
 			}
-		} else if (index === 2) {
-			if (currentAnchor.includes(menus[index]) || currentAnchor.includes("customer/searchReturn")) {
-				menuItems[index].classList.add('active');
-			}
-		} else if (index === 3) {
-			if (currentAnchor.includes(menus[index]) || currentAnchor.includes("depositFind")) {
-				menuItems[index].classList.add('active');
-			}
-		} else {
+els		} else {
 			if (currentAnchor.includes(menus[index])) {
 				menuItems[index].classList.add('active');
 			}
