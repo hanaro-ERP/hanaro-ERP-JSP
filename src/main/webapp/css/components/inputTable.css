@@ -94,6 +94,26 @@ td  select {
 #show {
 	position: absolute;
 	margin-left: 270px;
+	margin-top: 0px;
+	font-size: 9px;
+	cursor: pointer;
+	color: grey;
+	background: transparent;
+	border: 0px solid grey;;
+}
+#show1 {
+	position: absolute;
+	margin-left: -60px;
+	margin-top: 0px;
+	font-size: 9px;
+	cursor: pointer;
+	color: grey;
+	background: transparent;
+	border: 0px solid grey;;
+}
+#show2 {
+	position: absolute;
+	margin-left: -47px;
 	margin-top: 7.5px;
 	font-size: 9px;
 	cursor: pointer;

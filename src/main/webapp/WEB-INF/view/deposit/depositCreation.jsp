@@ -123,7 +123,7 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 				</table>
-				<div class="innerSubTitle"><h2>계좌 정보</h2></div>
+				<div class="innerSubTitle2"><h2>계좌 정보</h2></div>
 				<table class="inputTable">
 					<tr>
 						<th>대출 구분</th>

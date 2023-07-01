@@ -4,7 +4,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>상품 가입</title>
+<title>하나로여신관리시스템 - 상품 가입</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>

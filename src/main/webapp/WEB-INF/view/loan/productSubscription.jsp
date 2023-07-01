@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>상품 가입</title>
+<title>하나로여신관리시스템 - 상품 가입</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productSubscription.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
@@ -47,7 +47,7 @@ pageEncoding="UTF-8"%>
 					</div>
 					<div id="findResult">
 						<% if (customer != null) { %>
-					       <%= customer.getCustomerName() %> 님의 검색결과입니다
+					       <%= customer.getCustomerName() %> 님의 검색결과입니다.
 					   <% } %>
 						<input name="guarantor" id="searchResultMessage" type="hidden" value="<%= customer != null ? customer.getCustomerName() : "" %>">
 						<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="reSearch()"> 재검색 </button>						
@@ -121,23 +121,21 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 				</table>
-				<div class="innerSubTitle" id="riskResult">
+				<div class="innerSubTitle2" id="riskResult">
 					<h2 id="riskResultTitle">내부 위험도 결과</h2><button class="customerDetailButton" name="close" type="button" onclick="return riskCalcFunc(this.form);">계산하기</button>
 					<input id="checkOpen" name="isOpen" value="close"></input>
 				</div>
 				<div class="innerInformation" id="customerDetailInformation">
-					<div class="innerInformationRow">
+					<div class="innerInformationRow" id="riskResultTable">
 						<div class="innerInformationRowTitle">내부 위험도</div>
 						<div id="innerRisk"></div>
-					</div>
-					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">이자율 적용</div>
 						<div id="interestRate2"></div>
-					<div class="innerInformationRowTitle">대출기간 적용</div>
+						<div class="innerInformationRowTitle">대출기간 적용</div>
 						<div id="loanPeriod2"></div>
-					</div>				
+					</div>			
 				</div>						
-				<div class="innerSubTitle"><h2>상품 정보 및 가입</h2></div>
+				<div class="innerSubTitle2"><h2>상품 정보 및 가입</h2></div>
 				<table class="inputTable">
 					<tr>
 						<th>대출 구분</th>
@@ -343,10 +341,10 @@ pageEncoding="UTF-8"%>
 		
 	    if (gurantorName.value !== "") {
 	    	findById.style.display = 'none';
-	    	findResult.style.display = 'block';
+	    	findResult.style.display = 'flex';
 	    }
 	    function reSearch() {
-	    	findById.style.display='block';
+	    	findById.style.display = 'flex';
 	    	findResult.style.display = 'none';
 	    }
 	</script>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>하나로여신관리시스템 - 고객 등록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/customerRegist.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
@@ -79,9 +79,10 @@
 					<tr>
 						<th>주민번호</th>
 						<td>
-							<input id="userIdentification1" name="userIdentification1" class="shortInput" maxlength="6" value="<%= inputData != null && inputData.getId1() != null ? inputData.getId1() : "" %>"/>
+							<input id="userIdentification1" name="userIdentification1" class="identification" maxlength="6" value="<%= inputData != null && inputData.getId1() != null ? inputData.getId1() : "" %>"/>
 								-
-							<input type="password" id="userIdentification2" name="userIdentification2" class="shortInput" maxlength="7" value="<%= inputData != null && inputData.getId2() != null ? inputData.getId2() : "" %>"/>
+							<input type="password" id="userIdentification2" name="userIdentification2" class="identification" maxlength="7" value="<%= inputData != null && inputData.getId2() != null ? inputData.getId2() : "" %>"/>
+							<button type="button" id="show1" onclick="showIdentification1()">SHOW</button>
 						</td>
 						<th>직업</th>
 						<td>
@@ -131,10 +132,10 @@
 						<th>보증인</th>
 						<td colspan=4>
 						<div id="findById">
-							<input id="identification1" name="identification1" class="shortInput" maxlength="6" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
+							<input id="guarantorIdentification1" name="guarantorIdentification1" class="identification" maxlength="6" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
 							-
-							<input type="password" id="identification2" id="key" name="identification2" class="shortInput" maxlength="7" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>"/>	
-							<button type="button" id="show" onclick="showIdentification()">SHOW</button>
+							<input type="password" id="guarantorIdentification2" id="key" name="guarantorIdentification2" class="identification" maxlength="7" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>"/>	
+							<button type="button" id="show2" onclick="showIdentification2()">SHOW</button>
 							<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="return openSearchPopup(this.form)"> 검색 </button>
 						</div>
 						<div id="findResult" class="findResultTable">
@@ -157,103 +158,127 @@
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/customer/customerList.js"></script>
 	<script>
-		const identificationInput1 = document.getElementById("identification1");
-		const identificationInput2 = document.getElementById("identification2");		
-	    var show = document.getElementById("show");
+		const customerIdentificationInput1 = document.getElementById("userIdentification1");
+		const customerIdentificationInput2 = document.getElementById("userIdentification2");
+		const guarantorIdentificationInput1 = document.getElementById("guarantorIdentification1");
+		const guarantorIdentificationInput2 = document.getElementById("guarantorIdentification2");
 
-	    function openSearchPopup() {
-	    	var firstTd = document.getElementById("suretyName"); // customerName 필드를 가리키는 변수 firstTd
-	    	if(firstTd.value !== '')
-		    	window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 1, "_blank", "width=1170,height=500");
-	    }
-	    function openSearchPopup(frm) {
-			if (identificationInput1.value !== '' && identificationInput2.value !== '') {
+		var show1 = document.getElementById("show1");
+		var show2 = document.getElementById("show2");
+
+		function openSearchPopup() {
+			var firstTd = document.getElementById("suretyName"); // customerName 필드를 가리키는 변수 firstTd
+			if(firstTd.value !== '')
+				window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 1, "_blank", "width=1170,height=500");
+		}
+
+		function openSearchPopup(frm) {
+			if (guarantorIdentificationInput1.value !== '' && guarantorIdentificationInput2.value !== '') {
 				frm.id = "guarantorFind";
 				frm.action="/hanaro-ERP-JSP/customer/searchReturn?formId=" + frm.id;
-			    frm.submit();
-			    return true;
+				frm.submit();
+				return true;
 			}
 			else {
 				alert("주민번호를 입력해주세요.");
 			}
-			
+
 			if (document.getElementById("findById").style.display === "none") {
-			    document.getElementById("findById").style.display = "inline"; // findById 요소를 보여줍니다.
-			    document.getElementById("searchResultMessage").style.display = "none"; // searchResultMessage 요소를 숨깁니다.
+				document.getElementById("findById").style.display = "inline"; // findById 요소를 보여줍니다.
+				document.getElementById("searchResultMessage").style.display = "none"; // searchResultMessage 요소를 숨깁니다.
 			}
 		}
-		function showIdentification() {
-		    if(identificationInput2.type == "text") {
-		    	identificationInput2.type = "password";
-		    	show.innerText = "SHOW";
-		    }
-		    else {
-		    	identificationInput2.type = "text";
-		    	show.innerText = "HIDE";
-		    }
+
+		function showIdentification1() {
+			if(customerIdentificationInput2.type == "text") {
+				customerIdentificationInput2.type = "password";
+				show1.innerText = "SHOW";
+			}
+			else {
+				customerIdentificationInput2.type = "text";
+				show1.innerText = "HIDE";
+			}
+		}
+
+		function showIdentification2() {
+			if(guarantorIdentificationInput2.type == "text") {
+				guarantorIdentificationInput2.type = "password";
+				show2.innerText = "SHOW";
+			}
+			else {
+				guarantorIdentificationInput2.type = "text";
+				show2.innerText = "HIDE";
+			}
 		}
 
 		const findById = document.getElementById("findById");
 		const findResult = document.getElementById("findResult");
 		const gurantorName = document.getElementById("searchResultMessage");
 		findResult.style.display = 'none';
+
+		if (gurantorName.value !== "") {
+			findById.style.display = 'none';
+			findResult.style.display = 'block';
+		}
+		function reSearch() {
+			findById.style.display='block';
+			findResult.style.display = 'none';
+		}
+
+		document.addEventListener('DOMContentLoaded', function() {
+		var citySelect = document.getElementById('citySelect');
+		var districtSelect = document.getElementById('districtSelect');
+		var country = document.getElementById('country');
+		var job = document.getElementById('jobSelect');
+		var grade = document.getElementById('customerRank');
+		var credit = document.getElementById('creditRank');
 		
-	    if (gurantorName.value !== "") {
-	    	findById.style.display = 'none';
-	    	findResult.style.display = 'block';
-	    }
-	    function reSearch() {
-	    	findById.style.display='block';
-	    	findResult.style.display = 'none';
-	    }
-	    
-	    document.addEventListener('DOMContentLoaded', function() {
-	        var citySelect = document.getElementById('citySelect');
-	        var districtSelect = document.getElementById('districtSelect');
-	        var country = document.getElementById('country');
-	        var job = document.getElementById('jobSelect');
-	        var grade = document.getElementById('customerRank');
-	        var credit = document.getElementById('creditRank');
-	        
-	        // 이전 요청 값을 가져와서 select 요소에 설정
-	        var cityValue = "<%= inputData != null && inputData.getCity() != null ? inputData.getCity() : "" %>";
-	        var districtValue = "<%= inputData != null && inputData.getDistrict() != null ? inputData.getDistrict() : "" %>";
-	        var countryValue = "<%= inputData != null && inputData.getCountry() != null ? inputData.getCountry() : "" %>";
-	        var jobValue = "<%= inputData != null && inputData.getJobCode() != null ? inputData.getJobCode() : "" %>";
-	        var gradeValue = "<%= inputData != null && inputData.getGrade() != null ? inputData.getGrade() : "" %>";
-	        var creditValue = "<%= inputData != null && inputData.getCredit() != null ? inputData.getCredit() : "" %>";
-	        
-	        for (var i = 0; i < citySelect.options.length; i++) {
-	          if (citySelect.options[i].value === cityValue) {
-	            citySelect.selectedIndex = i;
-	            break;
-	          }
-	        }
-			for (var i = 0; i < country.options.length; i++) {
-				if (country.options[i].value === countryValue) {
-					country.selectedIndex = i;
-					break;
-				}
+		// 이전 요청 값을 가져와서 select 요소에 설정
+		var cityValue = "<%= inputData != null && inputData.getCity() != null ? inputData.getCity() : "" %>";
+		var districtValue = "<%= inputData != null && inputData.getDistrict() != null ? inputData.getDistrict() : "" %>";
+		var countryValue = "<%= inputData != null && inputData.getCountry() != null ? inputData.getCountry() : "" %>";
+		var jobValue = "<%= inputData != null && inputData.getJobCode() != null ? inputData.getJobCode() : "" %>";
+		var gradeValue = "<%= inputData != null && inputData.getGrade() != null ? inputData.getGrade() : "" %>";
+		var creditValue = "<%= inputData != null && inputData.getCredit() != null ? inputData.getCredit() : "" %>";
+
+		for (var i = 0; i < citySelect.options.length; i++) {
+			if (citySelect.options[i].value === cityValue) {
+				citySelect.selectedIndex = i;
+				changeCounty(i);
+				break;
 			}
-			for (var i = 0; i < job.options.length; i++) {
-				if (job.options[i].value === jobValue) {
-					job.selectedIndex = i;
-					break;
-				}
+		}
+		for (var i = 0; i < districtSelect.options.length; i++) {
+			if (districtSelect.options[i].value === districtValue) {
+				districtSelect.selectedIndex = i;
+				break;
 			}
-			for (var i = 0; i < grade.options.length; i++) {
-				if (grade.options[i].value === gradeValue) {
-					grade.selectedIndex = i;
-					break;
-				}
+		}
+		for (var i = 0; i < country.options.length; i++) {
+			if (country.options[i].value === countryValue) {
+				country.selectedIndex = i;
+				break;
 			}
-			for (var i = 0; i < credit.options.length; i++) {
-				if (credit.options[i].value === creditValue) {
-					credit.selectedIndex = i;
-					break;
-				}
+		}
+		for (var i = 0; i < job.options.length; i++) {
+			if (job.options[i].value === jobValue) {
+				job.selectedIndex = i;
+				break;
 			}
-	    });
+		}
+		for (var i = 0; i < grade.options.length; i++) {
+			if (grade.options[i].value === gradeValue) {
+				grade.selectedIndex = i;
+				break;
+			}
+		}
+		for (var i = 0; i < credit.options.length; i++) {
+			if (credit.options[i].value === creditValue) {
+				credit.selectedIndex = i;
+				break;
+			}
+		}
+		});
 
 		<% 
 		if (isCreated != null) {

@@ -83,8 +83,8 @@ public class CustomerSearchController extends HttpServlet {
 		try {
 			LoanUtil loanUtil = new LoanUtil();
 			
-			String id1 = request.getParameter("identification1");
-			String id2 = request.getParameter("identification2");
+			String id1 = request.getParameter("guarantorIdentification1");
+			String id2 = request.getParameter("guarantorIdentification2");
 			
 			//입력정보
 			String customerName = request.getParameter("customerName");

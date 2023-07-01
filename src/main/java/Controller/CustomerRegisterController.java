@@ -48,16 +48,7 @@ public class CustomerRegisterController extends HttpServlet {
 			String citySelect = request.getParameter("citySelect");
 			String district = request.getParameter("district");
 			String address = citySelect + " " + district;
-<<<<<<< HEAD
-			String id1 = request.getParameter("userIdentification1");
-			String id2 = request.getParameter("userIdentification2");
-			
-			phoneNumber = phoneNumber.substring(0,3) + "-" + phoneNumber.substring(3,7) + "-" + phoneNumber.substring(7,11);
 
-			String identification = id1 + "-" + id2;
-			int age = customerUtil.getAgeFromIdentification(id1);
-			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(id2.substring(0,1)));
-=======
 			String userId1 = request.getParameter("userIdentification1");
 			String userId2 = request.getParameter("userIdentification2");
 			
@@ -66,7 +57,6 @@ public class CustomerRegisterController extends HttpServlet {
 			String identification = userId1 + "-" + userId2;
 			int age = customerUtil.getAgeFromIdentification(userId1);
 			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(userId1.substring(0,1)));
->>>>>>> 80e701d81b512ac3fb2c407aa2f49c3c3356c9d0
 			
 			String country = request.getParameter("country");
 			String jobCode = request.getParameter("job");
