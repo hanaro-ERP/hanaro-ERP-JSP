@@ -121,12 +121,12 @@ pageEncoding="UTF-8"%>
 					</tr>
 				</table>
 				<div class="innerSubTitle2" id="riskResult">
-					<h2 id="riskResultTitle">내부 위험도 결과</h2><button class="customerDetailButton" name="close" type="button" onclick="return riskCalcFunc(this.form);">계산하기</button>
+					<h2 id="riskResultTitle">내부 신용 점수 결과</h2><button class="customerDetailButton" name="close" type="button" onclick="return riskCalcFunc(this.form);">계산하기</button>
 					<input id="checkOpen" name="isOpen" value="close"></input>
 				</div>
 				<div class="innerInformation" id="customerDetailInformation">
 					<div class="innerInformationRow" id="riskResultTable">
-						<div class="innerInformationRowTitle">내부 위험도</div>
+						<div class="innerInformationRowTitle">내부 신용 점수</div>
 						<div id="innerRisk"></div>
 						<div class="innerInformationRowTitle">이자율 적용</div>
 						<div id="interestRate2"></div>
@@ -310,7 +310,7 @@ pageEncoding="UTF-8"%>
 					loanPeriod2.innerHTML = "<%= addPeriod %>";
 			<% } else { %>
 					concealDetail();
-					alert("데이터가 부족합니다.");
+					alert("먼저 가입할 고객을 찾아주세요.");
 			<% } %>
 		}
 
