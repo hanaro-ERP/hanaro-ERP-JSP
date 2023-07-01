@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			if (currentAnchor.includes(menus[index]) || currentAnchor.includes("bank")) {
 				menuItems[index].classList.add('active');
 			}
-els		} else {
+		} else {
 			if (currentAnchor.includes(menus[index])) {
 				menuItems[index].classList.add('active');
 			}
