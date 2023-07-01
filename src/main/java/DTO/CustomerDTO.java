@@ -27,7 +27,5 @@ public class CustomerDTO {
 	private String bankName;
 	private String guarantor;
 	private String strGender;
-	
-
 	private String jobName;
 }

@@ -29,7 +29,8 @@ const menuData = {
 		menuTitle: '수신 관리',
 		menuIcon: 'depositBtnIcon',
 		menuItems: [
-			{ id: 'depositProductList', label: '계좌 목록', link: '/hanaro-ERP-JSP/navigation/deposit' }
+			{ id: 'depositProductList', label: '계좌 목록', link: '/hanaro-ERP-JSP/navigation/depositList' },
+			{ id: 'depositCreation', label: '계좌 개설', link: '/hanaro-ERP-JSP/navigation/depositCreation' }
 		]
 	}
 };

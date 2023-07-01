@@ -63,3 +63,40 @@ td  select {
 .longInput {
 	width: 100%;
 }
+.identificationInput {
+	width: 100px
+}
+.innerSubTitleRow {
+	width: 550px;
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	font-size: 23px;
+	margin-left: 20px;
+}
+.innerSubTitleRow > div {
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+#findResult {
+	width: 400px;
+	height: 30px;
+	margin: 7px;
+	font-size: 23px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+#show {
+	position: absolute;
+	margin-left: 270px;
+	margin-top: 7.5px;
+	font-size: 9px;
+	cursor: pointer;
+	color: grey;
+	background: transparent;
+	border: 0px solid grey;;
+}

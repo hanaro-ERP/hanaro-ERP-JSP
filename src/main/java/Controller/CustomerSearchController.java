@@ -18,7 +18,7 @@ import Service.CustomerService;
 import util.EncryptUtil;
 import util.LoanUtil;
 
-@WebServlet(urlPatterns = {"/customerSearch", "/customer/searchReturn"})
+@WebServlet(urlPatterns = {"/customerSearch", "/loan/searchReturn", "/deposit/searchReturn"})
 public class CustomerSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CustomerService customerService = new CustomerService();
@@ -104,6 +104,9 @@ public class CustomerSearchController extends HttpServlet {
 
 			if(request.getParameter("formId").equals("guarantorFind")) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/customer/customerRegist.jsp");			
+				dispatcher.forward(request, response);
+			} else if (request.getParameter("formId").equals("depositFind")) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/deposit/depositCreation.jsp");			
 				dispatcher.forward(request, response);
 			}
 			else {
