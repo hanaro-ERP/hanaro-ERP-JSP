@@ -146,6 +146,9 @@ public class LoanSubscriptionController extends HttpServlet {
 			String repaymentAmountList = request.getParameter("repaymentAmountList");
 			String identificationId = request.getParameter("identificationId");			
 			String loanProductNameSelect = request.getParameter("loanProductNameSelect");
+			
+			System.out.println(loanProductNameSelect + "   "+ identificationId);
+			
 			int isUpdated = loanService.updateRepaymentAmount(identificationId, loanProductNameSelect, repaymentAmountList);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productSubscription.jsp");
