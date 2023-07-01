@@ -7,7 +7,7 @@ loanProduct[0] = new Array(
 );
 loanProduct[1] = new Array(
 	"-",
-	"닥터클럽대출-골드",
+	"닥터클럽대출 - 골드",
 	"로이어클럽대출",
 	"하나 수의사클럽대출",
 	"공무원클럽대출",
@@ -65,7 +65,8 @@ function updateTable() {
 	var interest = 0;	// 월 납부 이자
 	var cumulativePrincipalPayment = 0;	// 납입원금누계
 	var balance = loanAmountValue;	// 남은 대출 원금
-
+	
+	repaymentAmountTotal = 0;
 	var repaymentMethodTable = document.getElementById("repaymentMethodSelectTable");
 	removeTableRow(repaymentMethodTable);
 
@@ -176,8 +177,12 @@ function updateTable() {
 		repaymentAmountArray.push(repaymentAmount);
 		
 		if(month == loanPeriodValue) {
+			console.log("마지막");
 			var jsonData = JSON.stringify(repaymentAmountArray);
-			document.getElementById("myListInput").value = jsonData;
+			document.getElementById("repaymentAmountList").value = jsonData;
+
+			var updateRepaymentDBButton = document.getElementById("updateRepaymentDB");
+			updateRepaymentDBButton.style.display = "block";	
 		}
 	}
 }
@@ -188,41 +193,51 @@ function removeTableRow(tableId) {
 	}
 }
 
-const selectrepaymentMethod = document.getElementById("repaymentMethod");
+var selectrepaymentMethodElement = document.getElementById("repaymentMethod");
+ 
 const repaymentMethodSelectTableDiv = document.getElementById("repaymentMethodSelectTableDiv");
 const repaymentAmountTotalTitleTag = document.getElementById("repaymentAmountTotalTitle");
 const repaymentAmountTotalTag = document.getElementById("repaymentAmountTotal");
-const inputGracePeriod = document.getElementById("gracePeriod");
 
-var repaymentMethod = document.getElementById("repaymentMethod");	// 상환 방법
-var repaymentMethodValue = repaymentMethod.value;
-
-selectrepaymentMethod.addEventListener("change", function() {
+var inputGracePeriod = document.getElementsByName("gracePeriod")[0];
+	
+selectrepaymentMethodElement.addEventListener("change", function() {
 	repaymentMethodSelectTableDiv.style.display = "block";
 	repaymentAmountTotalTitleTag.style.display = "block";
 	repaymentAmountTotalTag.style.display = "block";
-	repaymentAmountTotalTag.textContent = repaymentAmountTotal.toLocaleString() + "원";
-	
-	/*if (repaymentMethodValue.includes("만기")) {	// 원금만기일시상환
-	
+	repaymentAmountTotalTag.textContent = Math.floor(repaymentAmountTotal).toLocaleString() + "원";
+
+	var selectrepaymentMethodValue = selectrepaymentMethodElement.options[selectrepaymentMethodElement.selectedIndex].value;
+
+	var inputGracePeriod = document.getElementsByName("gracePeriod")[0];
+
+	console.log("selectrepaymentMethodValue ", selectrepaymentMethodValue);
+	if (selectrepaymentMethodValue.includes("만기")) {	// 원금만기일시상환
 		console.log("만기");
 		inputGracePeriod.disabled = true;	
 		inputGracePeriod.style.backgroundColor = "#E5E8EB";
 	}
-	else {
-		
-		console.log("else");
+	else {		
+		console.log("만기 xxx");
 		inputGracePeriod.disabled = false;
 		inputGracePeriod.style.backgroundColor = "#fff";
-	}*/
+	}
 });
 
-/*selectrepaymentMethod.addEventListener("click", function() {
-	console.log("click");
+selectrepaymentMethodElement.addEventListener("click", function() {
+	console.log("상환방법 click");
+	var inputGracePeriod = document.getElementsByName("gracePeriod")[0];
+
 	inputGracePeriod.disabled = false;
 	inputGracePeriod.style.backgroundColor = "#fff";
 });
-*/
+
+var loanProductNameElement = document.getElementsByName("loanProductName")[0];
+
+loanProductNameElement.addEventListener("change", function() {
+	var loanProductNameValue = loanProductNameElement.options[loanProductNameElement.selectedIndex].value;
+	document.getElementById("loanProductNameSelect").value = loanProductNameValue;
+});
 
 function changeLoanProductName(selectedIndex) {
 	var selectLoanProductNameElement = document.getElementsByName("loanProductName")[0];

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import DTO.CustomerDTO;
 import Service.CustomerService;
 import util.CustomerUtil;
+import util.EncryptUtil;
 
 @WebServlet("/customer/register")
 public class CustomerRegisterController extends HttpServlet {
@@ -36,6 +37,9 @@ public class CustomerRegisterController extends HttpServlet {
 		CustomerUtil customerUtil = new CustomerUtil();
 		try {
 			String[] infos = {"customerName", "phoneNumber", "suretyName", "residentRegistrationNumber", "age", "gender", "country", "city", "district", "employeeName", "bank", "customerRank", "creditRank", "disalbitilityRank", "job", "loanType", "loanProductName", "collateral", "collateralValue", "loanAmount", "interest", "interestRate", "loanPerpose", "repaymentMethod"};
+			EncryptUtil encryptUtil = new EncryptUtil();
+			//String encrypted = encryptUtil.encrypt(string);
+			
 			
 			//고객 정보
 			CustomerDTO customerDTO = new CustomerDTO();
@@ -68,6 +72,7 @@ public class CustomerRegisterController extends HttpServlet {
 			if(citySelect != "")
 				customerDTO.setAddress(address);
 			if(identification != "") {
+				encryptUtil.encrypt(identification);
 				customerDTO.setIdentification(identification);
 				customerDTO.setAge(age);
 				customerDTO.setGender(gender);

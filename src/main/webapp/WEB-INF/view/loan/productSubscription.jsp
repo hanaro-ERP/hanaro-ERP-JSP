@@ -43,6 +43,14 @@ pageEncoding="UTF-8"%>
 				<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="return openSearchPopup(this.form)"> 검색 </button>
 				</div>
 				<div id="searchResultMessage"></div>
+				<%    
+                     String id1 = "";
+                     String id2 = "";
+                     if(customer != null) {
+                        id1 = customer.getIdentification().substring(0, 6);
+                        id2 = customer.getIdentification().substring(7,14);
+                     }
+                %> 
 				<table class="inputTable">
 					<tr>
 						<th>이름</th>
@@ -177,24 +185,14 @@ pageEncoding="UTF-8"%>
 			</form>
 
 			<form action="${pageContext.request.contextPath}/loan/repayment" method="post">
-				<%    
-                     String id1 = "";
-                     String id2 = "";
-                     if(customer != null) {
-                        id1 = customer.getIdentification().substring(0, 6);
-                        id2 = customer.getIdentification().substring(7,14);
-                     }
-                %> 
-				<input type="hidden" name="repaymentAmountList" id="repaymentAmountList"> 
-				<input type="hidden" name="identificationId" id="identificationId" value="<%= id1 + "-" + id2%>"> 
-				<input type="hidden" name="loanProductNameSelect" id="loanProductNameSelect"> 
-				<input type="submit" value="상환 방법 확정하기">
-				
 				<div id="repaymentMethodSelectTableDiv" style="display: none;">
 					<h2 id="repaymentMethodSelectTableTitle">상환 방법</h2>
 					<div id="repaymentAmountTotalDiv">
-						<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금 <p>
+
+						<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금	<p>
 						<p id="repaymentAmountTotal" style="display: none;"><p>
+						<button type="submit" id="updateRepaymentDB"
+							style="display: none;">확정</button>
 					</div>
 					<table class="searchTable" id="repaymentMethodSelectTable">
 						<tr>
@@ -207,6 +205,9 @@ pageEncoding="UTF-8"%>
 						</tr>
 					</table>
 				</div>
+				<input type="hidden" name="repaymentAmountList" id="repaymentAmountList"> 
+				<input type="hidden" name="identificationId" id="identificationId" value="<%= id1 + "-" + id2%>"> 
+				<input type="hidden" name="loanProductNameSelect" id="loanProductNameSelect"> 
 			</form>
 		</div>
 	</main>
@@ -307,11 +308,16 @@ pageEncoding="UTF-8"%>
 			else
 				alert("주민번호를 입력해주세요.");
 		}
+		var show = document.getElementById("show");
 		function showIdentification() {
-		    if(identificationInput2.type == "text")
+		    if(identificationInput2.type == "text") {
 		    	identificationInput2.type = "password";
-		    else
+		    	show.innerText = "SHOW";
+		    }
+		    else {
 		    	identificationInput2.type = "text";
+		    	show.innerText = "HIDE";	
+		    }
 		}
 	</script>
 </body>
