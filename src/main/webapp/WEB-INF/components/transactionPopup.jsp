@@ -17,19 +17,27 @@
 	List<TransactionDTO> searchedTransactionList = (List<TransactionDTO>) request.getAttribute("searchedTransactionList");
 	PaginationDTO paginationDTO = (PaginationDTO) request.getAttribute("paginationDTO");
 	
+	int id = 0;
+	String name = null;
+	String account = null;
+	if (searchedTransactionList != null) {
+		id = searchedTransactionList.get(0).getAccountId();
+		name = searchedTransactionList.get(0).getCustomerName();
+		account = searchedTransactionList.get(0).getAccountNumber();
+	}
+	
 	DecimalFormat wonFormat = new DecimalFormat("#,###원");
 	%>
 	<div class="popupTitleBox">
 		<h1>입출금 내역</h1>
-		<h2><%= searchedTransactionList.get(0).getCustomerName() %></h2>
-		<h2><%= searchedTransactionList.get(0).getAccountNumber() %></h2>
+		<h2><%= searchedTransactionList != null ? searchedTransactionList.get(0).getCustomerName() : ""%></h2>
+		<h2><%= searchedTransactionList != null ? searchedTransactionList.get(0).getAccountNumber() : ""%></h2>
 	</div>
 	<div id="historyTableBox">
 		<table class="searchTable popUpTable transactionTable" id="historyTable">
 			<tr>
 				<th>계좌일자</th>
 				<th>거래유형</th>
-				<th>입금자명</th>
 				<th>거래처</th>
 				<th>거래 금액</th>
 				<th>계좌 잔액</th>
@@ -42,10 +50,9 @@
 					<tr class="searchResultRow" id="<%= transaction.getAccountId() %>">
 						<td><%= transaction.getStringTransactionDate() %></td>
 						<td><%= transaction.getTransactionType() %></td>
-						<td><%= transaction.getDepositor() %></td>
 						<td><%= transaction.getTransactionLocation() %></td>
 						<td><%= wonFormat.format(transaction.getTransactionAmount()) %></td>
-						<td>procedure 필요</td>
+						<td><%= wonFormat.format(transaction.getBalance()) %></td>
 					</tr>
 					<%
 				}
@@ -80,21 +87,21 @@
 		%>
 		<div class="pagination">
 			<% if (currentPage > 1) { %>
-				<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= 1 %>"><<</a>
-				<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= prevPage %>"><</a>
+				<a href="?id=<%= id %>&name=<%= name %>&number=<%= account %>&page=<%= 1 %>"><<</a>
+				<a href="?id=<%= id %>&name=<%= name %>&number=<%= account %>&page=<%= prevPage %>"><</a>
 			<% } %>
 			
 			<% for (int i = startPage; i <= endPage; i++) { %>
 				<% if (i == currentPage) { %>
-					<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= i %>" class="activePage"><%= i %></a>
+					<a href="?id=<%= id %>&name=<%= name %>&number=<%= account %>&page=<%= i %>" class="activePage"><%= i %></a>
 				<% } else { %>
-					<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= i %>"><%= i %></a>
+					<a href="?id=<%= id %>&name=<%= name %>&number=<%= account %>&page=<%= i %>"><%= i %></a>
 				<% } %>
 			<% } %>
 			
 			<% if (currentPage < totalPages) { %>
-				<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= nextPage %>">></a>
-				<a href="?id=<%= searchedTransactionList.get(0).getAccountId() %>&name=<%= searchedTransactionList.get(0).getCustomerName() %>&number=<%= searchedTransactionList.get(0).getAccountNumber() %>&page=<%= totalPages %>">>></a>
+				<a href="?id=<%= id %>&name=<%= name %>&number=<%= account %>&page=<%= nextPage %>">></a>
+				<a href="?id=<%= id %>&name=<%= name %>&number=<%= account %>&page=<%= totalPages %>">>></a>
 			<% } %>
 		</div>
 	</div>

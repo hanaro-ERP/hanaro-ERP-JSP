@@ -167,11 +167,11 @@ public class CustomerDAO {
 		return cId;
 	}
 	
-	public CustomerDTO getCustomersByIdentification(String identificaiton) {
+	public CustomerDTO getCustomersByIdentification(String identificationId) {
 		CustomerDTO customer = new CustomerDTO();
 		String SQL = "SELECT * FROM customers WHERE identification = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setString(1, identificaiton);
+			pstmt.setString(1, encryptUtil.encrypt(identificationId));
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					fillCustomerDTOFromResultSet(customer, rs);

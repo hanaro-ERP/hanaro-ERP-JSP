@@ -96,19 +96,7 @@ pageEncoding="UTF-8"%>
 						<th>보증인</th>
 						<td>
 						<input type="hidden" id="suretyName" name="suretyName" value="<%= customer != null ? customer.getGuarantor() : "" %>">
-						<%= customer != null ? customer.getGuarantor() : "" %>
-						</td>
-					</tr>
-					<tr>
-						<th>담당 직원</th>
-						<td>
-						<input type="hidden" id="employeeName" name="employeeName" value="<%= customer != null ? customer.getEmployeeName() : "" %>">
-						<%= customer != null ? customer.getEmployeeName() : "" %>
-						</td>
-						<th class="office">주거래지점</th>
-						<td>
-						<input type="hidden" id="bankName" name="bankName" value="<%= customer != null ? customer.getBankName() : "" %>">
-						<%= customer != null ? customer.getBankName() : "" %>
+						<%= customer != null ? (customer.getGuarantor() != null ? customer.getGuarantor() : "없음") : "" %>
 						</td>
 					</tr>
 				</table>

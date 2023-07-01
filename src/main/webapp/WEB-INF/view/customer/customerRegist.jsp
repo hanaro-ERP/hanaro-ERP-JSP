@@ -68,17 +68,17 @@
 						<th>국가</th>
 						<td>
 							<select name="country" class="shortSelect">
-								<option value="southKorea">대한민국</option>
-								<option value="usa">미국</option>
-								<option value="china">중국</option>
-								<option value="japan">일본</option>
+								<option value="대한민국">대한민국</option>
+								<option value="미국">미국</option>
+								<option value="중국">중국</option>
+								<option value="일본">일본</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<th>주민번호</th>
 						<td>
-							<input id="residentRegistrationNumber1" name="residentRegistrationNumber" class="shortInput"/>
+							<input id="residentRegistrationNumber1" name="residentRegistrationNumber" class="shortInput" maxlength="6"//>
 								-
 							<input type="password" id="residentRegistrationNumber2" name="residentRegistrationNumber" class="shortInput" maxlength="7"/>
 						</td>
