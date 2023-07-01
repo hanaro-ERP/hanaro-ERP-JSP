@@ -42,10 +42,8 @@ function changeLoan(add) {
 		collateralField.style.backgroundColor = "#fff";
 	}
 }
-
 var repaymentAmountTotal = 0;
 var repaymentAmountArray = [];
-
 function updateTable() {
 	var repaymentMethod = document.getElementById("repaymentMethod");	// 상환 방법
 	var loanPeriod = document.getElementById("loanPeriod");	// 기간

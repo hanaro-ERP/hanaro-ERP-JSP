@@ -32,9 +32,9 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">주민번호</div>
-						<input id="identification1" name="identification1" 
+						<input id="identification1" name="identification1" maxlength="6"
 						class="innerMiddleInput2" value="<%= accountSearchDTO == null || accountSearchDTO.getIdentification1() == null ? "" : accountSearchDTO.getIdentification1() %>"></input>&nbsp;-&nbsp;
-						<input id="identification2" name="identification2" 
+						<input id="identification2" name="identification2" maxlength="7" type="password"
 						class="innerMiddleInput2" value="<%= accountSearchDTO == null || accountSearchDTO.getIdentification2() == null ? "" : accountSearchDTO.getIdentification2() %>"></input>
 					</div>
 					<div class="innerInformationRow">

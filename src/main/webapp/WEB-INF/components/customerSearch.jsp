@@ -62,8 +62,8 @@
 					var value = firstTd.innerHTML;
 				    const url = "/hanaro-ERP-JSP/customer/searchReturn?userId=" + value + "&pageId=" + pageId.value;
 
-				    window.opener.location.href = url;
-				    window.close();
+					window.opener.location.href = url;
+		            window.close();
 				});	
 			}
 		});	

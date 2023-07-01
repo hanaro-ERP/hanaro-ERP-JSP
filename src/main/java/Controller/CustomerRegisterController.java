@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import DTO.CustomerDTO;
 import Service.CustomerService;
 import util.CustomerUtil;
+import util.EncryptUtil;
 
 @WebServlet("/customer/register")
 public class CustomerRegisterController extends HttpServlet {
@@ -36,6 +37,8 @@ public class CustomerRegisterController extends HttpServlet {
 		CustomerUtil customerUtil = new CustomerUtil();
 		try {
 			String[] infos = {"customerName", "phoneNumber", "suretyName", "residentRegistrationNumber", "age", "gender", "country", "city", "district", "employeeName", "bank", "customerRank", "creditRank", "disalbitilityRank", "job", "loanType", "loanProductName", "collateral", "collateralValue", "loanAmount", "interest", "interestRate", "loanPerpose", "repaymentMethod"};
+			EncryptUtil encryptUtil = new EncryptUtil();
+			//String encrypted = encryptUtil.encrypt(string);
 			
 			//고객 정보
 			CustomerDTO customerDTO = new CustomerDTO();
@@ -52,15 +55,15 @@ public class CustomerRegisterController extends HttpServlet {
 			String identification = id[0] + "-" + id[1];
 			int age = customerUtil.getAgeFromIdentification(id[0]);
 			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(id[1].substring(0,1)));
-
+			
 			String country = request.getParameter("country");
 			String jobCode = request.getParameter("job");
-			String suretyName = request.getParameter("suretyName");			
+			String guarantor = request.getParameter("guarantor");			
 			String employeeName = request.getParameter("employeeName");
 			String bankName = request.getParameter("bank"); //주거래지점
 			String customerRank = request.getParameter("customerRank");
 			String creditRank = request.getParameter("creditRank");
-
+			
 			if(customerName != "")
 				customerDTO.setCustomerName(customerName);
 			if(phoneNumber != "")
@@ -72,8 +75,8 @@ public class CustomerRegisterController extends HttpServlet {
 				customerDTO.setAge(age);
 				customerDTO.setGender(gender);
 			}
-			if(suretyName != "")
-				customerDTO.setSuretyName(suretyName);
+			if(guarantor != "")
+				customerDTO.setGuarantor(guarantor);
 			if(jobCode != "")
 				customerDTO.setJobCode(jobCode);
 			if(country != "")

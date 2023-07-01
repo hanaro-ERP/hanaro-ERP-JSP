@@ -1,16 +1,66 @@
 @charset "UTF-8";
+
+#findResult {
+	height: 30px;
+	margin: 7px;
+	font-size: 17px;
+}
 #search {
 	float: left;
 }
 tr td select {
-	width: 150px;
+	width: 150px !important; 
 }
-.select {
-	width: 150px;
+.select,
+.shortInput {
+	width: 150px !important;
+	height: 30px;
+    border: 1px solid #B0B8C1;
+    border-radius: 3px;
 }
 .shortSelect,
 .middleInput {
-	width: 200px;
+	width: 200px !important;;
+}
+#show {
+	position: absolute;
+	margin-left: -50px;
+	margin-top: 7.5px;
+	font-size: 9px;
+	cursor: pointer;
+	color: grey;
+	background: transparent;
+	border: 0px solid grey;;
+}
+.customerDetailButton {
+	width: 80px;
+	height: 30px;
+	border: 1px solid #2EB400;
+	border-radius: 5px;
+	color: #2EB400;
+	background-color: #FFFFFF;
+	align-items: center;
+	justify-content: center;	
+	cursor: pointer;
+}
+.customerDetailButton:hover {
+	opacity: 0.8;
+	background: buttonface;
+}
+#customerName, 
+.innerSubTitleRow {
+	margin: 7px 0px 7px 7px;
+	font-size: 20px;
+}
+#riskResultTitle {
+	margin-right: 10px !important;
+}
+#searchResultMessage {
+	margin: 7px;
+	font-size: 20px;
+}
+.innerInformation {
+	margin-bottom: 5px;	
 }
 #repaymentMethodSelectTableTitle {
 	margin-top: 100px !important;

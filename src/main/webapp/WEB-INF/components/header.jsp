@@ -47,7 +47,6 @@
 		headerSessionName.classList.add("adminName");
 	}
 	
-	
 	const headerSessionTime = document.querySelector(".headerSessionTime");
 	const sessionTimeout = <%= request.getSession().getMaxInactiveInterval() %>;
 	

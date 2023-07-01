@@ -33,20 +33,23 @@ public class CustomerService {
 		
 		int e_id = employeeDAO.getEmployeeIdByEmployeeName(customerDTO.getEmployeeName());
 		int b_id = bankDAO.getBankIdByBankName(customerDTO.getBankName());
+		int guarantor_id = customerDAO.getCustomerIdByCustomerName(customerDTO.getGuarantor());
 		
-		int isCustomerRegister = customerDAO.insertCustomer(customerDTO, e_id, b_id);
+		int isCustomerRegister = customerDAO.insertCustomer(customerDTO, e_id, b_id, guarantor_id);
 		
 		return isCustomerRegister;
 	}
 
 	public CustomerDTO getCustomerDetail(int cutomerId) throws NoSuchAlgorithmException {
 		CustomerDTO customer = customerDAO.getCustomerByCustomerId(cutomerId);
+		CustomerDTO guarantor = customerDAO.getCustomerByCustomerId(customer.getGuarantorId());
 		EmployeeDTO employee = employeeDAO.getEmployeeByEmployeeId(customer.getEmployeeId());
 		BankDTO bank = bankDAO.getBankByBankId(customer.getBankId());
 
 		customer.setStrGender(customerUtil.convertBinaryToGender(customer.isGender()));
 		customer.setEmployeeName(employee.getEmployeeName());
 		customer.setBankName(bank.getBankName());
+		customer.setGuarantor(guarantor.getCustomerName());
 
 		return customer;
 	}
@@ -55,6 +58,12 @@ public class CustomerService {
 		List<CustomerDTO> customerList = customerDAO.getCustomersByDTO(customerSearchDTO, page);
 		
 		return customerList;
+	}
+	
+	public CustomerDTO getCustomerListByIdentification(String identification) {
+		CustomerDTO customer = customerDAO.getCustomersByIdentification(identification);
+		
+		return customer;
 	}
 	
 	public List<CustomerDTO> getCustomerListByName(String name) {

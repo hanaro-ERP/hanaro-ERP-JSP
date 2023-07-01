@@ -14,8 +14,11 @@ import DTO.CreditScoringDTO;
 import DTO.BankDTO;
 import util.DatabaseUtil;
 import util.DepositUtil;
+import util.EncryptUtil;
 
 public class AccountDAO {
+
+	EncryptUtil encryptUtil = new EncryptUtil();
 
 	// insert a new account
 	public int insertAccount(AccountDTO account) {
@@ -34,6 +37,22 @@ public class AccountDAO {
 		return -1; // Database operation failed
 	}
 
+	public int getAccountIdByCustomerId(int cId) {
+		int aId = -1;
+		String SQL = "SELECT a_id FROM accounts WHERE c_id = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setInt(1, cId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					aId = rs.getInt("a_id");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return aId;
+	}
+	
 	// Read an account by accountId
 	public AccountDTO getAccountByAccountId(int accountId) {
 		AccountDTO account = new AccountDTO();
@@ -115,13 +134,13 @@ public class AccountDAO {
 		queryBuilder.append("WHERE 1=1");
 
 		if (!accountSearchDTO.getAccountNumber().equals("")) {
-			queryBuilder.append(" AND a.account_number LIKE ?");
+			queryBuilder.append(" AND a.account_number = ?");
 		}
 		if (!accountSearchDTO.getCustomerName().equals("")) {
 			queryBuilder.append(" AND c.c_name LIKE ?");
 		}
-		if (!accountSearchDTO.getIdentification1().equals("")) {
-			queryBuilder.append(" AND c.identification LIKE ?");
+		if (accountSearchDTO.getIdentification1() != null && accountSearchDTO.getIdentification2() != null) {
+			queryBuilder.append(" AND c.identification = ?");
 		}
 		if (!accountSearchDTO.getDepositType().equals("전체")) {
 			queryBuilder.append(" AND a.account_type = ?");
@@ -146,18 +165,17 @@ public class AccountDAO {
 		try (Connection conn = DatabaseUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
+			
 			if (!accountSearchDTO.getAccountNumber().equals("")) {
-				pstmt.setString(parameterIndex++, "%" + accountSearchDTO.getAccountNumber() + "%");
+				pstmt.setString(parameterIndex++, encryptUtil.encrypt(accountSearchDTO.getAccountNumber()));
 			}
 			if (!accountSearchDTO.getCustomerName().equals("")) {
 				pstmt.setString(parameterIndex++, "%" + accountSearchDTO.getCustomerName() + "%");
 			}
-			if (!accountSearchDTO.getIdentification1().equals("")) {
-				if (!accountSearchDTO.getIdentification2().equals(""))
-					pstmt.setString(parameterIndex++,
-							accountSearchDTO.getIdentification1() + "-" + accountSearchDTO.getIdentification1());
-				else
-					pstmt.setString(parameterIndex++, accountSearchDTO.getIdentification1() + "-%");
+			if (accountSearchDTO.getIdentification1() != null && accountSearchDTO.getIdentification2() != null) {
+				String identification = accountSearchDTO.getIdentification1() + "-" + accountSearchDTO.getIdentification2();
+				String EncryptedIdentification = encryptUtil.encrypt(identification);
+				pstmt.setString(parameterIndex++, EncryptedIdentification);
 			}
 			if (!accountSearchDTO.getDepositType().equals("전체")) {
 				pstmt.setString(parameterIndex++, accountSearchDTO.getDepositType());
@@ -202,13 +220,13 @@ public class AccountDAO {
 		queryBuilder.append("WHERE 1=1");
 		
 		if (!accountSearchDTO.getAccountNumber().equals("")) {
-			queryBuilder.append(" AND a.account_number LIKE ?");
+			queryBuilder.append(" AND a.account_number = ?");
 		}
 		if (!accountSearchDTO.getCustomerName().equals("")) {
 			queryBuilder.append(" AND c.c_name LIKE ?");
 		}
-		if (!accountSearchDTO.getIdentification1().equals("")) {
-			queryBuilder.append(" AND c.identification LIKE ?");
+		if (accountSearchDTO.getIdentification1() != "" && accountSearchDTO.getIdentification2() != "") {
+			queryBuilder.append(" AND c.identification = ?");
 		}
 		if (!accountSearchDTO.getDepositType().equals("전체")) {
 			queryBuilder.append(" AND a.account_type = ?");
@@ -235,17 +253,17 @@ public class AccountDAO {
 		try (Connection conn = DatabaseUtil.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
+			
 			if (!accountSearchDTO.getAccountNumber().equals("")) {
-				pstmt.setString(parameterIndex++, "%" + accountSearchDTO.getAccountNumber() + "%");
-			} 
+				pstmt.setString(parameterIndex++, encryptUtil.encrypt(accountSearchDTO.getAccountNumber()));
+			}
 			if (!accountSearchDTO.getCustomerName().equals("")) {
 				pstmt.setString(parameterIndex++, "%" + accountSearchDTO.getCustomerName() + "%");
 			}
-			if (!accountSearchDTO.getIdentification1().equals("")) {
-				if (!accountSearchDTO.getIdentification2().equals(""))
-					pstmt.setString(parameterIndex++, accountSearchDTO.getIdentification1() + "-" + accountSearchDTO.getIdentification1());
-				else
-					pstmt.setString(parameterIndex++, accountSearchDTO.getIdentification1() + "-%");
+			if (accountSearchDTO.getIdentification1() != "" && accountSearchDTO.getIdentification2() != "") {
+				String identification = accountSearchDTO.getIdentification1() + "-" + accountSearchDTO.getIdentification2();
+				String EncryptedIdentification = encryptUtil.encrypt(identification);
+				pstmt.setString(parameterIndex++, EncryptedIdentification);
 			}
 			if (!accountSearchDTO.getDepositType().equals("전체")) {
 				pstmt.setString(parameterIndex++, accountSearchDTO.getDepositType());
@@ -269,14 +287,16 @@ public class AccountDAO {
 					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[1]+"0000");
 			}
 			pstmt.setInt(parameterIndex++, (page-1)*20);
-				
+			
+			System.out.println(pstmt);
+			
 			List<AccountDTO> findAccountList = new ArrayList<>();
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					AccountDTO accountDTO = new AccountDTO();
 					accountDTO.setAccountId(rs.getInt("a_id"));
 					accountDTO.setAccountType(rs.getString("account_type"));
-					accountDTO.setAccountNumber(rs.getString("account_number"));
+					accountDTO.setAccountNumber(encryptUtil.decrypt(rs.getString("account_number")));
 					accountDTO.setStringAccountOpenDate(
 							DepositUtil.convertTimestampToString(rs.getTimestamp("account_open_date")));
 					accountDTO.setCustomerName(rs.getString("c_name"));
