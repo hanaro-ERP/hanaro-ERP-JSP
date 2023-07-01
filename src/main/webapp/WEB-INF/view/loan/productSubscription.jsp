@@ -96,7 +96,7 @@ pageEncoding="UTF-8"%>
 						<th>보증인</th>
 						<td>
 						<input type="hidden" id="suretyName" name="suretyName" value="<%= customer != null ? customer.getGuarantor() : "" %>">
-						<%= customer != null ? customer.getGuarantor() : "" %>
+						<%= customer != null ? customer.getGuarantor() : "없음" %>
 						</td>
 					</tr>
 					<tr>
@@ -106,9 +106,8 @@ pageEncoding="UTF-8"%>
 						<%= customer != null ? customer.getEmployeeName() : "" %>
 						</td>
 						<th class="office">주거래지점</th>
-						<td>
+						<td><%= customer != null ? customer.getBankName() : "" %>
 						<input type="hidden" id="bankName" name="bankName" value="<%= customer != null ? customer.getBankName() : "" %>">
-						<%= customer != null ? (customer.getGuarantor() != null ? customer.getGuarantor() : "없음") : "" %>
 						</td>
 					</tr>
 				</table>
@@ -243,7 +242,7 @@ pageEncoding="UTF-8"%>
 	    	CustomerDAO customerDAO = new CustomerDAO();
 			CreditScoringDTO creditScoringDTO = new CreditScoringDTO();
 			CreditService creditService = new CreditService();
-			String addRate = "";
+			String addRate = "+0%";
 			String addPeriod = "최대 N";
 			
 			int cId = 0; int eId = 0;
@@ -255,7 +254,6 @@ pageEncoding="UTF-8"%>
 					creditScoringDTO.setCustomerId(cId); //고객정보
 			    	creditScoringDTO.setGuarantorId(eId); //보증인정보
 
-					
 			    	creditService.setCreditScore(creditScoringDTO);
 				
 					//결과에 따른 이자율이랑 대출기간 다르게 하기
@@ -270,14 +268,19 @@ pageEncoding="UTF-8"%>
 							addRate = "0.1%";
 							addPeriod += "+1년";
 							break;
-						case "4" :
-							addRate = "-0.1%";
+						case "3" :
+							addPeriod = "+1년";
 							break;
 						case "5" :
 							addRate = "-0.2%";
 							break;
 						case "6" :
+						case "7" :
 							addRate = "-0.3%";
+							addPeriod += "-1년";
+							break;
+						case "8" :
+							addRate = "-0.4%";
 							addPeriod += "-1년";
 							break;
 					}
@@ -301,7 +304,8 @@ pageEncoding="UTF-8"%>
 
 		function openSearchPopup(frm) {
 			if (identificationInput1.value !== '' && identificationInput2.value !== '') {
-				frm.action="/hanaro-ERP-JSP/customer/searchReturn"; 
+				frm.id="productFind"
+				frm.action="/hanaro-ERP-JSP/customer/searchReturn?formId=" + frm.id; 
 			    frm.submit();
 			    return true;
 			}

@@ -82,23 +82,22 @@ public class CustomerSearchController extends HttpServlet {
 	protected void returnCustomerProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			LoanUtil loanUtil = new LoanUtil();
-			EncryptUtil encryptUtil = new EncryptUtil();
 			
 			String id1 = request.getParameter("identification1");
 			String id2 = request.getParameter("identification2");
-			
+
 			CustomerDTO customerDTO = customerService.getCustomerListByIdentification(id1+"-"+id2);
 			
 			if(customerDTO.getCustomerName() != null) {
 				customer = customerService.getCustomerDetail(customerDTO.getCustomerId());
 				
+				customer.setGuarantor(customer.getGuarantor());
 				customer.setJobName(loanUtil.convertJobCode(customer.getJobCode()));
 				customer.setIdentification(id1+"-"+id2);
 				
 				request.setAttribute("customer", customer);
 			} 
 			else {
-				System.out.println("해당");
 				String msg = "해당 고객 정보가 없습니다.";
 				request.setAttribute("msg", msg);
 			}

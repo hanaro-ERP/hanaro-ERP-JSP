@@ -138,7 +138,7 @@
 						</div>
 						<div id="findResult">
 							<%= customer != null ? customer.getCustomerName() : "" %>
-							<input id="searchResultMessage" type="hidden" value="<%= customer != null ? customer.getCustomerName() : "" %>">
+							<input name="guarantor" id="searchResultMessage" type="hidden" value="<%= customer != null ? customer.getCustomerName() : "" %>">
 							<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="reSearch()"> 재검색 </button>						
 						</div>
 					</tr>
@@ -168,7 +168,7 @@
 	    function openSearchPopup(frm) {
 			if (identificationInput1.value !== '' && identificationInput2.value !== '') {
 				frm.id = "guarantorFind";
-				frm.action="/hanaro-ERP-JSP/customer/searchReturn?formId=" + frm.id;;
+				frm.action="/hanaro-ERP-JSP/customer/searchReturn?formId=" + frm.id;
 			    frm.submit();
 			    return true;
 			}

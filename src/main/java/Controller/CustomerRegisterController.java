@@ -58,12 +58,12 @@ public class CustomerRegisterController extends HttpServlet {
 			
 			String country = request.getParameter("country");
 			String jobCode = request.getParameter("job");
-			String suretyName = request.getParameter("suretyName");			
+			String guarantor = request.getParameter("guarantor");			
 			String employeeName = request.getParameter("employeeName");
 			String bankName = request.getParameter("bank"); //주거래지점
 			String customerRank = request.getParameter("customerRank");
 			String creditRank = request.getParameter("creditRank");
-
+			
 			if(customerName != "")
 				customerDTO.setCustomerName(customerName);
 			if(phoneNumber != "")
@@ -75,8 +75,8 @@ public class CustomerRegisterController extends HttpServlet {
 				customerDTO.setAge(age);
 				customerDTO.setGender(gender);
 			}
-			if(suretyName != "")
-				customerDTO.setGuarantor(suretyName);
+			if(guarantor != "")
+				customerDTO.setGuarantor(guarantor);
 			if(jobCode != "")
 				customerDTO.setJobCode(jobCode);
 			if(country != "")
