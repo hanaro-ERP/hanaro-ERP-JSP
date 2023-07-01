@@ -28,7 +28,6 @@ pageEncoding="UTF-8"%>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 가입</h1></div>
 			<% 
- 			String msg = (String) request.getAttribute("msg");
 			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer");
 			LoanProductDTO loanProduct = (LoanProductDTO) request.getAttribute("loanProductDTO");
 			
@@ -220,6 +219,14 @@ pageEncoding="UTF-8"%>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
 	<script>
+		<%
+		String msg = (String)request.getAttribute("msg");
+		if (msg != null) {
+			%>
+			alert("가입되지 않은 주민등록번호입니다.")
+			<%
+		}
+		%>
 		
 		//고객정보
 		const customerDetailInformation = document.getElementById('customerDetailInformation');
@@ -318,7 +325,7 @@ pageEncoding="UTF-8"%>
 			    return true;
 			}
 			else
-				alert("주민번호를 입력해주세요.");
+				alert("가입할 고객의 주민번호를 입력해주세요.");
 		}
 		
 		var show = document.getElementById("show");

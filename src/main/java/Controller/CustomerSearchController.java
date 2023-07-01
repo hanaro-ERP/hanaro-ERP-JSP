@@ -59,7 +59,6 @@ public class CustomerSearchController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/customerSearch.jsp");
 
 			dispatcher.forward(request, response);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -83,8 +82,8 @@ public class CustomerSearchController extends HttpServlet {
 		try {
 			LoanUtil loanUtil = new LoanUtil();
 			
-			String id1 = request.getParameter("guarantorIdentification1");
-			String id2 = request.getParameter("guarantorIdentification2");
+			String id1 = request.getParameter("identification1");
+			String id2 = request.getParameter("identification2");
 			
 			//입력정보
 			String customerName = request.getParameter("customerName");

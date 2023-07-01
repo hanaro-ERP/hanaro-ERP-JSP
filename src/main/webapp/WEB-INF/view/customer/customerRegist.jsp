@@ -16,7 +16,7 @@
 		<%@ page import="DTO.CustomerDTO" %>
 		<%@ page import="DAO.EmployeeDAO" %>
 		<%@ page import="DAO.BankDAO" %>
-		<% 
+		<%
 			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer");
 			CustomerDTO inputData = (CustomerDTO) request.getAttribute("inputData");
 			String sessionName = (String)request.getSession().getAttribute("loginName");
@@ -132,9 +132,9 @@
 						<th>보증인</th>
 						<td colspan=4>
 						<div id="findById">
-							<input id="guarantorIdentification1" name="guarantorIdentification1" class="identification" maxlength="6" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
+							<input id="guarantorIdentification1" name="identification1" class="identification" maxlength="6" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
 							-
-							<input type="password" id="guarantorIdentification2" id="key" name="guarantorIdentification2" class="identification" maxlength="7" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>"/>	
+							<input type="password" id="guarantorIdentification2" id="key" name="identification2" class="identification" maxlength="7" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>"/>	
 							<button type="button" id="show2" onclick="showIdentification2()">SHOW</button>
 							<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="return openSearchPopup(this.form)"> 검색 </button>
 						</div>
@@ -158,6 +158,15 @@
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/customer/customerList.js"></script>
 	<script>
+		<%
+		String msg = (String)request.getAttribute("msg");
+		if (msg != null) {
+			%>
+			alert("가입되지 않은 주민등록번호입니다.")
+			<%
+		}
+		%>
+		
 		const customerIdentificationInput1 = document.getElementById("userIdentification1");
 		const customerIdentificationInput2 = document.getElementById("userIdentification2");
 		const guarantorIdentificationInput1 = document.getElementById("guarantorIdentification1");
@@ -180,7 +189,7 @@
 				return true;
 			}
 			else {
-				alert("주민번호를 입력해주세요.");
+				alert("보증인의 주민번호를 입력해주세요.");
 			}
 
 			if (document.getElementById("findById").style.display === "none") {
