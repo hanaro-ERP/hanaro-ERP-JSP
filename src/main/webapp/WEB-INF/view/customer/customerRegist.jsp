@@ -135,7 +135,7 @@
 							<button type="button" id="show" onclick="showIdentification()">SHOW</button>
 							<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="return openSearchPopup(this.form)"> 검색 </button>
 						</div>
-						<div id="findResult">
+						<div id="findResult" class="findResultTable">
 							<%= customer != null ? customer.getCustomerName() : "" %>
 							<input name="guarantor" id="searchResultMessage" type="hidden" value="<%= customer != null ? customer.getCustomerName() : "" %>">
 							<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="reSearch()"> 재검색 </button>						

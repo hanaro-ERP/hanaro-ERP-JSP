@@ -260,6 +260,24 @@
 	}
 	%>
 	<script>
+		<% 
+		String isCreated = request.getQueryString();
+
+		if (isCreated != null) {
+			if (isCreated.equals("mod=1")) {
+				%>
+				alert("고객 등록에 성공했습니다.")
+				window.location.href = "/hanaro-ERP-JSP/navigation/customer";
+				<%
+			} else if (isCreated.equals("mod=-1")) {
+				%>
+				alert("고객 등록에 실패했습니다.")
+				window.location.href = "/hanaro-ERP-JSP/navigation/customer";
+				<%
+			}
+		}
+		%>
+	
 		<%
 		if (customerSearchDTO != null) {
 			%>

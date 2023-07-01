@@ -245,6 +245,24 @@
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/loanContractList.js"></script>
 	<script>
+		<% 
+		String isCreated = request.getQueryString();
+	
+		if (isCreated != null) {
+			if (isCreated.equals("mod=1")) {
+				%>
+				alert("상품 가입에 성공했습니다.")
+				window.location.href = "/hanaro-ERP-JSP/navigation/loanContract";
+				<%
+			} else if (isCreated.equals("mod=-1")) {
+				%>
+				alert("상품 가입에 실패했습니다.")
+				window.location.href = "/hanaro-ERP-JSP/navigation/loanContract";
+				<%
+			}
+		}
+		%>
+	
 		generateMenu('loan', 'loanContract');
 		
 		<%

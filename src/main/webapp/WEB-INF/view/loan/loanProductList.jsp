@@ -237,6 +237,24 @@
 	}
 	%>
 	<script>
+		<% 
+		String isCreated = request.getQueryString();
+	
+		if (isCreated != null) {
+			if (isCreated.equals("mod=1")) {
+				%>
+				alert("상품 등록에 성공했습니다.")
+				window.location.href = "/hanaro-ERP-JSP/navigation/loanList";
+				<%
+			} else if (isCreated.equals("mod=-1")) {
+				%>
+				alert("상품 등록에 실패했습니다.")
+				window.location.href = "/hanaro-ERP-JSP/navigation/loanList";
+				<%
+			}
+		}
+		%>
+	
 		generateMenu('loan', 'loanProductList');
 		
 		<%
