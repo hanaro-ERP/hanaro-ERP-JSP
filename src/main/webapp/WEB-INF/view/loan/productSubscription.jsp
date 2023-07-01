@@ -96,7 +96,7 @@ pageEncoding="UTF-8"%>
 						<th>보증인</th>
 						<td>
 						<input type="hidden" id="suretyName" name="suretyName" value="<%= customer != null ? customer.getGuarantor() : "" %>">
-						<%= customer != null ? customer.getGuarantor() : "없음" %>
+						<%= customer != null && customer.getGuarantor() != null ? customer.getGuarantor() : "" %>
 						</td>
 					</tr>
 					<tr>
@@ -164,7 +164,7 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 					<tr>
-					 	<th> 거치 기간</th>
+					 	<th>거치 기간</th>
 						<td>
 						<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
 						<th>상환 방법</th>
@@ -246,49 +246,49 @@ pageEncoding="UTF-8"%>
 			String addPeriod = "최대 N";
 			
 			int cId = 0; int eId = 0;
+			String cName = "";
 			if(customer != null) {
+				cName = customer.getCustomerName();
 				cId = customerDAO.getCustomerIdByCustomerName(customer.getCustomerName());
 				eId = customerDAO.getCustomerIdByCustomerName(customer.getGuarantor());
 				
-				if(eId != -1) {
-					creditScoringDTO.setCustomerId(cId); //고객정보
-			    	creditScoringDTO.setGuarantorId(eId); //보증인정보
+				creditScoringDTO.setCustomerId(cId); //고객정보
+			    creditScoringDTO.setGuarantorId(eId); //보증인정보
 
-			    	creditService.setCreditScore(creditScoringDTO);
+			    creditService.setCreditScore(creditScoringDTO);
 				
-					//결과에 따른 이자율이랑 대출기간 다르게 하기
-					String score = (creditService.getCreditScore()).substring(0, 1);
+				//결과에 따른 이자율이랑 대출기간 다르게 하기
+				String score = (creditService.getCreditScore()).substring(0, 1);
 				
-					switch(score) {
-						case "1" :
-							addRate = "+0.2%";
-							addPeriod += "+1년"; //1년
-							break;
-						case "2" :
-							addRate = "0.1%";
-							addPeriod += "+1년";
-							break;
-						case "3" :
-							addPeriod = "+1년";
-							break;
-						case "5" :
-							addRate = "-0.2%";
-							break;
-						case "6" :
-						case "7" :
-							addRate = "-0.3%";
-							addPeriod += "-1년";
-							break;
-						case "8" :
-							addRate = "-0.4%";
-							addPeriod += "-1년";
-							break;
-					}
+				switch(score) {
+					case "1" :
+						addRate = "+0.2%";
+						addPeriod += "+1년"; //1년
+						break;
+					case "2" :
+						addRate = "0.1%";
+						addPeriod += "+1년";
+						break;
+					case "3" :
+						addPeriod = "+1년";
+						break;
+					case "5" :
+						addRate = "-0.2%";
+						break;
+					case "6" :
+					case "7" :
+						addRate = "-0.3%";
+						addPeriod += "-1년";
+						break;
+					case "8" :
+						addRate = "-0.4%";
+						addPeriod += "-1년";
+						break;
 				}
 			}
 			%>
 			
-			<% if(eId > 0) { %>
+			<% if(cName != "") { %>
 					revealDetail();
 					innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";				
 					interestRate2.innerHTML = "<%= addRate %>";
