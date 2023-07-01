@@ -28,17 +28,19 @@ pageEncoding="UTF-8"%>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 가입</h1></div>
 			<% 
- 			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer");
+ 			String msg = (String) request.getAttribute("msg");
+			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer");
 			LoanProductDTO loanProduct = (LoanProductDTO) request.getAttribute("loanProductDTO");
+			
 			%>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle"><h2>고객 정보 찾기</h2></div>
 				<div class="innerSubTitleRow">주민번호
-				<input id="identification1" name="identification1" class="middleInput" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>" maxlength="6"/>
+				<input id="identification1" name="identification1" class="shortInput" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>" maxlength="6"/>
 				-
-				<input type="password" id="identification2" name="identification2" class="middleInput" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>" maxlength="7"/>
-				<button type="button" onclick="showIdentification()">보이기</button>
-				<button id="customerDetailButton" type="button" onclick="return openSearchPopup(this.form)"> 검색 </button>
+				<input type="password" id="identification2" id="key" name="identification2" class="shortInput" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>" maxlength="7"/>	
+				<button type="button" id="show" onclick="showIdentification()">SHOW</button>
+				<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="return openSearchPopup(this.form)"> 검색 </button>
 				</div>
 				<div id="searchResultMessage"></div>
 				<table class="inputTable">
@@ -103,7 +105,7 @@ pageEncoding="UTF-8"%>
 					</tr>
 				</table>
 				<div class="innerSubTitle" id="riskResult">
-					<h2>내부 위험도 결과</h2><button id="customerDetailButton" name="close" type="button" onclick="return riskCalcFunc(this.form);">계산하기</button>
+					<h2 id="riskResultTitle">내부 위험도 결과</h2><button class="customerDetailButton" name="close" type="button" onclick="return riskCalcFunc(this.form);">계산하기</button>
 					<input id="checkOpen" name="isOpen" value="close"></input>
 				</div>
 				<div class="innerInformation" id="customerDetailInformation">
@@ -217,16 +219,12 @@ pageEncoding="UTF-8"%>
 	<script>
 		
 		//고객정보
-		const customerDetailSelect = document.getElementById('customerDetailButton');
 		const customerDetailInformation = document.getElementById('customerDetailInformation');
 		const checkOpen = document.getElementById('checkOpen');
 		checkOpen.style.display = 'none'
 		customerDetailInformation.style.display = 'none'; // 초기에 숨김 상태로 설정
 		
 		const customerNameInformation = document.getElementById('innerSubTitleRow');
-		
-		const identificationInput1 = document.getElementById("identification1");
-		const identificationInput2 = document.getElementById("identification2");
 		
 		function revealDetail() {
 			checkOpen.setAttribute('value', 'open');
@@ -297,8 +295,10 @@ pageEncoding="UTF-8"%>
 			<% } %>
 		}
 
+		const identificationInput1 = document.getElementById("identification1");
+		const identificationInput2 = document.getElementById("identification2");		
+
 		function openSearchPopup(frm) {
-			// 입력 필드 값의 길이 유효성 검사
 			if (identificationInput1.value !== '' && identificationInput2.value !== '') {
 				frm.action="/hanaro-ERP-JSP/customer/searchReturn"; 
 			    frm.submit();
@@ -308,49 +308,11 @@ pageEncoding="UTF-8"%>
 				alert("주민번호를 입력해주세요.");
 		}
 		function showIdentification() {
-		    if(identificationInput.type == "text")
-		    	identificationInput.type = "password";
+		    if(identificationInput2.type == "text")
+		    	identificationInput2.type = "password";
 		    else
-		    	identificationInput.type = "text";
+		    	identificationInput2.type = "text";
 		}
-		/*function openSearchPopup() {
-			  /*var firstTd = document.getElementById("identification1");
-			  var secondTd = document.getElementById("identification2");
-
-			  if (firstTd.value !== '') {
-			    var url = "/hanaro-ERP-JSP/customerSearch";
-			    
-			    var form = document.createElement('form');
-			    form.method = 'POST';
-			    form.action = url;
-
-			    var id1Input = document.createElement('input');
-			    id1Input.type = 'hidden';
-			    id1Input.name = 'id1';
-			    id1Input.value = firstTd.value;
-			    form.appendChild(id1Input);
-
-			    var id2Input = document.createElement('input');
-			    id2Input.type = 'hidden';
-			    id2Input.name = 'id2';
-			    id2Input.value = secondTd.value;
-			    form.appendChild(id2Input);
-
-			    var pageIdInput = document.createElement('input');
-			    pageIdInput.type = 'hidden';
-			    pageIdInput.name = 'pageId';
-			    pageIdInput.value = 2;
-			    form.appendChild(pageIdInput);
-
-			    document.body.appendChild(form);
-			    form.submit();
-			  }
-			var firstTd = document.getElementById("identification1"); // customerName 필드를 가리키는 변수 firstTd
-	    	var secondTd = document.getElementById("identification2");
-	    	if(firstTd.value !== '') {
-	    		var identification = 
-		    	window.open("/hanaro-ERP-JSP/customerSearch?id1=" + firstTd.value + "&id2=" + secondTd.value + "&pageId=" + 2, "_blank", "width=1000,height=200");
-			}*/
 	</script>
 </body>
 </html>

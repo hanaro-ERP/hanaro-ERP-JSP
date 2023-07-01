@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import DTO.CustomerDTO;
 import Service.CustomerService;
+import util.EncryptUtil;
 import util.LoanUtil;
 
 @WebServlet(urlPatterns = {"/customerSearch", "/customer/searchReturn"})
@@ -62,39 +63,35 @@ public class CustomerSearchController extends HttpServlet {
 	}
 	
 	protected void returnCustomerProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+		CustomerDTO customer = new CustomerDTO();
+
 		try {
 			LoanUtil loanUtil = new LoanUtil();
+			EncryptUtil encryptUtil = new EncryptUtil();
 			
 			String id1 = request.getParameter("identification1");
 			String id2 = request.getParameter("identification2");
 			
-			CustomerDTO customerDTO = customerService.getCustomerListByIdentification(id1+"-"+id2);
+			String encrypted = encryptUtil.encrypt(id1+"-"+id2);
+			
+			CustomerDTO customerDTO = customerService.getCustomerListByIdentification(encrypted);
 			
 			if(customerDTO.getCustomerName() != null) {
-				CustomerDTO customer = customerService.getCustomerDetail(customerDTO.getCustomerId());
+				customer = customerService.getCustomerDetail(customerDTO.getCustomerId());
 				
 				customer.setJobName(loanUtil.convertJobCode(customer.getJobCode()));
+				customer.setIdentification(id1+"-"+id2);
+				System.out.println(customer.getIdentification()+"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
 				
 				request.setAttribute("customer", customer);
-				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");			
-				dispatcher.forward(request, response);
-				
-				/*request.getSession().setAttribute("customer", customer);
-				
-				if(pageId.equals("1")) {
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/customer/customerRegist.jsp");			
-					dispatcher.forward(request, response);
-					String newURL = "/hanaro-ERP-JSP/navigation/customerRegist";
-				    response.sendRedirect(newURL);
-				} else if(pageId.equals("2")) {		*/	
-			} else {
-				System.out.println("aa");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");			
-				dispatcher.forward(request, response);
+			} 
+			else {
+				String msg = "해당 고객 정보가 없습니다.";
+				request.setAttribute("msg", msg);
 			}
-			/*String newURL = "/hanaro-ERP-JSP/navigation/loanSubscription";
-			response.sendRedirect(newURL);*/
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");			
+			dispatcher.forward(request, response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
