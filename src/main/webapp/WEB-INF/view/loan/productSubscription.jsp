@@ -285,9 +285,11 @@ pageEncoding="UTF-8"%>
 					case "9" :
 						addRate = "-0.2%";
 						addPeriod += "-1년";
+						break;
 					case "10" :
 						addRate = "-0.3%";
 						addPeriod += "-1년";
+						break;
 				}
 			}
 			%>

@@ -99,6 +99,8 @@ public class CustomerSearchController extends HttpServlet {
 			String userId1 = request.getParameter("userIdentification1");
 			String userId2 = request.getParameter("userIdentification2");
 
+			System.out.println(userId1+ " " + userId2);
+			
 			CustomerDTO inputDTO = new CustomerDTO();
 			if(customerName != "")
 				inputDTO.setCustomerName(customerName);

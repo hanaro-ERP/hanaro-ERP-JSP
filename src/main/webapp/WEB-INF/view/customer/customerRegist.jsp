@@ -77,9 +77,9 @@
 					<tr>
 						<th>주민번호</th>
 						<td>
-							<input id="userIdentification1" name="residentRegistrationNumber" class="shortInput" maxlength="6" value="<%= inputData != null && inputData.getId1() != null ? inputData.getId1() : "" %>"/>
+							<input id="userIdentification1" name="userIdentification1" class="shortInput" maxlength="6" value="<%= inputData != null && inputData.getId1() != null ? inputData.getId1() : "" %>"/>
 								-
-							<input type="password" id="userIdentification2" name="residentRegistrationNumber" class="shortInput" maxlength="7" value="<%= inputData != null && inputData.getId2() != null ? inputData.getId2() : "" %>"/>
+							<input type="password" id="userIdentification2" name="userIdentification2" class="shortInput" maxlength="7" value="<%= inputData != null && inputData.getId2() != null ? inputData.getId2() : "" %>"/>
 						</td>
 						<th>직업</th>
 						<td>
