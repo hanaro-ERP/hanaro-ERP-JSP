@@ -99,8 +99,8 @@ pageEncoding="UTF-8"%>
 					<tr>
 						<th>보증인</th>
 						<td>
-						<input type="hidden" id="suretyName" name="suretyName" value="<%= customer != null ? customer.getSuretyName() : "" %>">
-						<%= customer != null ? customer.getSuretyName() : "" %>
+						<input type="hidden" id="suretyName" name="suretyName" value="<%= customer != null ? customer.getGuarantor() : "" %>">
+						<%= customer != null ? (customer.getGuarantor() != null ? customer.getGuarantor() : "없음") : "" %>
 						</td>
 						<th>내부 신용 등급</th>
 						<td> - <button type="button">계산하기</button></td>

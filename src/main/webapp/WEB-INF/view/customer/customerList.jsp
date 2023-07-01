@@ -46,12 +46,12 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">주민번호</div>
-						<input name="identificationNumber1" class="innerMiddleInput2" value="${customerInput.identification1}"></input>&nbsp;-&nbsp;
-						<input name="identificationNumber2" class="innerMiddleInput2" value="${customerInput.identification2}"></input>
+						<input name="identificationNumber1" class="innerMiddleInput2" value="${customerInput.identification1}" maxlength="6"></input>&nbsp;-&nbsp;
+						<input name="identificationNumber2" class="innerMiddleInput2" value="${customerInput.identification2}" type="password" maxlength="7"></input>
 						<div class="innerInformationRowTitle">전화번호</div>
-						<input name="phoneNumber1" class="innerShortInput" value="${customerInput.phoneNumber1}"></input>&nbsp;-&nbsp;
-						<input name="phoneNumber2" class="innerShortInput" value="${customerInput.phoneNumber2}"></input>&nbsp;-&nbsp;
-						<input name="phoneNumber3" class="innerShortInput" value="${customerInput.phoneNumber3}"></input>
+						<input name="phoneNumber1" class="innerShortInput" value="${customerInput.phoneNumber1}" maxlength="3"></input>&nbsp;-&nbsp;
+						<input name="phoneNumber2" class="innerShortInput" value="${customerInput.phoneNumber2}" maxlength="4"></input>&nbsp;-&nbsp;
+						<input name="phoneNumber3" class="innerShortInput" value="${customerInput.phoneNumber3}" maxlength="4"></input>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">나이</div>
