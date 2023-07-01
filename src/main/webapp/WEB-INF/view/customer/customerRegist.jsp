@@ -21,6 +21,8 @@
 			CustomerDTO inputData = (CustomerDTO) request.getAttribute("inputData");
 			String sessionName = (String)request.getSession().getAttribute("loginName");
 
+			String isCreated = request.getQueryString();
+			
 			EmployeeDAO employeeDAO = new EmployeeDAO();
 			BankDAO bankDAO = new BankDAO();
 			
@@ -252,6 +254,21 @@
 				}
 			}
 	    });
+
+		<% 
+		if (isCreated != null) {
+			if (isCreated.equals("mod=1")) {
+				%>
+				alert("고객 등록에 성공했습니다.")
+				<%
+			} else if (isCreated.equals("mod=-1")) {
+				%>
+				alert("고객 등록에 실패했습니다.")
+				
+				<%
+			}
+		}
+		%>
 	        
 	</script>
 </body>

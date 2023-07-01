@@ -48,13 +48,14 @@ public class CustomerRegisterController extends HttpServlet {
 			String citySelect = request.getParameter("citySelect");
 			String district = request.getParameter("district");
 			String address = citySelect + " " + district;
-			String id[] = request.getParameterValues("residentRegistrationNumber");
+			String userId1 = request.getParameter("userIdentification1");
+			String userId2 = request.getParameter("userIdentification2");
 			
 			phoneNumber = phoneNumber.substring(0,3) + "-" + phoneNumber.substring(3,7) + "-" + phoneNumber.substring(7,11);
 
-			String identification = id[0] + "-" + id[1];
-			int age = customerUtil.getAgeFromIdentification(id[0]);
-			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(id[1].substring(0,1)));
+			String identification = userId1 + "-" + userId2;
+			int age = customerUtil.getAgeFromIdentification(userId1);
+			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(userId1.substring(0,1)));
 			
 			String country = request.getParameter("country");
 			String jobCode = request.getParameter("job");
@@ -94,8 +95,11 @@ public class CustomerRegisterController extends HttpServlet {
 			
 			request.setAttribute("customerDTO", customerDTO);
 			
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/customer/customerRegist.jsp");
 			dispatcher.forward(request, response);
+			
+			//response.sendRedirect(request.getContextPath() + "navigation/customerRegist?mod=" + isLoanRegistered);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
