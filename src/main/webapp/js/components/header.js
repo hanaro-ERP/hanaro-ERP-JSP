@@ -1,8 +1,7 @@
 window.addEventListener('DOMContentLoaded', function() {
 	var menuItems = document.querySelectorAll('header ul a');
 	var currentAnchor = window.location.pathname;
-	var previousPage = document.referrer;
-	
+
 	const menus = ["customer", "employee", "loan", "deposit"];
 
 	menuItems.forEach((item, index) => {

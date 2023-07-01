@@ -19,7 +19,10 @@
 	<%@ include file="../../components/header.jsp" %>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
-		<% AccountSearchDTO accountSearchDTO = (AccountSearchDTO) request.getAttribute("accountDTO"); %>
+		<% 
+			AccountSearchDTO accountSearchDTO = (AccountSearchDTO) request.getAttribute("accountDTO"); 
+			String isCreated = request.getQueryString();
+		%>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>계좌 검색</h1></div>
 			<form onsubmit="return validateIdentification()" action="${pageContext.request.contextPath}/depositList/searchAccounts" method="post">
@@ -176,6 +179,22 @@
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/deposit/depositProductList.js"></script>
 	<script>
+		<% 
+		if (isCreated != null) {
+			if (isCreated.equals("mod=1")) {
+				%>
+				alert("계좌 개설에 성공했습니다.")
+				window.location.href = "/hanaro-ERP-JSP/navigation/depositList";
+				<%
+			} else if (isCreated.equals("mod=-1")) {
+				%>
+				alert("계좌 개설에 실패했습니다.")
+				
+				<%
+			}
+		}
+		%>
+		
 		generateMenu('deposit', 'depositProductList');
 		
 		<%

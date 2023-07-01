@@ -55,7 +55,7 @@
 							</svg>
 							<span class="mainIconText">여신</span>
 						</a>
-						<a class="bodyCard" href="${pageContext.request.contextPath}/navigation/deposit">
+						<a class="bodyCard" href="${pageContext.request.contextPath}/navigation/depositList">
 							<svg class="mainIcon" width="146" height="84" viewBox="0 0 146 84" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M73.3 67.6H83.7V62.4H88.9C91.76 62.4 94.1 60.06 94.1 57.2V41.6C94.1 38.74 91.76 36.4 88.9 36.4H73.3V31.2H94.1V20.8H83.7V15.6H73.3V20.8H68.1C65.24 20.8 62.9 23.14 62.9 26V41.6C62.9 44.46 65.24 46.8 68.1 46.8H83.7V52H62.9V62.4H73.3V67.6ZM120.1 0H36.9C31.128 0 26.552 4.628 26.552 10.4L26.5 72.8C26.5 78.572 31.128 83.2 36.9 83.2H120.1C125.872 83.2 130.5 78.572 130.5 72.8V10.4C130.5 4.628 125.872 0 120.1 0ZM120.1 72.8H26.5L26.552 10.4H120.1V72.8Z" fill="#4E5968"/>
 								<path d="M31.7 18.4889L25.2289 24.96L37.2467 36.9778H0.5V46.8L37.2467 46.2222L25.2289 58.24L31.7 64.7111L54.8111 41.6L31.7 18.4889ZM73.3 73.9556H36.3222V83.2H73.3C78.3844 83.2 73.3 77.8844 73.3 72.8L73.3 9.24444C73.3 4.16 78.3844 0 73.3 0H36.3222V9.24444H73.3V73.9556Z" fill="#4E5968"/>

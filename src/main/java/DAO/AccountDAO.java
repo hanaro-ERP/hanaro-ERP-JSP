@@ -22,12 +22,12 @@ public class AccountDAO {
 
 	// insert a new account
 	public int insertAccount(AccountDTO account) {
-		String SQL = "INSERT INTO accounts (a_id, c_id, account_type, account_open_date, account_balance) "
+		String SQL = "INSERT INTO accounts (c_id, account_type, account_number, account_open_date, account_balance) "
 				+ "VALUES (?, ?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setInt(1, account.getAccountId());
-			pstmt.setInt(2, account.getCustomerId());
-			pstmt.setString(3, account.getAccountType());
+			pstmt.setInt(1, account.getCustomerId());
+			pstmt.setString(2, account.getAccountType());
+			pstmt.setString(3, encryptUtil.encrypt(account.getAccountNumber()));
 			pstmt.setTimestamp(4, account.getAccountOpenDate());
 			pstmt.setLong(5, account.getAccountBalance());
 			return pstmt.executeUpdate();

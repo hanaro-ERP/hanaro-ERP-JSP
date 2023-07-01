@@ -2,6 +2,7 @@ package DTO;
 
 import java.util.List;
 
+import DTO.PaginationDTO;
 import lombok.Getter;
 import lombok.Setter;
 

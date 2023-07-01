@@ -1,10 +1,5 @@
 @charset "UTF-8";
 
-#findResult {
-	height: 30px;
-	margin: 7px;
-	font-size: 17px;
-}
 #search {
 	float: left;
 }
@@ -21,16 +16,6 @@ tr td select {
 .shortSelect,
 .middleInput {
 	width: 200px !important;;
-}
-#show {
-	position: absolute;
-	margin-left: -50px;
-	margin-top: 7.5px;
-	font-size: 9px;
-	cursor: pointer;
-	color: grey;
-	background: transparent;
-	border: 0px solid grey;;
 }
 .customerDetailButton {
 	width: 80px;
