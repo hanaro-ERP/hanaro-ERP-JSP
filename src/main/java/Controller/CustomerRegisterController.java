@@ -78,7 +78,7 @@ public class CustomerRegisterController extends HttpServlet {
 				customerDTO.setGender(gender);
 			}
 			if(suretyName != "")
-				customerDTO.setSuretyName(suretyName);
+				customerDTO.setGuarantor(suretyName);
 			if(jobCode != "")
 				customerDTO.setJobCode(jobCode);
 			if(country != "")
