@@ -87,9 +87,7 @@ public class CustomerSearchController extends HttpServlet {
 			String id1 = request.getParameter("identification1");
 			String id2 = request.getParameter("identification2");
 			
-			String encrypted = encryptUtil.encrypt(id1+"-"+id2);
-			
-			CustomerDTO customerDTO = customerService.getCustomerListByIdentification(encrypted);
+			CustomerDTO customerDTO = customerService.getCustomerListByIdentification(id1+"-"+id2);
 			
 			if(customerDTO.getCustomerName() != null) {
 				customer = customerService.getCustomerDetail(customerDTO.getCustomerId());
