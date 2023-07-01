@@ -16,7 +16,7 @@ public class TransactionDTO {
 	private String transactionLocation;
 	private Timestamp transactionDate;
 	private String stringTransactionDate;
-	private String depositor;
 	private String accountNumber;
 	private String customerName;
+	private long balance;
 }

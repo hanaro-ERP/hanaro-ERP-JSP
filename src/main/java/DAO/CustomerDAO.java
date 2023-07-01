@@ -3,7 +3,6 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +10,11 @@ import DTO.CustomerDTO;
 import DTO.CustomerSearchDTO;
 import util.CustomerUtil;
 import util.DatabaseUtil;
+import util.EncryptUtil;
 
 public class CustomerDAO {
 
+	EncryptUtil encryptUtil = new EncryptUtil();
 	CustomerUtil customerUtil = new CustomerUtil();
 	DatabaseUtil databaseUtil = new DatabaseUtil();
 
@@ -36,10 +37,7 @@ public class CustomerDAO {
 		if (customerSearchDTO.getBankName() != null) {
 			queryBuilder.append(" AND b.b_name = ?");
 		}
-		if (customerSearchDTO.getIdentification1() != null) {
-			queryBuilder.append(" AND c.identification LIKE ?");
-		}
-		if (customerSearchDTO.getIdentification2() != null) {
+		if (customerSearchDTO.getIdentification1() != null && customerSearchDTO.getIdentification2() != null) {
 			queryBuilder.append(" AND c.identification LIKE ?");
 		}
 		if (customerSearchDTO.getPhoneNumber1() != null) {
@@ -86,11 +84,10 @@ public class CustomerDAO {
 			if (customerSearchDTO.getBankName() != null) {
 				pstmt.setString(parameterIndex++, customerSearchDTO.getBankName());
 			}		
-			if (customerSearchDTO.getIdentification1() != null) {
-				pstmt.setString(parameterIndex++, "%" + customerSearchDTO.getIdentification1() + "%-%");
-			}
-			if (customerSearchDTO.getIdentification2() != null) {
-				pstmt.setString(parameterIndex++, "%-%" + customerSearchDTO.getIdentification2() + "%");
+			if (customerSearchDTO.getIdentification1() != null && customerSearchDTO.getIdentification2() != null) {
+				String identification = customerSearchDTO.getIdentification1() + "-" + customerSearchDTO.getIdentification2();
+				String EncryptedIdentification = encryptUtil.encrypt(identification);
+				pstmt.setString(parameterIndex++, EncryptedIdentification);
 			}
 			if (customerSearchDTO.getPhoneNumber1() != null) {
 				pstmt.setString(parameterIndex++, "%" + customerSearchDTO.getPhoneNumber1() + "%-%");
@@ -127,15 +124,15 @@ public class CustomerDAO {
 
 	
 	// insert a new customer
-	public int insertCustomer(CustomerDTO customer, int e_id, int b_id) {
-		String SQL = "INSERT INTO customers (e_id, b_id, c_name, identification, grade, age, gender, phone_no, address, job_code, country, credit, guarantor) "
+	public int insertCustomer(CustomerDTO customer, int e_id, int b_id, int guarantor_id) {
+		String SQL = "INSERT INTO customers (e_id, b_id, c_name, identification, grade, age, gender, phone_no, address, job_code, country, credit, guarantor_id) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, e_id);
 			pstmt.setInt(2, b_id);
 			pstmt.setString(3, customer.getCustomerName());
-			pstmt.setString(4, customer.getIdentification());
+			pstmt.setString(4, encryptUtil.encrypt(customer.getIdentification()));
 			pstmt.setString(5, customer.getGrade());
 			pstmt.setInt(6, customer.getAge());
 			pstmt.setBoolean(7, customer.isGender());
@@ -144,7 +141,7 @@ public class CustomerDAO {
 			pstmt.setString(10, customer.getJobCode());
 			pstmt.setString(11, customer.getCountry());
 			pstmt.setString(12, customer.getCredit());
-			pstmt.setString(13, customer.getSuretyName());
+			pstmt.setInt(13, guarantor_id);
 
 			return pstmt.executeUpdate();
 
@@ -174,7 +171,7 @@ public class CustomerDAO {
 		int cId = -1;
 		String SQL = "SELECT c_id FROM customers WHERE identification = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setString(1, identificationId);
+			pstmt.setString(1, encryptUtil.encrypt(identificationId));
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					cId = rs.getInt("c_id");
@@ -205,12 +202,12 @@ public class CustomerDAO {
 	}
 
 	// Fill a CustomerDTO from a ResultSet
-	private void fillCustomerDTOFromResultSet(CustomerDTO customer, ResultSet rs) throws SQLException {
+	private void fillCustomerDTOFromResultSet(CustomerDTO customer, ResultSet rs) throws Exception {
 		customer.setCustomerId(rs.getInt("c_id"));
 		customer.setEmployeeId(rs.getInt("e_id"));
 		customer.setBankId(rs.getInt("b_id"));
 		customer.setCustomerName(rs.getString("c_name"));
-		customer.setIdentification(rs.getString("identification"));
+		customer.setIdentification(encryptUtil.decrypt(rs.getString("identification")));
 		customer.setGrade(rs.getString("grade"));
 		customer.setAge(rs.getInt("age"));
 		customer.setGender(rs.getBoolean("gender"));
@@ -219,7 +216,7 @@ public class CustomerDAO {
 		customer.setJobCode(rs.getString("job_code"));
 		customer.setCountry(rs.getString("country"));
 		customer.setCredit(rs.getString("credit"));
-		customer.setSuretyName(rs.getString("guarantor"));
+		customer.setGuarantorId(rs.getInt("guarantor_id"));
 	}
 
 	// Update a customer
@@ -232,7 +229,7 @@ public class CustomerDAO {
 			pstmt.setInt(2, customer.getEmployeeId());
 			pstmt.setInt(3, customer.getBankId());
 			pstmt.setString(4, customer.getCustomerName());
-			pstmt.setString(5, customer.getIdentification());
+			pstmt.setString(5, encryptUtil.encrypt(customer.getIdentification()));
 			pstmt.setString(6, customer.getGrade());
 			pstmt.setInt(7, customer.getAge());
 			pstmt.setBoolean(8, customer.isGender());
@@ -319,10 +316,7 @@ public class CustomerDAO {
 		if (customerSearchDTO.getBankName() != null) {
 			queryBuilder.append(" AND b.b_name = ?");
 		}
-		if (customerSearchDTO.getIdentification1() != null) {
-			queryBuilder.append(" AND c.identification LIKE ?");
-		}
-		if (customerSearchDTO.getIdentification2() != null) {
+		if (customerSearchDTO.getIdentification1() != null && customerSearchDTO.getIdentification2() != null) {
 			queryBuilder.append(" AND c.identification LIKE ?");
 		}
 		if (customerSearchDTO.getPhoneNumber1() != null) {
@@ -370,11 +364,10 @@ public class CustomerDAO {
 			if (customerSearchDTO.getBankName() != null) {
 				pstmt.setString(parameterIndex++, customerSearchDTO.getBankName());
 			}
-			if (customerSearchDTO.getIdentification1() != null) {
-				pstmt.setString(parameterIndex++, "%" + customerSearchDTO.getIdentification1() + "%-%");
-			}
-			if (customerSearchDTO.getIdentification2() != null) {
-				pstmt.setString(parameterIndex++, "%-%" + customerSearchDTO.getIdentification2() + "%");
+			if (customerSearchDTO.getIdentification1() != null && customerSearchDTO.getIdentification2() != null) {
+				String identification = customerSearchDTO.getIdentification1() + "-" + customerSearchDTO.getIdentification2();
+				String EncryptedIdentification = encryptUtil.encrypt(identification);
+				pstmt.setString(parameterIndex++, EncryptedIdentification);
 			}
 			if (customerSearchDTO.getPhoneNumber1() != null) {
 				pstmt.setString(parameterIndex++, "%" + customerSearchDTO.getPhoneNumber1() + "%-%");

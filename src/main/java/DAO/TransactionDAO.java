@@ -138,9 +138,9 @@ public class TransactionDAO {
 							DepositUtil.convertTimestampToString(rs.getTimestamp("transaction_date")));
 					transaction.setAccountNumber(accountDTO.getAccountNumber());
 					transaction.setCustomerName(accountDTO.getCustomerName());
-					transaction.setDepositor(rs.getString("depositor"));
 					transaction.setTransactionLocation(rs.getString("transaction_location"));
 					transaction.setTransactionAmount(rs.getLong("transaction_amount"));
+					transaction.setBalance(rs.getLong("balance"));
 					transactions.add(transaction);
 				}
 			}
@@ -166,7 +166,6 @@ public class TransactionDAO {
 					transaction.setTransactionType(rs.getString("transaction_type"));
 					transaction.setStringTransactionDate(
 							DepositUtil.convertTimestampToString(rs.getTimestamp("transaction_date")));
-					transaction.setDepositor(rs.getString("depositor"));
 					transaction.setTransactionLocation(rs.getString("transaction_location"));
 					transaction.setTransactionAmount(rs.getLong("transaction_amount"));
 					transactions.add(transaction);
