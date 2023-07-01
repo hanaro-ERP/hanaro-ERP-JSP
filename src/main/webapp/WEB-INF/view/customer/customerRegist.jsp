@@ -17,7 +17,8 @@
 		<%@ page import="DAO.EmployeeDAO" %>
 		<%@ page import="DAO.BankDAO" %>
 		<% 
-			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer"); 
+			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer");
+			CustomerDTO inputData = (CustomerDTO) request.getAttribute("inputData");
 			String sessionName = (String)request.getSession().getAttribute("loginName");
 
 			EmployeeDAO employeeDAO = new EmployeeDAO();
@@ -33,11 +34,9 @@
 				<table class="inputTable">
  					<tr>
 						<th>이름</th>
-						<td><input id="customerName" name="customerName" class="middleInput"
-						value="<%= session.getAttribute("customerName") != null ? session.getAttribute("customerName") : "" %>"
-						/></td>
+						<td><input id="customerName" name="customerName" class="middleInput" value="<%= inputData != null && inputData.getCustomerName() != null ? inputData.getCustomerName() : "" %>"/></td>
 						<th>전화번호</th>
-						<td><input id="phoneNumber" name="phoneNumber" class="middleInput"/></td>
+						<td><input id="phoneNumber" name="phoneNumber" class="middleInput" value="<%= inputData != null && inputData.getPhoneNumber() != null ? inputData.getPhoneNumber() : "" %>"/></td>
 					</tr>
 					<tr>
 						<th>거주지</th>
@@ -67,7 +66,7 @@
 						</td>
 						<th>국가</th>
 						<td>
-							<select name="country" class="shortSelect">
+							<select id="country" name="country" class="shortSelect">
 								<option value="대한민국">대한민국</option>
 								<option value="미국">미국</option>
 								<option value="중국">중국</option>
@@ -78,13 +77,13 @@
 					<tr>
 						<th>주민번호</th>
 						<td>
-							<input id="residentRegistrationNumber1" name="residentRegistrationNumber" class="shortInput" maxlength="6"//>
+							<input id="userIdentification1" name="residentRegistrationNumber" class="shortInput" maxlength="6" value="<%= inputData != null && inputData.getId1() != null ? inputData.getId1() : "" %>"/>
 								-
-							<input type="password" id="residentRegistrationNumber2" name="residentRegistrationNumber" class="shortInput" maxlength="7"/>
+							<input type="password" id="userIdentification2" name="residentRegistrationNumber" class="shortInput" maxlength="7" value="<%= inputData != null && inputData.getId2() != null ? inputData.getId2() : "" %>"/>
 						</td>
 						<th>직업</th>
 						<td>
-							<select id="loanTypeSelect" name="job" class="shortSelect">
+							<select id="jobSelect" name="job" class="shortSelect">
 								<option value="001">직장인</option>
 								<option value="002">공무원</option>
 								<option value="003">군인</option>
@@ -188,7 +187,7 @@
 		    }
 		    else {
 		    	identificationInput2.type = "text";
-		    	show.innerText = "HIDE";	
+		    	show.innerText = "HIDE";
 		    }
 		}
 
@@ -205,30 +204,55 @@
 	    	findById.style.display='block';
 	    	findResult.style.display = 'none';
 	    }
-		
-	    // 값 가져와서 sessionStorage에 저장
-	    var cName = document.getElementById("customerName").value;
-	    var pNum = document.getElementById("phoneNumber").value;
-	    var city = document.getElementsByName("citySelect")[0].value;
-	    var district = document.getElementById("districtSelect").value;
-	    var country = document.getElementsByName("country")[0].value;
-	    var id1 = document.getElementById("residentRegistrationNumber1").value;
-	    var id2 = document.getElementById("residentRegistrationNumber2").value;
-	    var loan = document.getElementById("loanTypeSelect").value;
-	    var credit = document.getElementsByName("creditRank")[0].value;
-	    var rank = document.getElementsByName("customerRank")[0].value;
-
 	    
-	    request.setItem("customerName", cName);
-	    sessionStorage.setItem("phoneNumber", pNum);
-	    sessionStorage.setItem("citySelect", city);
-	    sessionStorage.setItem("districtSelect", district);
-	    sessionStorage.setItem("country", country);
-	    sessionStorage.setItem("id1", id1);
-	    sessionStorage.setItem("id2", id2);
-	    sessionStorage.setItem("loanType", loan);
-	    sessionStorage.setItem("credit", credit);
-	    sessionStorage.setItem("rank", rank);
+	    document.addEventListener('DOMContentLoaded', function() {
+	        var citySelect = document.getElementById('citySelect');
+	        var districtSelect = document.getElementById('districtSelect');
+	        var country = document.getElementById('country');
+	        var job = document.getElementById('jobSelect');
+	        var grade = document.getElementById('customerRank');
+	        var credit = document.getElementById('creditRank');
+	        
+	        // 이전 요청 값을 가져와서 select 요소에 설정
+	        var cityValue = "<%= inputData != null && inputData.getCity() != null ? inputData.getCity() : "" %>";
+	        var districtValue = "<%= inputData != null && inputData.getDistrict() != null ? inputData.getDistrict() : "" %>";
+	        var countryValue = "<%= inputData != null && inputData.getCountry() != null ? inputData.getCountry() : "" %>";
+	        var jobValue = "<%= inputData != null && inputData.getJobCode() != null ? inputData.getJobCode() : "" %>";
+	        var gradeValue = "<%= inputData != null && inputData.getGrade() != null ? inputData.getGrade() : "" %>";
+	        var creditValue = "<%= inputData != null && inputData.getCredit() != null ? inputData.getCredit() : "" %>";
+	        
+	        for (var i = 0; i < citySelect.options.length; i++) {
+	          if (citySelect.options[i].value === cityValue) {
+	            citySelect.selectedIndex = i;
+	            break;
+	          }
+	        }
+			for (var i = 0; i < country.options.length; i++) {
+				if (country.options[i].value === countryValue) {
+					country.selectedIndex = i;
+					break;
+				}
+			}
+			for (var i = 0; i < job.options.length; i++) {
+				if (job.options[i].value === jobValue) {
+					job.selectedIndex = i;
+					break;
+				}
+			}
+			for (var i = 0; i < grade.options.length; i++) {
+				if (grade.options[i].value === gradeValue) {
+					grade.selectedIndex = i;
+					break;
+				}
+			}
+			for (var i = 0; i < credit.options.length; i++) {
+				if (credit.options[i].value === creditValue) {
+					credit.selectedIndex = i;
+					break;
+				}
+			}
+	    });
+	        
 	</script>
 </body>
 </html>

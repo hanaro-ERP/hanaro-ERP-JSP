@@ -63,7 +63,7 @@ tr td select {
 	margin-bottom: 5px;	
 }
 #repaymentMethodSelectTableTitle {
-	margin-top: 100px !important;
+	margin-top: 50px !important;
 }
 #repaymentMethodSelectTable tr th:nth-child(1){
 	width: 15%;	

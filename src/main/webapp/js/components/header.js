@@ -9,6 +9,10 @@ window.addEventListener('DOMContentLoaded', function() {
 			if (currentAnchor.includes(menus[index]) || currentAnchor.includes("bank")) {
 				menuItems[index].classList.add('active');
 			}
+		} else if(index === 0) {
+			if(currentAnchor.includes(menus[index]) || currentAnchor.includes("productFind")) {
+				menuItems[2].classList.add('active');
+			}
 		} else {
 			if (currentAnchor.includes(menus[index])) {
 				menuItems[index].classList.add('active');

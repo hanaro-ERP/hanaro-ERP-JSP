@@ -118,8 +118,6 @@ public class LoanService {
 		int l_id = loanDAO.getLoanIdByLoanName(loanContractDTO.getLoanName());
 		int c_id = customerDAO.getCustomerIdByCustomerName(customerDTO.getCustomerName());
 		int a_id = accountDAO.getAccountIdByCustomerId(c_id);
-				
-		System.out.println("계좌.." + a_id);
 		
 		//가입한 날의 일(day)구하여서 넣기
 		loanUtil.setDate(loanContractDTO);

@@ -187,17 +187,12 @@ pageEncoding="UTF-8"%>
 				<div class="innerButtonContainer">					
 					<button type="submit" id="search">등록</button>
 				</div>
-			<!-- </form>
-
-			<form action="${pageContext.request.contextPath}/loan/repayment" method="post"> -->
 				<div id="repaymentMethodSelectTableDiv" style="display: none;">
 					<h2 id="repaymentMethodSelectTableTitle">상환 방법</h2>
 					<div id="repaymentAmountTotalDiv">
 
 						<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금	<p>
 						<p id="repaymentAmountTotal" style="display: none;"><p>
-						<button type="submit" id="updateRepaymentDB"
-							style="display: none;">확정</button>
 					</div>
 					<table class="searchTable" id="repaymentMethodSelectTable">
 						<tr>
@@ -268,28 +263,31 @@ pageEncoding="UTF-8"%>
 				
 				switch(score) {
 					case "1" :
-						addRate = "+0.2%";
+						addRate = "+0.3%";
 						addPeriod += "+1년"; //1년
 						break;
 					case "2" :
-						addRate = "0.1%";
+						addRate = "0.2%";
 						addPeriod += "+1년";
 						break;
 					case "3" :
+					case "4" :
 						addPeriod = "+1년";
-						break;
-					case "5" :
-						addRate = "-0.2%";
 						break;
 					case "6" :
 					case "7" :
-						addRate = "-0.3%";
-						addPeriod += "-1년";
+						addRate = "-0.1%";
 						break;
 					case "8" :
-						addRate = "-0.4%";
+						addRate = "-0.1%";
 						addPeriod += "-1년";
 						break;
+					case "9" :
+						addRate = "-0.2%";
+						addPeriod += "-1년";
+					case "10" :
+						addRate = "-0.3%";
+						addPeriod += "-1년";
 				}
 			}
 			%>

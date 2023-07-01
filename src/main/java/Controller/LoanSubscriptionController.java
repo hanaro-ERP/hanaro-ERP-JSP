@@ -133,7 +133,7 @@ public class LoanSubscriptionController extends HttpServlet {
 				String identificationId = request.getParameter("identificationId");			
 				String loanProductNameSelect = request.getParameter("loanProductNameSelect");
 				
-				int isLoanRegistered = loanService.subscriptionLoan(customerDTO, loanContractDTO, loanProductNameSelect);
+				int isLoanRegistered = loanService.subscriptionLoan(customerDTO, loanContractDTO, repaymentAmountList);
 				
 				List<RepaymentMethodDTO> repaymentMethodDTOList = loanService.getRepaymentMethod(identification);
 				request.setAttribute("repaymentMethod", repaymentMethodDTOList);
@@ -147,7 +147,6 @@ public class LoanSubscriptionController extends HttpServlet {
 		}
 
 		else if (requestURI.endsWith("repayment")) {
-			System.out.println("머요");
 			String repaymentAmountList = request.getParameter("repaymentAmountList");
 			String identificationId = request.getParameter("identificationId");			
 			String loanProductNameSelect = request.getParameter("loanProductNameSelect");

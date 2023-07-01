@@ -85,9 +85,43 @@ public class CustomerSearchController extends HttpServlet {
 			
 			String id1 = request.getParameter("identification1");
 			String id2 = request.getParameter("identification2");
-
-			CustomerDTO customerDTO = customerService.getCustomerListByIdentification(id1+"-"+id2);
 			
+			//입력정보
+			String customerName = request.getParameter("customerName");
+			String phoneNumber = request.getParameter("phoneNumber");
+			String citySelect = request.getParameter("citySelect");
+			String district = request.getParameter("district");
+			String address = citySelect + " " + district;			
+			String country = request.getParameter("country");
+			String jobCode = request.getParameter("job");
+			String customerRank = request.getParameter("customerRank");
+			String creditRank = request.getParameter("creditRank");
+			String userId1 = request.getParameter("userIdentification1");
+			String userId2 = request.getParameter("userIdentification2");
+
+			CustomerDTO inputDTO = new CustomerDTO();
+			if(customerName != "")
+				inputDTO.setCustomerName(customerName);
+			if(phoneNumber != "")
+				inputDTO.setPhoneNumber(phoneNumber);
+			if(citySelect != "")
+				inputDTO.setCity(citySelect);
+			if(district != "")
+				inputDTO.setDistrict(district);
+			if(country != "")
+				inputDTO.setCountry(country);
+			if(jobCode != "")
+				inputDTO.setJobCode(jobCode);
+			if(customerRank != "")
+				inputDTO.setGrade(customerRank);
+			if(creditRank != "")
+				inputDTO.setCredit(creditRank);
+			if(userId1 != "")
+				inputDTO.setId1(userId1);
+			if(userId2 != "")
+				inputDTO.setId2(userId2);
+			
+			CustomerDTO customerDTO = customerService.getCustomerListByIdentification(id1+"-"+id2);
 			if(customerDTO.getCustomerName() != null) {
 				customer = customerService.getCustomerDetail(customerDTO.getCustomerId());
 				
@@ -96,11 +130,13 @@ public class CustomerSearchController extends HttpServlet {
 				customer.setIdentification(id1+"-"+id2);
 				
 				request.setAttribute("customer", customer);
-			} 
+			}
 			else {
 				String msg = "해당 고객 정보가 없습니다.";
 				request.setAttribute("msg", msg);
 			}
+
+			request.setAttribute("inputData", inputDTO);
 
 			if(request.getParameter("formId").equals("guarantorFind")) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/customer/customerRegist.jsp");			
