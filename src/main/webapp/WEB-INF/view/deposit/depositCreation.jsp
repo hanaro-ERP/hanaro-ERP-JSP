@@ -24,8 +24,8 @@ pageEncoding="UTF-8"%>
 	<%@ page import="Service.CreditService" %>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
-		
 		<div class="innerContainer">
+		
 			<div class="innerTitle"><h1>계좌 개설</h1></div>
 			<% 
  			String msg = (String) request.getAttribute("msg");
@@ -33,20 +33,28 @@ pageEncoding="UTF-8"%>
 			LoanProductDTO loanProduct = (LoanProductDTO) request.getAttribute("loanProductDTO");
 			
 			%>
-			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
+			<form action="${pageContext.request.contextPath}/deposit/creation" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle">
 					<h2>고객 정보 찾기</h2>
-					<div class="innerSubTitleRow">주민번호
+					<div id="findById" class="innerSubTitleRow">주민번호
 						<div>
-							<input id="identification1" name="identification1" class="identificationInput" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>" maxlength="6"/>
+							<input id="identification1" name="identification1" class="shortInput" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>" maxlength="6"/>
 							-
-							<input type="password" id="identification2" id="key" name="identification2" class="identificationInput" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>" maxlength="7"/>	
+							<input type="password" id="identification2" id="key" name="identification2" class="shortInput" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>" maxlength="7"/>	
 						</div>
 						<button type="button" id="show" onclick="showIdentification()">SHOW</button>
 						<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="return openSearchPopup(this.form)"> 검색 </button>
 					</div>
+					<div id="findResult">
+						<% if (customer != null) { %>
+					       <%= customer.getCustomerName() %> 님의 검색결과입니다.
+					   <% } %>
+						<input name="guarantor" id="searchResultMessage" type="hidden" value="<%= customer != null ? customer.getCustomerName() : "" %>">
+						<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="reSearch()"> 재검색 </button>	
+						<input style="display:none" name="customerId" value="<%= customer != null ? customer.getCustomerId() : "" %>"/>					
+					</div>
 				</div>
-				<div id="searchResultMessage"></div>
+
 				<%    
                      String id1 = "";
                      String id2 = "";
@@ -114,52 +122,27 @@ pageEncoding="UTF-8"%>
 						<input type="hidden" id="bankName" name="bankName" value="<%= customer != null ? customer.getBankName() : "" %>">
 						</td>
 					</tr>
-				</table>		
-				<div class="innerSubTitle"><h2>상품 정보 및 가입</h2></div>
+				</table>
+				<div class="innerSubTitle"><h2>계좌 정보</h2></div>
 				<table class="inputTable">
 					<tr>
 						<th>대출 구분</th>
-						<td><select name="loanType" class="shortSelect"
-							onchange="changeLoan(this.selectedIndex);">
-								<option value="담보대출">담보대출</option>
-								<option value="신용대출">신용대출</option>
-						</select></td>
-						<th>상품명</th>
-						<td><select name="loanProductName" class="longSelect" 
-							onchange="changeLoanProductName(this.selectedIndex);">
-								<option value="">-</option>
-						</select></td>
+						<td>
+							<select name="depositType" class="shortSelect">
+								<option value="예금">예금</option>
+								<option value="적금">적금</option>
+							</select>
+						</td>
+						<th>계좌 번호</th>
+						<td>
+							<input type="text" id="accountNumber" name="accountNumber"/>
+							<button id="accountCreationButton" type="button" onclick="generateAccountNumber()">생성</button>
+						</td>
 					</tr>
 				</table>
 				<div class="innerButtonContainer">					
-					<button type="submit" id="search">등록</button>
+					<button type="submit" id="search">확인</button>
 				</div>
-			</form>
-
-			<form action="${pageContext.request.contextPath}/loan/repayment" method="post">
-				<div id="repaymentMethodSelectTableDiv" style="display: none;">
-					<h2 id="repaymentMethodSelectTableTitle">상환 방법</h2>
-					<div id="repaymentAmountTotalDiv">
-
-						<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금	<p>
-						<p id="repaymentAmountTotal" style="display: none;"><p>
-						<button type="submit" id="updateRepaymentDB"
-							style="display: none;">확정</button>
-					</div>
-					<table class="searchTable" id="repaymentMethodSelectTable">
-						<tr>
-							<th>회차</th>
-							<th>상환금</th>
-							<th>납입 원금</th>
-							<th>이자</th>
-							<th>납입원금누계</th>
-							<th>잔금</th>
-						</tr>
-					</table>
-				</div>
-				<input type="hidden" name="repaymentAmountList" id="repaymentAmountList"> 
-				<input type="hidden" name="identificationId" id="identificationId" value="<%= id1 + "-" + id2%>"> 
-				<input type="hidden" name="loanProductNameSelect" id="loanProductNameSelect"> 
 			</form>
 		</div>
 	</main>
@@ -169,40 +152,39 @@ pageEncoding="UTF-8"%>
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
-	<script>
-		
-		//고객정보
-		const customerDetailInformation = document.getElementById('customerDetailInformation');
-		const checkOpen = document.getElementById('checkOpen');
-		checkOpen.style.display = 'none'
-		customerDetailInformation.style.display = 'none'; // 초기에 숨김 상태로 설정
-		
-		const customerNameInformation = document.getElementById('innerSubTitleRow');
-		
-		function revealDetail() {
-			checkOpen.setAttribute('value', 'open');
-			customerDetailInformation.style.display = 'block';
+	<script>		
+		function generateAccountNumber() {
+			const accountNumberElement = document.getElementById("accountNumber");
+			const randomNumber = generateRandomNumber();
+			accountNumberElement.setAttribute("value", randomNumber);
 		}
-		function concealDetail() {
-			checkOpen.setAttribute('value', 'close');
-			customerDetailInformation.style.display = 'none';
+
+		function generateRandomNumber() {
+			let randomNumber = "0";
+			for (let i = 0; i < 13; i++) {
+
+			randomNumber += Math.floor(Math.random() * 10);
+			if (i === 1 || i === 7){
+				randomNumber += "-";
+			}
 		}
-		
-		
+			return randomNumber;
+		}
 
 		const identificationInput1 = document.getElementById("identification1");
 		const identificationInput2 = document.getElementById("identification2");		
 
 		function openSearchPopup(frm) {
 			if (identificationInput1.value !== '' && identificationInput2.value !== '') {
-				frm.id="productFind"
-				frm.action="/hanaro-ERP-JSP/customer/searchReturn?formId=" + frm.id; 
+				frm.id="depositFind"
+				frm.action="/hanaro-ERP-JSP/deposit/searchReturn?formId=" + frm.id;
 			    frm.submit();
 			    return true;
 			}
 			else
 				alert("주민번호를 입력해주세요.");
 		}
+		
 		var show = document.getElementById("show");
 		function showIdentification() {
 		    if(identificationInput2.type == "text") {
@@ -214,6 +196,19 @@ pageEncoding="UTF-8"%>
 		    	show.innerText = "HIDE";	
 		    }
 		}
+		const findById = document.getElementById("findById");
+		const findResult = document.getElementById("findResult");
+		const gurantorName = document.getElementById("searchResultMessage");
+		findResult.style.display = 'none';
+		
+	    if (gurantorName.value !== "") {
+	    	findById.style.display = 'none';
+	    	findResult.style.display = 'flex';
+	    }
+	    function reSearch() {
+	    	findById.style.display='flex';
+	    	findResult.style.display = 'none';
+	    }
 	</script>
 </body>
 </html>

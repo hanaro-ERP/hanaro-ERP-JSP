@@ -33,4 +33,10 @@ public class AccountService {
 
 		return transactionDAO.getTransactionListByAccountId(accountDTO, page);
 	}
+	
+	public static int createAccount(AccountDTO accountDTO) {
+		AccountDAO accountDAO = new AccountDAO();
+		
+		return accountDAO.insertAccount(accountDTO);
+	}
 }

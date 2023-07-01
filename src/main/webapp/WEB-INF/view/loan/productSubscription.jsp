@@ -34,20 +34,24 @@ pageEncoding="UTF-8"%>
 			
 			%>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
-				<div class="innerSubTitle"><h2>고객 정보 찾기</h2></div>
-				<div id="findById" class="innerSubTitleRow">주민번호
-				<input id="identification1" name="identification1" class="shortInput" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>" maxlength="6"/>
-				-
-				<input type="password" id="identification2" id="key" name="identification2" class="shortInput" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>" maxlength="7"/>	
-				<button type="button" id="show" onclick="showIdentification()">SHOW</button>
-				<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="return openSearchPopup(this.form)"> 검색 </button>
-				</div>
-				<div id="findResult">
-				<% if (customer != null) { %>
-			       <%= customer.getCustomerName() %> 님의 검색결과입니다
-			   <% } %>
-				<input name="guarantor" id="searchResultMessage" type="hidden" value="<%= customer != null ? customer.getCustomerName() : "" %>">
-				<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="reSearch()"> 재검색 </button>						
+				<div class="innerSubTitle">
+					<h2>고객 정보 찾기</h2>
+					<div id="findById" class="innerSubTitleRow">주민번호
+						<div>
+							<input id="identification1" name="identification1" class="shortInput" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>" maxlength="6"/>
+							-
+							<input type="password" id="identification2" id="key" name="identification2" class="shortInput" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>" maxlength="7"/>	
+						</div>
+						<button type="button" id="show" onclick="showIdentification()">SHOW</button>
+						<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="return openSearchPopup(this.form)"> 검색 </button>
+					</div>
+					<div id="findResult">
+						<% if (customer != null) { %>
+					       <%= customer.getCustomerName() %> 님의 검색결과입니다
+					   <% } %>
+						<input name="guarantor" id="searchResultMessage" type="hidden" value="<%= customer != null ? customer.getCustomerName() : "" %>">
+						<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="reSearch()"> 재검색 </button>						
+					</div>
 				</div>
 				<%    
                      String id1 = "";
@@ -311,14 +315,16 @@ pageEncoding="UTF-8"%>
 		function openSearchPopup(frm) {
 			if (identificationInput1.value !== '' && identificationInput2.value !== '') {
 				frm.id="productFind"
-				frm.action="/hanaro-ERP-JSP/customer/searchReturn?formId=" + frm.id; 
+				frm.action="/hanaro-ERP-JSP/loan/searchReturn?formId=" + frm.id; 
 			    frm.submit();
 			    return true;
 			}
 			else
 				alert("주민번호를 입력해주세요.");
 		}
+		
 		var show = document.getElementById("show");
+		
 		function showIdentification() {
 		    if(identificationInput2.type == "text") {
 		    	identificationInput2.type = "password";
@@ -329,6 +335,7 @@ pageEncoding="UTF-8"%>
 		    	show.innerText = "HIDE";	
 		    }
 		}
+		
 		const findById = document.getElementById("findById");
 		const findResult = document.getElementById("findResult");
 		const gurantorName = document.getElementById("searchResultMessage");
