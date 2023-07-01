@@ -140,11 +140,10 @@ public class LoanService {
 		LoanProductDAO loanDAO = new LoanProductDAO();
 		LoanContractDAO loanContractDAO = new LoanContractDAO();
 		
-		int customerId = customerDAO.getCustomerIdByCustomerIdentificationId(identificationId);
+		CustomerDTO customerDTO = customerDAO.getCustomersByIdentification(identificationId);
 		int loanProductId = loanDAO.getLoanIdByLoanName(loanProductNameSelect);
 
-		System.out.println("SERVIECE  " +customerId + "   "+ loanProductId);
-		int isUpdated = loanContractDAO.updateRepaymentAmount(customerId, loanProductId, repaymentAmountList);
+		int isUpdated = loanContractDAO.updateRepaymentAmount(customerDTO.getCustomerId(), loanProductId, repaymentAmountList);
 	
 		
 		return isUpdated;

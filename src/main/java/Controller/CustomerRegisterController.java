@@ -40,7 +40,6 @@ public class CustomerRegisterController extends HttpServlet {
 			EncryptUtil encryptUtil = new EncryptUtil();
 			//String encrypted = encryptUtil.encrypt(string);
 			
-			
 			//고객 정보
 			CustomerDTO customerDTO = new CustomerDTO();
 
@@ -56,6 +55,7 @@ public class CustomerRegisterController extends HttpServlet {
 			String identification = id[0] + "-" + id[1];
 			int age = customerUtil.getAgeFromIdentification(id[0]);
 			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(id[1].substring(0,1)));
+			String encry_id = encryptUtil.encrypt(identification);
 
 			String country = request.getParameter("country");
 			String jobCode = request.getParameter("job");
@@ -72,8 +72,7 @@ public class CustomerRegisterController extends HttpServlet {
 			if(citySelect != "")
 				customerDTO.setAddress(address);
 			if(identification != "") {
-				encryptUtil.encrypt(identification);
-				customerDTO.setIdentification(identification);
+				customerDTO.setIdentification(encry_id);
 				customerDTO.setAge(age);
 				customerDTO.setGender(gender);
 			}

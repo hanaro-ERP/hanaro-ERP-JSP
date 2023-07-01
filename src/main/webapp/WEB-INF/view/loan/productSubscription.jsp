@@ -95,8 +95,8 @@ pageEncoding="UTF-8"%>
 						</td>
 						<th>보증인</th>
 						<td>
-						<input type="hidden" id="suretyName" name="suretyName" value="<%= customer != null ? customer.getSuretyName() : "" %>">
-						<%= customer != null ? customer.getSuretyName() : "" %>
+						<input type="hidden" id="suretyName" name="suretyName" value="<%= customer != null ? customer.getGuarantor() : "" %>">
+						<%= customer != null ? customer.getGuarantor() : "" %>
 						</td>
 					</tr>
 					<tr>
@@ -249,7 +249,7 @@ pageEncoding="UTF-8"%>
 			int cId = 0; int eId = 0;
 			if(customer != null) {
 				cId = customerDAO.getCustomerIdByCustomerName(customer.getCustomerName());
-				eId = customerDAO.getCustomerIdByCustomerName(customer.getSuretyName());
+				eId = customerDAO.getCustomerIdByCustomerName(customer.getGuarantor());
 				
 				if(eId != -1) {
 					creditScoringDTO.setCustomerId(cId); //고객정보

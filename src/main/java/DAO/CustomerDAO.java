@@ -167,23 +167,6 @@ public class CustomerDAO {
 		return cId;
 	}
 	
-	public int getCustomerIdByCustomerIdentificationId(String identificationId) {
-		int cId = -1;
-		String SQL = "SELECT c_id FROM customers WHERE identification = ?";
-		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setString(1, encryptUtil.encrypt(identificationId));
-			try (ResultSet rs = pstmt.executeQuery()) {
-				if (rs.next()) {
-					cId = rs.getInt("c_id");
-				}
-			}
-			System.out.println("customer DAO ="+ pstmt);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return cId;
-	}
-
 	public CustomerDTO getCustomersByIdentification(String identificaiton) {
 		CustomerDTO customer = new CustomerDTO();
 		String SQL = "SELECT * FROM customers WHERE identification = ?";

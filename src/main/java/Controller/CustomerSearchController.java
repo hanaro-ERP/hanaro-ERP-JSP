@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DAO.CustomerDAO;
 import DTO.CustomerDTO;
 import Service.CustomerService;
 import util.EncryptUtil;
@@ -20,7 +22,8 @@ import util.LoanUtil;
 public class CustomerSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CustomerService customerService = new CustomerService();
-	
+	CustomerDTO customer = new CustomerDTO();
+
 	public CustomerSearchController() {
 		super();
 	}
@@ -30,8 +33,8 @@ public class CustomerSearchController extends HttpServlet {
 		String urlPattern = request.getServletPath();
 	    if ("/customerSearch".equals(urlPattern)) {
 	    	getCustomerSearchProcess(request, response);
-	    } else {
-
+	    } else if("/customer/searchReturn".equals(urlPattern)){
+	    	setCustomerGuarantorProcess(request, response);
 	    }
 	}
 	
@@ -62,9 +65,21 @@ public class CustomerSearchController extends HttpServlet {
 		}
 	}
 	
-	protected void returnCustomerProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-		CustomerDTO customer = new CustomerDTO();
+	protected void setCustomerGuarantorProcess(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			String cId = request.getParameter("userId");
+			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(cId));
+			
+			request.setAttribute("customer", customer);
 
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view//customer/customerRegist.jsp");			
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	protected void returnCustomerProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			LoanUtil loanUtil = new LoanUtil();
 			EncryptUtil encryptUtil = new EncryptUtil();
@@ -81,18 +96,23 @@ public class CustomerSearchController extends HttpServlet {
 				
 				customer.setJobName(loanUtil.convertJobCode(customer.getJobCode()));
 				customer.setIdentification(id1+"-"+id2);
-				System.out.println(customer.getIdentification()+"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
 				
 				request.setAttribute("customer", customer);
 			} 
 			else {
+				System.out.println("해당");
 				String msg = "해당 고객 정보가 없습니다.";
 				request.setAttribute("msg", msg);
 			}
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");			
-			dispatcher.forward(request, response);
-			
+
+			if(request.getParameter("formId").equals("guarantorFind")) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view//customer/customerRegist.jsp");			
+				dispatcher.forward(request, response);
+			}
+			else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");			
+				dispatcher.forward(request, response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
