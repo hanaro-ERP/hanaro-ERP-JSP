@@ -1,5 +1,34 @@
 @charset "UTF-8";
 
+#isGuarantor {
+	width:17px;
+	height:17px;
+	border:2px solid #B0B8C1;
+	border-radius: 4px;
+	vertical-align:middle;
+}
+/* label:before에 체크하기 전 상태 CSS */
+input#check_btn + label:before{
+  content:"";
+  display:inline-block;
+  width:17px;
+  height:17px;
+  border:2px solid #F47C7C;
+  border-radius: 4px;
+  vertical-align:middle;
+  }
+  
+/* label:before에 체크 된 상태 CSS */  
+input#check_btn:checked + label:before{
+  content:"";
+  background-color:#F47C7C;
+  border-color:#F47C7C;
+  background-image: url('check_btn.png');
+  background-repeat: no-repeat;
+  background-position: 50%;
+  }
+
+
 .customerDetailButton {
 	width: 80px;
 	height: 30px;
