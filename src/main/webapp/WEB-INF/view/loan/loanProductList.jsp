@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>하나로여신관리시스템 - 여신 상품</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
@@ -237,6 +237,24 @@
 	}
 	%>
 	<script>
+		<% 
+		String isCreated = request.getQueryString();
+	
+		if (isCreated != null) {
+			if (isCreated.equals("mod=1")) {
+				%>
+				alert("상품 등록에 성공했습니다.")
+				window.location.href = "/navigation/loanList";
+				<%
+			} else if (isCreated.equals("mod=-1")) {
+				%>
+				alert("상품 등록에 실패했습니다.")
+				window.location.href = "/navigation/loanList";
+				<%
+			}
+		}
+		%>
+	
 		generateMenu('loan', 'loanProductList');
 		
 		<%

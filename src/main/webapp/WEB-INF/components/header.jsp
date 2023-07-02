@@ -21,7 +21,7 @@
 			<li><a href="${pageContext.request.contextPath}/navigation/customer">고객관리</a></li>
 			<li><a href="${pageContext.request.contextPath}/navigation/employee">직원관리</a></li>
 			<li><a href="${pageContext.request.contextPath}/navigation/loanList">여신관리</a></li>
-			<li><a href="${pageContext.request.contextPath}/navigation/deposit">수신관리</a></li>
+			<li><a href="${pageContext.request.contextPath}/navigation/depositList">수신관리</a></li>
 		</ul>
 			<div class="headerSessionInformationContainer">
 				<div class="headerSessionTimeout">
@@ -46,7 +46,6 @@
 	if (isAdmin === "true") {
 		headerSessionName.classList.add("adminName");
 	}
-	
 	
 	const headerSessionTime = document.querySelector(".headerSessionTime");
 	const sessionTimeout = <%= request.getSession().getMaxInactiveInterval() %>;

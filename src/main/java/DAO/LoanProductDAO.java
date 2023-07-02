@@ -72,11 +72,15 @@ public class LoanProductDAO {
 	    String SQL = "SELECT l_id FROM loans WHERE loan_name = ?";
 	    try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 	        pstmt.setString(1, loanName);
+	        
+			System.out.println("loan DAO ="+ pstmt);
 	        try (ResultSet rs = pstmt.executeQuery()) {
 	            if (rs.next()) {
 	            	lId = rs.getInt("l_id");
 	            }
 	        }
+	        System.out.println("getLoanIdByLoanName ="+pstmt);
+	        
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
@@ -89,6 +93,22 @@ public class LoanProductDAO {
 		String SQL = "SELECT * FROM loans WHERE l_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					fillLoanDTOFromResultSet(loan, rs);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return loan;
+	}
+	
+	public LoanProductDTO getLoanByLoanName(String loanName) {
+		LoanProductDTO loan = new LoanProductDTO();
+		String SQL = "SELECT * FROM loans WHERE loan_name = ?";
+		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+			pstmt.setString(1, loanName);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					fillLoanDTOFromResultSet(loan, rs);

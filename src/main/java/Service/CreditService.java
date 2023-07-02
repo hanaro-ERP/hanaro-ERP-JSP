@@ -61,7 +61,7 @@ public class CreditService {
 		creditService.setCreditScore(creditScoringDTO);
 		System.out.println(creditService.getCreditScore());
 
-    EncryptUtil encryptUtil = new EncryptUtil();
+		EncryptUtil encryptUtil = new EncryptUtil();
 		String string = "111111-1111111";
 		String encrypted = encryptUtil.encrypt(string);
 		String decrypted = encryptUtil.decrypt(encrypted);

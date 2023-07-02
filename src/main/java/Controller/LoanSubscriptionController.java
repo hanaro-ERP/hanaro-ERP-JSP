@@ -14,13 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DAO.LoanProductDAO;
+import DTO.CreditScoringDTO;
 import DTO.CustomerDTO;
 import DTO.LoanContractDTO;
+import DTO.LoanProductDTO;
 import DTO.RepaymentMethodDTO;
 import Service.LoanService;
 import util.CustomerUtil;
 
-@WebServlet("/loan/*")
+//@WebServlet("/loan/*")
+@WebServlet(urlPatterns = {"/loan/repayment", "/loan/subscription"})
 public class LoanSubscriptionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	LoanService loanService = new LoanService();
@@ -30,13 +34,12 @@ public class LoanSubscriptionController extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {	
-	    System.out.println("doPost: " );		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {		
 		postLoanSubscriptionProcess(request, response);
 	}
 	
@@ -46,6 +49,7 @@ public class LoanSubscriptionController extends HttpServlet {
 		CustomerUtil customerUtil = new CustomerUtil();
 		String requestURI = request.getRequestURI();
 		System.out.println("requestURI: "+requestURI );
+		
 		if (requestURI.endsWith("subscription")) {
 			try {			
 				String[] infos = {"customerName", "phoneNumber", "suretyName", "residentRegistrationNumber", "age", "gender", "country", "city", "district", "employeeName", "bank", "customerRank", "creditRank", "disalbitilityRank", "job", "loanType", "loanProductName", "collateral", "collateralValue", "loanAmount", "interest", "interestRate", "loanPerpose", "repaymentMethod"};
@@ -56,8 +60,8 @@ public class LoanSubscriptionController extends HttpServlet {
 				String customerName = request.getParameter("customerName");
 				String phoneNumber = request.getParameter("phoneNumber");
 				String address = request.getParameter("address");
-				String id1 = request.getParameter("identification").substring(0, 6);
-				String id2 = request.getParameter("identification").substring(7, 14);
+				String id1 = request.getParameter("identification1");
+				String id2 = request.getParameter("identification2");
 				String identification = id1 + "-" + id2; 
 
 				int age = customerUtil.getAgeFromIdentification(id1);
@@ -82,6 +86,7 @@ public class LoanSubscriptionController extends HttpServlet {
 					customerDTO.setAge(age);
 					customerDTO.setGender(gender);
 				}
+
 				if(jobCode != "")
 					customerDTO.setJobCode(jobCode);
 				if(country != "")
@@ -123,14 +128,17 @@ public class LoanSubscriptionController extends HttpServlet {
 					loanContractDTO.setPaymentMethod(repaymentMethod);
 				if(gracePeriod != null)
 					loanContractDTO.setGracePeriod(Integer.parseInt(gracePeriod));
-				int isLoanRegistered = loanService.subscriptionLoan(customerDTO, loanContractDTO);
-							
+
+				String repaymentAmountList = request.getParameter("repaymentAmountList");
+				String identificationId = request.getParameter("identificationId");			
+				String loanProductNameSelect = request.getParameter("loanProductNameSelect");
+				
+				int isLoanRegistered = loanService.subscriptionLoan(customerDTO, loanContractDTO, repaymentAmountList);
+				
 				List<RepaymentMethodDTO> repaymentMethodDTOList = loanService.getRepaymentMethod(identification);
 				request.setAttribute("repaymentMethod", repaymentMethodDTOList);
 
-				RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productSubscription.jsp");
-				dispatcher.forward(request, response);
-				
+				response.sendRedirect(request.getContextPath() + "/navigation/loanContract?mod=" + isLoanRegistered);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -140,9 +148,10 @@ public class LoanSubscriptionController extends HttpServlet {
 			String repaymentAmountList = request.getParameter("repaymentAmountList");
 			String identificationId = request.getParameter("identificationId");			
 			String loanProductNameSelect = request.getParameter("loanProductNameSelect");
+			
 			int isUpdated = loanService.updateRepaymentAmount(identificationId, loanProductNameSelect, repaymentAmountList);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productSubscription.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

@@ -25,7 +25,7 @@ searchTableRows.forEach((item, index) => {
 		var firstTd = item.querySelector(".loanProductId");
 		item.addEventListener('click', () => {
 			var value = firstTd.innerHTML;
-			window.open("/hanaro-ERP-JSP/loanDetail?id=" + value + "&mod=0", "_blank", "width=1070,height=500");
+			window.open("/loanDetail?id=" + value + "&mod=0", "_blank", "width=1070,height=500");
 		});	
 	}
 });

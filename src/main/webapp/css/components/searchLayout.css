@@ -181,3 +181,13 @@ input[type="checkbox"] {
 .modifyButtonBox > a:hover {
 	background-color: #F2F4F6;
 }
+#show {
+	position: absolute;
+	margin-left: 605px;
+	margin-top: 0px;
+	font-size: 9px;
+	cursor: pointer;
+	color: grey;
+	background: transparent;
+	border: 0px solid grey;;
+}
