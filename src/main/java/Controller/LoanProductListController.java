@@ -18,7 +18,7 @@ import DTO.CustomerDTO;
 import DTO.LoanProductDTO;
 import Service.LoanService;
 
-@WebServlet("/loanProduct/list")
+@WebServlet(urlPatterns = {"/loanProduct/list", "/loan/loanProductList"})
 public class LoanProductListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -44,7 +44,6 @@ public class LoanProductListController extends HttpServlet {
 			loanList = loanService.getLoanList();
 
 			request.setAttribute("loanProductList", loanList);
-			
 //			response.sendRedirect(request.getContextPath() + "/navigation/loanSubscription?mod=" + 1);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "/navigation/loanSubscription?mod=1");

@@ -32,7 +32,6 @@ pageEncoding="UTF-8"%>
 			LoanProductDTO loanProduct = (LoanProductDTO) request.getAttribute("loanProductDTO");
 			List<LoanProductDTO> loanProductList = (List<LoanProductDTO>) request.getAttribute("loanProductList");
 			String mod = request.getQueryString();
-			
 			%>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle">
@@ -234,13 +233,15 @@ pageEncoding="UTF-8"%>
 		function goToController() {
 	    	window.location.href = "${pageContext.request.contextPath}/loanProduct/list"; // 서블릿의 URL로 이동합니다.
 	    }
+		
 		<% 
-		if(mod != "") { //if (loanProductList != null) {
+		if(mod != "" && loanProductList != null) { //if (loanProductList != null) {
 		%>
 			document.body.removeAttribute('onload');
 		<%
 		}
 		%>
+
 		
 	    var loanProductArray = [];
 
