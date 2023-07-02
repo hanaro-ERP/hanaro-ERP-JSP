@@ -17,11 +17,11 @@
 if ("<%= del %>" !== null) {
 	if ("<%= del %>" === "1") {
 		alert("여신 상품이 성공적으로 삭제되었습니다.");
-		window.opener.location.href = "/hanaro-ERP-JSP/navigation/loanList";
+		window.opener.location.href = "/navigation/loanList";
 		window.close();
 	} else if ("<%= del %>" === "-1") {
 		alert("여신 상품이 삭제에 실패하였습니다.");
-		window.opener.location.href = "/hanaro-ERP-JSP/navigation/loanList";
+		window.opener.location.href = "/navigation/loanList";
 		window.close();
 	}
 }

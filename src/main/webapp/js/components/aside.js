@@ -3,34 +3,34 @@ const menuData = {
 		menuTitle: '고객 관리',
 		menuIcon: 'customerBtnIcon',
 		menuItems: [
-			{ id: 'customerList', label: '고객 목록', link: '/hanaro-ERP-JSP/navigation/customer' },
-			{ id: 'customerRegist', label: '고객 등록', link: '/hanaro-ERP-JSP/navigation/customerRegist'}
+			{ id: 'customerList', label: '고객 목록', link: '/navigation/customer' },
+			{ id: 'customerRegist', label: '고객 등록', link: '/navigation/customerRegist'}
 		]
 	},
 	employee: {
 		menuTitle: '직원 관리',
 		menuIcon: 'employeeBtnIcon',
 		menuItems: [
-			{ id: 'employeeList', label: '직원 목록', link: '/hanaro-ERP-JSP/navigation/employee' },
-			{ id: 'bankList', label: '지점 목록', link: '/hanaro-ERP-JSP/navigation/bank' }
+			{ id: 'employeeList', label: '직원 목록', link: '/navigation/employee' },
+			{ id: 'bankList', label: '지점 목록', link: '/navigation/bank' }
 		]
 	},
   	loan: {
 		menuTitle: '여신 관리',
 		menuIcon: 'loanBtnIcon',
 		menuItems: [
-			{ id: 'loanProductList', label: '여신 상품', link: '/hanaro-ERP-JSP/navigation/loanList' },
-			{ id: 'loanContract', label: '여신 이력', link: '/hanaro-ERP-JSP/navigation/loanContract' },
-			{ id: 'productRegistration', label: '상품 등록', link: '/hanaro-ERP-JSP/navigation/loanRegistration' },
-			{ id: 'productSubscription', label: '상품 가입', link: '/hanaro-ERP-JSP/navigation/loanSubscription' }
+			{ id: 'loanProductList', label: '여신 상품', link: '/navigation/loanList' },
+			{ id: 'loanContract', label: '여신 이력', link: '/navigation/loanContract' },
+			{ id: 'productRegistration', label: '상품 등록', link: '/navigation/loanRegistration' },
+			{ id: 'productSubscription', label: '상품 가입', link: '/navigation/loanSubscription' }
 		]
 	},
 	deposit: {
 		menuTitle: '수신 관리',
 		menuIcon: 'depositBtnIcon',
 		menuItems: [
-			{ id: 'depositProductList', label: '계좌 목록', link: '/hanaro-ERP-JSP/navigation/depositList' },
-			{ id: 'depositCreation', label: '계좌 개설', link: '/hanaro-ERP-JSP/navigation/depositCreation' }
+			{ id: 'depositProductList', label: '계좌 목록', link: '/navigation/depositList' },
+			{ id: 'depositCreation', label: '계좌 개설', link: '/navigation/depositCreation' }
 		]
 	}
 };
