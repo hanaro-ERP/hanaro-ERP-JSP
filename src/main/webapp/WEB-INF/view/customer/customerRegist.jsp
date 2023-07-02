@@ -134,7 +134,7 @@
 						<th>보증인</th>
 						<td colspan=4>						
 						<div id="findById">
-							<input type="checkbox" id="isGuarantor">
+						 	<input type="checkbox" id="isGuarantor">
 							<input id="guarantorIdentification1" name="identification1" class="identification" maxlength="6" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
 							-
 							<input type="password" id="guarantorIdentification2" id="key" name="identification2" class="identification" maxlength="7" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>"/>	
