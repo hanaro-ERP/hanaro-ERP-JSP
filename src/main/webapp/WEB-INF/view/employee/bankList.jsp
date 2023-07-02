@@ -72,7 +72,7 @@
 				if(getBankList != null && !getBankList.isEmpty()) {
 					for(BankDTO bank : getBankList) {
 				%>
-				<tr>
+				<tr class="noResultRow">
 					<td><%= bank.getBankId() %></td>
 					<td><%= bank.getBankName() %></td>
 					<td><%= bank.getPhoneNumber() %></td>

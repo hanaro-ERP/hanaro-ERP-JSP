@@ -132,9 +132,11 @@
 					</tr>
 					<tr>
 						<th>보증인</th>
-						<td colspan=4>
+						<td colspan=4>						
 						<div id="findById">
-							<input id="guarantorIdentification1" name="identification1" class="identification" maxlength="6" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
+						 	<input type="checkbox" id="isGuarantor">
+						 	보증인 없음
+							<input style="margin-left: 20px" id="guarantorIdentification1" name="identification1" class="identification" maxlength="6" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
 							-
 							<input type="password" id="guarantorIdentification2" id="key" name="identification2" class="identification" maxlength="7" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>"/>	
 							<button type="button" id="show2" onclick="showIdentification2()">SHOW</button>
@@ -184,15 +186,15 @@
 		}
 
 		function openSearchPopup(frm) {
-			if (guarantorIdentificationInput1.value !== '' && guarantorIdentificationInput2.value !== '') {
+			//if (guarantorIdentificationInput1.value !== '' && guarantorIdentificationInput2.value !== '') {
 				frm.id = "guarantorFind";
 				frm.action="/customer/searchReturn?formId=" + frm.id;
 				frm.submit();
 				return true;
-			}
-			else {
-				alert("보증인의 주민번호를 입력해주세요.");
-			}
+			//}
+			//else {
+			//	alert("보증인의 주민번호를 입력해주세요.");
+			//}
 
 			if (document.getElementById("findById").style.display === "none") {
 				document.getElementById("findById").style.display = "inline"; // findById 요소를 보여줍니다.
@@ -221,12 +223,33 @@
 				show2.innerText = "HIDE";
 			}
 		}
-
+		
 		const findById = document.getElementById("findById");
 		const findResult = document.getElementById("findResult");
 		const gurantorName = document.getElementById("searchResultMessage");
 		findResult.style.display = 'none';
 
+		const guarantorBox = document.getElementById("isGuarantor");
+		const btn = document.getElementById("customerDetailButton");
+		
+		guarantorBox.addEventListener('change', function() {
+			if (guarantorBox.checked) {
+				guarantorIdentificationInput1.disabled = true; // findById 요소를 숨깁니다.
+				guarantorIdentificationInput2.disabled = true;
+				btn.disabled = true;
+				show2.disabled = true;
+				btn.classList.add("disabled");
+				show2.classList.add("disabled");
+			} else {
+				guarantorIdentificationInput1.disabled = false; // findById 요소를 숨깁니다.
+				guarantorIdentificationInput2.disabled = false;
+				btn.disabled = false;
+				show2.disabled = false;
+				btn.classList.remove("disabled");
+				show2.classList.remove("disabled")
+			}
+		});
+		
 		if (gurantorName.value !== "") {
 			findById.style.display = 'none';
 			findResult.style.display = 'block';

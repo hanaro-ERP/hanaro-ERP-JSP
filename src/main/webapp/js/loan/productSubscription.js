@@ -46,99 +46,102 @@ var repaymentAmountTotal = 0;
 var repaymentAmountArray = [];
 
 function updateTable(isCorrect) {
-	if (isCorrect === false){
+	repaymentAmountTotal = 0;
+	repaymentAmountArray = [];
+	
+	if (isCorrect === false) {
 		var repaymentMethodTable = document.getElementById("repaymentMethodSelectTable");
 		removeTableRow(repaymentMethodTable);
-		return; 
+		return;
 	}
 	else {
 		var repaymentMethod = document.getElementById("repaymentMethod");	// 상환 방법
-	var loanPeriod = document.getElementById("loanPeriod");	// 기간
-	var loanAmount = document.getElementById("loanAmount");	// 원금
-	var interestRate = document.getElementById("interestRate");	// 연 이자율
-	var gracePeriod = document.getElementById("gracePeriod");	// 거치 기간
+		var loanPeriod = document.getElementById("loanPeriod");	// 기간
+		var loanAmount = document.getElementById("loanAmount");	// 원금
+		var interestRate = document.getElementById("interestRate");	// 연 이자율
+		var gracePeriod = document.getElementById("gracePeriod");	// 거치 기간
 
-	var repaymentMethodValue = repaymentMethod.value;
-	var loanPeriodValue = loanPeriod.value * 12;	// 개월 수
-	var loanAmountValue = loanAmount.value * 10000;
-	var interestRateValue = interestRate.value / 12 * 0.01;	// 월 이자율로 변경
-	var gracePeriodValue = gracePeriod.value * 12;	// 거치 기간 개월 수
+		var repaymentMethodValue = repaymentMethod.value;
+		var loanPeriodValue = loanPeriod.value * 12;	// 개월 수
+		var loanAmountValue = loanAmount.value * 10000;
+		var interestRateValue = interestRate.value / 12 * 0.01;	// 월 이자율로 변경
+		var gracePeriodValue = gracePeriod.value * 12;	// 거치 기간 개월 수
 
-	var repaymentMethodSelectTableTitle = document.getElementById("repaymentMethodSelectTableTitle");
-	repaymentMethodSelectTableTitle.innerText = repaymentMethodValue;
+		var repaymentMethodSelectTableTitle = document.getElementById("repaymentMethodSelectTableTitle");
+		repaymentMethodSelectTableTitle.innerText = repaymentMethodValue;
 
-	var repaymentAmount = 0;	// 상환금 = 상환한 원금 + 이자
-	var principalPayment = 0;	// 납입 원금
-	var interest = 0;	// 월 납부 이자
-	var cumulativePrincipalPayment = 0;	// 납입원금누계
-	var balance = loanAmountValue;	// 남은 대출 원금
-	
-	repaymentAmountTotal = 0;
-	var repaymentMethodTable = document.getElementById("repaymentMethodSelectTable");
-	removeTableRow(repaymentMethodTable);
+		var repaymentAmount = 0;	// 상환금 = 상환한 원금 + 이자
+		var principalPayment = 0;	// 납입 원금
+		var interest = 0;	// 월 납부 이자
+		var cumulativePrincipalPayment = 0;	// 납입원금누계
+		var balance = loanAmountValue;	// 남은 대출 원금
 
-	// 상환 방법에 따라 다르게 계산
-	if (repaymentMethodValue.includes("만기")) {	// 원금만기일시상환
-		interest = loanAmountValue * interestRateValue ;	// 이자
-		principalPayment = 0;	// 납입 원금
-		cumulativePrincipalPayment = 0; 	// 납입원금누계
-		balance = loanAmountValue; // 남은 대출 원금
+		repaymentAmountTotal = 0;
+		var repaymentMethodTable = document.getElementById("repaymentMethodSelectTable");
+		removeTableRow(repaymentMethodTable);
 
-		for (var month = 1; month < loanPeriodValue; month++) {
-			repaymentAmount += interest;	// 상환금
+		// 상환 방법에 따라 다르게 계산
+		if (repaymentMethodValue.includes("만기")) {	// 원금만기일시상환
+			interest = loanAmountValue * interestRateValue;	// 이자
+			principalPayment = 0;	// 납입 원금
+			cumulativePrincipalPayment = 0; 	// 납입원금누계
+			balance = loanAmountValue; // 남은 대출 원금
+
+			for (var month = 1; month < loanPeriodValue; month++) {
+				repaymentAmount += interest;	// 상환금
+				repaymentAmountTotal += repaymentAmount;
+				makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
+			}
+			// 마지막 달
+			principalPayment = loanAmountValue;	// 납입 원금
+			cumulativePrincipalPayment = loanAmountValue; 	// 납입원금누계
+			balance = 0; // 남은 대출 원금
+			repaymentAmount += principalPayment + interest;	// 상환금
 			repaymentAmountTotal += repaymentAmount;
 			makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
-		}		
-		// 마지막 달
-		principalPayment = loanAmountValue;	// 납입 원금
-		cumulativePrincipalPayment = loanAmountValue; 	// 납입원금누계
-		balance = 0; // 남은 대출 원금
-		repaymentAmount += principalPayment + interest;	// 상환금
-		repaymentAmountTotal += repaymentAmount;
-		makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
-	}
-
-	else if (repaymentMethodValue.includes("원금균등")) { // 원금균등상환
-		for (var month = 1; month <= loanPeriodValue; month++) {
-			// 거치 기간 있는 경우
-			if (gracePeriodValue > 0 && month <= gracePeriodValue) {
-				interest = loanAmountValue * interestRateValue;
-				repaymentAmount = interest;	
-				repaymentAmountTotal += repaymentAmount;
-			}
-			// 거치 기간 없는 경우
-			else {
-				principalPayment = loanAmountValue / (loanPeriodValue-gracePeriodValue);	// 납입 원금
-				interest = balance * interestRateValue;	// 이자
-				repaymentAmount = interest + principalPayment;	// 상환금 = 이자 + 납입 원금
-				cumulativePrincipalPayment += principalPayment;	// 납입원금누계
-				balance -= principalPayment;	// 남은 대출 원금
-				repaymentAmountTotal += repaymentAmount;
-				
-				checkLastMonthBalance();
-			}
-			makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
 		}
-	}
 
-	else if (repaymentMethodValue.includes("원리금균등")) {	// 원리금균등상환
-		for (var month = 1; month <= loanPeriodValue; month++) {
-			// 거치 기간 있는 경우
-			if (gracePeriodValue > 0 && month <= gracePeriodValue) {
-				interest = loanAmountValue * interestRateValue;
-				repaymentAmount = interest;
-				repaymentAmountTotal += repaymentAmount;
+		else if (repaymentMethodValue.includes("원금균등")) { // 원금균등상환
+			for (var month = 1; month <= loanPeriodValue; month++) {
+				// 거치 기간 있는 경우
+				if (gracePeriodValue > 0 && month <= gracePeriodValue) {
+					interest = loanAmountValue * interestRateValue;
+					repaymentAmount = interest;
+					repaymentAmountTotal += repaymentAmount;
+				}
+				// 거치 기간 없는 경우
+				else {
+					principalPayment = loanAmountValue / (loanPeriodValue - gracePeriodValue);	// 납입 원금
+					interest = balance * interestRateValue;	// 이자
+					repaymentAmount = interest + principalPayment;	// 상환금 = 이자 + 납입 원금
+					cumulativePrincipalPayment += principalPayment;	// 납입원금누계
+					balance -= principalPayment;	// 남은 대출 원금
+					repaymentAmountTotal += repaymentAmount;
+
+					checkLastMonthBalance();
+				}
+				makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
 			}
-			else {
-				var rate = Math.pow((1 + interestRateValue), (loanPeriodValue-gracePeriodValue));
-				repaymentAmount = (loanAmountValue * interestRateValue * (rate)) / (rate - 1);
-				interest = balance * interestRateValue;
-				principalPayment = repaymentAmount - interest;
-				cumulativePrincipalPayment += principalPayment;
-				balance -= principalPayment;
-				repaymentAmountTotal += repaymentAmount;
-				
-				checkLastMonthBalance();
+		}
+
+		else if (repaymentMethodValue.includes("원리금균등")) {	// 원리금균등상환
+			for (var month = 1; month <= loanPeriodValue; month++) {
+				// 거치 기간 있는 경우
+				if (gracePeriodValue > 0 && month <= gracePeriodValue) {
+					interest = loanAmountValue * interestRateValue;
+					repaymentAmount = interest;
+					repaymentAmountTotal += repaymentAmount;
+				}
+				else {
+					var rate = Math.pow((1 + interestRateValue), (loanPeriodValue - gracePeriodValue));
+					repaymentAmount = (loanAmountValue * interestRateValue * (rate)) / (rate - 1);
+					interest = balance * interestRateValue;
+					principalPayment = repaymentAmount - interest;
+					cumulativePrincipalPayment += principalPayment;
+					balance -= principalPayment;
+					repaymentAmountTotal += repaymentAmount;
+
+					checkLastMonthBalance();
 			}
 			makeRowCell(repaymentMethodTable, month, parseInt(repaymentAmount), parseInt(principalPayment), parseInt(interest), parseInt(cumulativePrincipalPayment), parseInt(balance));
 		}
@@ -188,8 +191,8 @@ function updateTable(isCorrect) {
 			var jsonData = JSON.stringify(repaymentAmountArray);
 			document.getElementById("repaymentAmountList").value = jsonData;
 
-			var updateRepaymentDBButton = document.getElementById("updateRepaymentDB");
-			updateRepaymentDBButton.style.display = "block";	
+			/*var updateRepaymentDBButton = document.getElementById("updateRepaymentDB");
+			updateRepaymentDBButton.style.display = "block";	*/
 		}
 	}
 }
