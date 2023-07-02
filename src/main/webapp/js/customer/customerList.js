@@ -37,7 +37,7 @@ searchTableRows.forEach((item, index) => {
 		var firstTd = item.querySelector(".customerId");
 		item.addEventListener('click', () => {
 			var value = firstTd.innerHTML;
-			window.open("/hanaro-ERP-JSP/customerDetail?id=" + value, "_blank", "width=1000,height=600");
+			window.open("/customerDetail?id=" + value, "_blank", "width=1000,height=600");
 		});	
 	}
 });

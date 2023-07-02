@@ -79,10 +79,12 @@
 					<tr>
 						<th>주민번호</th>
 						<td>
-							<input id="userIdentification1" name="userIdentification1" class="identification" maxlength="6" value="<%= inputData != null && inputData.getId1() != null ? inputData.getId1() : "" %>"/>
-								-
-							<input type="password" id="userIdentification2" name="userIdentification2" class="identification" maxlength="7" value="<%= inputData != null && inputData.getId2() != null ? inputData.getId2() : "" %>"/>
-							<button type="button" id="show1" onclick="showIdentification1()">SHOW</button>
+							<div>
+								<input id="userIdentification1" name="userIdentification1" class="identification" maxlength="6" value="<%= inputData != null && inputData.getId1() != null ? inputData.getId1() : "" %>"/>
+									-
+								<input type="password" id="userIdentification2" name="userIdentification2" class="identification" maxlength="7" value="<%= inputData != null && inputData.getId2() != null ? inputData.getId2() : "" %>"/>
+								<button type="button" id="show1" onclick="showIdentification1()">SHOW</button>
+							</div>
 						</td>
 						<th>직업</th>
 						<td>
@@ -178,13 +180,13 @@
 		function openSearchPopup() {
 			var firstTd = document.getElementById("suretyName"); // customerName 필드를 가리키는 변수 firstTd
 			if(firstTd.value !== '')
-				window.open("/hanaro-ERP-JSP/customerSearch?name=" + firstTd.value + "&pageId=" + 1, "_blank", "width=1170,height=500");
+				window.open("/customerSearch?name=" + firstTd.value + "&pageId=" + 1, "_blank", "width=1170,height=500");
 		}
 
 		function openSearchPopup(frm) {
 			if (guarantorIdentificationInput1.value !== '' && guarantorIdentificationInput2.value !== '') {
 				frm.id = "guarantorFind";
-				frm.action="/hanaro-ERP-JSP/customer/searchReturn?formId=" + frm.id;
+				frm.action="/customer/searchReturn?formId=" + frm.id;
 				frm.submit();
 				return true;
 			}

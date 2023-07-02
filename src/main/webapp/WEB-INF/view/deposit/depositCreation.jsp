@@ -182,7 +182,7 @@ pageEncoding="UTF-8"%>
 		function openSearchPopup(frm) {
 			if (identificationInput1.value !== '' && identificationInput2.value !== '') {
 				frm.id="depositFind"
-				frm.action="/hanaro-ERP-JSP/deposit/searchReturn?formId=" + frm.id;
+				frm.action="/deposit/searchReturn?formId=" + frm.id;
 			    frm.submit();
 			    return true;
 			}

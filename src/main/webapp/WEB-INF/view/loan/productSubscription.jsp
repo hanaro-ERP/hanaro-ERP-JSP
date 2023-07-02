@@ -320,7 +320,7 @@ pageEncoding="UTF-8"%>
 		function openSearchPopup(frm) {
 			if (identificationInput1.value !== '' && identificationInput2.value !== '') {
 				frm.id="productFind"
-				frm.action="/hanaro-ERP-JSP/loan/searchReturn?formId=" + frm.id; 
+				frm.action="/loan/searchReturn?formId=" + frm.id; 
 			    frm.submit();
 			    return true;
 			}

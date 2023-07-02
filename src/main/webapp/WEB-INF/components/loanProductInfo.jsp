@@ -58,8 +58,8 @@
 		<p>${loanProduct.subscriberCount}명</p>
 	</div>
 	<div class="modifyButtonBox">
-		<a class="deleteLoanButton" href="/hanaro-ERP-JSP/loan/deletion?id=${loanProduct.loanId}" onclick="return confirmDelete()">삭제하기</a>
-		<a class="modifyLoanButton" href="/hanaro-ERP-JSP/loan/modification?id=${loanProduct.loanId}" onclick="return confirmModify()">수정하기</a>
+		<a class="deleteLoanButton" href="/loan/deletion?id=${loanProduct.loanId}" onclick="return confirmDelete()">삭제하기</a>
+		<a class="modifyLoanButton" href="/loan/modification?id=${loanProduct.loanId}" onclick="return confirmModify()">수정하기</a>
 	</div>
 </div>
 <script>
@@ -93,10 +93,10 @@
 	if ("<%= mod %>" !== null) {
 		if ("<%= mod %>" === "1") {
 			alert("여신 상품이 성공적으로 수정되었습니다.");
-			window.opener.location.href = "/hanaro-ERP-JSP/navigation/loanList";
+			window.opener.location.href = "/navigation/loanList";
 		} else if ("<%= mod %>" === "-1") {
 			alert("여신 상품이 수정에 실패하였습니다.");
-			window.opener.location.href = "/hanaro-ERP-JSP/navigation/loanList";
+			window.opener.location.href = "/navigation/loanList";
 		}
 	}
 	
