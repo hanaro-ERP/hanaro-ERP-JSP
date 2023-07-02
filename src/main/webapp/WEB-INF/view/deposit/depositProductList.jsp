@@ -185,12 +185,12 @@
 			if (isCreated.equals("mod=1")) {
 				%>
 				alert("계좌 개설에 성공했습니다.")
-				window.location.href = "/hanaro-ERP-JSP/navigation/depositList";
+				window.location.href = "/navigation/depositList";
 				<%
 			} else if (isCreated.equals("mod=-1")) {
 				%>
 				alert("계좌 개설에 실패했습니다.")
-				window.location.href = "/hanaro-ERP-JSP/navigation/depositList";
+				window.location.href = "/navigation/depositList";
 				<%
 			}
 		}

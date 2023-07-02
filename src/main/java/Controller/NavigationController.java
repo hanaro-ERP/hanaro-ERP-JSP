@@ -32,31 +32,31 @@ public class NavigationController extends HttpServlet {
 		try {
 			String uri = request.getRequestURI();
 			String goTo = "";
-			if (uri.equals("/hanaro-ERP-JSP/")) {
+			if (uri.equals("/")) {
 				goTo = "/login/login.jsp";
-			} else if (uri == null || uri.equals("/hanaro-ERP-JSP/navigation/login")) {
+			} else if (uri == null || uri.equals("/navigation/login")) {
 				goTo = "/login/login.jsp";
-			} else if (uri.equals("/hanaro-ERP-JSP/navigation/main")) {
+			} else if (uri.equals("/navigation/main")) {
 				goTo = "/main/main.jsp";
-			} else if (uri.equals("/hanaro-ERP-JSP/navigation/customer")) {
+			} else if (uri.equals("/navigation/customer")) {
 				goTo = "/customer/customerList.jsp";
-			} else if (uri.equals("/hanaro-ERP-JSP/navigation/customerRegist")) {
+			} else if (uri.equals("/navigation/customerRegist")) {
 				goTo = "/customer/customerRegist.jsp";
-			} else if (uri.equals("/hanaro-ERP-JSP/navigation/employee")) {
+			} else if (uri.equals("/navigation/employee")) {
 				goTo = "/employee/employeeList.jsp";
-			} else if (uri.equals("/hanaro-ERP-JSP/navigation/bank")) {
+			} else if (uri.equals("/navigation/bank")) {
 				goTo = "/employee/bankList.jsp";
-			} else if (uri.equals("/hanaro-ERP-JSP/navigation/loanList")) {
+			} else if (uri.equals("/navigation/loanList")) {
 				goTo = "/loan/loanProductList.jsp";
-			} else if (uri.equals("/hanaro-ERP-JSP/navigation/loanContract")) {
+			} else if (uri.equals("/navigation/loanContract")) {
 				goTo = "/loan/loanContractList.jsp";
-			} else if (uri.equals("/hanaro-ERP-JSP/navigation/loanRegistration")) {
+			} else if (uri.equals("/navigation/loanRegistration")) {
 				goTo = "/loan/productRegistration.jsp";
-			} else if (uri.equals("/hanaro-ERP-JSP/navigation/loanSubscription")) {
+			} else if (uri.equals("/navigation/loanSubscription")) {
 				goTo = "/loan/productSubscription.jsp";
-			} else if (uri.equals("/hanaro-ERP-JSP/navigation/depositList")) {
+			} else if (uri.equals("/navigation/depositList")) {
 				goTo = "/deposit/depositProductList.jsp";
-			} else if (uri.equals("/hanaro-ERP-JSP/navigation/depositCreation")) {
+			} else if (uri.equals("/navigation/depositCreation")) {
 				goTo = "/deposit/depositCreation.jsp";
 			} else {
 				goTo = "/main/main.jsp";

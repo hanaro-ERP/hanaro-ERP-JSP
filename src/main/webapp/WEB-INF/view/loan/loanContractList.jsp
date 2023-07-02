@@ -252,12 +252,12 @@
 			if (isCreated.equals("mod=1")) {
 				%>
 				alert("상품 가입에 성공했습니다.")
-				window.location.href = "/hanaro-ERP-JSP/navigation/loanContract";
+				window.location.href = "/navigation/loanContract";
 				<%
 			} else if (isCreated.equals("mod=-1")) {
 				%>
 				alert("상품 가입에 실패했습니다.")
-				window.location.href = "/hanaro-ERP-JSP/navigation/loanContract";
+				window.location.href = "/navigation/loanContract";
 				<%
 			}
 		}

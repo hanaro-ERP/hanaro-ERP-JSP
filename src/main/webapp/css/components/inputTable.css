@@ -103,8 +103,8 @@ td  select {
 }
 #show1 {
 	position: absolute;
-	margin-left: -60px;
-	margin-top: 0px;
+	margin-left: -44px;
+	margin-top: 7.5px;
 	font-size: 9px;
 	cursor: pointer;
 	color: grey;
@@ -113,7 +113,7 @@ td  select {
 }
 #show2 {
 	position: absolute;
-	margin-left: -47px;
+	margin-left: -48px;
 	margin-top: 7.5px;
 	font-size: 9px;
 	cursor: pointer;
