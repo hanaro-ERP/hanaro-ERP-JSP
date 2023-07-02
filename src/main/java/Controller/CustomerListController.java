@@ -64,40 +64,40 @@ public class CustomerListController extends HttpServlet {
 			String isOpen = request.getParameter("isOpen");
 
 			CustomerSearchDTO customerSearchDTO = new CustomerSearchDTO();
-			if (customerName != "")
+			if (!customerName.equals(""))
 				customerSearchDTO.setCustomerName(customerName);
-			if (customerEmployee != "")
+			if (!customerEmployee.equals(""))
 				customerSearchDTO.setEmployeeName(customerEmployee);
-			if (bankLocation != "")
+			if (!bankLocation.equals(""))
 				customerSearchDTO.setBankName(bankLocation);	
-			if (jobCode != "")
+			if (!jobCode.equals(""))
 				customerSearchDTO.setJobCode(jobCode);	
-			if (gender != "") 
+			if (!gender.equals("")) 
 				customerSearchDTO.setGender(customerUtil.convertGenderToBinary(gender));	
 				customerSearchDTO.setStrGender(gender);	
-			if (phoneNumber1 != "")
+			if (!phoneNumber1.equals(""))
 				customerSearchDTO.setPhoneNumber1(phoneNumber1);
-			if (phoneNumber2 != "")
+			if (!phoneNumber2.equals(""))
 				customerSearchDTO.setPhoneNumber2(phoneNumber2);
-			if (phoneNumber3 != "")
+			if (!phoneNumber3.equals(""))
 				customerSearchDTO.setPhoneNumber3(phoneNumber3);
-			if (identification1 != "")
+			if (!identification1.equals(""))
 				customerSearchDTO.setIdentification1(identification1);	
-			if (identification2 != "")
+			if (!identification2.equals(""))
 				customerSearchDTO.setIdentification2(identification2);	
-			if (customerAges.length > 0)
+			if (customerAges != null && customerAges.length > 0)
 				customerSearchDTO.setCustomerAges(customerAges);
-			if (customerGrades[0] != "")
+			if (!customerGrades[0].equals(""))
 				customerSearchDTO.setCustomerGrades(customerGrades);
-			if (customerCredits[0] != "")
+			if (!customerCredits[0].equals(""))
 				customerSearchDTO.setCustomerCredits(customerCredits);
-			if (country != "")
+			if (!country.equals(""))
 				customerSearchDTO.setCountry(country);
-			if (city != "")
+			if (!city.equals(""))
 				customerSearchDTO.setCity(city);
-			if (district != "")
+			if (!district.equals(""))
 				customerSearchDTO.setDistrict(district);
-			if (isOpen != "")
+			if (!isOpen.equals(""))
 				customerSearchDTO.setIsOpen(isOpen);
 			
 			int pageNo = 1;

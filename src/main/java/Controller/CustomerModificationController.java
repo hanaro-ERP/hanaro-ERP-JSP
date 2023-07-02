@@ -13,13 +13,15 @@ import javax.servlet.http.HttpSession;
 
 import DTO.CustomerDTO;
 import Service.CustomerService;
+import util.CustomerUtil;
 
 @WebServlet("/customer/modification")
 public class CustomerModificationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	CustomerService customerService = new CustomerService();
-	
+	CustomerUtil customerUtil = new CustomerUtil();
+
 	public CustomerModificationController() {
 		super();
 	}
@@ -43,12 +45,14 @@ public class CustomerModificationController extends HttpServlet {
 			CustomerDTO customer = customerService.getCustomerByCustomerId(id);
 			
 			String[] address = customer.getAddress().split(" ");
+			String phoneNumber = customer.getPhoneNumber().replace("-", "");
 			
 			if (address.length > 0)
 				customer.setCity(address[0]);
 			if (address.length > 1)
 				customer.setDistrict(address[1]);
 
+			customer.setPhoneNumber(phoneNumber);
 			customer.setCustomerId(id);
 			request.setAttribute("customer", customer);
 			
@@ -75,6 +79,10 @@ public class CustomerModificationController extends HttpServlet {
 			String employeeName = request.getParameter("employeeName");
 			String bank = request.getParameter("bank");
 
+			phoneNumber = phoneNumber.substring(0,3) + "-" + phoneNumber.substring(3,7) + "-" + phoneNumber.substring(7,11);
+			
+			int age = customerUtil.getAgeFromIdentification(userIdentification1);
+			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(userIdentification2.substring(0,1)));
 			
 			CustomerDTO customerDTO = new CustomerDTO();
 			
@@ -100,6 +108,8 @@ public class CustomerModificationController extends HttpServlet {
 				customerDTO.setBankName(bank);
 			
 			customerDTO.setCustomerId(customerId);
+			customerDTO.setGender(gender);
+			customerDTO.setAge(age);
 			int isCustomerModified = customerService.updateCustomer(customerDTO);
 			
 			request.setAttribute("isCustomerModified", isCustomerModified);

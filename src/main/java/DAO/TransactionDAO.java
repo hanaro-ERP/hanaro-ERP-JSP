@@ -123,6 +123,7 @@ public class TransactionDAO {
 	// Get transactions by accountId
 	public List<TransactionDTO> getTransactionListByAccountId(AccountDTO accountDTO, int page) {
 		StringBuilder queryBuilder = new StringBuilder("SELECT * FROM transactions where a_id = ?");
+		queryBuilder.append(" ORDER BY transaction_date DESC");
 		queryBuilder.append(" LIMIT 10 OFFSET ?");
 
 		List<TransactionDTO> transactions = new ArrayList<>();

@@ -19,7 +19,7 @@
 		<%
 			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer");
 			CustomerDTO inputData = (CustomerDTO) request.getAttribute("inputData");
-			String sessionName = (String)request.getSession().getAttribute("loginName");
+			String sessionName = (String) request.getSession().getAttribute("loginName");
 
 			String isCreated = request.getQueryString();
 			
@@ -31,16 +31,25 @@
 		%>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>고객 등록</h1></div>
-			<form action="${pageContext.request.contextPath}/customer/register" method="post" onsubmit="return validateForm()">
+			<form action="${pageContext.request.contextPath}/customer/register" method="post" onsubmit="return checkForm()">
 				<div class="innerSubTitle"><h2>고객 정보</h2></div>
 				<table class="inputTable">
  					<tr>
 						<th>이름</th>
 						<td><input id="customerName" name="customerName" class="middleInput" value="<%= inputData != null && inputData.getCustomerName() != null ? inputData.getCustomerName() : "" %>"/></td>
 						<th>전화번호</th>
-						<td><input id="phoneNumber" name="phoneNumber" class="middleInput" value="<%= inputData != null && inputData.getPhoneNumber() != null ? inputData.getPhoneNumber() : "" %>"/></td>
+						<td><input placeholder="'-' 는 제외해주세요." id="phoneNumber" name="phoneNumber" class="middleInput" value="<%= inputData != null && inputData.getPhoneNumber() != null ? inputData.getPhoneNumber() : "" %>"/></td>
 					</tr>
 					<tr>
+						<th>국가</th>
+						<td>
+							<select id="country" name="country" class="shortSelect">
+								<option value="대한민국">대한민국</option>
+								<option value="미국">미국</option>
+								<option value="중국">중국</option>
+								<option value="일본">일본</option>
+							</select>
+						</td>
 						<th>거주지</th>
 						<td>
 							<select id="citySelect" name="citySelect" class="innerSelectBox customerCity" onchange="changeCounty(this.selectedIndex);" style="width: 150px";>
@@ -64,15 +73,6 @@
 							</select>
 							<select name="district" class="select" id="districtSelect" style="width: 150px">
 								<option value="">-</option>
-							</select>
-						</td>
-						<th>국가</th>
-						<td>
-							<select id="country" name="country" class="shortSelect">
-								<option value="대한민국">대한민국</option>
-								<option value="미국">미국</option>
-								<option value="중국">중국</option>
-								<option value="일본">일본</option>
 							</select>
 						</td>
 					</tr>
@@ -170,12 +170,38 @@
 			<%
 		}
 		%>
-		
+		const phoneInput = document.getElementById("phoneNumber");
 		const customerIdentificationInput1 = document.getElementById("userIdentification1");
 		const customerIdentificationInput2 = document.getElementById("userIdentification2");
 		const guarantorIdentificationInput1 = document.getElementById("guarantorIdentification1");
 		const guarantorIdentificationInput2 = document.getElementById("guarantorIdentification2");
 
+		function checkResidentNumber(residentNumber) {
+		    var residentRegex = /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1]))-[1-4]\d{6}$/;
+		    return residentRegex.test(residentNumber);
+		}
+		
+		function checkPhoneNumber(phoneNumber) {
+		    var phoneRegex = /^\d{2,3}\d{3,4}\d{4}$/;
+		    return phoneRegex.test(phoneNumber);
+		}
+		
+		function checkForm() {
+			const ident = customerIdentificationInput1.value + "-" + customerIdentificationInput2.value;
+			if (!validateForm()) {
+				return false;
+			}
+			if (!checkResidentNumber(ident)) {
+				alert("주민번호를 확인해주세요.")
+				return false;
+			}
+			if (!checkPhoneNumber(phoneInput.value)) {
+				alert("전화번호를 확인해주세요.");
+				return false;
+			}
+			return true;
+		}
+		
 		var show1 = document.getElementById("show1");
 		var show2 = document.getElementById("show2");
 
@@ -223,10 +249,6 @@
 				show2.innerText = "HIDE";
 			}
 		}
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
 		
 		const findById = document.getElementById("findById");
 		const findResult = document.getElementById("findResult");
@@ -234,22 +256,12 @@
 		findResult.style.display = 'none';
 
 		const guarantorBox = document.getElementById("isGuarantor");
-<<<<<<< HEAD
-=======
 		const btn = document.getElementById("customerDetailButton");
->>>>>>> develop
 		
 		guarantorBox.addEventListener('change', function() {
 			if (guarantorBox.checked) {
 				guarantorIdentificationInput1.disabled = true; // findById 요소를 숨깁니다.
 				guarantorIdentificationInput2.disabled = true;
-<<<<<<< HEAD
-				document.getElementById("customerDetailButton").style.display = 'none';
-			} else {
-				guarantorIdentificationInput1.disabled = false; // findById 요소를 숨깁니다.
-				guarantorIdentificationInput2.disabled = false;
-				document.getElementById("customerDetailButton").style.display = 'inline';
-=======
 				btn.disabled = true;
 				show2.disabled = true;
 				btn.classList.add("disabled");
@@ -261,7 +273,6 @@
 				show2.disabled = false;
 				btn.classList.remove("disabled");
 				show2.classList.remove("disabled")
->>>>>>> develop
 			}
 		});
 		
@@ -343,7 +354,8 @@
 			}
 		}
 		%>
-	        
+	    
+	
 	</script>
 </body>
 </html>

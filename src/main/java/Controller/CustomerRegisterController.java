@@ -66,30 +66,30 @@ public class CustomerRegisterController extends HttpServlet {
 			String customerRank = request.getParameter("customerRank");
 			String creditRank = request.getParameter("creditRank");
 			
-			if(customerName != "")
+			if(!customerName.equals(""))
 				customerDTO.setCustomerName(customerName);
-			if(phoneNumber != "")
+			if(!phoneNumber.equals(""))
 				customerDTO.setPhoneNumber(phoneNumber);
-			if(citySelect != "")
+			if(!citySelect.equals(""))
 				customerDTO.setAddress(address);
-			if(identification != "") {
+			if(!identification.equals("")) {
 				customerDTO.setIdentification(identification);
 				customerDTO.setAge(age);
 				customerDTO.setGender(gender);
 			}
-			if(guarantor != "")
+			if(!guarantor.equals(""))
 				customerDTO.setGuarantor(guarantor);
-			if(jobCode != "")
+			if(!jobCode.equals(""))
 				customerDTO.setJobCode(jobCode);
-			if(country != "")
+			if(!country.equals(""))
 				customerDTO.setCountry(country);
-			if(employeeName != "")
+			if(!employeeName.equals(""))
 				customerDTO.setEmployeeName(employeeName);
-			if(bankName != "")
+			if(!bankName.equals(""))
 				customerDTO.setBankName(bankName);
-			if(customerRank != "")
+			if(!customerRank.equals(""))
 				customerDTO.setGrade(customerRank);
-			if(creditRank != "")
+			if(!creditRank.equals(""))
 				customerDTO.setCredit(creditRank);
 		
 			int isCustomerRegistered = customerService.registerCustomer(customerDTO);

@@ -1,5 +1,3 @@
-
-
 var repaymentAmountTotal = 0;
 var repaymentAmountArray = [];
 

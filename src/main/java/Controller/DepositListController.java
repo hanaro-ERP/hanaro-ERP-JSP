@@ -60,6 +60,7 @@ public class DepositListController extends HttpServlet {
 				String page = request.getParameter("page");
 				if (page != null && !page.equals(""))
 					pageNo = Integer.parseInt(page);
+				
 				int accountCount = AccountService.getAccountCount(accountSearchDTO);
 				accountSearchDTO.setCount(accountCount);
 				accountSearchDTO.setPage(pageNo);

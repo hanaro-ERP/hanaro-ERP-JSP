@@ -219,7 +219,7 @@ public class EmployeeDAO {
 		queryBuilder.append("WHERE 1=1 ");
 
 		if (employeeDTO.getEmployeeName() != null) {
-			queryBuilder.append("AND e.e_name = ?");
+			queryBuilder.append("AND e.e_name LIKE ?");
 		}
 		if (employeeDTO.getDepartment() != null) {
 			queryBuilder.append("AND e.department = ?");
@@ -236,7 +236,7 @@ public class EmployeeDAO {
 			int parameterIndex = 1;
 
 			if (employeeDTO.getEmployeeName() != null) {
-				pstmt.setString(parameterIndex++, employeeDTO.getEmployeeName());
+				pstmt.setString(parameterIndex++, "%" + employeeDTO.getEmployeeName() + "%");
 			}
 			if (employeeDTO.getDepartment() != null) {
 				pstmt.setString(parameterIndex++, employeeDTO.getDepartment());
@@ -265,7 +265,7 @@ public class EmployeeDAO {
 		queryBuilder.append("WHERE 1=1 ");
 
 		if (employeeDTO.getEmployeeName() != null) {
-			queryBuilder.append("AND e.e_name = ?");
+			queryBuilder.append("AND e.e_name LIKE ?");
 		}
 		if (employeeDTO.getDepartment() != null) {
 			queryBuilder.append("AND e.department = ?");
@@ -284,7 +284,7 @@ public class EmployeeDAO {
 			int parameterIndex = 1;
 
 			if (employeeDTO.getEmployeeName() != null) {
-				pstmt.setString(parameterIndex++, employeeDTO.getEmployeeName());
+				pstmt.setString(parameterIndex++, "%" + employeeDTO.getEmployeeName() + "%");
 			}
 			if (employeeDTO.getDepartment() != null) {
 				pstmt.setString(parameterIndex++, employeeDTO.getDepartment());
