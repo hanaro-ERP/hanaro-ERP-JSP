@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.*;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -28,13 +29,29 @@ public class LoanProductListController extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		getLoanProductListProcess(request, response);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		postLoanProductListProcess(request, response);
+	}
+	
+	protected void getLoanProductListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			List<LoanProductDTO> loanList = new ArrayList<>();
+			loanList = loanService.getLoanList();
+
+			request.setAttribute("loanProductList", loanList);
+			
+//			response.sendRedirect(request.getContextPath() + "/navigation/loanSubscription?mod=" + 1);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "/navigation/loanSubscription?mod=1");
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	protected void postLoanProductListProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import DAO.CustomerDAO;
 import DTO.CustomerDTO;
+import DTO.LoanProductDTO;
 import Service.CustomerService;
+import Service.LoanService;
 import util.EncryptUtil;
 import util.LoanUtil;
 
@@ -23,7 +25,7 @@ public class CustomerSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CustomerService customerService = new CustomerService();
 	CustomerDTO customer = new CustomerDTO();
-
+	LoanService loanService = new LoanService();
 	public CustomerSearchController() {
 		super();
 	}
@@ -135,6 +137,11 @@ public class CustomerSearchController extends HttpServlet {
 				request.setAttribute("msg", msg);
 			}
 
+			List<LoanProductDTO> loanList = new ArrayList<>();
+			loanList = loanService.getLoanList();
+
+			request.setAttribute("loanProductList", loanList);
+			
 			request.setAttribute("inputData", inputDTO);
 
 			if(request.getParameter("formId").equals("guarantorFind")) {
