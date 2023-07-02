@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+#isGuarantor {
+	width:17px;
+	height:17px;
+	border:2px solid #B0B8C1;
+	border-radius: 4px;
+	vertical-align:middle;
+}
 .customerDetailButton {
 	width: 80px;
 	height: 30px;

@@ -79,25 +79,12 @@
 					<tr>
 						<th>주민번호</th>
 						<td>
-<<<<<<< HEAD
-<<<<<<< HEAD
-							<input id="userIdentification1" name="userIdentification1" class="shortInput" maxlength="6" value="<%= inputData != null && inputData.getId1() != null ? inputData.getId1() : "" %>"/>
-								-
-							<input type="password" id="userIdentification2" name="userIdentification2" class="shortInput" maxlength="7" value="<%= inputData != null && inputData.getId2() != null ? inputData.getId2() : "" %>"/>
-=======
-							<input id="userIdentification1" name="userIdentification1" class="identification" maxlength="6" value="<%= inputData != null && inputData.getId1() != null ? inputData.getId1() : "" %>"/>
-								-
-							<input type="password" id="userIdentification2" name="userIdentification2" class="identification" maxlength="7" value="<%= inputData != null && inputData.getId2() != null ? inputData.getId2() : "" %>"/>
-							<button type="button" id="show1" onclick="showIdentification1()">SHOW</button>
->>>>>>> develop
-=======
 							<div>
 								<input id="userIdentification1" name="userIdentification1" class="identification" maxlength="6" value="<%= inputData != null && inputData.getId1() != null ? inputData.getId1() : "" %>"/>
 									-
 								<input type="password" id="userIdentification2" name="userIdentification2" class="identification" maxlength="7" value="<%= inputData != null && inputData.getId2() != null ? inputData.getId2() : "" %>"/>
 								<button type="button" id="show1" onclick="showIdentification1()">SHOW</button>
 							</div>
->>>>>>> develop
 						</td>
 						<th>직업</th>
 						<td>
@@ -145,8 +132,9 @@
 					</tr>
 					<tr>
 						<th>보증인</th>
-						<td colspan=4>
+						<td colspan=4>						
 						<div id="findById">
+							<input type="checkbox" id="isGuarantor">
 							<input id="guarantorIdentification1" name="identification1" class="identification" maxlength="6" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
 							-
 							<input type="password" id="guarantorIdentification2" id="key" name="identification2" class="identification" maxlength="7" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>"/>	
@@ -197,15 +185,15 @@
 		}
 
 		function openSearchPopup(frm) {
-			if (guarantorIdentificationInput1.value !== '' && guarantorIdentificationInput2.value !== '') {
+			//if (guarantorIdentificationInput1.value !== '' && guarantorIdentificationInput2.value !== '') {
 				frm.id = "guarantorFind";
 				frm.action="/customer/searchReturn?formId=" + frm.id;
 				frm.submit();
 				return true;
-			}
-			else {
-				alert("보증인의 주민번호를 입력해주세요.");
-			}
+			//}
+			//else {
+			//	alert("보증인의 주민번호를 입력해주세요.");
+			//}
 
 			if (document.getElementById("findById").style.display === "none") {
 				document.getElementById("findById").style.display = "inline"; // findById 요소를 보여줍니다.
@@ -235,11 +223,26 @@
 			}
 		}
 
+		
 		const findById = document.getElementById("findById");
 		const findResult = document.getElementById("findResult");
 		const gurantorName = document.getElementById("searchResultMessage");
 		findResult.style.display = 'none';
 
+		const guarantorBox = document.getElementById("isGuarantor");
+		
+		guarantorBox.addEventListener('change', function() {
+			if (guarantorBox.checked) {
+				guarantorIdentificationInput1.disabled = true; // findById 요소를 숨깁니다.
+				guarantorIdentificationInput2.disabled = true;
+				document.getElementById("customerDetailButton").style.display = 'none';
+			} else {
+				guarantorIdentificationInput1.disabled = false; // findById 요소를 숨깁니다.
+				guarantorIdentificationInput2.disabled = false;
+				document.getElementById("customerDetailButton").style.display = 'inline';
+			}
+		});
+		
 		if (gurantorName.value !== "") {
 			findById.style.display = 'none';
 			findResult.style.display = 'block';

@@ -56,7 +56,9 @@ public class CustomerRegisterController extends HttpServlet {
 
 			String identification = userId1 + "-" + userId2;
 			int age = customerUtil.getAgeFromIdentification(userId1);
-			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(userId1.substring(0,1)));
+			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(userId2.substring(0,1)));
+			
+			System.out.println(gender);
 			
 			String country = request.getParameter("country");
 			String jobCode = request.getParameter("job");
