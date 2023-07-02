@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>하나로여신관리시스템 - 직원 목록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/employee/employeeList.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
@@ -19,7 +19,6 @@
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<%
-			//이쪽 부분 script로 따로 옮기고싶은데 자꾸만 데이터 인식을 못해서 그냥 여기에 임시로 뒀습니다 왜 안될까요 ㅜ-ㅜ?
 			String[] storeNames = {
 			  "개포점", "가회점", "교남점", "금호점", "논현점", "대치점", "도곡점", "마장점", "무악점", "부암점",
 			  "상왕십리점", "서울숲점", "성수역점", "성수점", "성북점", "신사점", "신자양점", "신촌점", "압구정점",
@@ -78,12 +77,12 @@
 			<div class="searchTitle"><h1>검색 결과</h1><p><%= (employeeDTO != null && employeeDTO != null) ? "총 " + employeeDTO.getCount() + "개의 검색 결과가 있습니다." : "" %></p></div>
 			<table class="searchTable" id="employeeSearchTable">
 				<tr>
-					<th>직원 ID</th>
-					<th>소속 지점</th>
-					<th>이름</th>
-					<th>전화번호</th>
-					<th>부서</th>
-					<th>직책</th>
+					<th id="e_id">직원 ID</th>
+					<th id="b_id">소속 지점</th>
+					<th id="e_name">이름</th>
+					<th id="e_phone_no">전화번호</th>
+					<th id="department">부서</th>
+					<th id="position">직책</th>
 					<th>권한</th>
 				</tr>
 				<%

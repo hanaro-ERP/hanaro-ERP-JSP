@@ -21,7 +21,7 @@ searchTableRows.forEach((item, index) => {
 			var loanNameValue = loanName.innerHTML;
 			var customerNameValue = customerName.innerHTML;
 
-			window.open("/hanaro-ERP-JSP/loanContracts/repaymentList?id=" + idValue + "&loan=" + loanNameValue + "&customer=" + customerNameValue + "&page=1", "_blank", "width=1000,height=600");
+			window.open("/loanContracts/repaymentList?id=" + idValue + "&loan=" + loanNameValue + "&customer=" + customerNameValue + "&page=1", "_blank", "width=1000,height=600");
 		});
 	}
 });

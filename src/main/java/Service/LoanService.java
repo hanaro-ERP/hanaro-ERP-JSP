@@ -3,6 +3,7 @@ package Service;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import DAO.AccountDAO;
 import DAO.BankDAO;
 import DAO.CustomerDAO;
 import DAO.EmployeeDAO;
@@ -20,6 +21,14 @@ import DTO.RepaymentMethodDTO;
 import util.LoanUtil;
 
 public class LoanService {
+	EmployeeDAO employeeDAO = new EmployeeDAO();
+	BankDAO bankDAO = new BankDAO();
+	LoanProductDAO loanDAO = new LoanProductDAO();
+	AccountDAO accountDAO = new AccountDAO();
+	
+	CustomerDAO customerDAO = new CustomerDAO();
+	LoanContractDAO loanContractDAO = new LoanContractDAO();
+
 	public LoanService() {
 		
 	}
@@ -102,20 +111,13 @@ public class LoanService {
 		return loanRepaymentDTOList;
 	}
 	
-	public int subscriptionLoan(CustomerDTO customerDTO, LoanContractDTO loanContractDTO) {
+	public int subscriptionLoan(CustomerDTO customerDTO, LoanContractDTO loanContractDTO, String repaymentAmountList) {
 		LoanUtil loanUtil = new LoanUtil();
-		
-		EmployeeDAO employeeDAO = new EmployeeDAO();
-		BankDAO bankDAO = new BankDAO();
-		LoanProductDAO loanDAO = new LoanProductDAO();
-		
-		CustomerDAO customerDAO = new CustomerDAO();
-		LoanContractDAO loanContractDAO = new LoanContractDAO();
 		
 		int e_id = employeeDAO.getEmployeeIdByEmployeeName(customerDTO.getEmployeeName());
 		int l_id = loanDAO.getLoanIdByLoanName(loanContractDTO.getLoanName());
 		int c_id = customerDAO.getCustomerIdByCustomerName(customerDTO.getCustomerName());
-
+		int a_id = accountDAO.getAccountIdByCustomerId(c_id);
 		
 		//가입한 날의 일(day)구하여서 넣기
 		loanUtil.setDate(loanContractDTO);
@@ -123,7 +125,7 @@ public class LoanService {
 		//1. 이자율 이후 위험도로 변동생길 예정
 		//2. 연체 관련 값 계산
 		
-		int isLoanContract = loanContractDAO.insertLoanContract(loanContractDTO, l_id, c_id, e_id);
+		int isLoanContract = loanContractDAO.insertLoanContract(loanContractDTO, l_id, c_id, e_id, a_id , repaymentAmountList);
 		
 		return isLoanContract;
 	}
@@ -140,11 +142,10 @@ public class LoanService {
 		LoanProductDAO loanDAO = new LoanProductDAO();
 		LoanContractDAO loanContractDAO = new LoanContractDAO();
 		
-		int customerId = customerDAO.getCustomerIdByCustomerIdentificationId(identificationId);
+		CustomerDTO customerDTO = customerDAO.getCustomersByIdentification(identificationId);
 		int loanProductId = loanDAO.getLoanIdByLoanName(loanProductNameSelect);
 
-		System.out.println("SERVIECE  " +customerId + "   "+ loanProductId);
-		int isUpdated = loanContractDAO.updateRepaymentAmount(customerId, loanProductId, repaymentAmountList);
+		int isUpdated = loanContractDAO.updateRepaymentAmount(customerDTO.getCustomerId(), loanProductId, repaymentAmountList);
 	
 		
 		return isUpdated;

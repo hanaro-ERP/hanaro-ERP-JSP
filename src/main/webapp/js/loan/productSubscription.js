@@ -42,7 +42,6 @@ function changeLoan(add) {
 		collateralField.style.backgroundColor = "#fff";
 	}
 }
-
 var repaymentAmountTotal = 0;
 var repaymentAmountArray = [];
 

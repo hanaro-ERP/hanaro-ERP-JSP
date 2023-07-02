@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Deposit</title>
+<title>하나로여신관리시스템 - 계좌 목록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/deposit/depositProductList.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
@@ -19,7 +19,10 @@
 	<%@ include file="../../components/header.jsp" %>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
-		<% AccountSearchDTO accountSearchDTO = (AccountSearchDTO) request.getAttribute("accountDTO"); %>
+		<% 
+			AccountSearchDTO accountSearchDTO = (AccountSearchDTO) request.getAttribute("accountDTO"); 
+			String isCreated = request.getQueryString();
+		%>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>계좌 검색</h1></div>
 			<form onsubmit="return validateIdentification()" action="${pageContext.request.contextPath}/depositList/searchAccounts" method="post">
@@ -32,10 +35,11 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">주민번호</div>
-						<input id="identification1" name="identification1" 
+						<input id="identification1" name="identification1" maxlength="6"
 						class="innerMiddleInput2" value="<%= accountSearchDTO == null || accountSearchDTO.getIdentification1() == null ? "" : accountSearchDTO.getIdentification1() %>"></input>&nbsp;-&nbsp;
-						<input id="identification2" name="identification2" 
+						<input id="identification2" name="identification2" maxlength="7" type="password"
 						class="innerMiddleInput2" value="<%= accountSearchDTO == null || accountSearchDTO.getIdentification2() == null ? "" : accountSearchDTO.getIdentification2() %>"></input>
+						<button type="button" id="show" onclick="showIdentification()">SHOW</button>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">계좌 번호</div>
@@ -176,6 +180,22 @@
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/deposit/depositProductList.js"></script>
 	<script>
+		<% 
+		if (isCreated != null) {
+			if (isCreated.equals("mod=1")) {
+				%>
+				alert("계좌 개설에 성공했습니다.")
+				window.location.href = "/navigation/depositList";
+				<%
+			} else if (isCreated.equals("mod=-1")) {
+				%>
+				alert("계좌 개설에 실패했습니다.")
+				window.location.href = "/navigation/depositList";
+				<%
+			}
+		}
+		%>
+		
 		generateMenu('deposit', 'depositProductList');
 		
 		<%
@@ -197,6 +217,22 @@
 	}
 	 %>
 	<script>
+	const identificationNumber1 = document.getElementById("identification1");
+	const identificationNumber2 = document.getElementById("identification2");
+
+	var show = document.getElementById("show");
+
+	function showIdentification() {
+		if(identificationNumber2.type == "text") {
+			identificationNumber2.type = "password";
+			show.innerText = "SHOW";
+		}
+		else {
+			identificationNumber2.type = "text";
+			show.innerText = "HIDE";
+		}
+	}
+	
 	<%
 	if (type != null) {
 		%>

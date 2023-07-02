@@ -1,1 +1,1 @@
-<% response.sendRedirect("/hanaro-ERP-JSP/navigation/login"); %>
+<% response.sendRedirect("/navigation/login"); %>
