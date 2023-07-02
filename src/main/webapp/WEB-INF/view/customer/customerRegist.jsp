@@ -135,7 +135,8 @@
 						<td colspan=4>						
 						<div id="findById">
 						 	<input type="checkbox" id="isGuarantor">
-							<input id="guarantorIdentification1" name="identification1" class="identification" maxlength="6" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
+						 	보증인 없음
+							<input style="margin-left: 20px" id="guarantorIdentification1" name="identification1" class="identification" maxlength="6" value="<%= customer != null ? customer.getIdentification().substring(0, 6) : "" %>"/>
 							-
 							<input type="password" id="guarantorIdentification2" id="key" name="identification2" class="identification" maxlength="7" value="<%= customer != null ? customer.getIdentification().substring(7, 14) : "" %>"/>	
 							<button type="button" id="show2" onclick="showIdentification2()">SHOW</button>
@@ -222,7 +223,6 @@
 				show2.innerText = "HIDE";
 			}
 		}
-
 		
 		const findById = document.getElementById("findById");
 		const findResult = document.getElementById("findResult");
@@ -230,16 +230,23 @@
 		findResult.style.display = 'none';
 
 		const guarantorBox = document.getElementById("isGuarantor");
+		const btn = document.getElementById("customerDetailButton");
 		
 		guarantorBox.addEventListener('change', function() {
 			if (guarantorBox.checked) {
 				guarantorIdentificationInput1.disabled = true; // findById 요소를 숨깁니다.
 				guarantorIdentificationInput2.disabled = true;
-				document.getElementById("customerDetailButton").style.display = 'none';
+				btn.disabled = true;
+				show2.disabled = true;
+				btn.classList.add("disabled");
+				show2.classList.add("disabled");
 			} else {
 				guarantorIdentificationInput1.disabled = false; // findById 요소를 숨깁니다.
 				guarantorIdentificationInput2.disabled = false;
-				document.getElementById("customerDetailButton").style.display = 'inline';
+				btn.disabled = false;
+				show2.disabled = false;
+				btn.classList.remove("disabled");
+				show2.classList.remove("disabled")
 			}
 		});
 		
