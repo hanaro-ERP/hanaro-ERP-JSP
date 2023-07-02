@@ -1,3 +1,4 @@
+<%@page import="DTO.CustomerDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html>
@@ -52,12 +53,51 @@
 		<div class="innerInformationRowTitle">보증인</div>
 		<p>${customer.guarantor}</p>
 	</div>
+	<div class="modifyButtonBox">
+		<a class="modifyLoanButton" href="/customer/modification?id=${customer.customerId}" onclick="return confirmModify()">수정하기</a>
+	</div>
 </div>
 <script>
+	const isAdmin = "<%= request.getSession().getAttribute("isAdmin") %>";
+	
+	var btnBox = document.querySelector(".modifyButtonBox");
+	btnBox.style.display = 'none';
+	
+	if (isAdmin === "true") {
+		btnBox.style.display = 'flex';
+	} else {
+		btnBox.style.display = 'none';
+	}
+
+	function confirmModify() {
+		if (confirm("고객 정보를 수정하시겠습니까?")) {
+			return true; 
+		} else {
+			return false; 
+		}
+	}
+	
+	<% CustomerDTO customer = (CustomerDTO) request.getAttribute("customer"); %>
+	<%	String mod = customer.getMod(); %>
+	if ("<%= mod %>" !== null) {
+		if ("<%= mod %>" === "1") {
+			alert("고객 정보가 성공적으로 수정되었습니다.");
+			window.opener.location.href = "/navigation/loanList";
+		} else if ("<%= mod %>" === "-1") {
+			alert("고객 정보 수정에 실패하였습니다.");
+			window.opener.location.href = "/navigation/loanList";
+		}
+	}
+	
 	document.addEventListener('keydown', function(event) {
 		if (event.key === 'Escape') {
 			window.close();
 		}
+	});
+	
+	window.history.pushState(null, null, window.location.href);
+	window.addEventListener('popstate', function(event) {
+		window.history.pushState(null, null, window.location.href);
 	});
 </script>
 </body>

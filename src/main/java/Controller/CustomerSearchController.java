@@ -99,6 +99,7 @@ public class CustomerSearchController extends HttpServlet {
 			String userId2 = request.getParameter("userIdentification2");
 			
 			CustomerDTO inputDTO = new CustomerDTO();
+				
 			if(customerName != "")
 				inputDTO.setCustomerName(customerName);
 			if(phoneNumber != "")
@@ -143,8 +144,7 @@ public class CustomerSearchController extends HttpServlet {
 			} else if (request.getParameter("formId").equals("depositFind")) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/deposit/depositCreation.jsp");			
 				dispatcher.forward(request, response);
-			}
-			else {
+			} else {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");			
 				dispatcher.forward(request, response);
 			}

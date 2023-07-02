@@ -13,8 +13,6 @@
 	<% LoanProductDTO loanProduct =(LoanProductDTO) request.getAttribute("loanProduct"); %>
 	<% LoanUtil loanUtil = new LoanUtil(); %>
 	<% 	
-	String mod = loanProduct.getMod();
-
 	long income = loanProduct.getIncome();
 	long minAmount = loanProduct.getMinAmount();
 	long maxAmount = loanProduct.getMaxAmount(); 
@@ -90,6 +88,7 @@
 		}
 	}
 	
+	<%	String mod = loanProduct.getMod(); %>
 	if ("<%= mod %>" !== null) {
 		if ("<%= mod %>" === "1") {
 			alert("여신 상품이 성공적으로 수정되었습니다.");

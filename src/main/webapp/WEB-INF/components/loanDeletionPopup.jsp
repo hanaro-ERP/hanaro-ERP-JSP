@@ -20,7 +20,7 @@ if ("<%= del %>" !== null) {
 		window.opener.location.href = "/navigation/loanList";
 		window.close();
 	} else if ("<%= del %>" === "-1") {
-		alert("여신 상품이 삭제에 실패하였습니다.");
+		alert("여신 상품 삭제에 실패하였습니다.");
 		window.opener.location.href = "/navigation/loanList";
 		window.close();
 	}

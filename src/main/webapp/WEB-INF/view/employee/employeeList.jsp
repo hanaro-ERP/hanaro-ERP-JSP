@@ -92,7 +92,7 @@
 				if (findEmployee != null && !findEmployee.isEmpty()) {
 					for (EmployeeDTO employee : findEmployee) {
 					%>
-						<tr>
+						<tr class="noResultRow">
 							<td><%= employee.getEmployeeId() %></td>
 							<td><%= employee.getBankLocation() %></td>
 							<td><%= employee.getEmployeeName() %></td>
