@@ -43,7 +43,7 @@ public class IncomeEvaluator extends EvaluatorParent implements EvaluatorInterfa
 			score = 0;
 		}
 
-		return (int) (score * getWeightForDepositHistory());
+		return (int) (score * getWeightForField("INCOME"));
 	}
 
 }

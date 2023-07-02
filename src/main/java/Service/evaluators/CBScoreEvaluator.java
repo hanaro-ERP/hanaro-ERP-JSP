@@ -38,7 +38,7 @@ public class CBScoreEvaluator extends EvaluatorParent implements EvaluatorInterf
 			break;
 		}
 
-		return (int) (score * getWeightForCBScore());
+		return (int) (score * getWeightForField("CB_SCORE"));
 	}
 
 }
