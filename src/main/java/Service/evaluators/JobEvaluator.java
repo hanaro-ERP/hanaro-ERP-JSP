@@ -49,6 +49,6 @@ public class JobEvaluator extends EvaluatorParent implements EvaluatorInterface<
 			break;
 		}
 
-		return (int) (score * getWeightForJob());
+		return (int) (score * getWeightForField("JOB"));
 	}
 }

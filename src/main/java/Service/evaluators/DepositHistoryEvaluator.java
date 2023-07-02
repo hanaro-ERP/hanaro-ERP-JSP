@@ -45,7 +45,7 @@ public class DepositHistoryEvaluator extends EvaluatorParent implements Evaluato
 			score = 100;
 		}
 
-		return (int) (score * getWeightForDepositHistory());
+		return (int) (score * getWeightForField("DEPOSIT_HISTORY"));
 	}
 
 }

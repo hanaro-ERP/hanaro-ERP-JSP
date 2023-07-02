@@ -26,45 +26,4 @@ public class EvaluatorParent {
 	protected double getWeightForField(String field) {
 		return WEIGHTS.get(field);
 	}
-
-	protected double getWeightForAge() {
-		return getWeightForField("AGE");
-	}
-
-	protected double getWeightForCBScore() {
-		return getWeightForField("CB_SCORE");
-	}
-
-	protected double getWeightForDepositHistory() {
-		return getWeightForField("DEPOSIT_HISTORY");
-	}
-
-	protected double getWeightForGuarantor() {
-		return getWeightForField("GUARANTOR");
-	}
-
-	protected double getWeightForIncome() {
-		return getWeightForField("INCOME");
-	}
-
-	protected double getWeightForJob() {
-		return getWeightForField("JOB");
-	}
-
-	protected double getWeightForLoanBalance() {
-		return getWeightForField("LOAN_BALANCE");
-	}
-
-	protected double getWeightForLoanScale() {
-		return getWeightForField("LOAN_SCALE");
-	}
-
-	protected double getWeightForProperty() {
-		return getWeightForField("PROPERTY");
-	}
-
-	protected double getWeightForRepaymentHistory() {
-		return getWeightForField("REPAYMENT_HISTORY");
-	}
-
 }
