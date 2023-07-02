@@ -94,16 +94,16 @@ public class LoanContractController extends HttpServlet {
 				
 				LoanContractDTO loanContractDTO = new LoanContractDTO();	// 받은 값 저장
 				
-				if (!loanName.equals("")) {
+				if (loanName != null && !loanName.equals("")) {
 					loanContractDTO.setLoanName(loanName);
 				}				
-				if (!loanType.equals("")) {
+				if (loanType != null && !loanType.equals("")) {
 					loanContractDTO.setLoanType(loanType);
 				}				
-				if (!customerName.equals("")) {
+				if (customerName != null && !customerName.equals("")) {
 					loanContractDTO.setCustomerName(customerName);
 				}				
-				if (!employeeName.equals("")) {
+				if (employeeName != null && !employeeName.equals("")) {
 					loanContractDTO.setEmployeeName(employeeName);
 				}
 				
