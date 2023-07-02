@@ -120,25 +120,6 @@
 							<li id="price10000PlusLi"><input type="checkbox" value="10억원 이상" id="price100000plus">10억원 이상</li>
 						</ul>
 					</div>
-					<div class="innerInformationRow">
-						<div class="innerInformationRowTitle">연체</div>
-						<ul id="latePayment">
-							<li id="periodAllLi"><input type="checkbox" value="전체"
-								id="periodAll">전체</li>
-							<li id="periodNoneLi"><input type="checkbox" value="없음"
-								id="periodNone">없음</li>
-							<li id="period6Li"><input type="checkbox" value="~6개월"
-								id="period6">~6개월</li>
-							<li id="period12Li"><input type="checkbox" value="~1년"
-								id="period12">~1년</li>
-							<li id="period36Li"><input type="checkbox" value="~3년"
-								id="period36">~3년</li>
-							<li id="period60Li"><input type="checkbox" value="~5년"
-								id="period60">~5년</li>
-							<li id="period60plusLi"><input type="checkbox" value="5년 이상"
-								id="period60plus">5년이상</li>
-						</ul>
-					</div>
 				</div>
 				<div class="scrollTo"></div>
 				<div class="innerButtonContainer">
@@ -171,8 +152,8 @@
 								<td class="loanContractId"><%=dto.getLoanContractId()%></td>
 								<td><%=dto.getLoanType()%></td>
 								<td class="loanName"><%=dto.getLoanName()%></td>
-								<td class="customerName"><%=dto.getEmployeeName()%></td>
-								<td><%=dto.getCustomerName()%></td>
+								<td><%=dto.getEmployeeName()%></td>
+								<td class="customerName"><%=dto.getCustomerName()%></td>
 								<td><%= dto.getGuarantorName() != null ? dto.getGuarantorName() : "없음" %></td>
 								<td><%= dateString %></td>
 								<td><%=dto.getMaturityDateString()%></td>
@@ -364,33 +345,6 @@
 				
 				selectItem(balanceListLis[1], "balanceList");
 				toggleDirectInput(balanceListLis[1], true);
-			}
-			<%
-		}
-		%>
-		
-		const latePayment = document.getElementById('latePayment');
-		const latePaymentLis = latePayment.querySelectorAll('li');
-		selectItem(latePaymentLis[0], "latePayment");
-		console.log(<%= latePaymentPeriod %>);
-		<%
-		if (latePaymentPeriod != -2) {
-			%>
-			unselectItem(latePaymentLis[0]);
-			if ("<%= latePaymentPeriod %>" == -1) {
-				selectItem(latePaymentLis[0], "latePayment");
-			} else if ("<%= latePaymentPeriod %>" == 0) {
-				selectItem(latePaymentLis[1], "latePayment");
-			} else if ("<%= latePaymentPeriod %>" == 180) {
-				selectItem(latePaymentLis[2], "latePayment");
-			} else if ("<%= latePaymentPeriod %>" == 365) {
-				selectItem(latePaymentLis[3], "latePayment");
-			} else if ("<%= latePaymentPeriod %>" == 365 * 3) {
-				selectItem(latePaymentLis[4], "latePayment");
-			} else if ("<%= latePaymentPeriod %>" == 365 * 5) {
-				selectItem(latePaymentLis[5], "latePayment");
-			} else if ("<%= latePaymentPeriod %>" == 365 * 5 + 1) {
-				selectItem(latePaymentLis[6], "latePayment");
 			}
 			<%
 		}

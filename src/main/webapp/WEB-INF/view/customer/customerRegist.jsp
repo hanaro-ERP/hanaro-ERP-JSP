@@ -19,7 +19,7 @@
 		<%
 			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer");
 			CustomerDTO inputData = (CustomerDTO) request.getAttribute("inputData");
-			String sessionName = (String)request.getSession().getAttribute("loginName");
+			String sessionName = (String) request.getSession().getAttribute("loginName");
 
 			String isCreated = request.getQueryString();
 			
