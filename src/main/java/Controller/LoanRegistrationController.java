@@ -80,8 +80,8 @@ public class LoanRegistrationController extends HttpServlet {
 			int isLoanRegistered = loanService.registerLoanProduct(loanProductDTO);
 			
 			request.setAttribute("isLoanRegistered", isLoanRegistered);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/loan/productRegistration.jsp");
-			dispatcher.forward(request, response);
+
+			response.sendRedirect(request.getContextPath() + "/navigation/loanList?mod=" + isLoanRegistered);
 			} catch (Exception e) {
 			e.printStackTrace();
 		}

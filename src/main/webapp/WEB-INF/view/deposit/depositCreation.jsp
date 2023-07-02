@@ -25,13 +25,10 @@ pageEncoding="UTF-8"%>
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
 		<div class="innerContainer">
-		
 			<div class="innerTitle"><h1>계좌 개설</h1></div>
 			<% 
- 			String msg = (String) request.getAttribute("msg");
 			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer");
 			LoanProductDTO loanProduct = (LoanProductDTO) request.getAttribute("loanProductDTO");
-			
 			%>
 			<form action="${pageContext.request.contextPath}/deposit/creation" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle">
@@ -54,7 +51,6 @@ pageEncoding="UTF-8"%>
 						<input style="display:none" name="customerId" value="<%= customer != null ? customer.getCustomerId() : "" %>"/>					
 					</div>
 				</div>
-
 				<%    
                      String id1 = "";
                      String id2 = "";
@@ -123,7 +119,7 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 				</table>
-				<div class="innerSubTitle"><h2>계좌 정보</h2></div>
+				<div class="innerSubTitle2"><h2>계좌 정보</h2></div>
 				<table class="inputTable">
 					<tr>
 						<th>대출 구분</th>
@@ -152,7 +148,16 @@ pageEncoding="UTF-8"%>
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
-	<script>		
+	<script>
+		<%
+		String msg = (String)request.getAttribute("msg");
+		if (msg != null) {
+			%>
+			alert("가입되지 않은 주민등록번호입니다.")
+			<%
+		}
+		%>
+		
 		function generateAccountNumber() {
 			const accountNumberElement = document.getElementById("accountNumber");
 			const randomNumber = generateRandomNumber();

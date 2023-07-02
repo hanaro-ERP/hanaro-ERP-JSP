@@ -27,5 +27,10 @@ public class CustomerDTO {
 	private String bankName;
 	private String guarantor;
 	private String strGender;
+
 	private String jobName;
+	private String city;
+	private String district;
+	private String id1;
+	private String id2;
 }

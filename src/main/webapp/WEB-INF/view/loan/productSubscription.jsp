@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>상품 가입</title>
+<title>하나로여신관리시스템 - 상품 가입</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productSubscription.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
@@ -28,7 +28,6 @@ pageEncoding="UTF-8"%>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>상품 가입</h1></div>
 			<% 
- 			String msg = (String) request.getAttribute("msg");
 			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer");
 			LoanProductDTO loanProduct = (LoanProductDTO) request.getAttribute("loanProductDTO");
 			
@@ -47,7 +46,7 @@ pageEncoding="UTF-8"%>
 					</div>
 					<div id="findResult">
 						<% if (customer != null) { %>
-					       <%= customer.getCustomerName() %> 님의 검색결과입니다
+					       <%= customer.getCustomerName() %> 님의 검색결과입니다.
 					   <% } %>
 						<input name="guarantor" id="searchResultMessage" type="hidden" value="<%= customer != null ? customer.getCustomerName() : "" %>">
 						<button class="customerDetailButton" id="customerDetailButton" type="button" onclick="reSearch()"> 재검색 </button>						
@@ -121,23 +120,21 @@ pageEncoding="UTF-8"%>
 						</td>
 					</tr>
 				</table>
-				<div class="innerSubTitle" id="riskResult">
-					<h2 id="riskResultTitle">내부 위험도 결과</h2><button class="customerDetailButton" name="close" type="button" onclick="return riskCalcFunc(this.form);">계산하기</button>
+				<div class="innerSubTitle2" id="riskResult">
+					<h2 id="riskResultTitle">내부 신용 점수 결과</h2><button class="customerDetailButton" name="close" type="button" onclick="return riskCalcFunc(this.form);">계산하기</button>
 					<input id="checkOpen" name="isOpen" value="close"></input>
 				</div>
 				<div class="innerInformation" id="customerDetailInformation">
-					<div class="innerInformationRow">
-						<div class="innerInformationRowTitle">내부 위험도</div>
+					<div class="innerInformationRow" id="riskResultTable">
+						<div class="innerInformationRowTitle">내부 신용 점수</div>
 						<div id="innerRisk"></div>
-					</div>
-					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">이자율 적용</div>
 						<div id="interestRate2"></div>
-					<div class="innerInformationRowTitle">대출기간 적용</div>
+						<div class="innerInformationRowTitle">대출기간 적용</div>
 						<div id="loanPeriod2"></div>
-					</div>				
+					</div>			
 				</div>						
-				<div class="innerSubTitle"><h2>상품 정보 및 가입</h2></div>
+				<div class="innerSubTitle2"><h2>상품 정보 및 가입</h2></div>
 				<table class="inputTable">
 					<tr>
 						<th>대출 구분</th>
@@ -191,17 +188,12 @@ pageEncoding="UTF-8"%>
 				<div class="innerButtonContainer">					
 					<button type="submit" id="search">등록</button>
 				</div>
-			<!-- </form>
-
-			<form action="${pageContext.request.contextPath}/loan/repayment" method="post"> -->
 				<div id="repaymentMethodSelectTableDiv" style="display: none;">
 					<h2 id="repaymentMethodSelectTableTitle">상환 방법</h2>
 					<div id="repaymentAmountTotalDiv">
 
 						<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금	<p>
 						<p id="repaymentAmountTotal" style="display: none;"><p>
-						<button type="submit" id="updateRepaymentDB"
-							style="display: none;">확정</button>
 					</div>
 					<table class="searchTable" id="repaymentMethodSelectTable">
 						<tr>
@@ -227,6 +219,14 @@ pageEncoding="UTF-8"%>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
 	<script>
+		<%
+		String msg = (String)request.getAttribute("msg");
+		if (msg != null) {
+			%>
+			alert("가입되지 않은 주민등록번호입니다.")
+			<%
+		}
+		%>
 		
 		//고객정보
 		const customerDetailInformation = document.getElementById('customerDetailInformation');
@@ -272,26 +272,31 @@ pageEncoding="UTF-8"%>
 				
 				switch(score) {
 					case "1" :
-						addRate = "+0.2%";
+						addRate = "+0.3%";
 						addPeriod += "+1년"; //1년
 						break;
 					case "2" :
-						addRate = "0.1%";
+						addRate = "0.2%";
 						addPeriod += "+1년";
 						break;
 					case "3" :
+					case "4" :
 						addPeriod = "+1년";
-						break;
-					case "5" :
-						addRate = "-0.2%";
 						break;
 					case "6" :
 					case "7" :
-						addRate = "-0.3%";
-						addPeriod += "-1년";
+						addRate = "-0.1%";
 						break;
 					case "8" :
-						addRate = "-0.4%";
+						addRate = "-0.1%";
+						addPeriod += "-1년";
+						break;
+					case "9" :
+						addRate = "-0.2%";
+						addPeriod += "-1년";
+						break;
+					case "10" :
+						addRate = "-0.3%";
 						addPeriod += "-1년";
 						break;
 				}
@@ -305,7 +310,7 @@ pageEncoding="UTF-8"%>
 					loanPeriod2.innerHTML = "<%= addPeriod %>";
 			<% } else { %>
 					concealDetail();
-					alert("데이터가 부족합니다.");
+					alert("먼저 가입할 고객을 찾아주세요.");
 			<% } %>
 		}
 
@@ -320,7 +325,7 @@ pageEncoding="UTF-8"%>
 			    return true;
 			}
 			else
-				alert("주민번호를 입력해주세요.");
+				alert("가입할 고객의 주민번호를 입력해주세요.");
 		}
 		
 		var show = document.getElementById("show");
@@ -343,10 +348,10 @@ pageEncoding="UTF-8"%>
 		
 	    if (gurantorName.value !== "") {
 	    	findById.style.display = 'none';
-	    	findResult.style.display = 'block';
+	    	findResult.style.display = 'flex';
 	    }
 	    function reSearch() {
-	    	findById.style.display='block';
+	    	findById.style.display = 'flex';
 	    	findResult.style.display = 'none';
 	    }
 	</script>

@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', function() {
 	var menuItems = document.querySelectorAll('header ul a');
 	var currentAnchor = window.location.pathname;
-	console.log(currentAnchor);
+	
 	const menus = ["customer", "employee", "loan", "deposit"];
 
 	menuItems.forEach((item, index) => {

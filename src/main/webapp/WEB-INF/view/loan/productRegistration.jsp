@@ -4,7 +4,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>상품 가입</title>
+<title>하나로여신관리시스템 - 상품 가입</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
@@ -129,25 +129,8 @@ pageEncoding="UTF-8"%>
     	// 호출하여 함수 실행
     	toggleCollateralType();
 		generateMenu('loan', 'productRegistration');
-		
 	</script>
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productRegistration.js"></script>
-	<script>
-		<%
-			Integer isLoanRegistered = (Integer) request.getAttribute("isLoanRegistered");
-			if (isLoanRegistered != null) {
-			    if (isLoanRegistered != -1) {
-					%>
-					alert("여신 상품이 성공적으로 등록되었습니다.");
-					<%
-				} else {
-					%>
-					alert("여신 상품이 등록에 실패하였습니다.");
-					<%
-				}
-			}
-		%>
-	</script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>하나로여신관리시스템 - 고객 목록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/customerList.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
@@ -46,8 +46,9 @@
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">주민번호</div>
-						<input name="identificationNumber1" class="innerMiddleInput2" value="${customerInput.identification1}" maxlength="6"></input>&nbsp;-&nbsp;
-						<input name="identificationNumber2" class="innerMiddleInput2" value="${customerInput.identification2}" type="password" maxlength="7"></input>
+						<input id="identificationNumber1" name="identificationNumber1" class="innerMiddleInput2" value="${customerInput.identification1}" maxlength="6"></input>&nbsp;-&nbsp;
+						<input id="identificationNumber2" name="identificationNumber2" class="innerMiddleInput2" value="${customerInput.identification2}" type="password" maxlength="7"></input>
+						<button type="button" id="show" onclick="showIdentification()">SHOW</button>
 						<div class="innerInformationRowTitle">전화번호</div>
 						<input name="phoneNumber1" class="innerShortInput" value="${customerInput.phoneNumber1}" maxlength="3"></input>&nbsp;-&nbsp;
 						<input name="phoneNumber2" class="innerShortInput" value="${customerInput.phoneNumber2}" maxlength="4"></input>&nbsp;-&nbsp;
@@ -260,6 +261,40 @@
 	}
 	%>
 	<script>
+		const identificationNumber1 = document.getElementById("identificationNumber1");
+		const identificationNumber2 = document.getElementById("identificationNumber2");
+	
+		var show = document.getElementById("show");
+	
+		function showIdentification() {
+			if(identificationNumber2.type == "text") {
+				identificationNumber2.type = "password";
+				show.innerText = "SHOW";
+			}
+			else {
+				identificationNumber2.type = "text";
+				show.innerText = "HIDE";
+			}
+		}
+	
+		<% 
+		String isCreated = request.getQueryString();
+
+		if (isCreated != null) {
+			if (isCreated.equals("mod=1")) {
+				%>
+				alert("고객 등록에 성공했습니다.")
+				window.location.href = "/hanaro-ERP-JSP/navigation/customer";
+				<%
+			} else if (isCreated.equals("mod=-1")) {
+				%>
+				alert("고객 등록에 실패했습니다.")
+				window.location.href = "/hanaro-ERP-JSP/navigation/customer";
+				<%
+			}
+		}
+		%>
+	
 		<%
 		if (customerSearchDTO != null) {
 			%>
