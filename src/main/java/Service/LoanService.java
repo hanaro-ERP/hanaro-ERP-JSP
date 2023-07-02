@@ -33,6 +33,12 @@ public class LoanService {
 		
 	}
 	
+	public List<LoanProductDTO> getLoanList() {
+		LoanProductDAO loanProductDAO = new LoanProductDAO();
+		
+		return loanProductDAO.getLoans();
+	}
+	
 	public static int getLoanContractCount(LoanContractDTO loanContractDTO) {
 		LoanContractDAO loanContractDAO = new LoanContractDAO();
 		
