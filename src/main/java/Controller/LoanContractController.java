@@ -94,16 +94,16 @@ public class LoanContractController extends HttpServlet {
 				
 				LoanContractDTO loanContractDTO = new LoanContractDTO();	// 받은 값 저장
 				
-				if (loanName != "") {
+				if (!loanName.equals("")) {
 					loanContractDTO.setLoanName(loanName);
 				}				
-				if (loanType != "") {
+				if (!loanType.equals("")) {
 					loanContractDTO.setLoanType(loanType);
 				}				
-				if (customerName != "") {
+				if (!customerName.equals("")) {
 					loanContractDTO.setCustomerName(customerName);
 				}				
-				if (employeeName != "") {
+				if (!employeeName.equals("")) {
 					loanContractDTO.setEmployeeName(employeeName);
 				}
 				
@@ -155,7 +155,7 @@ public class LoanContractController extends HttpServlet {
 				loanContractDTO.setBalanceList(balanceList);
 				
 				int latePaymentPeriod = -1;	// 전체
-				if (latePaymentDate != "") {
+				if (!latePaymentDate.equals("")) {
 					if (latePaymentDate.contains("6개월")){
 						latePaymentPeriod = 180;
 					}

@@ -82,10 +82,10 @@
 	if ("<%= mod %>" !== null) {
 		if ("<%= mod %>" === "1") {
 			alert("고객 정보가 성공적으로 수정되었습니다.");
-			window.opener.location.href = "/navigation/loanList";
+			window.opener.location.href = "/navigation/customer";
 		} else if ("<%= mod %>" === "-1") {
 			alert("고객 정보 수정에 실패하였습니다.");
-			window.opener.location.href = "/navigation/loanList";
+			window.opener.location.href = "/navigation/customer";
 		}
 	}
 	

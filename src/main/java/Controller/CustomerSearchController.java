@@ -102,25 +102,25 @@ public class CustomerSearchController extends HttpServlet {
 			
 			CustomerDTO inputDTO = new CustomerDTO();
 				
-			if(customerName != "")
+			if(!customerName.equals(""))
 				inputDTO.setCustomerName(customerName);
-			if(phoneNumber != "")
+			if(!phoneNumber.equals(""))
 				inputDTO.setPhoneNumber(phoneNumber);
-			if(citySelect != "")
+			if(!citySelect.equals(""))
 				inputDTO.setCity(citySelect);
-			if(district != "")
+			if(!district.equals(""))
 				inputDTO.setDistrict(district);
-			if(country != "")
+			if(!country.equals(""))
 				inputDTO.setCountry(country);
-			if(jobCode != "")
+			if(!jobCode.equals(""))
 				inputDTO.setJobCode(jobCode);
-			if(customerRank != "")
+			if(!customerRank.equals(""))
 				inputDTO.setGrade(customerRank);
-			if(creditRank != "")
+			if(!creditRank.equals(""))
 				inputDTO.setCredit(creditRank);
-			if(userId1 != "")
+			if(!userId1.equals(""))
 				inputDTO.setId1(userId1);
-			if(userId2 != "")
+			if(!userId2.equals(""))
 				inputDTO.setId2(userId2);
 			
 			CustomerDTO customerDTO = customerService.getCustomerListByIdentification(id1+"-"+id2);

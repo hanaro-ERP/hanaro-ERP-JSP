@@ -44,12 +44,12 @@ public class BankListController extends HttpServlet {
 		
 		BankDTO bankDTO = new BankDTO();
 		
-		if(bankName != "")
+		if(!bankName.equals(""))
 			bankDTO.setBankName(bankName);
-		if(citySelect != "" ) {
+		if(!citySelect.equals("")) {
 			bankDTO.setCity(citySelect);
 			
-			if(districtSelect != "") {
+			if(!districtSelect.equals("")) {
 				location = citySelect + " " + districtSelect;
 				bankDTO.setLocation(location);
 				bankDTO.setDistrict(districtSelect);		

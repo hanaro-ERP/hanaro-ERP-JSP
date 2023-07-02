@@ -139,7 +139,7 @@ public class AccountDAO {
 		if (!accountSearchDTO.getCustomerName().equals("")) {
 			queryBuilder.append(" AND c.c_name LIKE ?");
 		}
-		if (accountSearchDTO.getIdentification1() != "" && accountSearchDTO.getIdentification2() != "") {
+		if (!accountSearchDTO.getIdentification1().equals("") && !accountSearchDTO.getIdentification2().equals("")) {
 			queryBuilder.append(" AND c.identification = ?");
 		}
 		if (!accountSearchDTO.getDepositType().equals("전체")) {
@@ -173,7 +173,7 @@ public class AccountDAO {
 			if (!accountSearchDTO.getCustomerName().equals("")) {
 				pstmt.setString(parameterIndex++, "%" + accountSearchDTO.getCustomerName() + "%");
 			}
-			if (accountSearchDTO.getIdentification1() != "" && accountSearchDTO.getIdentification2() != "") {
+			if (!accountSearchDTO.getIdentification1().equals("") && !accountSearchDTO.getIdentification2().equals("")) {
 				String identification = accountSearchDTO.getIdentification1() + "-" + accountSearchDTO.getIdentification2();
 				String EncryptedIdentification = encryptUtil.encrypt(identification);
 				pstmt.setString(parameterIndex++, EncryptedIdentification);
@@ -228,7 +228,7 @@ public class AccountDAO {
 		if (!accountSearchDTO.getCustomerName().equals("")) {
 			queryBuilder.append(" AND c.c_name LIKE ?");
 		}
-		if (accountSearchDTO.getIdentification1() != "" && accountSearchDTO.getIdentification2() != "") {
+		if (!accountSearchDTO.getIdentification1().equals("") && !accountSearchDTO.getIdentification2().equals("")) {
 			queryBuilder.append(" AND c.identification = ?");
 		}
 		if (!accountSearchDTO.getDepositType().equals("전체")) {
@@ -264,7 +264,7 @@ public class AccountDAO {
 			if (!accountSearchDTO.getCustomerName().equals("")) {
 				pstmt.setString(parameterIndex++, "%" + accountSearchDTO.getCustomerName() + "%");
 			}
-			if (accountSearchDTO.getIdentification1() != "" && accountSearchDTO.getIdentification2() != "") {
+			if (!accountSearchDTO.getIdentification1().equals("") && !accountSearchDTO.getIdentification2().equals("")) {
 				String identification = accountSearchDTO.getIdentification1() + "-" + accountSearchDTO.getIdentification2();
 				String EncryptedIdentification = encryptUtil.encrypt(identification);
 				pstmt.setString(parameterIndex++, EncryptedIdentification);
