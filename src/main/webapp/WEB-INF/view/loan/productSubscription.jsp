@@ -187,11 +187,11 @@ pageEncoding="UTF-8"%>
 						<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
 						<th>상환 방법</th>
 						<td colspan=3><select name="repaymentMethod"
-							class="shortSelect" id="repaymentMethod" onchange="updateTable()">
+							class="shortSelect" id="repaymentMethod" >
 								<option value="-">-</option>
-								<option value="원금만기일시상환">만기일시상환</option>
-								<option value="원금균등상환">원금균등분할상환</option>
-								<option value="원리금균등상환">원리금균등분할상환</option>
+								<option value="원금만기일시상환">원금만기일시상환</option>
+								<option value="원금균등상환">원금균등상환</option>
+								<option value="원리금균등상환">원리금균등상환</option>
 							</select>
 						</td>
 					</tr>
