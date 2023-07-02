@@ -100,3 +100,8 @@ tr td select {
     background: transparent;
     margin-left: 30px;
 }
+#riskResultTable {
+	display: flex;
+	justify-content: space-around;
+	padding-right: 200px;
+}

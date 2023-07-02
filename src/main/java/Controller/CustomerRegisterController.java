@@ -48,6 +48,7 @@ public class CustomerRegisterController extends HttpServlet {
 			String citySelect = request.getParameter("citySelect");
 			String district = request.getParameter("district");
 			String address = citySelect + " " + district;
+
 			String userId1 = request.getParameter("userIdentification1");
 			String userId2 = request.getParameter("userIdentification2");
 			
@@ -91,16 +92,11 @@ public class CustomerRegisterController extends HttpServlet {
 			if(creditRank != "")
 				customerDTO.setCredit(creditRank);
 		
-			int isLoanRegistered = customerService.registerCustomer(customerDTO);
+			int isCustomerRegistered = customerService.registerCustomer(customerDTO);
 			
 			request.setAttribute("customerDTO", customerDTO);
 			
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/view/customer/customerRegist.jsp");
-			dispatcher.forward(request, response);
-			
-			//response.sendRedirect(request.getContextPath() + "navigation/customerRegist?mod=" + isLoanRegistered);
-			
+			response.sendRedirect(request.getContextPath() + "/navigation/customer?mod=" + isCustomerRegistered);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

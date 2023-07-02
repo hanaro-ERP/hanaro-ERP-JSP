@@ -18,7 +18,7 @@ import Service.CustomerService;
 import util.EncryptUtil;
 import util.LoanUtil;
 
-@WebServlet(urlPatterns = {"/customerSearch", "/loan/searchReturn", "/deposit/searchReturn"})
+@WebServlet(urlPatterns = {"/customerSearch", "/customer/searchReturn", "/loan/searchReturn", "/deposit/searchReturn"})
 public class CustomerSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CustomerService customerService = new CustomerService();
@@ -59,7 +59,6 @@ public class CustomerSearchController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/customerSearch.jsp");
 
 			dispatcher.forward(request, response);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

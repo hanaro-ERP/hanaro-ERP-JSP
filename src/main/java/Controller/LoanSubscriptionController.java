@@ -138,9 +138,7 @@ public class LoanSubscriptionController extends HttpServlet {
 				List<RepaymentMethodDTO> repaymentMethodDTOList = loanService.getRepaymentMethod(identification);
 				request.setAttribute("repaymentMethod", repaymentMethodDTOList);
 
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/loan/productSubscription.jsp");
-				dispatcher.forward(request, response);
-				
+				response.sendRedirect(request.getContextPath() + "/navigation/loanContract?mod=" + isLoanRegistered);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
