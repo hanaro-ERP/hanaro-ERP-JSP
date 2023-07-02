@@ -40,7 +40,7 @@ public class LoanBalanceEvaluator extends EvaluatorParent implements EvaluatorIn
 			score = 100;
 		}
 
-		return (int) (score * getWeightForLoanBalance());
+		return (int) (score * getWeightForField("LOAN_BALANCE"));
 	}
 
 }

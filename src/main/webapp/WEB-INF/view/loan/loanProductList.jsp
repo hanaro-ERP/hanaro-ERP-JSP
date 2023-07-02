@@ -8,6 +8,7 @@
 <title>하나로여신관리시스템 - 여신 상품</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/loanProductList.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
 <body>
@@ -58,7 +59,7 @@
 							<li><input type="checkBox" value="예금" id="collateralDeposit">예금</li>
 							<li><input type="checkBox" value="적금" id="collateralDeposit">적금</li>
 							<li><input type="checkBox" value="주택" id="collateralMortgage">주택</li>
-							<li><input type="checkBox" value="전세자금" id="collateralJeonse">전세자금</li>
+							<li><input type="checkBox" value="신용보증서" id="collateralJeonse">신용보증서</li>
 						</ul>
 					</div>
 					<div class="innerInformationRow">
@@ -318,7 +319,7 @@
 						selectItem(loanProductCollateralLis[2], "loanProductCollateral");
 					} else if ("<%= collaterals[i] %>" === "주택") {
 						selectItem(loanProductCollateralLis[3], "loanProductCollateral");
-					} else if ("<%= collaterals[i] %>" === "전세자금") {
+					} else if ("<%= collaterals[i] %>" === "신용보증서") {
 						selectItem(loanProductCollateralLis[4], "loanProductCollateral");
 					}
 				<%

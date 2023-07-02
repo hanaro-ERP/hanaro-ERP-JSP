@@ -18,7 +18,15 @@
 	<%@ include file="../../components/header.jsp" %>	
 	<main>
 		<%@ include file="../../components/aside.jsp" %>
-		<% CustomerSearchDTO customerSearchDTO = (CustomerSearchDTO)request.getAttribute("customerSearchDTO"); %>
+		<% 
+		CustomerSearchDTO customerSearchDTO = (CustomerSearchDTO)request.getAttribute("customerSearchDTO"); 
+		String[] storeNames = {
+			"개포점", "가회점", "교남점", "금호점", "논현점", "대치점", "도곡점", "마장점", "무악점", "부암점",
+			"상왕십리점", "서울숲점", "성수역점", "성수점", "성북점", "신사점", "신자양점", "신촌점", "압구정점",
+			"역삼점", "옥수점", "왕십리점", "용답점", "이화점", "정릉점", "창신점", "청담사거리점", "청담점",
+			"청운효자점", "평창점", "하나로점"
+		};
+		%>
 		<div class="innerContainer">
 			<div class="innerTitle"><h1>고객 검색</h1></div>
 			<form action="${pageContext.request.contextPath}/customer/list" method="post">
@@ -26,33 +34,41 @@
 				<div class="innerInformation">
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">고객 이름</div>
-						<input name="customerName" class="innerSearchInput3" value="${customerInput.customerName}"></input>
+						<input name="customerName" class="innerSearchInput3" value="<%= (customerSearchDTO != null && customerSearchDTO.getCustomerName() != null) ? customerSearchDTO.getCustomerName() : "" %>"></input>
 						<div class="innerInformationRowTitle">직업 코드</div>
 						<select id="jobCode" name="jobCode" class="innerSelectBox">
-							<option value="">-</option>
-							<option value="job000">000</option>
-							<option value="job001">001</option>
+							<option value="" <%= customerSearchDTO != null && customerSearchDTO.getJobCode() != null && customerSearchDTO.getJobCode().equals("") ? "selected" : "" %>>-</option>
+							<option value="000" <%= customerSearchDTO != null && customerSearchDTO.getJobCode() != null && customerSearchDTO.getJobCode().equals("000") ? "selected" : "" %>>000</option>
+							<option value="001" <%= customerSearchDTO != null && customerSearchDTO.getJobCode() != null && customerSearchDTO.getJobCode().equals("001") ? "selected" : "" %>>001</option>
+							<option value="002" <%= customerSearchDTO != null && customerSearchDTO.getJobCode() != null && customerSearchDTO.getJobCode().equals("002") ? "selected" : "" %>>002</option>
+							<option value="003" <%= customerSearchDTO != null && customerSearchDTO.getJobCode() != null && customerSearchDTO.getJobCode().equals("003") ? "selected" : "" %>>003</option>
+							<option value="004" <%= customerSearchDTO != null && customerSearchDTO.getJobCode() != null && customerSearchDTO.getJobCode().equals("004") ? "selected" : "" %>>004</option>
+							<option value="005" <%= customerSearchDTO != null && customerSearchDTO.getJobCode() != null && customerSearchDTO.getJobCode().equals("005") ? "selected" : "" %>>005</option>
+							<option value="006" <%= customerSearchDTO != null && customerSearchDTO.getJobCode() != null && customerSearchDTO.getJobCode().equals("006") ? "selected" : "" %>>006</option>
+							<option value="007" <%= customerSearchDTO != null && customerSearchDTO.getJobCode() != null && customerSearchDTO.getJobCode().equals("007") ? "selected" : "" %>>007</option>
+							<option value="100" <%= customerSearchDTO != null && customerSearchDTO.getJobCode() != null && customerSearchDTO.getJobCode().equals("100") ? "selected" : "" %>>100</option>
 						</select>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">담당 직원</div>
-						<input name="customerEmployee" class="innerSearchInput3" value="${customerInput.employeeName}"></input>
+						<input name="customerEmployee" class="innerSearchInput3" value="<%= (customerSearchDTO != null && customerSearchDTO.getEmployeeName() != null) ? customerSearchDTO.getEmployeeName() : "" %>"></input>
 						<div class="innerInformationRowTitle">담당 지점</div>
-						<select id="bankLocation" name="bankLocation" class="innerSelectBox">
+						<select name="bankLocation" class="innerSelectBox">
 							<option value="">-</option>
-							<option value="성수점">성수점</option>
-							<option value="하나로점">하나로점</option>
+							<% for(String storeName : storeNames) { %> 
+							<option value="<%= storeName %>" <% if (customerSearchDTO != null && customerSearchDTO.getBankName() != null && storeName.equals(customerSearchDTO.getBankName())) { %>selected<% } %>><%= storeName %></option>
+						  	<% } %>
 						</select>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">주민번호</div>
-						<input id="identificationNumber1" name="identificationNumber1" class="innerMiddleInput2" value="${customerInput.identification1}" maxlength="6"></input>&nbsp;-&nbsp;
-						<input id="identificationNumber2" name="identificationNumber2" class="innerMiddleInput2" value="${customerInput.identification2}" type="password" maxlength="7"></input>
+						<input id="identificationNumber1" name="identificationNumber1" class="innerMiddleInput2" value="<%= (customerSearchDTO != null && customerSearchDTO.getIdentification1() != null) ? customerSearchDTO.getIdentification1() : "" %>" maxlength="6"></input>&nbsp;-&nbsp;
+						<input id="identificationNumber2" name="identificationNumber2" class="innerMiddleInput2" value="<%= (customerSearchDTO != null && customerSearchDTO.getIdentification2() != null) ? customerSearchDTO.getIdentification2() : "" %>" type="password" maxlength="7"></input>
 						<button type="button" id="show" onclick="showIdentification()">SHOW</button>
 						<div class="innerInformationRowTitle">전화번호</div>
-						<input name="phoneNumber1" class="innerShortInput" value="${customerInput.phoneNumber1}" maxlength="3"></input>&nbsp;-&nbsp;
-						<input name="phoneNumber2" class="innerShortInput" value="${customerInput.phoneNumber2}" maxlength="4"></input>&nbsp;-&nbsp;
-						<input name="phoneNumber3" class="innerShortInput" value="${customerInput.phoneNumber3}" maxlength="4"></input>
+						<input name="phoneNumber1" class="innerShortInput" value="<%= (customerSearchDTO != null && customerSearchDTO.getPhoneNumber1() != null) ? customerSearchDTO.getPhoneNumber1() : "" %>" maxlength="3"></input>&nbsp;-&nbsp;
+						<input name="phoneNumber2" class="innerShortInput" value="<%= (customerSearchDTO != null && customerSearchDTO.getPhoneNumber2() != null) ? customerSearchDTO.getPhoneNumber2() : "" %>" maxlength="4"></input>&nbsp;-&nbsp;
+						<input name="phoneNumber3" class="innerShortInput" value="<%= (customerSearchDTO != null && customerSearchDTO.getPhoneNumber3() != null) ? customerSearchDTO.getPhoneNumber3() : "" %>" maxlength="4"></input>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">나이</div>
@@ -113,34 +129,34 @@
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">소속 국가</div>
 						<select id="countrySelect" name="country" class="innerSelectBox">
-							<option value="">-</option>
-							<option value="대한민국">대한민국</option>
-							<option value="미국">미국</option>
-							<option value="중국">중국</option>
-							<option value="일본">일본</option>
+							<option value="" <%= customerSearchDTO != null && customerSearchDTO.getCountry() != null && customerSearchDTO.getCountry().equals("") ? "selected" : "" %>>-</option>
+							<option value="대한민국" <%= customerSearchDTO != null && customerSearchDTO.getCountry() != null && customerSearchDTO.getCountry().equals("대한민국") ? "selected" : "" %>>대한민국</option>
+							<option value="미국" <%= customerSearchDTO != null && customerSearchDTO.getCountry() != null && customerSearchDTO.getCountry().equals("미국") ? "selected" : "" %>>미국</option>
+							<option value="중국" <%= customerSearchDTO != null && customerSearchDTO.getCountry() != null && customerSearchDTO.getCountry().equals("중국") ? "selected" : "" %>>중국</option>
+							<option value="일본" <%= customerSearchDTO != null && customerSearchDTO.getCountry() != null && customerSearchDTO.getCountry().equals("일본") ? "selected" : "" %>>일본</option>
 						</select>
 					</div>
 					<div class="innerInformationRow">
 						<div class="innerInformationRowTitle">거주지</div>
 						<div class="innerInformationRowSubtitle">시·도</div>
 						<select id="citySelect" name="city" class="innerSelectBox2 customerCity" onchange="changeCounty(this.selectedIndex);">
-							<option value="">-</option>
-						    <option value="서울특별시">서울특별시</option>
-						    <option value="부산광역시">부산광역시</option>
-						    <option value="대구광역시">대구광역시</option>
-						    <option value="인천광역시">인천광역시</option>
-						    <option value="광주광역시">광주광역시</option>
-						    <option value="대전광역시">대전광역시</option>
-						    <option value="울산광역시">울산광역시</option>
-						    <option value="경기도">경기도</option>
-						    <option value="강원도">강원도</option>
-						    <option value="충청북도">충청북도</option>
-						    <option value="충청남도">충청남도</option>
-						    <option value="전라북도">전라북도</option>
-						    <option value="전라남도">전라남도</option>
-						    <option value="경상북도">경상북도</option>
-						    <option value="경상남도">경상남도</option>
-						    <option value="제주도">제주도</option>
+							<option value="" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("") ? "selected" : "" %>>-</option>
+						    <option value="서울특별시" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("서울특별시") ? "selected" : "" %>>서울특별시</option>
+						    <option value="부산광역시" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("부산광역시") ? "selected" : "" %>>부산광역시</option>
+						    <option value="대구광역시" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("대구광역시") ? "selected" : "" %>>대구광역시</option>
+						    <option value="인천광역시" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("인천광역시") ? "selected" : "" %>>인천광역시</option>
+						    <option value="광주광역시" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("광주광역시") ? "selected" : "" %>>광주광역시</option>
+						    <option value="대전광역시" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("대전광역시") ? "selected" : "" %>>대전광역시</option>
+						    <option value="울산광역시" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("울산광역시") ? "selected" : "" %>>울산광역시</option>
+						    <option value="경기도" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("경기도") ? "selected" : "" %>>경기도</option>
+						    <option value="강원도" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("강원도") ? "selected" : "" %>>강원도</option>
+						    <option value="충청북도" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("충청북도") ? "selected" : "" %>>충청북도</option>
+						    <option value="충청남도" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("충청남도") ? "selected" : "" %>>충청남도</option>
+						    <option value="전라북도" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("전라북도") ? "selected" : "" %>>전라북도</option>
+						    <option value="전라남도" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("전라남도") ? "selected" : "" %>>전라남도</option>
+						    <option value="경상북도" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("경상북도") ? "selected" : "" %>>경상북도</option>
+						    <option value="경상남도" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("경상남도") ? "selected" : "" %>>경상남도</option>
+						    <option value="제주도" <%= customerSearchDTO != null && customerSearchDTO.getCity() != null && customerSearchDTO.getCity().equals("제주도") ? "selected" : "" %>>제주도</option>
 						</select>
 						<div class="innerInformationRowSubtitle">시·군·구</div>
 						<select id="districtSelect" name="district" class="select">
@@ -302,23 +318,11 @@
 			<%
 		}
 		%>
-		
-		const jobCode = document.getElementById('jobCode');
-		jobCode.value = "${customerInput.jobCode}";
-		
-		const bankLocation = document.getElementById('bankLocation');
-		bankLocation.value = "${customerInput.bankName}";
-		
-		const countrySelect = document.getElementById('countrySelect');
-		countrySelect.value = "${customerInput.country}";
 
-		const citySelect = document.getElementById('citySelect');
-		citySelect.value = "${customerInput.city}";
-		
 		changeCounty(citySelect.selectedIndex);
 		
 		const districtSelect = document.getElementById('districtSelect');
-		districtSelect.value = "${customerInput.district}";
+		districtSelect.value = "<%= customerSearchDTO != null && customerSearchDTO.getDistrict() != null ? customerSearchDTO.getDistrict() : "" %>";
 		
 		<%
 		if (isOpen != null) {

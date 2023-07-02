@@ -65,7 +65,7 @@
 				<th>연수입</th>
 				<td>
 					&nbsp;연
-					<input type="number" name="loanIncome" class="shortInput" min="1" max="99999"  value="<%= income %>"/>
+					<input type="number" name="loanIncome" class="shortInput" min="0" value="<%= income %>"/>
 					만원
 				</td>
 			</tr>
@@ -73,9 +73,9 @@
 				<th>대출 금액</th>
 				<td>
 					&nbsp;최소
-					<input id="loanMinLimitId" name="loanMinLimit" class="shortInput" type="number" min="1" max="99999" step="1" value="<%= minAmount %>" />&nbsp;만원
+					<input id="loanMinLimitId" name="loanMinLimit" class="shortInput" type="number" min="0" step="1" value="<%= minAmount %>" />&nbsp;만원
 					&nbsp;&nbsp;&nbsp;최대
-					<input id="loanMaxLimitId" name="loanMaxLimit" class="shortInput" type="number" min="1" max="99999" step="1" value="<%= maxAmount %>" />&nbsp;만원
+					<input id="loanMaxLimitId" name="loanMaxLimit" class="shortInput" type="number" min="0" step="1" value="<%= maxAmount %>" />&nbsp;만원
 				</td>
 				<th>대출 기간</th>
 				<td>
@@ -89,9 +89,9 @@
 				<th>대출 이율</th>
 				<td>
 					&nbsp;최소
-					<input id="loanMinRateId" name="loanMinRate" class="shortInput" type="number" min="0" max="10" step="0.001" value="<%= minRate %>"/>&nbsp;%
+					<input id="loanMinRateId" name="loanMinRate" class="shortInput" type="number" min="0" step="0.001" value="<%= minRate %>"/>&nbsp;%
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;최대
-					<input id="loanMaxRateId" name="loanMaxRate" class="shortInput" type="number" min="0" max="10" step="0.001" value="<%= maxRate %>"/>&nbsp;%
+					<input id="loanMaxRateId" name="loanMaxRate" class="shortInput" type="number" min="0" step="0.001" value="<%= maxRate %>"/>&nbsp;%
 				</td>
 			</tr>
 		</table>

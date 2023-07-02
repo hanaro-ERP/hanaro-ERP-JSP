@@ -42,7 +42,6 @@ public class DepositCreationController extends HttpServlet {
 			String customerId = request.getParameter("customerId");
 			String depositType = request.getParameter("depositType");
 			String accountNumber = request.getParameter("accountNumber");
-			System.out.println(accountNumber);
 			AccountDTO accountDTO = new AccountDTO();
 			
 			accountDTO.setCustomerId(Integer.parseInt(customerId));

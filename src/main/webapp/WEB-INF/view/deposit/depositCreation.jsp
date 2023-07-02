@@ -147,7 +147,6 @@ pageEncoding="UTF-8"%>
 	</script>
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
-	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
 	<script>
 		<%
 		String msg = (String)request.getAttribute("msg");

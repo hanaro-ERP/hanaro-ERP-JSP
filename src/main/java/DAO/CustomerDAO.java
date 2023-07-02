@@ -391,6 +391,7 @@ public class CustomerDAO {
 			}
 			pstmt.setInt(parameterIndex++, (page-1)*20);
 			
+			System.out.println(pstmt);
 			List<CustomerDTO> findCustomers = new ArrayList<>();
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {

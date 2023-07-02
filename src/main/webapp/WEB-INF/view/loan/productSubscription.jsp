@@ -235,7 +235,7 @@ pageEncoding="UTF-8"%>
 	    }
 		
 		<% 
-		if(mod != "" && loanProductList != null) { //if (loanProductList != null) {
+		if(!mod.equals("") && loanProductList != null) { //if (loanProductList != null) {
 		%>
 			document.body.removeAttribute('onload');
 		<%
@@ -375,7 +375,7 @@ pageEncoding="UTF-8"%>
 			}
 			%>
 			
-			<% if(cName != "") { %>
+			<% if(!cName.equals("")) { %>
 					revealDetail();
 					innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";				
 					interestRate2.innerHTML = "<%= addRate %>";

@@ -234,7 +234,7 @@ public class LoanContractDAO {
 			if (loanContractDTO.getBalanceRange()[0] >= 10000) {
 				queryBuilder.append(" AND lc.balance >= ?");
 			} else {
-				queryBuilder.append(" AND lc.balance >= ? AND lc.balance < ?");
+				queryBuilder.append(" AND lc.balance >= ? AND lc.balance <= ?");
 			}
 		}
 		
@@ -244,16 +244,16 @@ public class LoanContractDAO {
 			int parameterIndex = 1;
 
 			if (loanContractDTO.getLoanName() != null) {
-	            pstmt.setString(parameterIndex++, "%"+ loanContractDTO.getLoanName()+ "%");
+	            pstmt.setString(parameterIndex++, "%" + loanContractDTO.getLoanName() + "%");
 	        }
 	        if (loanContractDTO.getLoanType() != null) {
 	            pstmt.setString(parameterIndex++,  loanContractDTO.getLoanType() );
 	        }
 	        if (loanContractDTO.getCustomerName() != null) {
-	            pstmt.setString(parameterIndex++,  loanContractDTO.getCustomerName() );
+	            pstmt.setString(parameterIndex++, "%" + loanContractDTO.getCustomerName() + "%");
 	        }
 	        if (loanContractDTO.getEmployeeName() != null) {
-	            pstmt.setString(parameterIndex++,  loanContractDTO.getEmployeeName() );
+	            pstmt.setString(parameterIndex++,  "%" + loanContractDTO.getEmployeeName() + "%");
 	        } 
 			if (loanContractDTO.getStartDateString() != null && !loanContractDTO.getStartDateString()[0].equals("전체")) {
 				if (loanContractDTO.getStartDateString()[1].equals(""))
@@ -328,7 +328,7 @@ public class LoanContractDAO {
 			if (loanContractDTO.getBalanceRange()[0] >= 10000) {
 				queryBuilder.append(" AND lc.balance >= ?");
 			} else {
-				queryBuilder.append(" AND lc.balance >= ? AND lc.balance < ?");
+				queryBuilder.append(" AND lc.balance >= ? AND lc.balance <= ?");
 			}
 		}
 		queryBuilder.append(" LIMIT 20 OFFSET ?");
@@ -345,10 +345,10 @@ public class LoanContractDAO {
 				pstmt.setString(parameterIndex++, loanContractDTO.getLoanType());
 			}
 			if (loanContractDTO.getCustomerName() != null) {
-				pstmt.setString(parameterIndex++, loanContractDTO.getCustomerName());
+				pstmt.setString(parameterIndex++, "%" + loanContractDTO.getCustomerName() + "%");
 			}
 			if (loanContractDTO.getEmployeeName() != null) {
-				pstmt.setString(parameterIndex++, loanContractDTO.getEmployeeName());
+				pstmt.setString(parameterIndex++, "%" + loanContractDTO.getEmployeeName() + "%");
 			}
 			if (loanContractDTO.getStartDateString() != null && !loanContractDTO.getStartDateString()[0].equals("전체")) {
 				if (loanContractDTO.getStartDateString()[1].equals(""))

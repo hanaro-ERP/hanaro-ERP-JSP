@@ -75,30 +75,30 @@ public class LoanSubscriptionController extends HttpServlet {
 				String customerRank = request.getParameter("grade");
 				String creditRank = request.getParameter("credit");
 				
-				if(customerName != "")
+				if(!customerName.equals(""))
 					customerDTO.setCustomerName(customerName);
-				if(phoneNumber != "")
+				if(!phoneNumber.equals(""))
 					customerDTO.setPhoneNumber(phoneNumber);
-				if(address != "")
+				if(!address.equals(""))
 					customerDTO.setAddress(address);
-				if(identification != "") {
+				if(!identification.equals("")) {
 					customerDTO.setIdentification(identification);
 					customerDTO.setAge(age);
 					customerDTO.setGender(gender);
 				}
-				if(suretyName != "")
+				if(!suretyName.equals(""))
 					customerDTO.setGuarantor(suretyName);
-				if(jobCode != "")
+				if(!jobCode.equals(""))
 					customerDTO.setJobCode(jobCode);
-				if(country != "")
+				if(!country.equals(""))
 					customerDTO.setCountry(country);
-				if(employeeName != "")
+				if(!employeeName.equals(""))
 					customerDTO.setEmployeeName(employeeName);
-				if(bankName != "")
+				if(!bankName.equals(""))
 					customerDTO.setBankName(bankName);
-				if(customerRank != "")
+				if(!customerRank.equals(""))
 					customerDTO.setGrade(customerRank);
-				if(creditRank != "")
+				if(!creditRank.equals(""))
 					customerDTO.setCredit(creditRank);
 							
 				//상품정보
