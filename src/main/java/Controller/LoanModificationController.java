@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import DTO.LoanProductDTO;
 import Service.LoanService;
 
-@WebServlet("/loan/modification")
+@WebServlet(urlPatterns = {"/loan/modification", "/loan/deletion"})
 public class LoanModificationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -36,14 +36,24 @@ public class LoanModificationController extends HttpServlet {
 	
 	private void getLoanModificationProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			String urlPattern = request.getServletPath();
+
 			int id = Integer.parseInt(request.getParameter("id"));
-			LoanProductDTO loanProduct = loanService.getLoanProductDetail(id);
 			
-			loanProduct.setLoanId(id);
-			request.setAttribute("loanProduct", loanProduct);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/components/loanModificationPopup.jsp");
-			dispatcher.forward(request, response);
+			if ("/loan/modification".equals(urlPattern)) {
+				LoanProductDTO loanProduct = loanService.getLoanProductDetail(id);
+				
+				loanProduct.setLoanId(id);
+				request.setAttribute("loanProduct", loanProduct);
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("../WEB-INF/components/loanModificationPopup.jsp");
+				dispatcher.forward(request, response);
+			} else {
+				int isDeleted = loanService.deleteLoanProduct(id);
+				
+				request.setAttribute("isDeleted", isDeleted);
+				response.sendRedirect(request.getContextPath() + "/loanDetail?id=" + id + "&del=" + isDeleted);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

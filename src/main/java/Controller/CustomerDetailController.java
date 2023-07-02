@@ -38,10 +38,21 @@ public class CustomerDetailController extends HttpServlet {
 			String id = request.getParameter("id");
 			CustomerDTO customer = customerService.getCustomerDetail(Integer.parseInt(id));
 			
+			String mod = request.getParameter("mod");
+			String del = request.getParameter("del");
+			customer.setMod(mod);
+			customer.setDel(del);
+			
 			request.setAttribute("customer", customer);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/customerInfo.jsp");
-			dispatcher.forward(request, response);
+			if (del != null) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/customerPopup/customerDeletion.jsp");
+				dispatcher.forward(request, response);
+			}
+			else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/components/customerPopup/customerInfo.jsp");
+				dispatcher.forward(request, response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
