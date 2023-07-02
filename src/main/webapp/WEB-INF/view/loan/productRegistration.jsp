@@ -49,16 +49,16 @@ pageEncoding="UTF-8"%>
 						<td>
 							&nbsp;연
 							<input type="number" name="loanIncome"  type="number" min="0" max="99999"  class="shortInput"/>
-							천만원
+							만원
 						</td>
 					</tr>
 					<tr>
 						<th>대출 금액</th>
 						<td>
 							&nbsp;최소
-							<input id="loanMinLimitId" name="loanMinLimit" class="shortInput" type="number" min="0" max="99999" step="1" />&nbsp;천만원
+							<input id="loanMinLimitId" name="loanMinLimit" class="shortInput" type="number" min="0" max="99999" step="1" />&nbsp;만원
 							&nbsp;&nbsp;&nbsp;최대
-							<input id="loanMaxLimitId" name="loanMaxLimit" class="shortInput" type="number" min="0" max="99999" step="1" />&nbsp;천만원
+							<input id="loanMaxLimitId" name="loanMaxLimit" class="shortInput" type="number" min="0" max="99999" step="1" />&nbsp;만원
 						</td>
 						<th>대출 기간</th>
 						<td>
@@ -120,7 +120,7 @@ pageEncoding="UTF-8"%>
 						<option value="예금">예금</option>
 						<option value="적금">적금</option>
 						<option value="주택">주택</option>
-						<option value="전세자금">전세자금</option>
+						<option value="신용보증서">신용보증서</option>
 					`;
 				}
 			});
