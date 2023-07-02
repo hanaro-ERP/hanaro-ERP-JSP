@@ -219,24 +219,24 @@ public class CustomerDAO {
 	}
 
 	// Update a customer
-	public int updateCustomer(CustomerDTO customer) {
-		String SQL = "UPDATE customers SET e_id = ?, b_id = ?, customer_name = ?, grade = ?, age = ?, gender = ?, "
-				+ "phone_number = ?, address = ?, job_code = ?, country = ?, disability = ?, credit = ? "
+	public int updateCustomer(CustomerDTO customer, int e_id, int b_id) {
+		String SQL = "UPDATE customers SET e_id = ?, b_id = ?, c_name = ?, identification = ?,  grade = ?, age = ?, gender = ?, "
+				+ "phone_no = ?, address = ?, job_code = ?, country = ?, credit = ? "
 				+ "WHERE c_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			pstmt.setInt(1, customer.getCustomerId());
-			pstmt.setInt(2, customer.getEmployeeId());
-			pstmt.setInt(3, customer.getBankId());
-			pstmt.setString(4, customer.getCustomerName());
-			pstmt.setString(5, encryptUtil.encrypt(customer.getIdentification()));
-			pstmt.setString(6, customer.getGrade());
-			pstmt.setInt(7, customer.getAge());
-			pstmt.setBoolean(8, customer.isGender());
-			pstmt.setString(9, customer.getPhoneNumber());
-			pstmt.setString(10, customer.getAddress());
-			pstmt.setString(11, customer.getJobCode());
-			pstmt.setString(12, customer.getCountry());
-			pstmt.setString(13, customer.getCredit());
+			pstmt.setInt(1, e_id);
+			pstmt.setInt(2, b_id);
+			pstmt.setString(3, customer.getCustomerName());
+			pstmt.setString(4, encryptUtil.encrypt(customer.getIdentification()));
+			pstmt.setString(5, customer.getGrade());
+			pstmt.setInt(6, customer.getAge());
+			pstmt.setBoolean(7, customer.isGender());
+			pstmt.setString(8, customer.getPhoneNumber());
+			pstmt.setString(9, customer.getAddress());
+			pstmt.setString(10, customer.getJobCode());
+			pstmt.setString(11, customer.getCountry());
+			pstmt.setString(12, customer.getCredit());
+			pstmt.setInt(13, customer.getCustomerId());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

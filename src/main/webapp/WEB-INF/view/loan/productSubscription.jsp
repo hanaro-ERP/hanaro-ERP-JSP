@@ -33,7 +33,6 @@ pageEncoding="UTF-8"%>
 			List<LoanProductDTO> loanProductList = (List<LoanProductDTO>) request.getAttribute("loanProductList");
 			String mod = request.getQueryString();
 			
-			if(loanProductList != null) System.out.println("아니 대체왜");
 			%>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle">

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class CustomerDTO {
+public class CustomerDTO extends EditDTO {
 	private int customerId;
 	private int employeeId;
 	private int bankId;

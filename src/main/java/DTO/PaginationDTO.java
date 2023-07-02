@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class PaginationDTO {
+public class PaginationDTO extends EditDTO{
 	private int page;
 	private int count;
+
 }
