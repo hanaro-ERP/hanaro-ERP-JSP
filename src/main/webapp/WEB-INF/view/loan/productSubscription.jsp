@@ -146,17 +146,12 @@ pageEncoding="UTF-8"%>
 					<tr>
 						<th>상환 방법</th>
 						<td colspan=3><select name="repaymentMethod"
-							class="shortSelect" id="repaymentMethod" onchange="updateTable()">
-
+							class="shortSelect" id="repaymentMethod" >
 								<option value="-">-</option>
-								<option value="원금만기일시상환">만기일시상환</option>
-								<option value="원금균등상환">원금균등분할상환</option>
-								<option value="원리금균등상환">원리금균등분할상환</option>
+								<option value="원금만기일시상환">원금만기일시상환</option>
+								<option value="원금균등상환">원금균등상환</option>
+								<option value="원리금균등상환">원리금균등상환</option>
 							</select>
-						</td>
-						<th>거치 기간</th>
-						<td>
-							<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
 						</td>
 					</tr>
 				</table>
@@ -166,16 +161,14 @@ pageEncoding="UTF-8"%>
 			</form>
 
 			<form action="${pageContext.request.contextPath}/loan/repayment" method="post">
-				<input type="hidden" name="repaymentAmountList" id="repaymentAmountList"> 
-				<input type="hidden" name="identificationId" id="identificationId" value="<%= id1 + "-" + id2%>"> 
-				<input type="hidden" name="loanProductNameSelect" id="loanProductNameSelect"> 
-				<input type="submit" value="상환 방법 확정하기">
-				
 				<div id="repaymentMethodSelectTableDiv" style="display: none;">
 					<h2 id="repaymentMethodSelectTableTitle">상환 방법</h2>
 					<div id="repaymentAmountTotalDiv">
-						<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금 <p>
+
+						<p id="repaymentAmountTotalTitle" style="display: none;">총 상환금	<p>
 						<p id="repaymentAmountTotal" style="display: none;"><p>
+						<button type="submit" id="updateRepaymentDB"
+							style="display: none;">확정</button>
 					</div>
 					<table class="searchTable" id="repaymentMethodSelectTable">
 						<tr>
@@ -188,6 +181,10 @@ pageEncoding="UTF-8"%>
 						</tr>
 					</table>
 				</div>
+				<input type="hidden" name="repaymentAmountList" id="repaymentAmountList"> 
+				<input type="hidden" name="identificationId" id="identificationId" value="<%= id1 + "-" + id2%>"> 
+				<input type="hidden" name="loanProductNameSelect" id="loanProductNameSelect"> 
+				
 			</form>
 		</div>
 	</main>
