@@ -118,14 +118,15 @@ public class LoanService {
 		int l_id = loanDAO.getLoanIdByLoanName(loanContractDTO.getLoanName());
 		int c_id = customerDAO.getCustomerIdByCustomerName(customerDTO.getCustomerName());
 		int a_id = accountDAO.getAccountIdByCustomerId(c_id);
-		
+		int g_id = customerDAO.getCustomerIdByCustomerName(customerDTO.getGuarantor());
+
 		//가입한 날의 일(day)구하여서 넣기
 		loanUtil.setDate(loanContractDTO);
 
 		//1. 이자율 이후 위험도로 변동생길 예정
 		//2. 연체 관련 값 계산
 		
-		int isLoanContract = loanContractDAO.insertLoanContract(loanContractDTO, l_id, c_id, e_id, a_id , repaymentAmountList);
+		int isLoanContract = loanContractDAO.insertLoanContract(loanContractDTO, l_id, c_id, e_id, a_id, g_id, repaymentAmountList);
 		
 		return isLoanContract;
 	}
