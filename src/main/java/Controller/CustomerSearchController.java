@@ -102,25 +102,25 @@ public class CustomerSearchController extends HttpServlet {
 			
 			CustomerDTO inputDTO = new CustomerDTO();
 				
-			if(!customerName.equals(""))
+			if(customerName != null && !customerName.equals(""))
 				inputDTO.setCustomerName(customerName);
-			if(!phoneNumber.equals(""))
+			if(phoneNumber != null && !phoneNumber.equals(""))
 				inputDTO.setPhoneNumber(phoneNumber);
-			if(!citySelect.equals(""))
+			if(citySelect != null && !citySelect.equals(""))
 				inputDTO.setCity(citySelect);
-			if(!district.equals(""))
+			if(district != null && !district.equals(""))
 				inputDTO.setDistrict(district);
-			if(!country.equals(""))
+			if(country != null && !country.equals(""))
 				inputDTO.setCountry(country);
-			if(!jobCode.equals(""))
+			if(jobCode != null && !jobCode.equals(""))
 				inputDTO.setJobCode(jobCode);
-			if(!customerRank.equals(""))
+			if(customerRank != null && !customerRank.equals(""))
 				inputDTO.setGrade(customerRank);
-			if(!creditRank.equals(""))
+			if(creditRank != null && !creditRank.equals(""))
 				inputDTO.setCredit(creditRank);
-			if(!userId1.equals(""))
+			if(userId1 != null && !userId1.equals(""))
 				inputDTO.setId1(userId1);
-			if(!userId2.equals(""))
+			if(userId2 != null && !userId2.equals(""))
 				inputDTO.setId2(userId2);
 			
 			CustomerDTO customerDTO = customerService.getCustomerListByIdentification(id1+"-"+id2);

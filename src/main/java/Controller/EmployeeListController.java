@@ -42,13 +42,13 @@ public class EmployeeListController extends HttpServlet {
 		String position = request.getParameter("position");
 
 		EmployeeDTO employeeDTO = new EmployeeDTO();
-		if (!employeeName.equals(""))
+		if (employeeName != null && !employeeName.equals(""))
 			employeeDTO.setEmployeeName(employeeName);
-		if (!bankLocation.equals(""))
+		if (bankLocation != null && !bankLocation.equals(""))
 			employeeDTO.setBankLocation(bankLocation);
-		if (!department.equals(""))
+		if (department != null && !department.equals(""))
 			employeeDTO.setDepartment(department);
-		if (!position.equals(""))
+		if (position != null && !position.equals(""))
 			employeeDTO.setPosition(position);
 
 		int pageNo = 1;

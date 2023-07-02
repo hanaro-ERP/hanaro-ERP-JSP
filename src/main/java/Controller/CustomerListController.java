@@ -64,40 +64,40 @@ public class CustomerListController extends HttpServlet {
 			String isOpen = request.getParameter("isOpen");
 
 			CustomerSearchDTO customerSearchDTO = new CustomerSearchDTO();
-			if (!customerName.equals(""))
+			if (customerName != null && !customerName.equals(""))
 				customerSearchDTO.setCustomerName(customerName);
-			if (!customerEmployee.equals(""))
+			if (customerEmployee != null && !customerEmployee.equals(""))
 				customerSearchDTO.setEmployeeName(customerEmployee);
-			if (!bankLocation.equals(""))
+			if (bankLocation != null && !bankLocation.equals(""))
 				customerSearchDTO.setBankName(bankLocation);	
-			if (!jobCode.equals(""))
+			if (jobCode != null && !jobCode.equals(""))
 				customerSearchDTO.setJobCode(jobCode);	
-			if (!gender.equals("")) 
+			if (gender != null && !gender.equals("")) 
 				customerSearchDTO.setGender(customerUtil.convertGenderToBinary(gender));	
 				customerSearchDTO.setStrGender(gender);	
-			if (!phoneNumber1.equals(""))
+			if (phoneNumber1 != null && !phoneNumber1.equals(""))
 				customerSearchDTO.setPhoneNumber1(phoneNumber1);
-			if (!phoneNumber2.equals(""))
+			if (phoneNumber2 != null && !phoneNumber2.equals(""))
 				customerSearchDTO.setPhoneNumber2(phoneNumber2);
-			if (!phoneNumber3.equals(""))
+			if (phoneNumber3 != null && !phoneNumber3.equals(""))
 				customerSearchDTO.setPhoneNumber3(phoneNumber3);
-			if (!identification1.equals(""))
+			if (identification1 != null && !identification1.equals(""))
 				customerSearchDTO.setIdentification1(identification1);	
-			if (!identification2.equals(""))
+			if (identification2 != null && !identification2.equals(""))
 				customerSearchDTO.setIdentification2(identification2);	
 			if (customerAges != null && customerAges.length > 0)
 				customerSearchDTO.setCustomerAges(customerAges);
-			if (!customerGrades[0].equals(""))
+			if (customerGrades != null && !customerGrades[0].equals(""))
 				customerSearchDTO.setCustomerGrades(customerGrades);
-			if (!customerCredits[0].equals(""))
+			if (customerCredits != null && !customerCredits[0].equals(""))
 				customerSearchDTO.setCustomerCredits(customerCredits);
-			if (!country.equals(""))
+			if (country != null && !country.equals(""))
 				customerSearchDTO.setCountry(country);
-			if (!city.equals(""))
+			if (city != null && !city.equals(""))
 				customerSearchDTO.setCity(city);
-			if (!district.equals(""))
+			if (district != null && !district.equals(""))
 				customerSearchDTO.setDistrict(district);
-			if (!isOpen.equals(""))
+			if (isOpen != null && !isOpen.equals(""))
 				customerSearchDTO.setIsOpen(isOpen);
 			
 			int pageNo = 1;
