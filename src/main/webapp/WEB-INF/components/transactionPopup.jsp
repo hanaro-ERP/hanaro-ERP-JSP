@@ -20,7 +20,7 @@
 	int id = 0;
 	String name = null;
 	String account = null;
-	if (searchedTransactionList != null) {
+	if (searchedTransactionList != null && searchedTransactionList.size() > 0) {
 		id = searchedTransactionList.get(0).getAccountId();
 		name = searchedTransactionList.get(0).getCustomerName();
 		account = searchedTransactionList.get(0).getAccountNumber();
@@ -30,8 +30,8 @@
 	%>
 	<div class="popupTitleBox">
 		<h1>입출금 내역</h1>
-		<h2><%= searchedTransactionList != null ? searchedTransactionList.get(0).getCustomerName() : ""%></h2>
-		<h2><%= searchedTransactionList != null ? searchedTransactionList.get(0).getAccountNumber() : ""%></h2>
+		<h2><%= searchedTransactionList != null && searchedTransactionList.size() > 0 ? searchedTransactionList.get(0).getCustomerName() : ""%></h2>
+		<h2><%= searchedTransactionList != null && searchedTransactionList.size() > 0 ? searchedTransactionList.get(0).getAccountNumber() : ""%></h2>
 	</div>
 	<div id="historyTableBox">
 		<table class="searchTable popUpTable transactionTable" id="historyTable">

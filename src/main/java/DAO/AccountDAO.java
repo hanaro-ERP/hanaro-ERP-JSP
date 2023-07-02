@@ -139,7 +139,7 @@ public class AccountDAO {
 		if (!accountSearchDTO.getCustomerName().equals("")) {
 			queryBuilder.append(" AND c.c_name LIKE ?");
 		}
-		if (accountSearchDTO.getIdentification1() != null && accountSearchDTO.getIdentification2() != null) {
+		if (accountSearchDTO.getIdentification1() != "" && accountSearchDTO.getIdentification2() != "") {
 			queryBuilder.append(" AND c.identification = ?");
 		}
 		if (!accountSearchDTO.getDepositType().equals("전체")) {
@@ -162,6 +162,7 @@ public class AccountDAO {
 		} else {
 			queryBuilder.append(" AND a.account_balance between ? and ?");
 		}
+		
 		try (Connection conn = DatabaseUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
@@ -172,7 +173,7 @@ public class AccountDAO {
 			if (!accountSearchDTO.getCustomerName().equals("")) {
 				pstmt.setString(parameterIndex++, "%" + accountSearchDTO.getCustomerName() + "%");
 			}
-			if (accountSearchDTO.getIdentification1() != null && accountSearchDTO.getIdentification2() != null) {
+			if (accountSearchDTO.getIdentification1() != "" && accountSearchDTO.getIdentification2() != "") {
 				String identification = accountSearchDTO.getIdentification1() + "-" + accountSearchDTO.getIdentification2();
 				String EncryptedIdentification = encryptUtil.encrypt(identification);
 				pstmt.setString(parameterIndex++, EncryptedIdentification);
@@ -201,6 +202,8 @@ public class AccountDAO {
 				else
 					pstmt.setString(parameterIndex++, accountSearchDTO.getDepositBalance()[1] + "0000");
 			}
+			
+			System.out.println(pstmt);
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
@@ -248,8 +251,9 @@ public class AccountDAO {
 		} else {
 			queryBuilder.append(" AND a.account_balance between ? and ?");
 		}
+		queryBuilder.append(" ORDER BY a.account_open_date DESC");
 		queryBuilder.append(" LIMIT 20 OFFSET ?");
-
+		
 		try (Connection conn = DatabaseUtil.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			int parameterIndex = 1;
