@@ -23,7 +23,7 @@ public class EvaluatorParent {
 		return ((int) sum) == 1;
 	}
 
-	protected double getWeightForField(String field) {
+	private double getWeightForField(String field) {
 		return WEIGHTS.get(field);
 	}
 
