@@ -41,7 +41,7 @@
 				<th>이름</th>
 				<td><input id="customerName" name="customerName" class="middleInput" value="<%= customer != null && customer.getCustomerName() != null ? customer.getCustomerName() : "" %>"/></td>
 				<th>전화번호</th>
-				<td><input id="phoneNumber" name="phoneNumber" class="middleInput" value="<%= customer != null && customer.getPhoneNumber() != null ? customer.getPhoneNumber() : "" %>"/></td>
+				<td><input placeholder="'-' 는 제외해주세요." id="phoneNumber" name="phoneNumber" class="middleInput" value="<%= customer != null && customer.getPhoneNumber() != null ? customer.getPhoneNumber() : "" %>"/></td>
 			</tr>
 			<tr>
 				<th>거주지</th>

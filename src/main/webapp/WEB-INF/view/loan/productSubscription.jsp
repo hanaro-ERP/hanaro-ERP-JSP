@@ -165,7 +165,7 @@ pageEncoding="UTF-8"%>
 						<td><input name="collateral" class="middleInput"></td>
 						<th>대출 금액</th>
 						<td><input type="number" id="loanAmount" name="loanAmount"
-							class="shortInput" type="number" min="0" max="5000" step="1" />
+							class="shortInput" type="number" min="0" max="5000" step="100" />
 							만원</td>
 					</tr>
 					<tr>
@@ -223,6 +223,11 @@ pageEncoding="UTF-8"%>
 			</form>
 		</div>
 	</main>
+	<button class="upToButton" onclick="scrollToTop()">
+		<svg width="30" height="20" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M6 0L0 6L1.41 7.41L6 2.83L10.59 7.41L12 6L6 0Z" fill="#323232"/>
+		</svg>
+	</button>
 	<script>
 		generateMenu('loan', 'productSubscription');
 	</script>
@@ -235,7 +240,7 @@ pageEncoding="UTF-8"%>
 	    }
 		
 		<% 
-		if(!mod.equals("") && loanProductList != null) { //if (loanProductList != null) {
+		if(mod != "" && loanProductList != null) {
 		%>
 			document.body.removeAttribute('onload');
 		<%
@@ -375,7 +380,7 @@ pageEncoding="UTF-8"%>
 			}
 			%>
 			
-			<% if(!cName.equals("")) { %>
+			<% if(cName != null && !cName.equals("")) { %>
 					revealDetail();
 					innerRisk.innerHTML = "<%= creditService.getCreditScore() %>";				
 					interestRate2.innerHTML = "<%= addRate %>";

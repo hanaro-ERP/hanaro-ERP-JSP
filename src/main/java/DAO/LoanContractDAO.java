@@ -279,13 +279,6 @@ public class LoanContractDAO {
 					pstmt.setInt(parameterIndex++, loanContractDTO.getBalanceRange()[1] * 10000);
 				}
 			}
-			if (loanContractDTO.getLatePaymentPeriod() > -1) {
-				LocalDate currentDate = LocalDate.now();
-
-				LocalDate latePaymentLocalDate = currentDate.minusDays(loanContractDTO.getLatePaymentPeriod());
-				Date latePaymentDate = new Date(latePaymentLocalDate.toEpochDay() * 24 * 60 * 60 * 1000);
-				pstmt.setDate(parameterIndex++, latePaymentDate);
-			}
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					cnt = rs.getInt("cnt");
@@ -373,12 +366,6 @@ public class LoanContractDAO {
 					pstmt.setInt(parameterIndex++, loanContractDTO.getBalanceRange()[0] * 10000);
 					pstmt.setInt(parameterIndex++, loanContractDTO.getBalanceRange()[1] * 10000);
 				}
-			}
-			if (loanContractDTO.getLatePaymentPeriod() != 0 && loanContractDTO.getLatePaymentPeriod() > -1) {
-				LocalDate currentDate = LocalDate.now();
-				LocalDate latePaymentLocalDate = currentDate.minusDays(loanContractDTO.getLatePaymentPeriod());
-				Date latePaymentDate = new Date(latePaymentLocalDate.toEpochDay() * 24 * 60 * 60 * 1000);
-				pstmt.setDate(parameterIndex++, latePaymentDate);
 			}
 			pstmt.setInt(parameterIndex++, (page-1)*20);
 			

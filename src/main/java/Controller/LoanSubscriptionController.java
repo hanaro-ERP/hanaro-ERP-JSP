@@ -64,7 +64,7 @@ public class LoanSubscriptionController extends HttpServlet {
 				String id2 = request.getParameter("identification2");
 				String identification = id1 + "-" + id2; 
 
-				int age = customerUtil.getAgeFromIdentification(id1);
+				int age = customerUtil.getAgeFromIdentification(id1, id2.substring(0,1));
 				boolean gender = customerUtil.convertIntToGender(Integer.parseInt(id2.substring(0,1)));
 
 				String country = request.getParameter("country");
@@ -75,33 +75,32 @@ public class LoanSubscriptionController extends HttpServlet {
 				String customerRank = request.getParameter("grade");
 				String creditRank = request.getParameter("credit");
 				
-				if(!customerName.equals(""))
+				if(customerName != null && !customerName.equals(""))
 					customerDTO.setCustomerName(customerName);
-				if(!phoneNumber.equals(""))
+				if(phoneNumber != null && !phoneNumber.equals(""))
 					customerDTO.setPhoneNumber(phoneNumber);
-				if(!address.equals(""))
+				if(address != null && !address.equals(""))
 					customerDTO.setAddress(address);
-				if(!identification.equals("")) {
+				if(identification != null && !identification.equals("")) {
 					customerDTO.setIdentification(identification);
 					customerDTO.setAge(age);
 					customerDTO.setGender(gender);
 				}
-				if(!suretyName.equals(""))
+				if(suretyName != null && !suretyName.equals(""))
 					customerDTO.setGuarantor(suretyName);
-				if(!jobCode.equals(""))
+				if(jobCode != null && !jobCode.equals(""))
 					customerDTO.setJobCode(jobCode);
-				if(!country.equals(""))
+				if(country != null && !country.equals(""))
 					customerDTO.setCountry(country);
-				if(!employeeName.equals(""))
+				if(employeeName != null && !employeeName.equals(""))
 					customerDTO.setEmployeeName(employeeName);
-				if(!bankName.equals(""))
+				if(bankName != null && !bankName.equals(""))
 					customerDTO.setBankName(bankName);
-				if(!customerRank.equals(""))
+				if(customerRank != null && !customerRank.equals(""))
 					customerDTO.setGrade(customerRank);
-				if(!creditRank.equals(""))
+				if(creditRank != null && !creditRank.equals(""))
 					customerDTO.setCredit(creditRank);
 							
-				//상품정보
 				LoanContractDTO loanContractDTO = new LoanContractDTO();
 
 				String loanType = request.getParameter("loanType");
@@ -112,22 +111,22 @@ public class LoanSubscriptionController extends HttpServlet {
 				String repaymentMethod = request.getParameter("repaymentMethod");
 				String gracePeriod = request.getParameter("gracePeriod");
 
-				if(loanType != null)
+				if(loanType != null && !loanType.equals(""))
 					loanContractDTO.setLoanType(loanType);
-				if(loanProductName != null)
+				if(loanProductName != null && !loanProductName.equals(""))
 					loanContractDTO.setLoanName(loanProductName);
-				if(collateral != null)
+				if(collateral != null && !collateral.equals(""))
 					loanContractDTO.setCollateralDetails(collateral);
-				if(loanAmount != null) {
+				if(loanAmount != null && !loanAmount.equals("")) {
 					loanContractDTO.setLoanAmount(Integer.parseInt(loanAmount+"0000"));
 					loanContractDTO.setBalance(Integer.parseInt(loanAmount+"0000")); //대출 잔금
 				}
-				if(interestRate != null) {
+				if(interestRate != null && !interestRate.equals("")) {
 					loanContractDTO.setInterestRate(Float.parseFloat(interestRate));
 					}
-				if(repaymentMethod != null)
+				if(repaymentMethod != null && !repaymentMethod.equals(""))
 					loanContractDTO.setPaymentMethod(repaymentMethod);
-				if(gracePeriod != null)
+				if(gracePeriod != null && !gracePeriod.equals(""))
 					loanContractDTO.setGracePeriod(Integer.parseInt(gracePeriod));
 
 				String repaymentAmountList = request.getParameter("repaymentAmountList");

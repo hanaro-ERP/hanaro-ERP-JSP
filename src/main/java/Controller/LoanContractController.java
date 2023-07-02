@@ -154,29 +154,6 @@ public class LoanContractController extends HttpServlet {
 				loanContractDTO.setBalanceRange(balanceRange);
 				loanContractDTO.setBalanceList(balanceList);
 				
-				int latePaymentPeriod = -1;	// 전체
-				if (!latePaymentDate.equals("")) {
-					if (latePaymentDate.contains("6개월")){
-						latePaymentPeriod = 180;
-					}
-					else if (latePaymentDate.contains("1년")){
-						latePaymentPeriod = 365;
-					}
-					else if (latePaymentDate.contains("3년")){
-						latePaymentPeriod = 365 * 3;
-					}
-					else if (latePaymentDate.contains("5년")){
-						latePaymentPeriod = 365 * 5;
-					}
-					else if (latePaymentDate.contains("5년이상")){
-						latePaymentPeriod = 365 * 5 + 1;
-					}
-					else if (latePaymentDate.contains("없음")){
-						latePaymentPeriod = 0;
-					}
-					loanContractDTO.setLatePaymentPeriod(latePaymentPeriod);
-				}
-				
 				int pageNo = 1;
 				String page = request.getParameter("page");
 				if (page != null && !page.equals(""))

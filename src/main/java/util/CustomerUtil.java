@@ -33,15 +33,17 @@ public class CustomerUtil {
 			return "남성";
 	}	
 	
-	public int getAgeFromIdentification(String id) {
+	public int getAgeFromIdentification(String id, String num) {
 		int year = Integer.parseInt(id.substring(0, 2));
-		int month = Integer.parseInt(id.substring(2, 4));
-		int day = Integer.parseInt(id.substring(4, 6));
 
 		LocalDate currentDate = LocalDate.now();
 		int currentYear = currentDate.getYear();
-
-		int age = currentYear - (year+1900);
+		
+		int parameter = 1900;
+		if (Integer.parseInt(num) > 2)
+			parameter = 2000;
+		
+		int age = currentYear - (year+parameter);
                 
 		return age;
 	}

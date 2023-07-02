@@ -81,7 +81,7 @@ public class CustomerModificationController extends HttpServlet {
 
 			phoneNumber = phoneNumber.substring(0,3) + "-" + phoneNumber.substring(3,7) + "-" + phoneNumber.substring(7,11);
 			
-			int age = customerUtil.getAgeFromIdentification(userIdentification1);
+			int age = customerUtil.getAgeFromIdentification(userIdentification1, userIdentification2.substring(0,1));
 			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(userIdentification2.substring(0,1)));
 			
 			CustomerDTO customerDTO = new CustomerDTO();

@@ -96,19 +96,19 @@
 						</ul>
 					</div>
 					<div class="innerInformationRow">
-						<div class="innerInformationRowTitle">대출 한도</div>
+						<div class="innerInformationRowTitle">대출 금액</div>
 						<ul id="loanProductLimit" class="directInputUl">
 							<li><input type="checkbox" value="" id="limitAll">전체</li>
 							<li id="directPeriodInputLi" class="directInput">
 							    <p>직접 입력</p>
 							    <input id="directPeriodInput" name="loanProductLimit" class="directInputValue" disabled="true">&nbsp;천만원&nbsp;&nbsp;
 							</li>
-							<li><input type="checkbox" value="2" id="limit2">~2천만원</li>
-							<li><input type="checkbox" value="3" id="limit3">~3천만원</li>
-							<li><input type="checkbox" value="5" id="limit5">~5천만원</li>
-							<li><input type="checkbox" value="10" id="limit10">~1억원</li>
-							<li><input type="checkbox" value="50" id="limit50">~5억원</li>
-							<li><input type="checkbox" value="100" id="limit100">~10억원</li>
+							<li><input type="checkbox" value="2" id="limit2">2천만원</li>
+							<li><input type="checkbox" value="3" id="limit3">3천만원</li>
+							<li><input type="checkbox" value="5" id="limit5">5천만원</li>
+							<li><input type="checkbox" value="10" id="limit10">1억원</li>
+							<li><input type="checkbox" value="50" id="limit50">5억원</li>
+							<li><input type="checkbox" value="100" id="limit100">10억원</li>
 							<li><input type="checkbox" value="over100" id="limitOver100">10억원 이상</li>
 						</ul>
 					</div>
@@ -387,7 +387,7 @@
 						const inputs = loanProductIncomeLis[1].querySelector('input');
 						inputs.value = "<%= incomes[0] %>"; 
 						
-						selectItem(loanProductIncomeLis[1], "loanProductPeriod");
+						selectItem(loanProductIncomeLis[1], "loanProductIncome");
 						toggleDirectInput(loanProductIncomeLis[1], true);
 					}
 				<%

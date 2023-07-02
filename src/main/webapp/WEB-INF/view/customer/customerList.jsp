@@ -168,7 +168,7 @@
 				<div class="innerButtonContainer">
 					<button id="customerSearchButton" type="submit">검색</button>
 				</div>
-			<div class="searchTitle"><h1>검색 결과</h1><p><%= (customerSearchDTO != null && customerSearchDTO.getCount() != 0) ? "총 " + customerSearchDTO.getCount() + "개의 검색 결과가 있습니다." : "" %></p></div>
+			<div class="searchTitle"><h1>검색 결과</h1><p><%= (customerSearchDTO != null && customerSearchDTO.getCount() != 0) ? "총 " + customerSearchDTO.getCount() + "명의 검색 결과가 있습니다." : "" %></p></div>
 			<table class="searchTable" id="customerSearchTable">
 				<tr>
 					<th>고객 ID</th>
@@ -388,9 +388,10 @@
 						const age80sPlusLi = document.getElementById('age80sPlusLi');
 						selectItem(age80sPlusLi, "customerAge");
 					} else {
-						const directInput = document.getElementById('directInput');
+						const directInput = document.querySelector('.directInput');
 						const inputs = directInput.querySelectorAll('input');
-	
+						console.log(directInput);
+						<% System.out.println(customerAges[0]); %>
 						inputs[0].value = "<%= customerAges[0] %>"; 
 						<% if (customerAges.length >= 2) { %>
 						inputs[1].value = "<%= customerAges[1] %>";
