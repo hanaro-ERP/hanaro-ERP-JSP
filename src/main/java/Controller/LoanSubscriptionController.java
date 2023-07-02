@@ -86,7 +86,8 @@ public class LoanSubscriptionController extends HttpServlet {
 					customerDTO.setAge(age);
 					customerDTO.setGender(gender);
 				}
-
+				if(suretyName != "")
+					customerDTO.setGuarantor(suretyName);
 				if(jobCode != "")
 					customerDTO.setJobCode(jobCode);
 				if(country != "")
