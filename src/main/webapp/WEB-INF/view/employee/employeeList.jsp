@@ -74,7 +74,7 @@
 				<div class="innerButtonContainer">
 					<button type="submit">검색</button>
 				</div>
-			<div class="searchTitle"><h1>검색 결과</h1><p><%= (employeeDTO != null && employeeDTO != null) ? "총 " + employeeDTO.getCount() + "개의 검색 결과가 있습니다." : "" %></p></div>
+			<div class="searchTitle"><h1>검색 결과</h1><p><%= (employeeDTO != null && employeeDTO != null) ? "총 " + employeeDTO.getCount() + "명의 검색 결과가 있습니다." : "" %></p></div>
 			<table class="searchTable" id="employeeSearchTable">
 				<tr>
 					<th id="e_id">직원 ID</th>

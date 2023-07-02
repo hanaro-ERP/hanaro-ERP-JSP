@@ -237,7 +237,7 @@
 				<%
 			} else if (isCreated.equals("mod=-1")) {
 				%>
-				alert("상품 가입에 실패했습니다.")
+				alert("상품 가입에 실패했습니다.\n해당 고객에 대한 계좌가 있는지 확인해주세요.")
 				window.location.href = "/navigation/loanContract";
 				<%
 			}

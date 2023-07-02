@@ -221,3 +221,9 @@ function changeLoanProductName(selectedIndex) {
 	document.getElementById("loanProductNameSelect").value = selectedLoanProductNameValue;
 }
 
+function scrollToTop() {
+	window.scrollTo({
+		top: 0,
+		behavior: 'smooth'
+	});
+}

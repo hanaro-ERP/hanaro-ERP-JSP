@@ -55,7 +55,7 @@ public class CustomerRegisterController extends HttpServlet {
 			phoneNumber = phoneNumber.substring(0,3) + "-" + phoneNumber.substring(3,7) + "-" + phoneNumber.substring(7,11);
 
 			String identification = userId1 + "-" + userId2;
-			int age = customerUtil.getAgeFromIdentification(userId1);
+			int age = customerUtil.getAgeFromIdentification(userId1, userId2.substring(0,1));
 			boolean gender = customerUtil.convertIntToGender(Integer.parseInt(userId2.substring(0,1)));
 			
 			String country = request.getParameter("country");
@@ -66,30 +66,30 @@ public class CustomerRegisterController extends HttpServlet {
 			String customerRank = request.getParameter("customerRank");
 			String creditRank = request.getParameter("creditRank");
 			
-			if(!customerName.equals(""))
+			if(customerName != null && !customerName.equals(""))
 				customerDTO.setCustomerName(customerName);
-			if(!phoneNumber.equals(""))
+			if(phoneNumber != null && !phoneNumber.equals(""))
 				customerDTO.setPhoneNumber(phoneNumber);
-			if(!citySelect.equals(""))
+			if(citySelect != null && !citySelect.equals(""))
 				customerDTO.setAddress(address);
-			if(!identification.equals("")) {
+			if(identification != null && !identification.equals("")) {
 				customerDTO.setIdentification(identification);
 				customerDTO.setAge(age);
 				customerDTO.setGender(gender);
 			}
-			if(!guarantor.equals(""))
+			if(guarantor != null && !guarantor.equals(""))
 				customerDTO.setGuarantor(guarantor);
-			if(!jobCode.equals(""))
+			if(jobCode != null && !jobCode.equals(""))
 				customerDTO.setJobCode(jobCode);
-			if(!country.equals(""))
+			if(country != null && !country.equals(""))
 				customerDTO.setCountry(country);
-			if(!employeeName.equals(""))
+			if(employeeName != null && !employeeName.equals(""))
 				customerDTO.setEmployeeName(employeeName);
-			if(!bankName.equals(""))
+			if(bankName != null && !bankName.equals(""))
 				customerDTO.setBankName(bankName);
-			if(!customerRank.equals(""))
+			if(customerRank != null && !customerRank.equals(""))
 				customerDTO.setGrade(customerRank);
-			if(!creditRank.equals(""))
+			if(creditRank != null && !creditRank.equals(""))
 				customerDTO.setCredit(creditRank);
 		
 			int isCustomerRegistered = customerService.registerCustomer(customerDTO);
