@@ -39,7 +39,7 @@ public class AgeEvaluator extends EvaluatorParent implements EvaluatorInterface<
 			score = 0;
 		}
 
-		return (int) (score * getWeightForAge());
+		return (int) (score * getWeightForField("AGE"));
 	}
 
 }

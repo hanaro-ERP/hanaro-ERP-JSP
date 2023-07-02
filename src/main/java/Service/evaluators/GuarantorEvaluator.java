@@ -35,7 +35,7 @@ public class GuarantorEvaluator extends EvaluatorParent implements EvaluatorInte
 			score = 0;
 		}
 
-		return (int) (score * getWeightForGuarantor());
+		return (int) (score * getWeightForField("GUARANTOR"));
 	}
 
 }

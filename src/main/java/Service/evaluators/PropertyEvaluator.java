@@ -32,7 +32,7 @@ public class PropertyEvaluator extends EvaluatorParent implements EvaluatorInter
 			score = 0;
 		}
 
-		return (int) (score * getWeightForProperty());
+		return (int) (score * getWeightForField("PROPERTY"));
 	}
 
 }
