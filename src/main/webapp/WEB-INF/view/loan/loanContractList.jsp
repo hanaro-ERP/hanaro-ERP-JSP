@@ -173,7 +173,7 @@
 								<td class="loanName"><%=dto.getLoanName()%></td>
 								<td class="customerName"><%=dto.getEmployeeName()%></td>
 								<td><%=dto.getCustomerName()%></td>
-								<td><%=dto.getGuarantorName()%></td>
+								<td><%= dto.getGuarantorName() != null ? dto.getGuarantorName() : "없음" %></td>
 								<td><%= dateString %></td>
 								<td><%=dto.getMaturityDateString()%></td>
 								<td><%=dto.getBalanceString()%></td>
