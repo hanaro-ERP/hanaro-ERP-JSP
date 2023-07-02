@@ -223,6 +223,10 @@
 				show2.innerText = "HIDE";
 			}
 		}
+<<<<<<< HEAD
+
+=======
+>>>>>>> develop
 		
 		const findById = document.getElementById("findById");
 		const findResult = document.getElementById("findResult");
@@ -230,12 +234,22 @@
 		findResult.style.display = 'none';
 
 		const guarantorBox = document.getElementById("isGuarantor");
+<<<<<<< HEAD
+=======
 		const btn = document.getElementById("customerDetailButton");
+>>>>>>> develop
 		
 		guarantorBox.addEventListener('change', function() {
 			if (guarantorBox.checked) {
 				guarantorIdentificationInput1.disabled = true; // findById 요소를 숨깁니다.
 				guarantorIdentificationInput2.disabled = true;
+<<<<<<< HEAD
+				document.getElementById("customerDetailButton").style.display = 'none';
+			} else {
+				guarantorIdentificationInput1.disabled = false; // findById 요소를 숨깁니다.
+				guarantorIdentificationInput2.disabled = false;
+				document.getElementById("customerDetailButton").style.display = 'inline';
+=======
 				btn.disabled = true;
 				show2.disabled = true;
 				btn.classList.add("disabled");
@@ -247,6 +261,7 @@
 				show2.disabled = false;
 				btn.classList.remove("disabled");
 				show2.classList.remove("disabled")
+>>>>>>> develop
 			}
 		});
 		

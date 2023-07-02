@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js"></script>
 </head>
-<body>
+<body onload="goToController()">
 	<%@ include file="../../components/header.jsp" %>	
 	<%@ page import="java.util.List"%>
 	<%@ page import="DTO.LoanContractDTO"%>
@@ -30,7 +30,8 @@ pageEncoding="UTF-8"%>
 			<% 
 			CustomerDTO customer = (CustomerDTO) request.getAttribute("customer");
 			LoanProductDTO loanProduct = (LoanProductDTO) request.getAttribute("loanProductDTO");
-			
+			List<LoanProductDTO> loanProductList = (List<LoanProductDTO>) request.getAttribute("loanProductList");
+			String mod = request.getQueryString();
 			%>
 			<form action="${pageContext.request.contextPath}/loan/subscription" method="post" onsubmit="return validateForm()">
 				<div class="innerSubTitle">
@@ -138,16 +139,26 @@ pageEncoding="UTF-8"%>
 				<table class="inputTable">
 					<tr>
 						<th>대출 구분</th>
-						<td><select name="loanType" class="shortSelect"
-							onchange="changeLoan(this.selectedIndex);">
-								<option value="담보대출">담보대출</option>
-								<option value="신용대출">신용대출</option>
-						</select></td>
+						<td>    
+						<select name="loanType" class="shortSelect" onchange="changeLoan(this.selectedIndex);">
+					        <option value="">-</option>
+					        <option value="담보대출">담보대출</option>
+							<option value="신용대출">신용대출</option> 
+					    </select>
+						</td>
 						<th>상품명</th>
-						<td><select name="loanProductName" class="longSelect" 
-							onchange="changeLoanProductName(this.selectedIndex);">
-								<option value="">-</option>
-						</select></td>
+						<td>
+					    <select name="loanProductName" class="longSelect">
+					        <option value="">-</option>
+					        <% if(loanProductList != null && !loanProductList.isEmpty()) {
+				                for (LoanProductDTO loan : loanProductList) { %>
+				                    <option value="<%= loan.getLoanName() %>"><%= loan.getLoanName() %></option>
+				                <% }
+				            } else { %>
+				                <option value="">No loan types available</option>
+				            <% } %>
+					    </select>
+						</td>
 					</tr>
 					<tr>
 						<th>담보</th>
@@ -176,11 +187,11 @@ pageEncoding="UTF-8"%>
 						<input name="gracePeriod" class="shortInput" id="gracePeriod"> 년
 						<th>상환 방법</th>
 						<td colspan=3><select name="repaymentMethod"
-							class="shortSelect" id="repaymentMethod" onchange="updateTable()">
+							class="shortSelect" id="repaymentMethod" >
 								<option value="-">-</option>
-								<option value="원금만기일시상환">만기일시상환</option>
-								<option value="원금균등상환">원금균등분할상환</option>
-								<option value="원리금균등상환">원리금균등분할상환</option>
+								<option value="원금만기일시상환">원금만기일시상환</option>
+								<option value="원금균등상환">원금균등상환</option>
+								<option value="원리금균등상환">원리금균등상환</option>
 							</select>
 						</td>
 					</tr>
@@ -218,6 +229,67 @@ pageEncoding="UTF-8"%>
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
+	<script>
+		function goToController() {
+	    	window.location.href = "${pageContext.request.contextPath}/loanProduct/list"; // 서블릿의 URL로 이동합니다.
+	    }
+		
+		<% 
+		if(mod != "" && loanProductList != null) { //if (loanProductList != null) {
+		%>
+			document.body.removeAttribute('onload');
+		<%
+		}
+		%>
+
+		
+	    var loanProductArray = [];
+
+	    <% if(loanProductList != null && !loanProductList.isEmpty()) {
+	        for (LoanProductDTO loan : loanProductList) { %>
+		        <% if (loan.getLoanType().equals("담보대출")) { %>
+				        if (!loanProductArray[1]) {
+			                loanProductArray[1] = [];
+			            }
+			            loanProductArray[1].push("<%= loan.getLoanName() %>");
+		         <% } else if (loan.getLoanType().equals("신용대출")) { %>
+			            if (!loanProductArray[2]) {
+			                loanProductArray[2] = [];
+			            }
+			            loanProductArray[2].push("<%= loan.getLoanName() %>");
+			     <% }
+			}
+		}%>
+		
+		function changeLoan(add) {
+		    const selectElement = document.getElementsByName("loanProductName")[0];
+		    
+		    // 옵션 메뉴 삭제
+		    selectElement.innerHTML = "";
+
+		    // 옵션 박스 추가
+		    for (let i = 0; i < loanProductArray[add].length; i++) {
+		        let option = document.createElement("option");
+		        option.value = loanProductArray[add][i];
+		        option.text = loanProductArray[add][i];
+		        selectElement.appendChild(option);
+		    }
+
+		    var collateralField = document.getElementsByName("collateral")[0];
+
+		    // selectedIndex가 2 (신용대출)이면 담보 필드를 비활성화하고 값을 초기화합니다.
+		    if (add === 2) {
+		        collateralField.disabled = true;
+		        collateralField.value = "";
+		        collateralField.style.backgroundColor = "#E5E8EB";
+		    } else {
+		        collateralField.disabled = false;
+		        // 색상 변경
+		        collateralField.style.backgroundColor = "#fff";
+		    }
+		}
+		changeLoan(0);
+	</script>
 	<script>
 		<%
 		String msg = (String)request.getAttribute("msg");

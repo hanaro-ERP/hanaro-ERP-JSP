@@ -22,7 +22,7 @@ import util.LoanUtil;
 public class LoanContractDAO {
 	EncryptUtil encryptUtil = new EncryptUtil();
 	
-	public int insertLoanContract(LoanContractDTO loanContract, int l_id, int c_id, int e_id, int a_id, String repaymentAmountList) {
+	public int insertLoanContract(LoanContractDTO loanContract, int l_id, int c_id, int e_id, int a_id, int g_id, String repaymentAmountList) {
 	    String SQL = "INSERT INTO loanContracts (l_id, c_id, e_id, a_id, start_date, muturity_date, payment_method,  "
 	            + "grace_period, loan_amount, balance, payment_date, "
 	            + "delinquent_amount, guarantor_id, interest_rate, collateral_details, repayment_amount) " 
@@ -48,7 +48,7 @@ public class LoanContractDAO {
 	        pstmt.setLong(9, loanContract.getBalance());
 	        pstmt.setInt(10, loanContract.getPaymentDate());
 	        pstmt.setLong(11, loanContract.getDelinquentAmount());
-	        pstmt.setInt(12, loanContract.getGuarantorId());
+	        pstmt.setInt(12, g_id);
 	        pstmt.setFloat(13, loanContract.getInterestRate());
 	        pstmt.setString(14, loanContract.getCollateralDetails());
 	        pstmt.setString(15, repaymentAmountList);
