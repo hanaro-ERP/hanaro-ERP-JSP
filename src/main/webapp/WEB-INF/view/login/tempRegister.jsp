@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>로그인: 하나로여신관리시스템</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/view/login/login.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/default.css?ver=1">
 </head>

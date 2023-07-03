@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>하나로여신관리시스템 - 지점 목록</title>
+<title>지점 목록: 하나로여신관리시스템</title>
 <link rel="icon" href="${pageContext.request.contextPath}/public/images/favicon.svg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/employee/bankList.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
