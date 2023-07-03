@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>여신 상품 삭제</title>
+<link rel="icon" href="${pageContext.request.contextPath}/public/images/favicon.svg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 </head>
 <body style="padding: 0 20px">

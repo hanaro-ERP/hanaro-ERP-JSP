@@ -6,6 +6,7 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8" />
 <title>하나로여신관리시스템 - 상품 가입</title>
+<link rel="icon" href="${pageContext.request.contextPath}/public/images/favicon.svg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productSubscription.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
@@ -122,18 +123,38 @@ pageEncoding="UTF-8"%>
 					</tr>
 				</table>
 				<div class="innerSubTitle2" id="riskResult">
-					<h2 id="riskResultTitle">내부 신용 점수 결과</h2><button class="customerDetailButton" name="close" type="button" onclick="return riskCalcFunc(this.form);">계산하기</button>
+					<h2 id="riskResultTitle">내부 신용 등급</h2><button class="customerDetailButton" name="close" type="button" onclick="return riskCalcFunc(this.form);">계산하기</button>
 					<input id="checkOpen" name="isOpen" value="close"></input>
 				</div>
 				<div class="innerInformation" id="customerDetailInformation">
 					<div class="innerInformationRow" id="riskResultTable">
-						<div class="innerInformationRowTitle">내부 신용 점수</div>
-						<div id="innerRisk"></div>
-						<div class="innerInformationRowTitle">이자율 적용</div>
-						<div id="interestRate2"></div>
-						<div class="innerInformationRowTitle">대출기간 적용</div>
-						<div id="loanPeriod2"></div>
-					</div>			
+						<div>
+							<div class="innerInformationRowTitle">상품명</div>
+							<div id="loanTitle"></div>
+						</div>
+						<div>
+							<div class="innerInformationRowTitle">이자율</div>
+							<div id="interestRate3"></div>
+						</div>
+						<div>
+							<div class="innerInformationRowTitle">대출 기간</div>
+							<div id="loanPeriod3"></div>		
+						</div>			
+					</div>
+					<div class="innerInformationRow" id="riskResultTable">
+						<div>
+							<div class="innerInformationRowTitle">내부 신용 등급</div>
+							<div id="innerRisk"></div>
+						</div>
+						<div>
+							<div class="innerInformationRowTitle">이자율 적용</div>
+							<div id="interestRate2"></div>
+						</div>
+						<div>
+							<div class="innerInformationRowTitle">대출 기간 적용</div>
+							<div id="loanPeriod2"></div>
+						</div>
+					</div>		
 				</div>						
 				<div class="innerSubTitle2"><h2>상품 정보 및 가입</h2></div>
 				<table class="inputTable">
@@ -148,7 +169,7 @@ pageEncoding="UTF-8"%>
 						</td>
 						<th>상품명</th>
 						<td>
-					    <select name="loanProductName" class="longSelect">
+					    <select id="selectedProduct" name="loanProductName" class="longSelect" onchange="selectedLoan(this.selectedIndex)">
 					        <option value="">-</option>
 					        <% if(loanProductList != null && !loanProductList.isEmpty()) {
 				                for (LoanProductDTO loan : loanProductList) { %>
@@ -171,12 +192,14 @@ pageEncoding="UTF-8"%>
 					<tr>
 						<th>이자</th>
 						<td>
+							<input type="text" id="interestRate1">
 							&nbsp;연
 							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
 							%
 						</td>
 						<th>대출기간</th>
 						<td>
+						<input type="text" id="loanPeriod1">
 						<input type="number" step="0.1" max="10" id="loanPeriod" name="loanPeriod" class="shortInput" />
 						년
 						</td>
@@ -221,6 +244,7 @@ pageEncoding="UTF-8"%>
 				<input type="hidden" name="identificationId" id="identificationId" value="<%= id1 + "-" + id2%>"> 
 				<input type="hidden" name="loanProductNameSelect" id="loanProductNameSelect"> 
 			</form>
+			<div id="test"></div>
 		</div>
 	</main>
 	<button class="upToButton" onclick="scrollToTop()">
@@ -235,6 +259,10 @@ pageEncoding="UTF-8"%>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loan/productSubscription.js"></script>
 	<script>
+		const interestRateInput = document.getElementById("interestRate3");
+		const periodInput = document.getElementById("loanPeriod3");
+		const selectedProductName = document.getElementById("loanTitle");
+		
 		function goToController() {
 	    	window.location.href = "${pageContext.request.contextPath}/loanProduct/list"; // 서블릿의 URL로 이동합니다.
 	    }
@@ -254,12 +282,12 @@ pageEncoding="UTF-8"%>
 	        for (LoanProductDTO loan : loanProductList) { %>
 		        <% if (loan.getLoanType().equals("담보대출")) { %>
 				        if (!loanProductArray[1]) {
-			                loanProductArray[1] = [];
+			                loanProductArray[1] = ["-"];
 			            }
 			            loanProductArray[1].push("<%= loan.getLoanName() %>");
 		         <% } else if (loan.getLoanType().equals("신용대출")) { %>
 			            if (!loanProductArray[2]) {
-			                loanProductArray[2] = [];
+			                loanProductArray[2] = ["-"];
 			            }
 			            loanProductArray[2].push("<%= loan.getLoanName() %>");
 			     <% }
@@ -293,34 +321,37 @@ pageEncoding="UTF-8"%>
 		        collateralField.style.backgroundColor = "#fff";
 		    }
 		}
+
+		var loanMinRate = "";
+		var loanManRate = "";
+		var loanMinPeriod = "";
+		var loanMaxPeriod = "";
+		var loanName = "";
+		const test1 = document.getElementById("test");
+
+		//alert(selectedProduct);
+		function selectedLoan(add) {
+			var selectedValue = document.getElementById("selectedProduct");
+			
+			<% if(loanProductList != null && !loanProductList.isEmpty()) { %>
+		      <%  String flag = "false"; %>
+			  <%  for (LoanProductDTO loan : loanProductList) { %>
+		      		if (selectedValue.value === "<%= loan.getLoanName() %>") {
+		      			loanMinRate = <%= String.valueOf(loan.getMinRate()) %>;
+		      			loanMinPeriod = <%= String.valueOf(loan.getMinDuration()) %>;
+		      			loanMaxRate = <%= String.valueOf(loan.getMaxRate()) %>; // Convert loanRate to a string
+		                loanMaxPeriod = <%= String.valueOf(loan.getMaxDuration()) %>; // Convert loanPeriod to a string
+		                loanName = "<%= loan.getLoanName() %>"; 
+						<% flag = "true"; %>
+		            }
+		      		
+		      <%  }
+			}%>
+			selectedProductName.innerHTML = loanName;
+			interestRateInput.innerHTML = loanMinRate + "% ~ " + loanMaxRate + "%";
+			periodInput.innerHTML = loanMinPeriod + "년 ~ " + loanMaxPeriod + "년";
+		}
 		changeLoan(0);
-	</script>
-	<script>
-		<%
-		String msg = (String)request.getAttribute("msg");
-		if (msg != null) {
-			%>
-			alert("가입되지 않은 주민등록번호입니다.")
-			<%
-		}
-		%>
-		
-		//고객정보
-		const customerDetailInformation = document.getElementById('customerDetailInformation');
-		const checkOpen = document.getElementById('checkOpen');
-		checkOpen.style.display = 'none'
-		customerDetailInformation.style.display = 'none'; // 초기에 숨김 상태로 설정
-		
-		const customerNameInformation = document.getElementById('innerSubTitleRow');
-		
-		function revealDetail() {
-			checkOpen.setAttribute('value', 'open');
-			customerDetailInformation.style.display = 'block';
-		}
-		function concealDetail() {
-			checkOpen.setAttribute('value', 'close');
-			customerDetailInformation.style.display = 'none';
-		}
 		
 		function riskCalcFunc() {
 			//고객정보
@@ -346,7 +377,7 @@ pageEncoding="UTF-8"%>
 				
 				//결과에 따른 이자율이랑 대출기간 다르게 하기
 				String score = (creditService.getCreditScore()).substring(0, 1);
-				
+			
 				switch(score) {
 					case "1" :
 						addRate = "+0.3%";
@@ -391,6 +422,35 @@ pageEncoding="UTF-8"%>
 			<% } %>
 		}
 
+
+	</script>
+	<script>
+		<%
+		String msg = (String)request.getAttribute("msg");
+		if (msg != null) {
+			%>
+			alert("가입되지 않은 주민등록번호입니다.")
+			<%
+		}
+		%>
+		
+		//고객정보
+		const customerDetailInformation = document.getElementById('customerDetailInformation');
+		const checkOpen = document.getElementById('checkOpen');
+		checkOpen.style.display = 'none'
+		customerDetailInformation.style.display = 'none'; // 초기에 숨김 상태로 설정
+		
+		const customerNameInformation = document.getElementById('innerSubTitleRow');
+		
+		function revealDetail() {
+			checkOpen.setAttribute('value', 'open');
+			customerDetailInformation.style.display = 'block';
+		}
+		function concealDetail() {
+			checkOpen.setAttribute('value', 'close');
+			customerDetailInformation.style.display = 'none';
+		}
+		
 		const identificationInput1 = document.getElementById("identification1");
 		const identificationInput2 = document.getElementById("identification2");		
 

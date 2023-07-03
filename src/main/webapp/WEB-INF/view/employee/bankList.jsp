@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>하나로여신관리시스템 - 지점 목록</title>
+<link rel="icon" href="${pageContext.request.contextPath}/public/images/favicon.svg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/employee/bankList.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
@@ -24,7 +25,7 @@
 				<form action="${pageContext.request.contextPath}/bank/list" method="post">
 				<div class="innerInformation">
 					<div class="innerInformationRow">
-						<div class="innerInformationRowTitle">이름(ID)</div>
+						<div class="innerInformationRowTitle">지점 이름</div>
 						<input name="bankName" id="bankLocNameSearchInput" class="innerMiddleInput"
 						value="<%= bankDTO == null || bankDTO.getBankName() == null ? "" : bankDTO.getBankName() %>">
 					</div>

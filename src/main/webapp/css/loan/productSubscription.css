@@ -103,5 +103,9 @@ tr td select {
 #riskResultTable {
 	display: flex;
 	justify-content: space-around;
-	padding-right: 200px;
+	padding-right: 100px;
+}
+.innerInformationRow > div {
+	display: flex;
+	width: 400px;
 }

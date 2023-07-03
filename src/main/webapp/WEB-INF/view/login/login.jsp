@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>하나로여신관리시스템 - 로그인</title>
+<link rel="icon" href="${pageContext.request.contextPath}/public/images/favicon.svg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/login.css">
 </head>

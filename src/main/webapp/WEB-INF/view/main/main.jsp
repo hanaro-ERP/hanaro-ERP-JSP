@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>하나로여신관리시스템</title>
+<link rel="icon" href="${pageContext.request.contextPath}/public/images/favicon.svg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main/main.css?ver=1">
 </head>
@@ -94,7 +95,11 @@
 			const nowTime = new Date();
 			const elapsedTime = parseInt((nowTime - sessionStartTime)/1000);
 			const remainingTime = sessionTimeout - elapsedTime;
-	
+
+			if (remainingTime == 120) {
+				alert("2분 후에 세션이 만료됩니다.");
+				headerSessionTime.classList.add("warning");
+			}
 			if (remainingTime <= 0) {
 				clearInterval(timer);
 				headerSessionTime.textContent = "세션 만료";

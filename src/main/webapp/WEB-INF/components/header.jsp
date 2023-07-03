@@ -71,8 +71,8 @@
 			const elapsedTime = parseInt((nowTime - sessionStartTime)/1000);
 			const remainingTime = sessionTimeout - elapsedTime;
 			
-			if (remainingTime == 600) {
-				alert("10분 후에 세션이 만료됩니다.");
+			if (remainingTime == 120) {
+				alert("2분 후에 세션이 만료됩니다.");
 				headerSessionTime.classList.add("warning");
 			}
 			if (remainingTime <= 0) {
