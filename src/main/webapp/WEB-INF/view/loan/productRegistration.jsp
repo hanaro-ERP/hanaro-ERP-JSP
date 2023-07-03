@@ -5,6 +5,7 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8" />
 <title>하나로여신관리시스템 - 상품 가입</title>
+<link rel="icon" href="${pageContext.request.contextPath}/public/images/favicon.svg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
 </head>
@@ -73,7 +74,7 @@ pageEncoding="UTF-8"%>
 						<td>
 							&nbsp;최소
 							<input id="loanMinRateId" name="loanMinRate" class="shortInput" type="number" min="0" max="10" step="0.001"/>&nbsp;%
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;최대
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;최대
 							<input id="loanMaxRateId" name="loanMaxRate" class="shortInput" type="number" min="0" max="10" step="0.001"/>&nbsp;%
 						</td>
 					</tr>

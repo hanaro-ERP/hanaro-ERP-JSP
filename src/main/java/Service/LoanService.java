@@ -109,10 +109,10 @@ public class LoanService {
 		return loanRepaymentDAO.getRepaymentCountByContractId(contractId);
 	}
 	
-	public static List<LoanRepaymentDTO> getLoanRepaymentList(LoanContractDTO loanContractDTO) {
+	public static List<LoanRepaymentDTO> getLoanRepaymentList(LoanContractDTO loanContractDTO, int page) {
 		LoanRepaymentDAO loanRepaymentDAO = new LoanRepaymentDAO();
 
-		List<LoanRepaymentDTO> loanRepaymentDTOList = loanRepaymentDAO.getLoanRepaymentByDTO(loanContractDTO);
+		List<LoanRepaymentDTO> loanRepaymentDTOList = loanRepaymentDAO.getLoanRepaymentByDTO(loanContractDTO, page);
 
 		return loanRepaymentDTOList;
 	}

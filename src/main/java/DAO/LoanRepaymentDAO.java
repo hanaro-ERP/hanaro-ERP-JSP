@@ -19,15 +19,14 @@ public class LoanRepaymentDAO {
 
 	// insert a new loan repayment
 	public int insertLoanRepayment(LoanRepaymentDTO loanRepayment) {
-		String SQL = "INSERT INTO loanrepayments (lr_id, lc_id, a_id, trade_datetime, trade_amount, agent) "
+		String SQL = "INSERT INTO loanrepayments (lr_id, lc_id, a_id, trade_datetime, trade_amount) "
 				+ "VALUES (?, ?, ?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanRepayment.getLoanRepaymentId());
 			pstmt.setInt(2, loanRepayment.getLoanContractId());
 			pstmt.setInt(3, loanRepayment.getAccountId());
 			pstmt.setTimestamp(4, loanRepayment.getTradeDatetime());
-			pstmt.setLong(5, loanRepayment.getTradeAmount());
-			pstmt.setBoolean(6, loanRepayment.isAgent());
+			pstmt.setBoolean(5, loanRepayment.isAgent());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,20 +59,18 @@ public class LoanRepaymentDAO {
 		loanRepayment.setTradeDatetime(rs.getTimestamp("trade_datetime"));
 		loanRepayment.setTradeAmount(rs.getLong("trade_amount"));
 		loanRepayment.setBalance(rs.getLong("balance"));
-		loanRepayment.setAgent(rs.getBoolean("agent"));
 		loanRepayment.setAccountNumber(rs.getString("account_number"));
 	}
 
 	// Update a loan repayment
 	public int updateLoanRepayment(LoanRepaymentDTO loanRepayment) {
-		String SQL = "UPDATE loanrepayments SET lc_id = ?, a_id = ?, trade_datetime = ?, trade_amount = ?, agent = ? WHERE lr_id = ?";
+		String SQL = "UPDATE loanrepayments SET lc_id = ?, a_id = ?, trade_datetime = ?, trade_amount = ? WHERE lr_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 			pstmt.setInt(1, loanRepayment.getLoanContractId());
 			pstmt.setInt(2, loanRepayment.getAccountId());
 			pstmt.setTimestamp(3, loanRepayment.getTradeDatetime());
 			pstmt.setLong(4, loanRepayment.getTradeAmount());
-			pstmt.setBoolean(5, loanRepayment.isAgent());
-			pstmt.setInt(6, loanRepayment.getLoanRepaymentId());
+			pstmt.setInt(5, loanRepayment.getLoanRepaymentId());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,14 +120,13 @@ public class LoanRepaymentDAO {
 				}
 			}
 			System.out.println(pstmt);
-			System.out.println(cnt);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return cnt;
 	}
 	
-	public List<LoanRepaymentDTO> getLoanRepaymentByDTO(LoanContractDTO loanContractDTO) {	
+	public List<LoanRepaymentDTO> getLoanRepaymentByDTO(LoanContractDTO loanContractDTO, int page) {	
 		StringBuilder queryBuilder = new StringBuilder("SELECT lr.*, a.account_number, lc.balance"
 				+ " FROM loanRepayments lr");
 
@@ -142,7 +138,10 @@ public class LoanRepaymentDAO {
 			queryBuilder.append(" AND lr.lc_id = ");
 			queryBuilder.append(loanContractDTO.getLoanContractId());
 		}		
-
+		queryBuilder.append(" ORDER BY lr.trade_datetime DESC");
+		queryBuilder.append(" LIMIT 10 OFFSET ");
+		queryBuilder.append((page-1)*10);
+		
 		try (Connection conn = DatabaseUtil.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(queryBuilder.toString())) {
 			

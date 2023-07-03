@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>하나로여신관리시스템 - 직원 목록</title>
+<link rel="icon" href="${pageContext.request.contextPath}/public/images/favicon.svg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/employee/employeeList.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
@@ -42,7 +43,7 @@
 				<div class="innerSubTitle"><h2>기본 정보</h2></div>
 				<div class="innerInformation">
 					<div class="innerInformationRow">
-						<div class="innerInformationRowTitle">이름(ID)</div>
+						<div class="innerInformationRowTitle">직원 이름</div>
 						<input name="employeeName" id="employeeNameSearchInput" class="innerSearchInput3"
 						value="<%= employeeDTO == null || employeeDTO.getEmployeeName() == null ? "" : employeeDTO.getEmployeeName() %>">
 					<div class="innerInformationRowTitle">소속 지점</div>

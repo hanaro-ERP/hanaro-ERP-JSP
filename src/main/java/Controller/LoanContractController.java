@@ -67,7 +67,7 @@ public class LoanContractController extends HttpServlet {
 			loanContractDTO.setLoanName(loanName);
 			loanContractDTO.setCustomerName(customerName);
 			
-			List<LoanRepaymentDTO> loanRepaymentDTOList = LoanService.getLoanRepaymentList(loanContractDTO);
+			List<LoanRepaymentDTO> loanRepaymentDTOList = LoanService.getLoanRepaymentList(loanContractDTO, pageNo);
 			
 			request.setAttribute("paginationDTO", paginationDTO);
 			request.setAttribute("loanContractDTO", loanContractDTO);

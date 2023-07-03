@@ -546,7 +546,6 @@ function setYearSelect(ulId) {
 
 //월 설정
 function setMonthSelect(isInitial) {
-	console.log("setMonthSelect");
 	monthSelect = document.getElementsByClassName("monthSelect");
 	
 	if (isInitial) {
@@ -589,7 +588,6 @@ function setMonthSelect(isInitial) {
 
 // 일 설정
 function setDaySelect(isInitial, year, month) {
-	console.log("isinitial=", isInitial);
 	daySelectList = document.getElementsByClassName("daySelect");
 	let endDay;	// 선택한 월에 따라 endDay 다르게
 	//endDay = new Date(year, month, 0).getDate();

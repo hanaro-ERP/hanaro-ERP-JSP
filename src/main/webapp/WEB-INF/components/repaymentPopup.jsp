@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상환 이력</title>
+<link rel="icon" href="${pageContext.request.contextPath}/public/images/favicon.svg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchResultTable.css?ver=1">
 </head>
@@ -44,7 +45,6 @@
 				<th>거래일자</th>
 				<th>상환 금액</th>
 				<th>대출 잔액</th>
-				<th>대리인</th>
 			</tr>		
 				<%
 				if (repaymentList != null && !repaymentList.isEmpty()) {
@@ -56,13 +56,6 @@
 							<td><%= dto.getTradeDatetime() %></td>
 							<td><%= wonFormat.format(dto.getTradeAmount())%></td>
 							<td><%= wonFormat.format(dto.getBalance())%></td>
-							<td>
-							<% if (dto.isAgent()) { %>
-								<%= "O" %>
-							<% } else { %>
-								<%= "X" %>
-							<% } %>
-							</td>
 						</tr>
 						<%
 					}

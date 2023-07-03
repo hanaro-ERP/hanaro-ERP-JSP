@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>하나로여신관리시스템 - 고객 등록</title>
+<link rel="icon" href="${pageContext.request.contextPath}/public/images/favicon.svg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/customerRegist.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
 <script src="${pageContext.request.contextPath}/js/components/aside.js "></script>
@@ -160,7 +161,6 @@
 	</script>
 	<script src="${pageContext.request.contextPath}/js/components/inputTable.js"></script>
 	<script src="${pageContext.request.contextPath}/js/components/searchLayout.js"></script>
-	<script src="${pageContext.request.contextPath}/js/customer/customerList.js"></script>
 	<script>
 		<%
 		String msg = (String)request.getAttribute("msg");

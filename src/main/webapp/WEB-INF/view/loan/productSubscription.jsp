@@ -6,6 +6,7 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8" />
 <title>하나로여신관리시스템 - 상품 가입</title>
+<link rel="icon" href="${pageContext.request.contextPath}/public/images/favicon.svg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/searchLayout.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/loan/productSubscription.css?ver=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/inputTable.css?ver=1">
@@ -122,12 +123,12 @@ pageEncoding="UTF-8"%>
 					</tr>
 				</table>
 				<div class="innerSubTitle2" id="riskResult">
-					<h2 id="riskResultTitle">내부 신용 점수 결과</h2><button class="customerDetailButton" name="close" type="button" onclick="return riskCalcFunc(this.form);">계산하기</button>
+					<h2 id="riskResultTitle">내부 신용 등급</h2><button class="customerDetailButton" name="close" type="button" onclick="return riskCalcFunc(this.form);">계산하기</button>
 					<input id="checkOpen" name="isOpen" value="close"></input>
 				</div>
 				<div class="innerInformation" id="customerDetailInformation">
 					<div class="innerInformationRow" id="riskResultTable">
-						<div class="innerInformationRowTitle">내부 신용 점수</div>
+						<div class="innerInformationRowTitle">내부 신용 등급</div>
 						<div id="innerRisk"></div>
 						<div class="innerInformationRowTitle">이자율 적용</div>
 						<div id="interestRate2"></div>
