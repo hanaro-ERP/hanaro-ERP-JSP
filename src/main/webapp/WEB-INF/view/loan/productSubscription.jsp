@@ -192,16 +192,14 @@ pageEncoding="UTF-8"%>
 					<tr>
 						<th>이자</th>
 						<td>
-							<input type="text" id="interestRate1">
 							&nbsp;연
 							<input type="number" step="0.1" max="10" id="interestRate" name="interestRate" class="shortInput" />
 							%
 						</td>
 						<th>대출기간</th>
 						<td>
-						<input type="text" id="loanPeriod1">
-						<input type="number" step="0.1" max="10" id="loanPeriod" name="loanPeriod" class="shortInput" />
-						년
+							<input type="number" step="0.1" max="10" id="loanPeriod" name="loanPeriod" class="shortInput" />
+							년
 						</td>
 					</tr>
 					<tr>
