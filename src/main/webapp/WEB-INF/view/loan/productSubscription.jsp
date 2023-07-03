@@ -128,20 +128,32 @@ pageEncoding="UTF-8"%>
 				</div>
 				<div class="innerInformation" id="customerDetailInformation">
 					<div class="innerInformationRow" id="riskResultTable">
-						<div class="innerInformationRowTitle">상품명</div>
-						<div id="loanTitle"></div>
-						<div class="innerInformationRowTitle">이자율</div>
-						<div id="interestRate3"></div>
-						<div class="innerInformationRowTitle">대출 기간</div>
-						<div id="loanPeriod3"></div>						
+						<div>
+							<div class="innerInformationRowTitle">상품명</div>
+							<div id="loanTitle"></div>
+						</div>
+						<div>
+							<div class="innerInformationRowTitle">이자율</div>
+							<div id="interestRate3"></div>
+						</div>
+						<div>
+							<div class="innerInformationRowTitle">대출 기간</div>
+							<div id="loanPeriod3"></div>		
+						</div>			
 					</div>
 					<div class="innerInformationRow" id="riskResultTable">
-						<div class="innerInformationRowTitle">내부 신용 등급</div>
-						<div id="innerRisk"></div>
-						<div class="innerInformationRowTitle">이자율 적용</div>
-						<div id="interestRate2"></div>
-						<div class="innerInformationRowTitle">대출 기간 적용</div>
-						<div id="loanPeriod2"></div>
+						<div>
+							<div class="innerInformationRowTitle">내부 신용 등급</div>
+							<div id="innerRisk"></div>
+						</div>
+						<div>
+							<div class="innerInformationRowTitle">이자율 적용</div>
+							<div id="interestRate2"></div>
+						</div>
+						<div>
+							<div class="innerInformationRowTitle">대출 기간 적용</div>
+							<div id="loanPeriod2"></div>
+						</div>
 					</div>		
 				</div>						
 				<div class="innerSubTitle2"><h2>상품 정보 및 가입</h2></div>
@@ -330,7 +342,6 @@ pageEncoding="UTF-8"%>
 		      			loanMaxRate = <%= String.valueOf(loan.getMaxRate()) %>; // Convert loanRate to a string
 		                loanMaxPeriod = <%= String.valueOf(loan.getMaxDuration()) %>; // Convert loanPeriod to a string
 		                loanName = "<%= loan.getLoanName() %>"; 
-		                alert(loanName);
 						<% flag = "true"; %>
 		            }
 		      		
