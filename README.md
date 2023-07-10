@@ -37,14 +37,29 @@
         <td align="center"><span> <img width="160px" src="https://github.com/hanaro-ERP/hanaro-ERP-JSP/assets/63557248/e3a3621a-23cd-47be-8c50-60fd726ba38a" ></span></td>
     </tr>
     <tr>
-        <td>&middot; 고객 등록, 직원/은행 검색, 여신 상품 가입<br>
-            &middot; 자동 완성, DB 모델링</td>
-      <td>&middot; 고객 검색, 여신상품 검색, 상품 등록, 계좌 계설<br>
-            &middot; UI/UX 디자인</td>
-      <td>&middot; 여신 이력, 상환 이력<br>
-            &middot; 상환 방법에 따른 회차별 상환금 계산</td>
-      <td>&middot; 로그인/메인, 계좌 목록, 입출금 내역<br>
-            &middot; 보안, 내부신용평점, DB</td>
+        <td>
+            <ul>
+                <li>고객 등록, 직원/은행 검색, 여신 상품 가입</li>
+                <li>자동 완성, DB 모델링</li>
+            </ul>
+        </td>
+      <td>
+            <ul>
+                <li>고객 검색, 여신상품 검색, 상품 등록, 계좌 계설</li>
+                <li>UI/UX 디자인</li>
+            </ul>
+      </td>
+      <td>
+          <ul>
+              <li>여신 이력, 상환 이력</li>
+              <li>상환 방법에 따른 회차별 상환금 계산</li>
+          </ul>
+      </td>
+      <td>
+          <ul>
+              <li>로그인/메인, 계좌 목록, 입출금 내역</li>
+              <li>보안, 내부신용평점, DB</li>
+          </ul>
     </tr>
   
 </table>
