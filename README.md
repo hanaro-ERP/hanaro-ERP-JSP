@@ -102,11 +102,18 @@
 ![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-%23F8DC75.svg?style=for-the-badge&logo=apache-tomcat&logoColor=black)
 
 ## ⚒️ 기술적 고려 사항
+### PRG 패턴
+1.  새로고침 이슈
+    - Form 제출 이후 새로고침 시 중복으로 제출되는 이슈가 발생했다.
+    - PRG 패턴을 도입하여 GET 방식으로 리다이렉션 시킴으로써 이슈를 해결했다.
 ### 보안
-1.  암호화 및 해싱
+1.  세션
+    - 보안성을 위해 쿠키 대신 세션을 도입했다.
+    - 세션 Time-out을 3분으로 설정했고 시간이 지나면 자동으로 로그아웃 시킨다.
+2.  암호화 및 해싱
     - 비밀번호를 SHA-256으로 해싱해서 DB에 저장했다.
     - 주민등록번호와 계좌번호는 AES-256으로 양방향 암호화해서 DB에 저장했다.
-2.  SSL/TLS
+3.  SSL/TLS
     - SSL For Free에서 인증서 발급 받아 HTTPS 통신을 사용했다.
 ### DB Modeling
 1.  파티셔닝
