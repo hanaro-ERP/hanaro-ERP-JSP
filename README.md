@@ -4,13 +4,12 @@
 
 <br>
 
-## 프로젝트 정보  
 > **디지털 하나로 1기 교육과정 2차 프로젝트**<br>
 > **개발기간:** 2023.06.07 ~ 2023.07.03</p>
 
 <br>
 
-## 배포 주소
+## 🖥️ 배포 주소
 > https://hanaro-erp.com
 
 <br>
@@ -65,7 +64,7 @@
 
 <br>
 
-## 기술스택
+## ⚙️ 기술 스택
 ### Environment
 ![Eclipse](https://img.shields.io/badge/Eclipse-FE7A16.svg?style=for-the-badge&logo=Eclipse&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
