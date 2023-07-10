@@ -101,3 +101,16 @@
 ![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-%23F8DC75.svg?style=for-the-badge&logo=apache-tomcat&logoColor=black)
 
 ## ⚒️ 기술적 고려 사항
+### 보안
+1.  암호화 및 해싱
+    - 비밀번호를 SHA-256으로 해싱해서 DB에 저장했다.
+    - 주민등록번호와 계좌번호는 AES-256으로 양방향 암호화해서 DB에 저장했다.
+2.  SSL/TLS
+    - 작성 중  
+### DB Modeling
+1.  파티셔닝
+    - 입출금내역은 하루에 최소 수백만 건 이상 발생하고 1년이면 수십억 건이 쌓이기 때문에 빠른 검색을 위해 시간을 기준으로 파티셔닝했다.
+    - 작성 중
+2.  인덱스
+3.  프로시져
+
