@@ -76,6 +76,34 @@
 
 <br>
 
+## 📂 폴더 구조
+```
+├── README.md
+├── .classpath 
+├── pull_request_template.md
+├── src/main
+│   ├── SQL                            # 대출상환 자동화 프로시져 
+│   ├── java
+│   │   ├── Controller                 # 사용자 요청 처리 및 응답 
+│   │   ├── DAO                        # 데이터베이스에 접근하는 Data Access Object 
+│   │   ├── DTO                        # Data Transfer Object
+│   │   ├── Filter                     # 문자 인코딩 
+│   │   ├── Service                    # 비즈니스 로직 
+│   │   └── util                       # 유틸리티 클래스 
+│   ├── webapp 
+│   │   ├── META-INF
+│   │   ├── WEB-INF 
+│   │   │     ├── components           # 팝업 관련 코드들 
+│   │   │     ├── key                  # DB 접근 키
+│   │   │     ├── view                 # Client가 접근하지 못하도록 보안 강화 
+│   │   ├── css			       # css 스타일시트 파일 
+│   │   ├── js			       # Java Script 파일 
+│   │   ├── public		       # 이미지, 폰트 파일들
+└────── └── index.jsp 
+```
+<br>
+
+
 ## ☁️ 시스템 아키텍쳐
 ![image](https://github.com/hanaro-ERP/hanaro-ERP-JSP/assets/63557248/5ea4da64-ec7f-4c66-9309-cdd669ba3ca4)
 
@@ -100,6 +128,8 @@
 ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-%23F8DC75.svg?style=for-the-badge&logo=apache-tomcat&logoColor=black)
+
+<br>
 
 ## ⚒️ 기술적 고려 사항
 ### PRG 패턴
