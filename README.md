@@ -9,6 +9,11 @@
 
 <br>
 
+## 📽️ 시현 주소
+> https://www.youtube.com/watch?v=GYGP0i77YvQ&t=2s
+
+<br>
+
 ## 🖥️ 배포 주소
 > https://hanaro-erp.com
 > <br>
@@ -128,6 +133,31 @@
 ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-%23F8DC75.svg?style=for-the-badge&logo=apache-tomcat&logoColor=black)
+
+<br>
+
+## ✏️ 기능 리스트
+### 로그인
+1. 행원/관리자 기능
+2. 3분 로그인 세션 기능
+
+### 메인 화면
+고객, 직원, 여신, 수신 분류
+1. 고객 검색 및 등록
+- 고객 상세 정보 확인 가능
+- (관리자) 고객 정보 수정 가능 
+2. 직원 검색
+3. 지점 검색
+4. 여신 상품 검색
+- 여신 상품 상세 정보 확인 가능
+- (관리자) 여신 상품 수정 및 삭제 가능
+5. 여신 상품 가입 내역 검색
+- 고객 별 상환 내역 확인 가능
+6. (관리자) 여신 상품 등록
+7. 여신 상품 가입 
+8. 계좌 검색
+- 계좌별 입출금 내역 확인 가능
+9. 계좌 생성
 
 <br>
 
